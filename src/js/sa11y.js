@@ -62,36 +62,40 @@ function Sa11yAnnotateBanner(type, content) {
 }
 
 (function () {
-    'use strict';
-  
-    /**
-     * @copyright  (C) 2019 Open Source Matters, Inc. <https://www.joomla.org>
-     * @license    GNU General Public License version 2 or later; see LICENSE.txt
-     */
-    if (!Joomla) {
-      throw new Error('Joomla API is not properly initialised');
-    }
+  'use strict';
 
-    var Sa11y = {
-        langCode: 'en',
-        langStrings: {},
-        addI18n: function(code, strings)
-        {
-            Sa11y.langCode = code;
-            Sa11y.langStrings = strings;
-        },
-        translate: function translate(string) {
+  var Sa11y = {
+      langCode: 'en',
+      langStrings: {},
+      addI18n: (code, strings) => {
+          Sa11y.langCode = code;
+          Sa11y.langStrings = strings;
+      },
+      _: (string) => {
+          return Sa11y.translate(string)
+      },
+      sprintf: (string, ...args) => {
+        var transString = Sa11y._(string);
+        return window.sprintf(transString, ...args);
+      },
+      translate: (string) => {
         return Sa11y.langStrings[string] || string;
-        }
-    };
+      },
+  };
 
-    window.Sa11y = Sa11y;
+  if (Joomla && Joomla.Text && Joomla.Text._)
+  {
+    Sa11y.translate = Joomla.Text._;
+  }
 
+  window.Sa11y = Sa11y;
 }());
 
 //Encapsulate jQuery to avoid conflicts.
 jQuery.noConflict();
 (function ($) {
+
+    var Sa11yLang = window.Sa11y;
 
     class Sa11y {
         constructor() {
@@ -122,7 +126,7 @@ jQuery.noConflict();
 
                 //Main toggle button.
                 `<button type="button" aria-expanded="false" id="sa11y-toggle" aria-describedby="sa11y-notification-badge" aria-label="${sa11yMainToggleLabel}" disabled>
-                    ${MainToggleIcon} 
+                    ${MainToggleIcon}
                     <div id="sa11y-notification-badge">
                         <span id="sa11y-notification-count"></span>
                     </div>
@@ -134,7 +138,7 @@ jQuery.noConflict();
                 //Page Outline tab.
                 `<div id="sa11y-outline-panel" role="tabpanel" aria-labelledby="sa11y-outline-header">
                 <div id="sa11y-outline-header" class="sa11y-header-text">
-                    <h2 tabindex="-1">${sa11yPageOutline}</h2>
+                    <h2 tabindex="-1">${Sa11yLang._('JOOMLA_A11Y_CHECKER_PAGE_OUTLINE')}</h2>
                 </div>
                 <div id="sa11y-outline-content">
                     <ul id="sa11y-outline-list"></ul>
