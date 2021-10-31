@@ -1,5 +1,5 @@
 {
-  "name": "joomla-sa11y",
+  "name": "joomla-a11y-checker",
   "version": "1.0.0",
   "description": "Joomla a11y checker for usage in Joomla! based on sa11y",
   "repository": {
