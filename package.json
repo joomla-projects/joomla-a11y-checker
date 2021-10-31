@@ -1,0 +1,38 @@
+{
+  "name": "joomla-sa11y",
+  "version": "1.0.0",
+  "description": "Joomla a11y checker for usage in Joomla! based on sa11y",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joomla-projects/joomla-a11y-checker.git#joomla"
+  },
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/joomla-projects/joomla-a11y-checker/issues"
+  },
+  "homepage": "https://github.com/joomla-projects/joomla-a11y-checker",
+  "main": "src/index.js",
+  "keywords": [
+    "Joomla",
+    "a11y",
+    "jQuery",
+    "javascript"
+  ],
+  "author": "Benjamin Trenkle",
+  "scripts": {
+    "lint:js": "node ./node_modules/eslint/bin/eslint.js src",
+    "lint:css": "stylelint --config .stylelintrc.json -s scss \"src/scss/**/*.scss\"",
+    "lint": "npm run lint:css && npm run lint:js"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "sass": "^1.35.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.19.0"
+  }
+}

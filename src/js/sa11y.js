@@ -61,6 +61,34 @@ function Sa11yAnnotateBanner(type, content) {
     </div>`;
 }
 
+(function () {
+    'use strict';
+  
+    /**
+     * @copyright  (C) 2019 Open Source Matters, Inc. <https://www.joomla.org>
+     * @license    GNU General Public License version 2 or later; see LICENSE.txt
+     */
+    if (!Joomla) {
+      throw new Error('Joomla API is not properly initialised');
+    }
+
+    var Sa11y = {
+        langCode: 'en',
+        langStrings: {},
+        addI18n: function(code, strings)
+        {
+            Sa11y.langCode = code;
+            Sa11y.langStrings = strings;
+        },
+        translate: function translate(string) {
+        return Sa11y.langStrings[string] || string;
+        }
+    };
+
+    window.Sa11y = Sa11y;
+
+}());
+
 //Encapsulate jQuery to avoid conflicts.
 jQuery.noConflict();
 (function ($) {
