@@ -366,12 +366,6 @@ jQuery.noConflict();
             if (sa11yImageIgnore.length > 1) {
                 sa11yImageIgnore += separator;
             }
-            this.imageIgnore =
-                sa11yImageIgnore +
-                this.containerIgnore +
-                separator +
-                "[role='presentation'], [src^='https://trck.youvisit.com']";
-
             this.headerIgnore = sa11yHeaderIgnore;
             // Links ignore defaults plus sa11y links.
             if (sa11yLinkIgnore.length > 0) {
