@@ -62,7 +62,6 @@ function Sa11yAnnotateBanner(type, content) {
 }
 
 (function () {
-  'use strict';
 
   var Sa11y = {
       langCode: 'en',
@@ -92,6 +91,7 @@ function Sa11yAnnotateBanner(type, content) {
 }());
 
 //Encapsulate jQuery to avoid conflicts.
+jQuery.noConflict();
 (function ($) {
 
     var Sa11yLang = window.Sa11y;
@@ -269,7 +269,7 @@ function Sa11yAnnotateBanner(type, content) {
             sa11yToggle.addEventListener('click', (e) => {
                 if (localStorage.getItem("sa11y-remember-panel") === "Opened") {
                     localStorage.setItem("sa11y-remember-panel", "Closed");
-                    sa11yToggle.classList.remove("sa11y-on")
+                    sa11yToggle.classList.remove("sa11y-on");
                     sa11yToggle.setAttribute("aria-expanded", "false");
                     this.resetAll();
                     this.updateBadge();
@@ -440,7 +440,7 @@ function Sa11yAnnotateBanner(type, content) {
                     returnText = $el.text().trim();
                 }
                 return returnText;
-            }
+            };
 
             //Helper: Handle ARIA labels for Link Text module.
             this.computeAriaLabel = function ($el) {
@@ -753,13 +753,13 @@ function Sa11yAnnotateBanner(type, content) {
             document.querySelectorAll('.sa11y-overflow').forEach((el) => el.classList.remove('sa11y-overflow'));
             document.querySelectorAll('.sa11y-fake-heading').forEach((el) => el.classList.remove('sa11y-fake-heading'));
             document.querySelectorAll('.sa11y-pulse-border').forEach((el) => el.classList.remove('sa11y-pulse-border'));
-            document.querySelector('#sa11y-panel-alert').classList.remove("sa11y-active")
+            document.querySelector('#sa11y-panel-alert').classList.remove("sa11y-active");
 
             var empty = document.querySelector('#sa11y-panel-alert-text');
             while(empty.firstChild) empty.removeChild(empty.firstChild);
 
             var clearStatus = document.querySelector('#sa11y-status');
-            while(clearStatus.firstChild) clearStatus.removeChild(clearStatus.firstChild)
+            while(clearStatus.firstChild) clearStatus.removeChild(clearStatus.firstChild);
 
             if (restartPanel) {
                 document.querySelector('#sa11y-panel').classList.remove("sa11y-active");
@@ -1203,7 +1203,7 @@ function Sa11yAnnotateBanner(type, content) {
                     if ($el.find("img").length) {
                         const imgalt = $el.find("img").attr("alt");
                         if (imgalt == undefined || imgalt == " " || imgalt == "") {
-                            error = sa11yIM["headings"]["emptyHeadingWithImage"](level)
+                            error = sa11yIM["headings"]["emptyHeadingWithImage"](level);
                             $el.addClass("sa11y-error-text");
                         }
                     } else {
@@ -1401,16 +1401,14 @@ function Sa11yAnnotateBanner(type, content) {
                     $el.attr("href") !== undefined &&
                     $el.text().trim().length == 0
                 ) {
-                    if ($el.find("img").length) {
-                        // Do nothing
-                    } else if (hasAriaLabelledBy != null || hasAriaLabel != null) {
-                        $el.addClass("sa11y-good-border")
+                    if ($el.find("img").length) ; else if (hasAriaLabelledBy != null || hasAriaLabel != null) {
+                        $el.addClass("sa11y-good-border");
                         $el.before(
                             Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
                         );
                     } else if (hasTitle != null) {
                         let linkText = $el.attr("title");
-                        $el.addClass("sa11y-good-border")
+                        $el.addClass("sa11y-good-border");
                         $el.before(
                             Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
                         );
@@ -1439,9 +1437,7 @@ function Sa11yAnnotateBanner(type, content) {
                         $el.before(
                             Sa11yAnnotate(sa11yGood, M["linkLabel"](hasAriaLabel), true)
                         );
-                    } else if ($el.attr("aria-hidden") == "true" && $el.attr("tabindex") == "-1") {
-                        //Do nothing.
-                    } else {
+                    } else if ($el.attr("aria-hidden") == "true" && $el.attr("tabindex") == "-1") ; else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-text");
                         $el.after(Sa11yAnnotate(sa11yError, M["linkStopWordMessage"](error[0]), true));
@@ -1515,9 +1511,7 @@ function Sa11yAnnotateBanner(type, content) {
                 var href = $el.attr("href");
 
                 if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
-                    if (seen[href]) {
-                        //Nothing
-                    } else {
+                    if (seen[href]) ; else {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-text");
                         $el.after(Sa11yAnnotate(sa11yWarning, M["linkIdenticalName"](linkText), true));
@@ -1593,22 +1587,22 @@ function Sa11yAnnotateBanner(type, content) {
             const $img = images.filter($el => !excludeimages.includes($el));
 
             $img.forEach(($el) => { 
-                let alt = $el.getAttribute("alt")
+                let alt = $el.getAttribute("alt");
                 if (alt == undefined) {    
                     if ($el.closest('a[href]')) {
                         if ($el.closest('a[href]').textContent.trim().length > 1) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkButHasTextMessage"], false, true));
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkButHasTextMessage"], false));
                         } 
                         else if ($el.closest('a[href]').textContent.trim().length == 0) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkMessage"], false, true));
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkMessage"], false));
                         }
                     }    
                     // General failure message if image is missing alt.
                     else {
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltMessage"], false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltMessage"], false));
                     }         
                 }
                 // If alt attribute is present, further tests are done.
@@ -1621,49 +1615,47 @@ function Sa11yAnnotateBanner(type, content) {
                     if (error[0] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImageBadAltMessage"](altText, error[0]), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImageBadAltMessage"](altText, error[0]), false));
                     }
                     else if (error[2] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImagePlaceholderAltMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImagePlaceholderAltMessage"](altText), false));
                     }
                     else if (error[1] != null && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["linkImageSusAltMessage"](altText, error[1]), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["linkImageSusAltMessage"](altText, error[1]), false));
                     }
                     else if (error[0] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altHasBadWordMessage"](altText, error[0]), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altHasBadWordMessage"](altText, error[0]), false));
                     }
                     else if (error[2] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altPlaceholderMessage"](altText), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altPlaceholderMessage"](altText), false));
                     }
                     else if (error[1] != null) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altHasSusWordMessage"](altText, error[1]), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altHasSusWordMessage"](altText, error[1]), false));
                     } 
                     else if ((alt == "" || alt == " ") && $el.closest("a[href]")) {
-                        if ($el.closest("a[href]").getAttribute("tabindex") == "-1" && $el.closest("a[href]").getAttribute("aria-hidden") == "true") {
-                            //Do nothing.
-                        } 
+                        if ($el.closest("a[href]").getAttribute("tabindex") == "-1" && $el.closest("a[href]").getAttribute("aria-hidden") == "true") ; 
                         else if ($el.closest("a[href]").getAttribute("aria-hidden") == "true") {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["hyperlinkedImageAriaHidden"], false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["hyperlinkedImageAriaHidden"], false));
                         } 
                         else if ($el.closest("a[href]").textContent.trim().length == 0) {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["imageLinkNullAltNoTextMessage"], false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["imageLinkNullAltNoTextMessage"], false));
                         } 
                         else {
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["linkHasAltMessage"], false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["linkHasAltMessage"], false));
                         }
                     }
                     
@@ -1671,37 +1663,37 @@ function Sa11yAnnotateBanner(type, content) {
                     else if (alt.length > 250 && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["hyperlinkAltLengthMessage"](altText, altLength), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["hyperlinkAltLengthMessage"](altText, altLength), false));
                     }
                     
                     //Link and contains an alt text.
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length == 0) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["imageLinkAltTextMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["imageLinkAltTextMessage"](altText), false));
                     }
                     
                     //Contains alt text & surrounding link text.
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["anchorLinkAndAltMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["anchorLinkAndAltMessage"](altText), false));
                     }
 
                     //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR 
                     else if (alt == "" || alt == " ") {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["decorativeMessage"], false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["decorativeMessage"], false));
                     }
                     
                     else if (alt.length > 250) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altTooLongMessage"](altText, altLength), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altTooLongMessage"](altText, altLength), false));
                     } 
                     else if (alt != "") {
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["passAlt"](altText), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["passAlt"](altText), false));
                     }
                 }
             });
@@ -1723,16 +1715,12 @@ function Sa11yAnnotateBanner(type, content) {
                 const M = sa11yIM["labels"];
 
                 //If button type is submit or button: pass
-                if ($el.attr("type") === "submit" || $el.attr("type") === "button" || $el.attr("type") === "hidden") {
-                    //Do nothing
-                }
+                if ($el.attr("type") === "submit" || $el.attr("type") === "button" || $el.attr("type") === "hidden") ;
                 //Inputs where type="image".
                 else if ($el.attr("type") === "image") {
                     let imgalt = $el.attr("alt");
                     if (imgalt == undefined || imgalt == "" || imgalt == " ") {
-                        if ($el.attr("aria-label") !== undefined) {
-                            //Good.
-                        } else {
+                        if ($el.attr("aria-label") !== undefined) ; else {
                             this.errorCount++;
                             $el.addClass("sa11y-error-border");
                             $el.after(Sa11yAnnotate(sa11yError, M["missingImageInputMessage"], true));
@@ -1762,9 +1750,7 @@ function Sa11yAnnotateBanner(type, content) {
                 else if (
                     $el.parents().is("label") && 
                     $el.parents("label").text().trim().length !== 0
-                    ) {
-                    //Do nothing if label has text.
-                }
+                    ) ;
                 //Has an ID but doesn't have a matching FOR attribute.
                 else if ($el.attr("id") && ($el.prevAll().is("label")) || $el.nextAll().is("label")) {
                     let prevlabel = $el.prevAll("label");
@@ -1772,9 +1758,7 @@ function Sa11yAnnotateBanner(type, content) {
                     if (
                         (prevlabel.attr("for") === $el.attr("id")) || 
                         (nextlabel.attr("for") === $el.attr("id"))
-                        ) {
-                        //Do nothing.
-                    } else {
+                        ) ; else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-border");
                         $el.after(Sa11yAnnotate(sa11yError, M["noForAttributeMessage"]($el.attr("id")), true));
@@ -1804,9 +1788,7 @@ function Sa11yAnnotateBanner(type, content) {
             const $videos = $iframes.filter($el => $el.matches($sa11yVideos));
             $videos.forEach(($el) => {
                 let track = $el.getElementsByTagName('TRACK');
-                if ($el.tagName === "VIDEO" && track.length) {
-
-                } else {
+                if ($el.tagName === "VIDEO" && track.length) ; else {
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
                     $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["video"]));
@@ -1848,9 +1830,7 @@ function Sa11yAnnotateBanner(type, content) {
                     $el.getAttribute("hidden") !== null || 
                     $el.style.display == 'none' || 
                     $el.getAttribute("role") === "presentation") 
-                    {
-                        //Ignore if hidden.
-                    }
+                    ;
                 else if ($el.getAttribute("title") === null || $el.getAttribute("title") === '') { 
                     if ($el.getAttribute("aria-label") === null || $el.getAttribute("aria-label") === '') {
                         if ($el.getAttribute("aria-labelledby") === null) {
@@ -1866,9 +1846,7 @@ function Sa11yAnnotateBanner(type, content) {
                         }
                     }
                 }   
-                else {
-                    //Nothing
-                }
+                else ;
             });
 
             const $embeddedcontent = $iframes.filter($el => !$el.matches($sa11yAllEmbeddedContent));
@@ -1880,9 +1858,7 @@ function Sa11yAnnotateBanner(type, content) {
                     $el.style.display == 'none' || 
                     $el.getAttribute("role") === "presentation" ||
                     $el.getAttribute("tabindex") === "-1")
-                    {
-                        //Ignore if hidden.
-                    }
+                    ;
                 else {
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
@@ -2122,7 +2098,7 @@ function Sa11yAnnotateBanner(type, content) {
             //Example ruleset. Be creative.
             let $checkAnnouncement = this.root
                 .find(".announcement-component")
-                .not(this.containerIgnore)
+                .not(this.containerIgnore);
             if ($checkAnnouncement.length > 1) {
                 this.warningCount++;
                 $(".announcement-component:gt(0)").addClass("sa11y-warning-border");
@@ -2250,7 +2226,7 @@ function Sa11yAnnotateBanner(type, content) {
                                         error = {
                                             elem: elem,
                                             ratio: ratio + ':1'
-                                        }
+                                        };
                                         contrastErrors.errors.push(error);
                                     }
                                 } else if (text.length || htmlTag === "INPUT" || htmlTag === "SELECT" || htmlTag === "TEXTAREA") {
@@ -2258,13 +2234,13 @@ function Sa11yAnnotateBanner(type, content) {
                                     if (background === "image") {
                                         warning = {
                                             elem: elem
-                                        }
-                                        contrastErrors.warnings.push(warning)
+                                        };
+                                        contrastErrors.warnings.push(warning);
                                     } else if (background === "alpha") {
                                         warning = {
                                             elem: elem
-                                        }
-                                        contrastErrors.warnings.push(warning)
+                                        };
+                                        contrastErrors.warnings.push(warning);
                                     } else {
                                         ratio = Math.round(contrast.contrastRatio(color, background) * 100) / 100;
                                         if (pointSize >= 18 || (pointSize >= 14 && fontWeight >= 700)) {
@@ -2272,7 +2248,7 @@ function Sa11yAnnotateBanner(type, content) {
                                                 error = {
                                                     elem: elem,
                                                     ratio: ratio + ':1'
-                                                }
+                                                };
                                                 contrastErrors.errors.push(error);
                                             }
                                         } else {
@@ -2280,7 +2256,7 @@ function Sa11yAnnotateBanner(type, content) {
                                                 error = {
                                                     elem: elem,
                                                     ratio: ratio + ':1'
-                                                }
+                                                };
                                                 contrastErrors.errors.push(error);
                                             }
                                         }
@@ -2291,7 +2267,7 @@ function Sa11yAnnotateBanner(type, content) {
                     }
                     return contrastErrors;
                 }
-            }
+            };
 
             contrast.check();
             const {errorMessage, warningMessage} = sa11yIM["contrast"];
@@ -2302,7 +2278,7 @@ function Sa11yAnnotateBanner(type, content) {
                 var clone = name.cloneNode(true);
                 var removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
                 for(var i = 0; i < removeSa11yHeadingLabel.length; i++){
-                    clone.removeChild(removeSa11yHeadingLabel[i])
+                    clone.removeChild(removeSa11yHeadingLabel[i]);
                 }
                 var nodetext = clone.textContent;
 
@@ -2317,7 +2293,7 @@ function Sa11yAnnotateBanner(type, content) {
                 var clone = name.cloneNode(true);
                 var removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
                 for(var i = 0; i < removeSa11yHeadingLabel.length; i++){
-                    clone.removeChild(removeSa11yHeadingLabel[i])
+                    clone.removeChild(removeSa11yHeadingLabel[i]);
                 }
                 var nodetext = clone.textContent;
 
@@ -2471,7 +2447,7 @@ function Sa11yAnnotateBanner(type, content) {
     }
 
     //End of jQuery.noConflict mode.
-})(jQuery)
+})(jQuery);
 
 /*-----------------------------------------------------------------------
 Sa11y: the accessibility quality assurance assistant.                
