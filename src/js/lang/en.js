@@ -32,4 +32,30 @@ sa11y.addI18n("en", {
 "JOOMLA_A11Y_CHECKER_DIFFICULT_READABILITY": "Difficult",
 "JOOMLA_A11Y_CHECKER_FAIRLY_DIFFICULT_READABILITY": "Fairly difficult",
 "JOOMLA_A11Y_CHECKER_GOOD_READABILITY": "Good",
+
+// Panel status
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_1": "1 accessibility error and 1 warning found.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_2": "1 accessibility error and %(warningCount) warnings found.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_3": "%(errorCount) accessibility errors and 1 warning found.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_4": "%(errorCount) accessibility errors and %(warningCount) warnings found.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_5": "1 accessibility error found.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_6": "%(errorCount) accessibility errors found.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_7": "Please review warning.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_8": "Please review %(warningCount) warnings.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_9": "No accessibility errors found.",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_10": "%(warningCount) <span class=\"sa11y-visually-hidden\">warnings found.</span>",
+"JOOMLA_A11Y_CHECKER_PANEL_STATUS_11": "%(totalCount) <span class=\"sa11y-visually-hidden\">total issues found.</span>",
+// Can't find this one
+"notVisibleAlert": "The item you are trying to view is not visible; it may be hidden or inside of an accordion or tab component. Here\'s a preview: ",
+
+// Headings
+"JOOMLA_A11Y_CHECKER_HEADING_NON_CONSECUTIVE_LEVEL": "Non-consecutive heading level used. Headings should never skip levels, or go from <span class=\"sa11y-bold\">Heading %(prevLevel)</span> to <span class=\"sa11y-red-text sa11y-bold\">Heading %(level)</span>.",
+"JOOMLA_A11Y_CHECKER_HEADING_EMPTY": "Empty heading found! To fix, delete this line or change its format from <span class=\"sa11y-red-text sa11y-bold\">Heading $(level)</span> to <span class=\"sa11y-bold\">Normal</span> or <span class=\"sa11y-bold\">Paragraph</span>.",
+"JOOMLA_A11Y_CHECKER_HEADING_LONG": "Heading is long! Headings should be used to organize content and convey structure. They should be brief, informative, and unique. Please keep headings less than 160 characters (no more than a sentence).",
+"JOOMLA_A11Y_CHECKER_LONG_HEADING_INFO": "Character Count: <span class=\"sa11y-bold sa11y-red-text\">%(headingLength)</span>.",
+"JOOMLA_A11Y_CHECKER_HEADING_FIRST": "The first heading on a page should usually be a Heading 1 or Heading 2. Heading 1 should be the start of the main content section, and is the main heading that describes the overall purpose of the page. Learn more about <a href=\"https://www.w3.org/WAI/tutorials/page-structure/headings/\" target=\"_blank\">Heading Structure. %(sa11yNewTab)</a>",
+"JOOMLA_A11Y_CHECKER_HEADING_MISSING_ONE": "Missing Heading 1. Heading 1 should be the start of the main content area, and is the main heading that describes the overall purpose of the page. Learn more about <a href=\"https://www.w3.org/WAI/tutorials/page-structure/headings/\" target=\"_blank\">Heading Structure. %(sa11yNewTab)</a>",
+"JOOMLA_A11Y_CHECKER_HEADING_EMPTY_WITH_IMAGE": "Heading has no text, but contains an image. If this is not a heading, change its format from <span class=\"sa11y-red-text sa11y-bold\">Heading %(level)</span> to <span class=\"sa11y-bold\">Normal</span> or <span class=\"sa11y-bold\">Paragraph</span>. Otherwise, please add alt text to the image if it is not decorative.",
+"JOOMLA_A11Y_CHECKER_PANEL_HEADING_MISSING_ONE": "Missing Heading 1!",
+};
 });

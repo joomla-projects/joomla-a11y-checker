@@ -824,11 +824,11 @@ jQuery.noConflict();
             } else if (this.warningCount > 0 && this.errorCount === 0) {
                 notifBadge.style.display = "flex";
                 notifBadge.classList.add("sa11y-notification-badge-warning");
-                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["status10"](warningCount)}`;
+                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_10(warningCount)')}`;
             } else {
                 notifBadge.style.display = "flex";
                 notifBadge.classList.remove("sa11y-notification-badge-warning");
-                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["status11"](totalCount)}`;
+                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_11(totalCount)')}`;
             }
         }
 
@@ -859,38 +859,38 @@ jQuery.noConflict();
 
             if (this.errorCount === 1 && this.warningCount === 1) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["status1"]}`;
+                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_1')}`;
             }
             else if (this.errorCount === 1 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["status2"](warningCount)}`;
+                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_2(warningCount)')}`;
             }
             else if (this.errorCount > 0 && this.warningCount === 1) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["status3"](errorCount)}`;
+                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_3(errorCount)')}`;
             }
             else if (this.errorCount > 0 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["status4"](errorCount, warningCount)}`;
+                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_4(errorCount, warningCount)')}`;
             }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
                 $sa11yStatus.textContent = `${this.errorCount === 1 ?
-                    sa11yPanelStatus["status5"] :
-                    sa11yPanelStatus["status6"](errorCount)
+                  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_5')}` :
+                  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_6(errorCount)')}`
                 }`;
             }
             else if (this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-warnings");
                 $sa11yStatus.textContent = `${
                     totalCount === 1 ?
-                    sa11yPanelStatus["status7"] :
-                    sa11yPanelStatus["status8"](warningCount)
+                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_7')}`:
+                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_8(errorCount)')}`
                 }`;
             }
             else {
                 $panelContent.setAttribute("class", "sa11y-good");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["status9"]}`;
+                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_9')}`;
 
                 if ($findButtons.length === 0) {
                     $sa11ySkipBtn.disabled = true;
@@ -1145,7 +1145,7 @@ jQuery.noConflict();
                 //If location is less than 0 = hidden element (e.g. display:none);
                 if (hiddenPosition == 0) {
                     $alertPanel.classList.add("sa11y-active");
-                    $alertText.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PanelStatus["notVisibleAlert"]}`;
+                    $alertText.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_1')}`;
 
                     $alertPanelPreview.innerHTML = $findButtons[sa11yBtnLocation].getAttribute('data-tippy-content');
 
@@ -1199,22 +1199,22 @@ jQuery.noConflict();
                 let warning = null;
 
                 if (level - prevLevel > 1 && i !== 0) {
-                    error = sa11yIM["headings"]["nonConsecutiveHeadingLevel"](prevLevel, level);
+                    error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_NON_CONSECUTIVE_LEVEL(prevLevel, level)')}`;
                 } else if ($el.text().trim().length == 0) {
                     if ($el.find("img").length) {
                         const imgalt = $el.find("img").attr("alt");
                         if (imgalt == undefined || imgalt == " " || imgalt == "") {
-                            error = sa11yIM["headings"]["emptyHeadingWithImage"](level)
+                            error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_EMPTY_WITH_IMAGE(level)')}`;
                             $el.addClass("sa11y-error-text");
                         }
                     } else {
-                        error = sa11yIM["headings"]["emptyHeading"](level);
+                        error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_EMPTY(level)')}`;
                         $el.addClass("sa11y-error-text");
                     }
                 } else if (i === 0 && level !== 1 && level !== 2) {
-                    error = sa11yIM["headings"]["firstHeading"];
+                    error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_FIRST')}`;
                 } else if ($el.text().trim().length > 170) {
-                    warning = sa11yIM["headings"]["longHeading"](headingLength);
+                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG(headingLength)')}`;
                 }
 
                 prevLevel = level;
@@ -1289,12 +1289,12 @@ jQuery.noConflict();
                 $("#sa11y-outline-header").after(
                     `<div class='sa11y-instance sa11y-missing-h1'>
                     <span class='sa11y-badge sa11y-error-badge'><span aria-hidden='true'>&#10007;</span><span class='sa11y-visually-hidden'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR')}</span></span>
-                    <span class='sa11y-red-text sa11y-bold'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_IM["headings"]["missingHeadingOnePanelText"]}</span>
+                    <span class='sa11y-red-text sa11y-bold'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_HEADING_MISSING_ONE')}</span>
                 </div>`
                 );
 
                 $("#sa11y-container").after(
-                    Sa11yAnnotateBanner(sa11yError, sa11yIM["headings"]["missingHeadingOne"])
+                    Sa11yAnnotateBanner(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_MISSING_ONE')}`
                 );
             }
         };
