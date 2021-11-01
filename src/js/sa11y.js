@@ -1599,7 +1599,6 @@ jQuery.noConflict();
             };
 
             // Stores the corresponding issue text to alternative text
-            const M = sa11yIM["images"];
             const container = document.querySelector(sa11yCheckRoot);
 
             const images = Array.from(container.querySelectorAll("img"));
@@ -1612,17 +1611,17 @@ jQuery.noConflict();
                     if ($el.closest('a[href]')) {
                         if ($el.closest('a[href]').textContent.trim().length > 1) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkButHasTextMessage"], false, true));
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE')}`, false, true));
                         }
                         else if ($el.closest('a[href]').textContent.trim().length == 0) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkMessage"], false, true));
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_MISSING_ALT_LINK_MESSAGE')}`, false, true));
                         }
                     }
                     // General failure message if image is missing alt.
                     else {
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltMessage"], false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_MISSING_ALT_MESSAGE')}`, false, true));
                     }
                 }
                 // If alt attribute is present, further tests are done.
@@ -1635,17 +1634,21 @@ jQuery.noConflict();
                     if (error[0] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImageBadAltMessage"](altText, error[0]), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE')}`, false, true)
+                                                                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE_INFO')}`
+                        );
                     }
                     else if (error[2] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImagePlaceholderAltMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE')}`, false, true));
                     }
                     else if (error[1] != null && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["linkImageSusAltMessage"](altText, error[1]), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE')}`, false, true)
+                                                                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE_INFO')}`
+                        );
                     }
                     else if (error[0] != null) {
                         this.errorCount++;

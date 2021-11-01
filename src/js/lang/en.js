@@ -81,4 +81,67 @@ sa11y.addI18n("en", {
 "JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING_TIP": "<span class=\"sa11y-bold\">Example:</span> Executive Report (PDF, 3MB)",
 "JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME": "Link has identical text as another link, although it points to a different page. Multiple links with the same text may cause confusion for people who use screen readers.",
 "JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP": "Consider making the following link more descriptive to help distinguish it from other links: <span class=\"sa11y-red-text sa11y-bold\">%(linkText)</span>",
+
+// Images
+"JOOMLA_A11Y_CHECKER_MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE": "Image is being used as a link with surrounding text, although the alt attribute should be marked as decorative or null.",
+"JOOMLA_A11Y_CHECKER_MISSING_ALT_LINK_MESSAGE": "Image is being used as a link but is missing alt text! Please ensure alt text describes where the link takes you.",
+"JOOMLA_A11Y_CHECKER_MISSING_ALT_MESSAGE": "Missing alt text! If the image conveys a story, mood, or important information - be sure to describe the image.",
+"JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE": "File extension within the alt text found. Ensure the alt text describes the destination of the link, not a literal description of the image. Remove: <span class='sa11y-red-text sa11y-bold'>%(error)</span>.",
+"JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE_INFO": "The alt text for this image is: <span class=\"sa11y-bold\">%(altText)</span>",
+"JOOMLA_A11Y_CHECKER_LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE": "Non-descript or placeholder alt text within a linked image found. Ensure the alt text describes the destination of the link, not a literal description of the image. Replace the following alt text: <span class=\"sa11y-bold sa11y-red-text\">%(altText)</span>.",
+
+"JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE": "Assistive technologies already indicate that this is an image, so &quot;<span class=\"sa11y-red-text sa11y-bold\">%(error)</span>&quot; or &quot;%(error) of&quot; may be redundant. Ensure the alt text describes the destination of the link, not a literal description of the image.",
+"JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE_INFO": "The alt text for this image is: <span class=\"sa11y-bold\">%(altText)</span>.",
+
+altHasBadWordMessage: (altText, error) => `File extension within the alt text found. If the image conveys a story, mood, or important information - be sure to describe the image.
+Remove: <span class='sa11y-red-text sa11y-bold'>${error}</span>.
+${sa11yHr}
+The alt text for this image is: <span class='sa11y-bold'>${altText}</span>`,
+
+altPlaceholderMessage: (altText) => `Non-descript or placeholder alt text found. Replace the following alt text with something more meaningful: <span class='sa11y-bold sa11y-red-text'>${altText}</span>.`,
+
+
+
+altHasSusWordMessage: (altText, error) => `Assistive technologies already indicate that this is an image, so &quot;<span class='sa11y-red-text sa11y-bold'>${error}</span>&quot; or &quot;${error} of&quot; may be redundant.
+${sa11yHr}
+The alt text for this image is: <span class='sa11y-bold'>${altText}</span>`,
+
+imageLinkNullAltNoTextMessage:
+'Image within link is marked as decorative and there is no link text. Please add alt text to the image that describes the destination of the link.',
+
+linkHasAltMessage:
+'Image is marked as decorative, although the link is using the surrounding text as a descriptive label.',
+
+decorativeMessage:
+'Image is marked as <span class=\'sa11y-bold\'>decorative</span> and will be ignored by assistive technology. If the image conveys a story, mood or important information - be sure to add alt text.',
+
+hyperlinkedImageAriaHidden:
+'Link around image has <span class=\'sa11y-kbd\'>aria-hidden=&quot;true&quot;</span> but is still keyboard focusable. If you are intending to hide a redundant or duplicate link, add <span class=\'sa11y-kbd\'>tabindex=&quot;-1&quot;</span> as well.',
+
+hyperlinkAltLengthMessage: (altText, altLength) => `Alt text description on a linked image is <span class='sa11y-bold'>too long</span>.
+The alt text on linked images should describe where the link takes you, not a literal description of the image.
+<span class='sa11y-bold'>Consider using the title of the page it links to as the alt text.</span>
+${sa11yHr}
+The alt text is <span class='sa11y-red-text sa11y-bold'>${altLength}</span> characters:
+<span class='sa11y-red-text sa11y-bold'>${altText}</span>`,
+
+imageLinkAltTextMessage: (altText) => `Image link contains alt text, although please ensure alt text describes the destination page.
+<span class='sa11y-bold'>Consider using the title of the page it links to as the alt text.</span>
+Does the alt text describe where the link takes you?
+${sa11yHr}
+Alt text: <span class='sa11y-bold'>${altText}</span>`,
+
+anchorLinkAndAltMessage: (altText) => `Image link contains <span class='sa11y-bold'>both alt text and surrounding link text.</span> If this image is decorative and is being used as a functional link to another page, consider marking the image as decorative or null - the surrounding link text should suffice.
+${sa11yHr}
+Alt text: <span class='sa11y-bold'>${altText}</span>`,
+
+altTooLongMessage: (altText, altLength) => `Alt text description is <span class='sa11y-bold'>too long</span>. Alt text should be concise, yet meaningful like a <em>tweet</em> (around 100 characters).
+If this is a complex image or a graph, consider putting the long description of the image in the text below or an accordion component.
+${sa11yHr}
+The alt text is <span class='sa11y-red-text sa11y-bold'>${altLength}</span> characters:
+<span class='sa11y-red-text sa11y-bold'>${altText}</span>`,
+
+passAlt: (altText) => `The alt text for this image is: <span class='sa11y-bold'>${altText}</span>`,
+
+
 });
