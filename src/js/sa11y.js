@@ -1884,15 +1884,6 @@ jQuery.noConflict();
             const container = document.querySelector(sa11yCheckRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
 
-            //Error: Find all links pointing to development environment.
-            const $findbadDevLinks = Array.from(container.querySelectorAll(sa11yLinksToFlag));
-            const $badDevLinks = $findbadDevLinks.filter($el => !containerexclusions.includes($el));
-            $badDevLinks.forEach(($el) => {
-                this.errorCount++;
-                $el.classList.add("sa11y-error-text");
-                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yError, M["badLink"]($el), true));
-            });
-
             //Warning: Find all PDFs. Although only append warning icon to first PDF on page.
             let checkPDF = this.root
                 .find("a[href$='.pdf']")

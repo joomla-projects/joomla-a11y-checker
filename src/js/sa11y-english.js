@@ -16,7 +16,6 @@ const sa11yHeaderIgnore = ''; // Ignore specific headings. E.g. "h1.jumbotron-he
 const sa11yImageIgnore = ''; // Ignore specific images.
 const sa11yLinkIgnore = ''; // Ignore specific links.
 const sa11yLinkIgnoreSpan = 'span.sr-only-example'; // Ignore specific classes within links. Example: <a href="#">learn more <span class="sr-only-example">(opens new tab)</span></a>.
-const sa11yLinksToFlag = "a[href^='https://www.dev.'], a[href*='wp-admin']"; // Links you don't want your content editors pointing to (e.g. development environments).
 
 /* ------------------------------ */
 /*           Localization         */
@@ -360,12 +359,6 @@ const sa11yIM = {
   },
 
   QA: {
-
-    badLink: (el) => `Bad link found. Link appears to point to a development environment. Make sure the link does not contain <em>dev</em> or <em>wp-admin</em> in the URL.
-            ${sa11yHr}
-            This link points to:
-            <br>
-            <span class='sa11y-bold sa11y-red-text'>${el}</span>`,
 
     fakeHeading: (boldtext) => `Is this a heading? <span class='sa11y-bold sa11y-red-text'>${boldtext}</span>
             ${sa11yHr}
