@@ -366,6 +366,12 @@ jQuery.noConflict();
             if (sa11yImageIgnore.length > 1) {
                 sa11yImageIgnore += separator;
             }
+            this.imageIgnore =
+                sa11yImageIgnore +
+                this.containerIgnore +
+                separator +
+                "[role='presentation']";
+
             this.headerIgnore = sa11yHeaderIgnore;
             // Links ignore defaults plus sa11y links.
             if (sa11yLinkIgnore.length > 0) {
@@ -375,7 +381,7 @@ jQuery.noConflict();
                 sa11yLinkIgnore +
                 sa11yContainerIgnore +
                 separator +
-                "[aria-hidden='true'], .anchorjs-link";
+                "[aria-hidden='true']";
             if (sa11yHeaderIgnore.length > 0) {
                 this.headerIgnore += separator + sa11yContainerIgnore;
             } else {
