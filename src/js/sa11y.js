@@ -1528,7 +1528,9 @@ jQuery.noConflict();
                     } else {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-text");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["linkIdenticalName"](linkText), true));
+                        $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME')}`, true)
+                                                             `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP')}`
+                        );
                     }
                 } else {
                     seen[linkTextTrimmed] = true;
@@ -1548,14 +1550,18 @@ jQuery.noConflict();
                 if ($el.attr("target") === "_blank" && fileTypeMatch === 0 && !containsNewWindowPhrases) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
-                    $el.after(Sa11yAnnotate(sa11yWarning, M["newTabWarning"], true));
+                    $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING')}`, true)
+                                                         `${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING_TIP')}`
+                    );
                 }
 
                 if (fileTypeMatch === 1 && !containsFileTypePhrases) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
-                    $el.before(Sa11yAnnotate(sa11yWarning, M["fileTypeWarning"], true));
-                }
+                    $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING')}`, true)
+                                                         `${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING_TIP')}`
+                    );
+                 }
             });
         }
 

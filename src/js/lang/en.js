@@ -74,4 +74,11 @@ sa11y.addI18n("en", {
 "JOOMLA_A11Y_CHECKER_LINK_URL": "Longer, less intelligible URLs used as link text might be difficult to listen to with assistive technology. In most cases, it is better to use human-readable text instead of the URL. Short URLs (such as a site's homepage) are okay.",
 "JOOMLA_A11Y_CHECKER_LINK_URL_TIP": "<span class=\"sa11y-bold\">Tip!</span> Link text should always be clear, unique, and meaningful so it could be understood out of context.",
 
+// Links Advanced
+"JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING": "Link opens in a new tab or window without warning. Doing so can be disorienting, especially for people who have difficulty perceiving visual content. Secondly, it is not always a good practice to control someone's experience or make decisions for them. Indicate that the link opens in a new window within the link text.",
+"JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING_TIP": "<span class=\"sa11y-bold\">Tip!</span> Learn best practices: <a href=\"https://www.nngroup.com/articles/new-browser-windows-and-tabs/\">opening links in new browser windows and tabs.</a>!",
+"JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING": "Link points to a PDF or downloadable file (e.g. MP3, Zip, Word Doc) without warning. Indicate the file type within the link text. If it is a large file, consider including the file size.",
+"JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING_TIP": "<span class=\"sa11y-bold\">Example:</span> Executive Report (PDF, 3MB)",
+"JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME": "Link has identical text as another link, although it points to a different page. Multiple links with the same text may cause confusion for people who use screen readers.",
+"JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP": "Consider making the following link more descriptive to help distinguish it from other links: <span class=\"sa11y-red-text sa11y-bold\">%(linkText)</span>",
 });
