@@ -1214,7 +1214,7 @@ jQuery.noConflict();
                 } else if (i === 0 && level !== 1 && level !== 2) {
                     error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_FIRST')}`;
                 } else if ($el.text().trim().length > 170) {
-                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG(headingLength)')}`;
+                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO(headingLength)')}`;
                 }
 
                 prevLevel = level;
@@ -1294,7 +1294,7 @@ jQuery.noConflict();
                 );
 
                 $("#sa11y-container").after(
-                    Sa11yAnnotateBanner(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_MISSING_ONE')}`
+                    Sa11yAnnotateBanner(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_MISSING_ONE')}`)
                 );
             }
         };
@@ -1407,34 +1407,34 @@ jQuery.noConflict();
                     } else if (hasAriaLabelledBy != null || hasAriaLabel != null) {
                         $el.addClass("sa11y-good-border")
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
                         );
                     } else if (hasTitle != null) {
                         let linkText = $el.attr("title");
                         $el.addClass("sa11y-good-border")
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
                         );
                     } else if ($el.children().length) {
                         if (childAriaLabelledBy != null || childAriaLabel != null || childTitle != null) {
                             $el.addClass("sa11y-good-border");
                             $el.before(
-                                Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                                Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
                             );
                         } else {
                             this.errorCount++;
                             $el.addClass("sa11y-error-border");
-                            $el.after(Sa11yAnnotate(sa11yError, M["emptyLinkNoLabel"], true));
+                            $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_EMPTY_LINK_NO_LABEL')}`, true));
                         }
                     } else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-border");
-                        $el.after(Sa11yAnnotate(sa11yError, M["emptyLink"], true));
+                        $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_EMPTY')}`, true));
                     }
                 } else if (error[0] != null) {
                     if (hasAriaLabelledBy != null) {
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
                         );
                     } else if (hasAriaLabel != null) {
                         $el.before(
@@ -1445,17 +1445,24 @@ jQuery.noConflict();
                     } else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-text");
-                        $el.after(Sa11yAnnotate(sa11yError, M["linkStopWordMessage"](error[0]), true));
+                        $el.after(
+                          Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD')}`(error[0]), true)
+                                                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD_TIP')}`
+                        );
                     }
                 } else if (error[1] != null) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
-                    $el.after(Sa11yAnnotate(sa11yWarning, M["linkBestPractices"](error[1]), true));
+                    $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES')}`(error[1]), true)
+                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES_DETAILS')}`
+                    );
                 } else if (error[2] != null) {
                     if (linkText.length > 40) {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-text");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["linkURL"], true));
+                        $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL')}`, true)
+                                                             `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL_TIP')}`
+                        );
                     }
                 }
             });
