@@ -105,5 +105,29 @@ sa11y.addI18n("en", {
 "JOOMLA_A11Y_CHECKER_MISSING_ALT_LINK_MESSAGE": "Image is being used as a link but is missing alt text! Please ensure alt text describes where the link takes you.",
 "JOOMLA_A11Y_CHECKER_MISSING_ALT_MESSAGE": "Missing alt text! If the image conveys a story, mood, or important information - be sure to describe the image.",
 
+// Labels
+"JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE": "Input has an accessible name, although please ensure there is a visible label too.",
+"JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO": "The accessible name for this input is: <span class=\"sa11y-bold\">%(ariaLabel)</span>",
+"JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE": "Reset buttons should <span class=\"sa11y-bold\">not</span> be used unless specifically needed because they are easy to activate by mistake.",
+"JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE_TIP": "<span class=\"sa11y-bold\">Tip!</span> Learn why <a href=\"https://www.nngroup.com/articles/reset-and-cancel-buttons/\" target=\"_blank\">Reset and Cancel buttons pose usability issues. %(sa11yNewTab)</a>",
+"JOOMLA_A11Y_CHECKER_LABELS_MISSING_IMAGE_INPUT_MESSAGE": "Image button is missing alt text. Please add alt text to provide an accessible name. For example: <em>Search</em> or <em>Submit</em>.",
+"JOOMLA_A11Y_CHECKER_LABELS_MISSING_LABEL_MESSAGE": "There is no label associated with this input. Please add an <span class=\"sa11y-kbd\">id</span> to this input, and add a matching <span class=\"sa11y-kbd\">for</span> attribute to the label.",
+"JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE": "There is no label associated with this input. Add a <span class=\"sa11y-kbd\">for</span> attribute to the label that matches the <span class=\"sa11y-kbd\">id</span> of this input.",
+"JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO": "The ID for this input is: <span class=\"sa11y-bold\">id=&#34;${t}&#34;</span>",
 
+// Embedded content
+"JOOMLA_A11Y_CHECKER_EMBED_AUDIO": "Please ensure to provide a <span class=\"sa11y-bold\">transcript for all podcasts.</span> Providing transcripts for audio content is a mandatory Level A requirement. Transcripts support people who are D/deaf or hard-of-hearing, but can benefit everyone. Consider placing the transcript below or within an accordion panel.",
+"JOOMLA_A11Y_CHECKER_EMBED_GENERAL_WARNING": "Unable to check embedded content. Please make sure that images have alt text, videos have captions, text has sufficient contrast, and interactive components are <a href=\"https://webaim.org/techniques/keyboard/\" target=\"_blank\">keyboard accessible. %(sa11yNewTab)</a>",
+"JOOMLA_A11Y_CHECKER_EMBED_MISSING_TITLE": "Embedded content requires an accessible name that describes its contents. Please provide a unique <span class=\"sa11y-kbd\">title</span> or <span class=\"sa11y-kbd\">aria-label</span> attribute on the <span class=\"sa11y-kbd\">iframe</span> element. Learn more about <a href=\"https://dequeuniversity.com/tips/provide-iframe-titles\" target=\"_blank\">iFrames. %(sa11yNewTab)</a>",
+"JOOMLA_A11Y_CHECKER_EMBED_VIDEO": "Please ensure <span class=\"sa11y-bold\">all videos have closed captioning.</span> Providing captions for all audio and video content is a mandatory Level A requirement. Captions support people who are D/deaf or hard-of-hearing.",
+
+// Contrast
+"JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE": "This text does not have enough contrast with the background. The contrast ratio should be at least 4.5:1 for normal text and 3:1 for large text.",
+"JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO": "The contrast ratio is <span class=\"sa11y-red-text sa11y-bold\">%(cratio)</span> for the following text:<span class=\"sa11y-bold sa11y-red-text\">%(nodetext)</span>",
+"JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE": "The contrast of this text is unknown and needs to be manually reviewed. Ensure the text and the background have strong contrasting colours. The contrast ratio should be at least 4.5:1 for normal text and 3:1 for large text.",
+"JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO": "Please review contrast of the following text:<br><span class=\"sa11y-bold\">%(nodetext)</span>",
+
+// Readability
+"JOOMLA_A11Y_CHECKER_READABILITY_NOT_ENOUGH_CONTENT_MESSAGE": "Not enough content to calculate readability score.",
+"JOOMLA_A11Y_CHECKER_READABILITY_NO_P_OR_LI_MESSAGE": "Unable to calculate readability score. No paragraph <span class=\"sa11y-badge\">&lt;p&gt;</span> or list content <span class=\"sa11y-badge\">&lt;li&gt;</span> found.",
 });

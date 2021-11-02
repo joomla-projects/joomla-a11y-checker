@@ -1748,7 +1748,6 @@ jQuery.noConflict();
             $inputs.each((i, el) => {
                 let $el = $(el);
                 let ariaLabel = this.computeAriaLabel($el);
-                const M = sa11yIM["labels"];
 
                 //If button type is submit or button: pass
                 if ($el.attr("type") === "submit" || $el.attr("type") === "button" || $el.attr("type") === "hidden") {
@@ -1763,7 +1762,7 @@ jQuery.noConflict();
                         } else {
                             this.errorCount++;
                             $el.addClass("sa11y-error-border");
-                            $el.after(Sa11yAnnotate(sa11yError, M["missingImageInputMessage"], true));
+                            $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_MISSING_IMAGE_INPUT_MESSAGE')}`, true));
                         }
                     }
                 }
@@ -1771,7 +1770,9 @@ jQuery.noConflict();
                 else if ($el.attr("type") === "reset") {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-border");
-                    $el.after(Sa11yAnnotate(sa11yWarning, M["inputResetMessage"], true));
+                    $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE')}`, true)
+                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE_TIP')}`
+                    );
                 }
                 //Uses ARIA. Warn them to ensure there's a visible label.
                 else if ($el.attr("aria-label") || $el.attr("aria-labelledby") || $el.attr("title")) {
@@ -1779,11 +1780,15 @@ jQuery.noConflict();
                         let ariaLabel = $el.attr("title");
                         this.warningCount++;
                         $el.addClass("sa11y-warning-border");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["ariaLabelInputMessage"](ariaLabel), true));
+                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE')}`, true)
+                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`
+                        );
                     } else {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-border");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["ariaLabelInputMessage"](ariaLabel), true));
+                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE')}`, true)
+                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`
+                        );
                     }
                 }
                 //Implicit labels.
@@ -1805,13 +1810,15 @@ jQuery.noConflict();
                     } else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-border");
-                        $el.after(Sa11yAnnotate(sa11yError, M["noForAttributeMessage"]($el.attr("id")), true));
+                        $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE')}`, true)
+                                                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO')}`
+                        );
                     }
                 }
                 else {
                     this.errorCount++;
                     $el.addClass("sa11y-error-border");
-                    $el.after(Sa11yAnnotate(sa11yError, M["missingLabelMessage"], true));
+                    $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_MISSING_LABEL_MESSAGE')}`, true));
                 }
             });
         };
@@ -1821,7 +1828,6 @@ jQuery.noConflict();
         // ============================================================
         checkEmbeddedContent = () => {
 
-            const M = sa11yIM["embeddedContent"];
             const container = document.querySelector(sa11yCheckRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
 
@@ -1837,7 +1843,7 @@ jQuery.noConflict();
                 } else {
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["video"]));
+                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_VIDEO')}`));
                 }
             });
 
@@ -1846,27 +1852,8 @@ jQuery.noConflict();
             $audio.forEach(($el) => {
                 this.warningCount++;
                 $el.classList.add("sa11y-warning-border");
-                $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["audio"]));
-            });
-
-            //Warning: Data visualizations.
-            const $dataviz = $iframes.filter($el => $el.matches($sa11yDataViz));
-            $dataviz.forEach(($el) => {
-                this.warningCount++;
-                $el.classList.add("sa11y-warning-border");
-                $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["dataviz"]));
-            });
-
-            //Warning: Twitter timelines that are too long.
-            const $twitter = $iframes.filter($el => $el.matches($sa11yTwitter));
-            $twitter.forEach(($el) => {
-                const tweets = $el.contentWindow.document.body.querySelectorAll('.timeline-TweetList-tweet');
-                if (tweets.length > 3) {
-                    this.warningCount++;
-                    $el.classList.add("sa11y-warning-border");
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["twitter"]));
-                }
-            });
+                $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_AUDIO')}`));
+              });
 
             //Error: iFrame is missing accessible name.
             $iframes.forEach(($el) => {
@@ -1889,7 +1876,7 @@ jQuery.noConflict();
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
                             $el.insertAdjacentHTML('beforebegin',
-                                Sa11yAnnotate(sa11yError, M["missingEmbedTitle"])
+                                Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_MISSING_TITLE')}`)
                             );
                         }
                     }
@@ -1915,7 +1902,7 @@ jQuery.noConflict();
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
                     $el.insertAdjacentHTML('beforebegin',
-                        Sa11yAnnotate(sa11yWarning, M["generalEmbedWarning"])
+                        Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_GENERAL_WARNING')}`)
                     );
                 }
             });
@@ -2336,8 +2323,9 @@ jQuery.noConflict();
 
                 this.errorCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    Sa11yAnnotate(sa11yError, errorMessage(cratio, nodetext))
-                );
+                    Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE')}`
+                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`)
+                                              );
             });
 
             contrastErrors.warnings.forEach(item => {
@@ -2351,8 +2339,9 @@ jQuery.noConflict();
 
                 this.warningCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    Sa11yAnnotate(sa11yWarning, warningMessage(nodetext))
-                );
+                    Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE')}`
+                                                `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO')}`)
+                                                );
             });
         }
         // ============================================================
@@ -2458,7 +2447,7 @@ jQuery.noConflict();
             const $readabilityinfo = document.getElementById("sa11y-readability-info");
 
             if (paragraphtext.length === 0) {
-                $readabilityinfo.innerHTML = M["noPorLiMessage"];
+                $readabilityinfo.innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY_NO_P_OR_LI_MESSAGE')}`;
             }
             else if (words > 30) {
                 var fleschScore = flesch_reading_ease.toFixed(1);
@@ -2488,7 +2477,7 @@ jQuery.noConflict();
                 <li><span class='sa11y-bold'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_TOTAL_WORDS')}</span> ${words}</li>`;
             }
             else {
-                $readabilityinfo.textContent = M["notEnoughContentMessage"];
+                $readabilityinfo.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY_NOT_ENOUGH_CONTENT_MESSAGE')}`;
             }
         }
     }
