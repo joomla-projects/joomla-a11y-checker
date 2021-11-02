@@ -21,16 +21,16 @@ function Sa11yAnnotate(type, content, inline = false) {
     return `
         <div class=${inline ? "sa11y-instance-inline" : "sa11y-instance"}>
             <button
-            type="button"   
-            aria-label="${[type]}" 
-            class="sa11y-btn 
-            sa11y-${CSSName[type]}-btn${inline ? "-text" : ""}" 
+            type="button"
+            aria-label="${[type]}"
+            class="sa11y-btn
+            sa11y-${CSSName[type]}-btn${inline ? "-text" : ""}"
             data-tippy-content="<div lang='${sa11yLangCode}'>
                 <div class='sa11y-header-text'>${[type]}
                 </div>
-                ${content} 
+                ${content}
             </div>
-        "> 
+        ">
         </button>
         </div>`;
 }
@@ -55,7 +55,7 @@ function Sa11yAnnotateBanner(type, content) {
         content = content();
     }
     return `<div class="sa11y-instance sa11y-${CSSName[type]}-message-container">
-        <div role="region" aria-label="${[type]}" class="sa11y-${CSSName[type]}-message" lang="${sa11yLangCode}">
+        <div role="region" aria-label="${[type]}" class="sa11y-${CSSName[type]}-message" lang="${Sa11yLangCode}">
             ${content}
         </div>
     </div>`;
@@ -124,7 +124,7 @@ function Sa11yAnnotateBanner(type, content) {
             sa11ycontainer.innerHTML =
 
                 //Main toggle button.
-                `<button type="button" aria-expanded="false" id="sa11y-toggle" aria-describedby="sa11y-notification-badge" aria-label="${sa11yMainToggleLabel}" disabled>
+                `<button type="button" aria-expanded="false" id="sa11y-toggle" aria-describedby="sa11y-notification-badge" aria-label="`${Sa11yLang._('JOOMLA_A11Y_CHECKER_MAIN_TOGGLE_LABEL')}`" disabled>
                     ${MainToggleIcon}
                     <div id="sa11y-notification-badge">
                         <span id="sa11y-notification-count"></span>
@@ -146,7 +146,7 @@ function Sa11yAnnotateBanner(type, content) {
                 //Readability tab.
                 `<div id="sa11y-readability-panel">
                     <div id="sa11y-readability-content">
-                        <h2 class="sa11y-header-text-inline">${sa11yReadability}</h2>
+                        <h2 class="sa11y-header-text-inline">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY')}`</h2>
                         <p id="sa11y-readability-info"></p>
                         <ul id="sa11y-readability-details"></ul>
                     </div>
@@ -156,42 +156,42 @@ function Sa11yAnnotateBanner(type, content) {
                 //Settings tab.
                 `<div id="sa11y-settings-panel" role="tabpanel" aria-labelledby="sa11y-settings-header">
                 <div id="sa11y-settings-header" class="sa11y-header-text">
-                    <h2 tabindex="-1">${sa11ySettings}</h2>
+                    <h2 tabindex="-1">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_SETTINGS')}`</h2>
                 </div>
                 <div id="sa11y-settings-content">
-                    <ul id="sa11y-settings-options">  
+                    <ul id="sa11y-settings-options">
                         <li>
-                            <label id="check-contrast" for="sa11y-contrast-toggle">${sa11yContrast}</label>
-                            <button id="sa11y-contrast-toggle" 
-                            aria-labelledby="check-contrast" 
-                            class="sa11y-settings-switch" 
+                            <label id="check-contrast" for="sa11y-contrast-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST')}`</label>
+                            <button id="sa11y-contrast-toggle"
+                            aria-labelledby="check-contrast"
+                            class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadContrastPreference ? "true" : "false"
                             }">${loadContrastPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="check-labels" for="sa11y-labels-toggle">${sa11yFormLabels}</label>
-                            <button id="sa11y-labels-toggle" aria-labelledby="check-labels" class="sa11y-settings-switch" 
+                            <label id="check-labels" for="sa11y-labels-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_FORM_LABELS')}`</label>
+                            <button id="sa11y-labels-toggle" aria-labelledby="check-labels" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadLabelsPreference ? "true" : "false"
                             }">${loadLabelsPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="check-changerequest" for="sa11y-links-advanced-toggle">${sa11yLinksAdvanced} <span class="sa11y-badge">AAA</span></label>
-                            <button id="sa11y-links-advanced-toggle" aria-labelledby="check-changerequest" class="sa11y-settings-switch" 
+                            <label id="check-changerequest" for="sa11y-links-advanced-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINKS_ADVANCED')}` <span class="sa11y-badge">AAA</span></label>
+                            <button id="sa11y-links-advanced-toggle" aria-labelledby="check-changerequest" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadChangeRequestPreference ? "true" : "false"
                             }">${loadChangeRequestPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="check-readability" for="sa11y-readability-toggle">${sa11yReadability} <span class="sa11y-badge">AAA</span></label>
-                            <button id="sa11y-readability-toggle" aria-labelledby="check-readability" class="sa11y-settings-switch" 
+                            <label id="check-readability" for="sa11y-readability-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY')}` <span class="sa11y-badge">AAA</span></label>
+                            <button id="sa11y-readability-toggle" aria-labelledby="check-readability" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadReadabilityPreference ? "true" : "false"
                             }">${loadReadabilityPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="dark-mode" for="sa11y-theme-toggle">${sa11yDarkMode}</label>
+                            <label id="dark-mode" for="sa11y-theme-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_DARK_MODE')}`</label>
                             <button id="sa11y-theme-toggle" aria-labelledby="dark-mode" class="sa11y-settings-switch"></button>
                         </li>
                     </ul>
@@ -201,8 +201,8 @@ function Sa11yAnnotateBanner(type, content) {
                 //Console warning messages.
                 `<div id="sa11y-panel-alert">
                 <div class="sa11y-header-text">
-                    <button id="sa11y-close-alert" class="sa11y-close-btn" aria-label="${sa11yAlertClose}" aria-describedby="sa11y-alert-heading sa11y-panel-alert-text"></button>
-                    <h2 id="sa11y-alert-heading">${sa11yAlertText}</h2>
+                    <button id="sa11y-close-alert" class="sa11y-close-btn" aria-label="`${Sa11yLang._('JOOMLA_A11Y_CHECKER_ALERT_CLOSE')}`" aria-describedby="sa11y-alert-heading sa11y-panel-alert-text"></button>
+                    <h2 id="sa11y-alert-heading">${Sa11yLang._('JOOMLA_A11Y_CHECKER_ALERT_TEXT')}</h2>
                 </div>
                 <p id="sa11y-panel-alert-text"></p>
                 <div id="sa11y-panel-alert-preview"></div>
@@ -210,7 +210,7 @@ function Sa11yAnnotateBanner(type, content) {
 
                 //Main panel that conveys state of page.
                 `<div id="sa11y-panel-content">
-                <button id="sa11y-cycle-toggle" type="button" aria-label="${sa11yShortcutSR}">
+                <button id="sa11y-cycle-toggle" type="button" aria-label="`${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHORTCUT_SR')}`">
                     <div class="sa11y-panel-icon"></div>
                 </button>
                 <div id="sa11y-panel-text"><p id="sa11y-status" aria-live="polite"></p></div>
@@ -219,12 +219,12 @@ function Sa11yAnnotateBanner(type, content) {
                 //Show Outline & Show Settings button.
                 `<div id="sa11y-panel-controls" role="tablist" aria-orientation="horizontal">
                 <button type="button" role="tab" aria-expanded="false" id="sa11y-outline-toggle" aria-controls="sa11y-outline-panel">
-                    ${sa11yShowOutline}
+                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_OUTLINE')}`
                 </button>
                 <button type="button" role="tab" aria-expanded="false" id="sa11y-settings-toggle" aria-controls="sa11y-settings-panel">
-                    ${sa11yShowSettings}
+                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_SETTINGS')}`
                 </button>
-                <div style="width:35px"></div> 
+                <div style="width:35px"></div>
             </div>` +
 
                 //End of main container.
@@ -313,17 +313,17 @@ function Sa11yAnnotateBanner(type, content) {
                     sa11yToggle.classList.remove("sa11y-on");
                     sa11yToggle.click();
                     this.resetAll();
-                } 
-            }; 
+                }
+            };
         }
 
         // ============================================================
         // Global configuration settings.
-        // Stores the list of elements to ignore based on configuration. 
-        // Credits to John Jameson, PrincetonU for this snippet. 
+        // Stores the list of elements to ignore based on configuration.
+        // Credits to John Jameson, PrincetonU for this snippet.
         // ============================================================
         loadGlobals = () => {
-    
+
             // Look for a content container
             if (typeof sa11yCheckRoot !== "string" || $(sa11yCheckRoot).length === 0) {
                 sa11yCheckRoot = "body";
@@ -343,7 +343,7 @@ function Sa11yAnnotateBanner(type, content) {
                 sa11yLinkIgnoreSpan =
                     "noscript" + separator + sa11yLinkIgnoreSpanSelectors.join();
             } else {
-                sa11yLinkIgnoreSpan = 
+                sa11yLinkIgnoreSpan =
                     "noscript";
             }
 
@@ -357,7 +357,7 @@ function Sa11yAnnotateBanner(type, content) {
                 sa11yContainerIgnore =
                     "[aria-hidden='true'], #sa11y-container *, .sa11y-instance *" + separator + containerSelectors.join();
             } else {
-                sa11yContainerIgnore = 
+                sa11yContainerIgnore =
                     "[aria-hidden='true'], #sa11y-container *, .sa11y-instance *";
             }
             this.containerIgnore = sa11yContainerIgnore;
@@ -421,7 +421,7 @@ function Sa11yAnnotateBanner(type, content) {
                 //No image, has text.
                 if ($el.find("img").length === 0 && $el.text().trim().length > 1) {
                     returnText = $el.text().trim();
-                } 
+                }
                 //Has image, no text.
                 else if ($el.find("img").length && $el.text().trim().length === 0) {
                     let imgalt = $el.find("img").attr("alt");
@@ -430,10 +430,10 @@ function Sa11yAnnotateBanner(type, content) {
                     } else if ($el.find("img").attr("alt") !== undefined) {
                         returnText = imgalt;
                     }
-                } 
-                //Has image and text. 
+                }
+                //Has image and text.
                 //To-do: This is a hack? Any way to do this better?
-                else if ($el.find("img").length && $el.text().trim().length) {    
+                else if ($el.find("img").length && $el.text().trim().length) {
                     $el.find("img").each(function(){
                        $(this).clone().insertAfter($(this)).replaceWith(" <span class='sa11y-clone-image-text' aria-hidden='true'>" + $(this).attr('alt') + "</span> ");
                     });
@@ -444,10 +444,10 @@ function Sa11yAnnotateBanner(type, content) {
 
             //Helper: Handle ARIA labels for Link Text module.
             this.computeAriaLabel = function ($el) {
-                               
+
                 if ($el.is("[aria-label]")) {
                     return $el.attr("aria-label");
-                } 
+                }
                 else if ($el.is("[aria-labelledby]")) {
                     let target = $el.attr("aria-labelledby").split(/\s+/);
                     if (target.length > 0) {
@@ -459,11 +459,11 @@ function Sa11yAnnotateBanner(type, content) {
                     } else {
                         return "";
                     }
-                } 
+                }
                 //Children of element.
                 else if ($el.children().is("[aria-label]")) {
                     return $el.children().attr("aria-label");
-                } 
+                }
                 else if ($el.children().is("[title]")) {
                     return $el.children().attr("title");
                 }
@@ -494,13 +494,13 @@ function Sa11yAnnotateBanner(type, content) {
             $sa11yContrastCheck.onclick = async () => {
                 if (localStorage.getItem("sa11y-remember-contrast") === "On") {
                     localStorage.setItem("sa11y-remember-contrast", "Off");
-                    $sa11yContrastCheck.textContent = `${sa11yOff}`;
+                    $sa11yContrastCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yContrastCheck.setAttribute("aria-pressed", "false");
                     this.resetAll(false);
                     await this.checkAll();
                 } else {
                     localStorage.setItem("sa11y-remember-contrast", "On");
-                    $sa11yContrastCheck.textContent = `${sa11yOn}`;
+                    $sa11yContrastCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                     $sa11yContrastCheck.setAttribute("aria-pressed", "true");
                     this.resetAll(false);
                     await this.checkAll();
@@ -512,13 +512,13 @@ function Sa11yAnnotateBanner(type, content) {
             $sa11yLabelsCheck.onclick = async () => {
                 if (localStorage.getItem("sa11y-remember-labels") === "On") {
                     localStorage.setItem("sa11y-remember-labels", "Off");
-                    $sa11yLabelsCheck.textContent = `${sa11yOff}`;
+                    $sa11yLabelsCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yLabelsCheck.setAttribute("aria-pressed", "false");
                     this.resetAll(false);
                     await this.checkAll();
                 } else {
                     localStorage.setItem("sa11y-remember-labels", "On");
-                    $sa11yLabelsCheck.textContent = `${sa11yOn}`;
+                    $sa11yLabelsCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                     $sa11yLabelsCheck.setAttribute("aria-pressed", "true");
                     this.resetAll(false);
                     await this.checkAll();
@@ -530,13 +530,13 @@ function Sa11yAnnotateBanner(type, content) {
             $sa11yChangeRequestCheck.onclick = async () => {
                 if (localStorage.getItem("sa11y-remember-links-advanced") === "On") {
                     localStorage.setItem("sa11y-remember-links-advanced", "Off");
-                    $sa11yChangeRequestCheck.textContent = `${sa11yOff}`;
+                    $sa11yChangeRequestCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yChangeRequestCheck.setAttribute("aria-pressed", "false");
                     this.resetAll(false);
                     await this.checkAll();
                 } else {
                     localStorage.setItem("sa11y-remember-links-advanced", "On");
-                    $sa11yChangeRequestCheck.textContent = `${sa11yOn}`;
+                    $sa11yChangeRequestCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                     $sa11yChangeRequestCheck.setAttribute("aria-pressed", "true");
                     this.resetAll(false);
                     await this.checkAll();
@@ -548,14 +548,14 @@ function Sa11yAnnotateBanner(type, content) {
             $sa11yReadabilityCheck.onclick = async () => {
                 if (localStorage.getItem("sa11y-remember-readability") === "On") {
                     localStorage.setItem("sa11y-remember-readability", "Off");
-                    $sa11yReadabilityCheck.textContent = `${sa11yOff}`;
+                    $sa11yReadabilityCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yReadabilityCheck.setAttribute("aria-pressed", "false");
                     document.getElementById("sa11y-readability-panel").classList.remove("sa11y-active");
                     this.resetAll(false);
                     await this.checkAll();
                 } else {
                     localStorage.setItem("sa11y-remember-readability", "On");
-                    $sa11yReadabilityCheck.textContent = `${sa11yOn}`;
+                    $sa11yReadabilityCheck.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                     $sa11yReadabilityCheck.setAttribute("aria-pressed", "true");
                     document.getElementById("sa11y-readability-panel").classList.add("sa11y-active");
                     this.resetAll(false);
@@ -568,7 +568,7 @@ function Sa11yAnnotateBanner(type, content) {
             }
 
             //Toggle: Dark mode. (Credits: https://derekkedziora.com/blog/dark-mode-revisited)
-            
+
             let systemInitiatedDark = window.matchMedia(
                 "(prefers-color-scheme: dark)"
             );
@@ -576,22 +576,22 @@ function Sa11yAnnotateBanner(type, content) {
             const html = document.querySelector("html");
             const theme = localStorage.getItem("sa11y-remember-theme");
             if (systemInitiatedDark.matches) {
-                $sa11yTheme.textContent = `${sa11yOn}`;
+                $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                 $sa11yTheme.setAttribute("aria-pressed", "true");
             } else {
-                $sa11yTheme.textContent = `${sa11yOff}`;
+                $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                 $sa11yTheme.setAttribute("aria-pressed", "false");
             }
 
             function prefersColorTest(systemInitiatedDark) {
                 if (systemInitiatedDark.matches) {
                     html.setAttribute("data-sa11y-theme", "dark");
-                    $sa11yTheme.textContent = `${sa11yOn}`;
+                    $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                     $sa11yTheme.setAttribute("aria-pressed", "true");
                     localStorage.setItem("sa11y-remember-theme", "");
                 } else {
                     html.setAttribute("data-sa11y-theme", "light");
-                    $sa11yTheme.textContent = `${sa11yOff}`;
+                    $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yTheme.setAttribute("aria-pressed", "false");
                     localStorage.setItem("sa11y-remember-theme", "");
                 }
@@ -603,34 +603,34 @@ function Sa11yAnnotateBanner(type, content) {
                 if (theme === "dark") {
                     html.setAttribute("data-sa11y-theme", "light");
                     localStorage.setItem("sa11y-remember-theme", "light");
-                    $sa11yTheme.textContent = `${sa11yOff}`;
+                    $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yTheme.setAttribute("aria-pressed", "false");
                 } else if (theme === "light") {
                     html.setAttribute("data-sa11y-theme", "dark");
                     localStorage.setItem("sa11y-remember-theme", "dark");
-                    $sa11yTheme.textContent = `${sa11yOn}`;
+                    $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                     $sa11yTheme.setAttribute("aria-pressed", "true");
                 } else if (systemInitiatedDark.matches) {
                     html.setAttribute("data-sa11y-theme", "light");
                     localStorage.setItem("sa11y-remember-theme", "light");
-                    $sa11yTheme.textContent = `${sa11yOff}`;
+                    $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yTheme.setAttribute("aria-pressed", "false");
                 } else {
                     html.setAttribute("data-sa11y-theme", "dark");
                     localStorage.setItem("sa11y-remember-theme", "dark");
-                    $sa11yTheme.textContent = `${sa11yOn}`;
+                    $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                     $sa11yTheme.setAttribute("aria-pressed", "true");
                 }
             };
             if (theme === "dark") {
                 html.setAttribute("data-sa11y-theme", "dark");
                 localStorage.setItem("sa11y-remember-theme", "dark");
-                $sa11yTheme.textContent = `${sa11yOn}`;
+                $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_ON')}`;
                 $sa11yTheme.setAttribute("aria-pressed", "true");
             } else if (theme === "light") {
                 html.setAttribute("data-sa11y-theme", "light");
                 localStorage.setItem("sa11y-remember-theme", "light");
-                $sa11yTheme.textContent = `${sa11yOff}`;
+                $sa11yTheme.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}`;
                 $sa11yTheme.setAttribute("aria-pressed", "false");
             }
         }
@@ -640,7 +640,7 @@ function Sa11yAnnotateBanner(type, content) {
         //----------------------------------------------------------------------
         initializeJumpToIssueTooltip = () => {
             tippy('#sa11y-cycle-toggle', {
-                content: `<div style="text-align:center">${sa11yShortcutTooltip} &raquo;<br><span class="sa11y-shortcut-icon"></span></div>`,
+                content: `<div style="text-align:center">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHORTCUT_TOOLTIP')}` &raquo;<br><span class="sa11y-shortcut-icon"></span></div>`,
                 allowHTML: true,
                 delay: [900, 0],
                 trigger: "mouseenter focusin",
@@ -807,7 +807,7 @@ function Sa11yAnnotateBanner(type, content) {
                 const overflowing = findParentWithOverflow($el, 'overflow', 'hidden');
                 if (overflowing !== null) {
                     overflowing.classList.add('sa11y-overflow');
-                }                
+                }
             });
         }
 
@@ -823,11 +823,11 @@ function Sa11yAnnotateBanner(type, content) {
             } else if (this.warningCount > 0 && this.errorCount === 0) {
                 notifBadge.style.display = "flex";
                 notifBadge.classList.add("sa11y-notification-badge-warning");
-                document.getElementById('sa11y-notification-count').innerHTML = `${sa11yPanelStatus["status10"](warningCount)}`;
+                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_10', 'warningCount')}`;
             } else {
                 notifBadge.style.display = "flex";
                 notifBadge.classList.remove("sa11y-notification-badge-warning");
-                document.getElementById('sa11y-notification-count').innerHTML = `${sa11yPanelStatus["status11"](totalCount)}`;
+                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_10', 'totalCount')}`;
             }
         }
 
@@ -848,7 +848,7 @@ function Sa11yAnnotateBanner(type, content) {
 
             $sa11ySkipBtn.disabled = false;
             $sa11ySkipBtn.setAttribute("style", "cursor: pointer !important;");
-            
+
             const $sa11yPanel = document.getElementById("sa11y-panel");
             $sa11yPanel.classList.add("sa11y-active");
 
@@ -858,38 +858,38 @@ function Sa11yAnnotateBanner(type, content) {
 
             if (this.errorCount === 1 && this.warningCount === 1) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${sa11yPanelStatus["status1"]}`;
-            } 
+                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_1')}`;
+            }
             else if (this.errorCount === 1 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${sa11yPanelStatus["status2"](warningCount)}`;
-            } 
+                $sa11yStatus.textContent = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_2', 'warningCount')}`;
+            }
             else if (this.errorCount > 0 && this.warningCount === 1) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${sa11yPanelStatus["status3"](errorCount)}`;
-            } 
+                $sa11yStatus.textContent = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_3', 'errorCount')}`;
+            }
             else if (this.errorCount > 0 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${sa11yPanelStatus["status4"](errorCount, warningCount)}`;
-            } 
+                $sa11yStatus.textContent = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_4', 'errorCount', 'warningCount')}`;
+            }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
                 $sa11yStatus.textContent = `${this.errorCount === 1 ?
-                    sa11yPanelStatus["status5"] :
-                    sa11yPanelStatus["status6"](errorCount)
+                  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_5')}` :
+                  `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_6', 'errorCount')}`
                 }`;
-            } 
+            }
             else if (this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-warnings");
                 $sa11yStatus.textContent = `${
                     totalCount === 1 ?
-                    sa11yPanelStatus["status7"] :
-                    sa11yPanelStatus["status8"](warningCount)
+                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_7')}`:
+                    `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_8', 'errorCount')}`
                 }`;
-            } 
+            }
             else {
                 $panelContent.setAttribute("class", "sa11y-good");
-                $sa11yStatus.textContent = `${sa11yPanelStatus["status9"]}`;
+                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_9')}`;
 
                 if ($findButtons.length === 0) {
                     $sa11ySkipBtn.disabled = true;
@@ -902,7 +902,7 @@ function Sa11yAnnotateBanner(type, content) {
         // Main panel: Build Show Outline and Settings tabs.
         // ----------------------------------------------------------------------
         buildPanel = () => {
-            
+
             const $outlineToggle = document.getElementById("sa11y-outline-toggle");
             const $outlinePanel = document.getElementById("sa11y-outline-panel");
             const $outlineList = document.getElementById("sa11y-outline-list");
@@ -912,19 +912,19 @@ function Sa11yAnnotateBanner(type, content) {
             const $settingsContent = document.getElementById("sa11y-settings-content");
 
             const $headingAnnotations = document.querySelectorAll(".sa11y-heading-label");
-            
+
             //Show outline panel
             $outlineToggle.addEventListener('click', (e) => {
                 if ($outlineToggle.getAttribute("aria-expanded") == "true") {
                     $outlineToggle.classList.remove("sa11y-outline-active");
                     $outlinePanel.classList.remove("sa11y-active");
-                    $outlineToggle.textContent = `${sa11yShowOutline}`;
+                    $outlineToggle.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_OUTLINE')}`;
                     $outlineToggle.setAttribute("aria-expanded", "false");
                     localStorage.setItem("sa11y-remember-outline", "Closed");
                 } else {
                     $outlineToggle.classList.add("sa11y-outline-active");
                     $outlinePanel.classList.add("sa11y-active");
-                    $outlineToggle.textContent = `${sa11yHideOutline}`;
+                    $outlineToggle.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HIDE_OUTLINE')}`;
                     $outlineToggle.setAttribute("aria-expanded", "true");
                     localStorage.setItem("sa11y-remember-outline", "Opened");
                 }
@@ -934,12 +934,12 @@ function Sa11yAnnotateBanner(type, content) {
 
                 //Show heading level annotations.
                 $headingAnnotations.forEach(($el) => $el.classList.toggle("sa11y-label-visible"));
-                
+
                 //Close Settings panel when Show Outline is active.
                 $settingsPanel.classList.remove("sa11y-active");
                 $settingsToggle.classList.remove("sa11y-settings-active");
                 $settingsToggle.setAttribute("aria-expanded", "false");
-                $settingsToggle.textContent = `${sa11yShowSettings}`;
+                $settingsToggle.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_SETTINGS')}`;
 
                 //Keyboard accessibility fix for scrollable panel content.
                 if ($outlineList.clientHeight > 250) {
@@ -951,7 +951,7 @@ function Sa11yAnnotateBanner(type, content) {
             if (localStorage.getItem("sa11y-remember-outline") === "Opened") {
                 $outlineToggle.classList.add("sa11y-outline-active");
                 $outlinePanel.classList.add("sa11y-active");
-                $outlineToggle.textContent = `${sa11yHideOutline}`;
+                $outlineToggle.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HIDE_OUTLINE')}`;
                 $outlineToggle.setAttribute("aria-expanded", "true");
                 $headingAnnotations.forEach(($el) => $el.classList.toggle("sa11y-label-visible"));
                 //Keyboard accessibility fix for scrollable panel content.
@@ -965,12 +965,12 @@ function Sa11yAnnotateBanner(type, content) {
                 if ($settingsToggle.getAttribute("aria-expanded") === "true") {
                     $settingsToggle.classList.remove("sa11y-settings-active");
                     $settingsPanel.classList.remove("sa11y-active");
-                    $settingsToggle.textContent = `${sa11yShowSettings}`;
+                    $settingsToggle.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_SETTINGS')}`;
                     $settingsToggle.setAttribute("aria-expanded", "false");
                 } else {
                     $settingsToggle.classList.add("sa11y-settings-active");
                     $settingsPanel.classList.add("sa11y-active");
-                    $settingsToggle.textContent = `${sa11yHideSettings}`;
+                    $settingsToggle.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HIDE_SETTINGS')}`;
                     $settingsToggle.setAttribute("aria-expanded", "true");
                 }
 
@@ -981,7 +981,7 @@ function Sa11yAnnotateBanner(type, content) {
                 $outlinePanel.classList.remove("sa11y-active");
                 $outlineToggle.classList.remove("sa11y-outline-active");
                 $outlineToggle.setAttribute("aria-expanded", "false");
-                $outlineToggle.textContent = `${sa11yShowOutline}`;
+                $outlineToggle.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_OUTLINE')}`;
                 $headingAnnotations.forEach(($el) => $el.classList.remove("sa11y-label-visible"));
                 localStorage.setItem("sa11y-remember-outline", "Closed");
 
@@ -1102,13 +1102,13 @@ function Sa11yAnnotateBanner(type, content) {
                         }
                         return null;
                     };
-                
+
                 let test;
                 $findButtons.forEach(function ($el) {
                     const overflowing = findVisibleParent($el, 'display', 'none');
                     if (overflowing !== null) {
                         test = overflowing.previousElementSibling;
-                    }       
+                    }
                 });
                 console.log(test) */
 
@@ -1119,7 +1119,7 @@ function Sa11yAnnotateBanner(type, content) {
                 //let hiddenPosition = $(".sa11y-btn").eq(sa11yBtnLocation).offset().top;
 
                 if (visiblePosition >= 1) {
-                    setTimeout(function() { 
+                    setTimeout(function() {
                         window.scrollTo({
                             top: visiblePosition,
                             behavior: scrollBehavior
@@ -1131,7 +1131,7 @@ function Sa11yAnnotateBanner(type, content) {
                     });
 
                     $findButtons[sa11yBtnLocation].focus();
-                } 
+                }
                 else {
                     $findButtons[sa11yBtnLocation].focus();
                 }
@@ -1144,10 +1144,10 @@ function Sa11yAnnotateBanner(type, content) {
                 //If location is less than 0 = hidden element (e.g. display:none);
                 if (hiddenPosition == 0) {
                     $alertPanel.classList.add("sa11y-active");
-                    $alertText.textContent = `${sa11yPanelStatus["notVisibleAlert"]}`;
+                    $alertText.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_1')}`;
 
                     $alertPanelPreview.innerHTML = $findButtons[sa11yBtnLocation].getAttribute('data-tippy-content');
-                    
+
                     $closeAlertToggle.focus();
 
                 } else if (hiddenPosition < 1) {
@@ -1198,29 +1198,29 @@ function Sa11yAnnotateBanner(type, content) {
                 let warning = null;
 
                 if (level - prevLevel > 1 && i !== 0) {
-                    error = sa11yIM["headings"]["nonConsecutiveHeadingLevel"](prevLevel, level);
+                    error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_NON_CONSECUTIVE_LEVEL', 'prevLevel', 'level')}`;
                 } else if ($el.text().trim().length == 0) {
                     if ($el.find("img").length) {
                         const imgalt = $el.find("img").attr("alt");
                         if (imgalt == undefined || imgalt == " " || imgalt == "") {
-                            error = sa11yIM["headings"]["emptyHeadingWithImage"](level)
+                            error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY_WITH_IMAGE', 'level')}`;
                             $el.addClass("sa11y-error-text");
                         }
                     } else {
-                        error = sa11yIM["headings"]["emptyHeading"](level);
+                        error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY', 'level')}`;
                         $el.addClass("sa11y-error-text");
                     }
                 } else if (i === 0 && level !== 1 && level !== 2) {
-                    error = sa11yIM["headings"]["firstHeading"];
+                    error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_FIRST')}`;
                 } else if ($el.text().trim().length > 170) {
-                    warning = sa11yIM["headings"]["longHeading"](headingLength);
+                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO', 'headingLength')}`;
                 }
 
                 prevLevel = level;
 
                 let li =
                     `<li class='sa11y-outline-${level}'>
-                <span class='sa11y-badge'>${level}</span> 
+                <span class='sa11y-badge'>${level}</span>
                 <span class='sa11y-outline-list-item'>${htext}</span>
             </li>`;
 
@@ -1228,7 +1228,7 @@ function Sa11yAnnotateBanner(type, content) {
                     `<li class='sa11y-outline-${level}'>
                 <span class='sa11y-badge sa11y-error-badge'>
                 <span aria-hidden='true'>&#10007;</span>
-                <span class='sa11y-visually-hidden'>${sa11yError}</span> ${level}</span> 
+                <span class='sa11y-visually-hidden'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR')}</span> ${level}</span>
                 <span class='sa11y-outline-list-item sa11y-red-text sa11y-bold'>${htext}</span>
             </li>`;
 
@@ -1236,7 +1236,7 @@ function Sa11yAnnotateBanner(type, content) {
                     `<li class='sa11y-outline-${level}'>
                 <span class='sa11y-badge sa11y-warning-badge'>
                 <span aria-hidden='true'>&#x3f;</span>
-                <span class='sa11y-visually-hidden'>${sa11yWarning}</span> ${level}</span> 
+                <span class='sa11y-visually-hidden'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING')}</span> ${level}</span>
                 <span class='sa11y-outline-list-item sa11y-yellow-text sa11y-bold'>${htext}</span>
             </li>`;
 
@@ -1287,13 +1287,13 @@ function Sa11yAnnotateBanner(type, content) {
 
                 $("#sa11y-outline-header").after(
                     `<div class='sa11y-instance sa11y-missing-h1'>
-                    <span class='sa11y-badge sa11y-error-badge'><span aria-hidden='true'>&#10007;</span><span class='sa11y-visually-hidden'>${sa11yError}</span></span> 
-                    <span class='sa11y-red-text sa11y-bold'>${sa11yIM["headings"]["missingHeadingOnePanelText"]}</span>
+                    <span class='sa11y-badge sa11y-error-badge'><span aria-hidden='true'>&#10007;</span><span class='sa11y-visually-hidden'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR')}</span></span>
+                    <span class='sa11y-red-text sa11y-bold'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_HEADING_MISSING_ONE')}</span>
                 </div>`
                 );
 
                 $("#sa11y-container").after(
-                    Sa11yAnnotateBanner(sa11yError, sa11yIM["headings"]["missingHeadingOne"])
+                    Sa11yAnnotateBanner(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_MISSING_ONE')}`)
                 );
             }
         };
@@ -1367,9 +1367,9 @@ function Sa11yAnnotateBanner(type, content) {
             };
 
             $el.ignore("span.sr-only").text().trim();
-                
+
             Example: <a href="#">learn more <span class="sr-only">(external)</span></a>
-            
+
             This function will ignore the text "(external)", and correctly flag this link as an error for non descript link text. */
 
             $.fn.ignore = function (sel) {
@@ -1406,34 +1406,34 @@ function Sa11yAnnotateBanner(type, content) {
                     } else if (hasAriaLabelledBy != null || hasAriaLabel != null) {
                         $el.addClass("sa11y-good-border")
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                         );
                     } else if (hasTitle != null) {
                         let linkText = $el.attr("title");
                         $el.addClass("sa11y-good-border")
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                         );
                     } else if ($el.children().length) {
                         if (childAriaLabelledBy != null || childAriaLabel != null || childTitle != null) {
                             $el.addClass("sa11y-good-border");
                             $el.before(
-                                Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                                Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                             );
                         } else {
                             this.errorCount++;
                             $el.addClass("sa11y-error-border");
-                            $el.after(Sa11yAnnotate(sa11yError, M["emptyLinkNoLabel"], true));
+                            $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_EMPTY_LINK_NO_LABEL')}`, true));
                         }
                     } else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-border");
-                        $el.after(Sa11yAnnotate(sa11yError, M["emptyLink"], true));
+                        $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_EMPTY')}`, true));
                     }
                 } else if (error[0] != null) {
                     if (hasAriaLabelledBy != null) {
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, M["linkLabel"](linkText), true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                         );
                     } else if (hasAriaLabel != null) {
                         $el.before(
@@ -1444,17 +1444,24 @@ function Sa11yAnnotateBanner(type, content) {
                     } else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-text");
-                        $el.after(Sa11yAnnotate(sa11yError, M["linkStopWordMessage"](error[0]), true));
+                        $el.after(
+                          Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_STOPWORD', 'error[0]')}`, true)
+                                                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD_TIP')}`
+                        );
                     }
                 } else if (error[1] != null) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
-                    $el.after(Sa11yAnnotate(sa11yWarning, M["linkBestPractices"](error[1]), true));
+                    $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES', 'error[1]')')}`, true)
+                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES_DETAILS')}`
+                    );
                 } else if (error[2] != null) {
                     if (linkText.length > 40) {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-text");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["linkURL"], true));
+                        $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL')}`, true)
+                                                             `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL_TIP')}`
+                        );
                     }
                 }
             });
@@ -1483,13 +1490,13 @@ function Sa11yAnnotateBanner(type, content) {
                 }
 
                 const fileTypeMatch = $el.filter(`
-                    a[href$='.pdf'], 
-                    a[href$='.doc'], 
-                    a[href$='.zip'], 
-                    a[href$='.mp3'], 
-                    a[href$='.txt'], 
-                    a[href$='.exe'], 
-                    a[href$='.dmg'], 
+                    a[href$='.pdf'],
+                    a[href$='.doc'],
+                    a[href$='.zip'],
+                    a[href$='.mp3'],
+                    a[href$='.txt'],
+                    a[href$='.exe'],
+                    a[href$='.dmg'],
                     a[href$='.rtf'],
                     a[href$='.pptx'],
                     a[href$='.ppt'],
@@ -1520,7 +1527,9 @@ function Sa11yAnnotateBanner(type, content) {
                     } else {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-text");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["linkIdenticalName"](linkText), true));
+                        $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME', 'linkText')}`, true)
+                                                             `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP')}`
+                        );
                     }
                 } else {
                     seen[linkTextTrimmed] = true;
@@ -1540,14 +1549,18 @@ function Sa11yAnnotateBanner(type, content) {
                 if ($el.attr("target") === "_blank" && fileTypeMatch === 0 && !containsNewWindowPhrases) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
-                    $el.after(Sa11yAnnotate(sa11yWarning, M["newTabWarning"], true));
+                    $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING')}`, true)
+                                                         `${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING_TIP')}`
+                    );
                 }
 
                 if (fileTypeMatch === 1 && !containsFileTypePhrases) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
-                    $el.before(Sa11yAnnotate(sa11yWarning, M["fileTypeWarning"], true));
-                }
+                    $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING')}`, true)
+                                                         `${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING_TIP')}`
+                    );
+                 }
             });
         }
 
@@ -1585,123 +1598,137 @@ function Sa11yAnnotateBanner(type, content) {
             };
 
             // Stores the corresponding issue text to alternative text
-            const M = sa11yIM["images"];
             const container = document.querySelector(sa11yCheckRoot);
-            
+
             const images = Array.from(container.querySelectorAll("img"));
-            const excludeimages = Array.from(container.querySelectorAll(this.imageIgnore));        
+            const excludeimages = Array.from(container.querySelectorAll(this.imageIgnore));
             const $img = images.filter($el => !excludeimages.includes($el));
 
-            $img.forEach(($el) => { 
+            $img.forEach(($el) => {
                 let alt = $el.getAttribute("alt")
-                if (alt == undefined) {    
+                if (alt == undefined) {
                     if ($el.closest('a[href]')) {
                         if ($el.closest('a[href]').textContent.trim().length > 1) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkButHasTextMessage"], false, true));
-                        } 
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE')}`, false, true));
+                        }
                         else if ($el.closest('a[href]').textContent.trim().length == 0) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltLinkMessage"], false, true));
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_MISSING_ALT_LINK_MESSAGE')}`, false, true));
                         }
-                    }    
+                    }
                     // General failure message if image is missing alt.
                     else {
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["missingAltMessage"], false, true));
-                    }         
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_MISSING_ALT_MESSAGE')}`, false, true));
+                    }
                 }
                 // If alt attribute is present, further tests are done.
                 else {
                     let altText = this.sanitizeForHTML(alt); //Prevent tooltip from breaking.
                     let error = this.containsAltTextStopWords(altText);
                     let altLength = alt.length;
-                 
+
                     // Image fails if a stop word was found.
                     if (error[0] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImageBadAltMessage"](altText, error[0]), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE', 'altText', 'error[0]')}`, false, true)
+                                                                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE_INFO')}`
+                        );
                     }
                     else if (error[2] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["linkImagePlaceholderAltMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE')}`, false, true));
                     }
                     else if (error[1] != null && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["linkImageSusAltMessage"](altText, error[1]), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE', 'altText', 'error[1]')}`, false, true)
+                                                                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE_INFO')}`
+                        );
                     }
                     else if (error[0] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altHasBadWordMessage"](altText, error[0]), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE', 'altText')}`, false, true)
+                                                                                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO')}`
+                        );
                     }
                     else if (error[2] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altPlaceholderMessage"](altText), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_PLACEHOLDER_MESSAGE')}`, false, true));
                     }
                     else if (error[1] != null) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altHasSusWordMessage"](altText, error[1]), false, true));
-                    } 
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE', 'altText', 'error[1]')}`, false, true)
+                                                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE_INFO')}`
+                        );
+                    }
                     else if ((alt == "" || alt == " ") && $el.closest("a[href]")) {
                         if ($el.closest("a[href]").getAttribute("tabindex") == "-1" && $el.closest("a[href]").getAttribute("aria-hidden") == "true") {
                             //Do nothing.
-                        } 
+                        }
                         else if ($el.closest("a[href]").getAttribute("aria-hidden") == "true") {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["hyperlinkedImageAriaHidden"], false, true));
-                        } 
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN')}`, false, true));
+                        }
                         else if ($el.closest("a[href]").textContent.trim().length == 0) {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["imageLinkNullAltNoTextMessage"], false, true));
-                        } 
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_NULL_ALT_NO_TEXT_MESSAGE')}`, false, true));
+                        }
                         else {
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["linkHasAltMessage"], false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LINK_HAS_ALT_MESSAGE')}`, false, true));
                         }
                     }
-                    
+
                     //Link and contains alt text.
                     else if (alt.length > 250 && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["hyperlinkAltLengthMessage"](altText, altLength), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE', 'altText', 'altLength')}`, false, true)
+                                                                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE')}`
+                        );
                     }
-                    
+
                     //Link and contains an alt text.
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length == 0) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["imageLinkAltTextMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE', 'altText')}`, false, true)
+                                                                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE_INFO')}`
+                        );
                     }
-                    
+
                     //Contains alt text & surrounding link text.
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["anchorLinkAndAltMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE', 'altText')}`, false, true)
+                                                                                                             `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE_INFO')}`
+                        );
                     }
 
-                    //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR 
+                    //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR
                     else if (alt == "" || alt == " ") {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["decorativeMessage"], false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning,  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_DECORATIVE_MESSAGE')}`, false, true));
                     }
-                    
                     else if (alt.length > 250) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altTooLongMessage"](altText, altLength), false, true));
-                    } 
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning,  `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_TOO_LONG_MESSAGE', 'altText', 'altLength')}`, false, true)
+                                                                                           `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_TOO_LONG_MESSAGE_INFO')}`
+                        );
+                    }
                     else if (alt != "") {
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["passAlt"](altText), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood,  `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_PASS_ALT', 'altText')}`, false, true));
                     }
                 }
             });
@@ -1720,7 +1747,6 @@ function Sa11yAnnotateBanner(type, content) {
             $inputs.each((i, el) => {
                 let $el = $(el);
                 let ariaLabel = this.computeAriaLabel($el);
-                const M = sa11yIM["labels"];
 
                 //If button type is submit or button: pass
                 if ($el.attr("type") === "submit" || $el.attr("type") === "button" || $el.attr("type") === "hidden") {
@@ -1735,15 +1761,17 @@ function Sa11yAnnotateBanner(type, content) {
                         } else {
                             this.errorCount++;
                             $el.addClass("sa11y-error-border");
-                            $el.after(Sa11yAnnotate(sa11yError, M["missingImageInputMessage"], true));
+                            $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_MISSING_IMAGE_INPUT_MESSAGE')}`, true));
                         }
-                    } 
+                    }
                 }
                 //Recommendation to remove reset buttons.
                 else if ($el.attr("type") === "reset") {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-border");
-                    $el.after(Sa11yAnnotate(sa11yWarning, M["inputResetMessage"], true));
+                    $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE')}`, true)
+                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE_TIP')}`
+                    );
                 }
                 //Uses ARIA. Warn them to ensure there's a visible label.
                 else if ($el.attr("aria-label") || $el.attr("aria-labelledby") || $el.attr("title")) {
@@ -1751,16 +1779,20 @@ function Sa11yAnnotateBanner(type, content) {
                         let ariaLabel = $el.attr("title");
                         this.warningCount++;
                         $el.addClass("sa11y-warning-border");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["ariaLabelInputMessage"](ariaLabel), true));
+                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')}`, true)
+                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`
+                        );
                     } else {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-border");
-                        $el.after(Sa11yAnnotate(sa11yWarning, M["ariaLabelInputMessage"](ariaLabel), true));
+                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')}`, true)
+                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`
+                        );
                     }
                 }
                 //Implicit labels.
                 else if (
-                    $el.parents().is("label") && 
+                    $el.parents().is("label") &&
                     $el.parents("label").text().trim().length !== 0
                     ) {
                     //Do nothing if label has text.
@@ -1770,20 +1802,22 @@ function Sa11yAnnotateBanner(type, content) {
                     let prevlabel = $el.prevAll("label");
                     let nextlabel = $el.nextAll("label");
                     if (
-                        (prevlabel.attr("for") === $el.attr("id")) || 
+                        (prevlabel.attr("for") === $el.attr("id")) ||
                         (nextlabel.attr("for") === $el.attr("id"))
                         ) {
                         //Do nothing.
                     } else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-border");
-                        $el.after(Sa11yAnnotate(sa11yError, M["noForAttributeMessage"]($el.attr("id")), true));
+                        $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE', '$el.attr("id")'}`, true)
+                                                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO')}`
+                        );
                     }
-                }  
+                }
                 else {
                     this.errorCount++;
                     $el.addClass("sa11y-error-border");
-                    $el.after(Sa11yAnnotate(sa11yError, M["missingLabelMessage"], true));
+                    $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_MISSING_LABEL_MESSAGE')}`, true));
                 }
             });
         };
@@ -1793,7 +1827,6 @@ function Sa11yAnnotateBanner(type, content) {
         // ============================================================
         checkEmbeddedContent = () => {
 
-            const M = sa11yIM["embeddedContent"];
             const container = document.querySelector(sa11yCheckRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
 
@@ -1809,7 +1842,7 @@ function Sa11yAnnotateBanner(type, content) {
                 } else {
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["video"]));
+                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_VIDEO')}`));
                 }
             });
 
@@ -1818,54 +1851,35 @@ function Sa11yAnnotateBanner(type, content) {
             $audio.forEach(($el) => {
                 this.warningCount++;
                 $el.classList.add("sa11y-warning-border");
-                $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["audio"]));
-            });
-
-            //Warning: Data visualizations. 
-            const $dataviz = $iframes.filter($el => $el.matches($sa11yDataViz));
-            $dataviz.forEach(($el) => {
-                this.warningCount++;
-                $el.classList.add("sa11y-warning-border");
-                $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["dataviz"]));
-            });
-
-            //Warning: Twitter timelines that are too long.
-            const $twitter = $iframes.filter($el => $el.matches($sa11yTwitter));
-            $twitter.forEach(($el) => {
-                const tweets = $el.contentWindow.document.body.querySelectorAll('.timeline-TweetList-tweet');
-                if (tweets.length > 3) {
-                    this.warningCount++;
-                    $el.classList.add("sa11y-warning-border");
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["twitter"]));
-                }
-            });
+                $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_AUDIO')}`));
+              });
 
             //Error: iFrame is missing accessible name.
             $iframes.forEach(($el) => {
-                if ($el.tagName === "VIDEO" || 
-                    $el.tagName === "AUDIO" || 
-                    $el.getAttribute("aria-hidden") === "true" || 
-                    $el.getAttribute("hidden") !== null || 
-                    $el.style.display == 'none' || 
-                    $el.getAttribute("role") === "presentation") 
+                if ($el.tagName === "VIDEO" ||
+                    $el.tagName === "AUDIO" ||
+                    $el.getAttribute("aria-hidden") === "true" ||
+                    $el.getAttribute("hidden") !== null ||
+                    $el.style.display == 'none' ||
+                    $el.getAttribute("role") === "presentation")
                     {
                         //Ignore if hidden.
                     }
-                else if ($el.getAttribute("title") === null || $el.getAttribute("title") === '') { 
+                else if ($el.getAttribute("title") === null || $el.getAttribute("title") === '') {
                     if ($el.getAttribute("aria-label") === null || $el.getAttribute("aria-label") === '') {
                         if ($el.getAttribute("aria-labelledby") === null) {
-                            //Make sure red error border takes precedence 
+                            //Make sure red error border takes precedence
                             if ($el.classList.contains("sa11y-warning-border")) {
-                                $el.classList.remove("sa11y-warning-border");  
+                                $el.classList.remove("sa11y-warning-border");
                             }
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
                             $el.insertAdjacentHTML('beforebegin',
-                                Sa11yAnnotate(sa11yError, M["missingEmbedTitle"])
+                                Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_MISSING_TITLE')}`)
                             );
                         }
                     }
-                }   
+                }
                 else {
                     //Nothing
                 }
@@ -1873,11 +1887,11 @@ function Sa11yAnnotateBanner(type, content) {
 
             const $embeddedcontent = $iframes.filter($el => !$el.matches($sa11yAllEmbeddedContent));
             $embeddedcontent.forEach($el => {
-                if ($el.tagName === "VIDEO" || 
-                    $el.tagName === "AUDIO" || 
-                    $el.getAttribute("aria-hidden") === "true" || 
-                    $el.getAttribute("hidden") !== null || 
-                    $el.style.display == 'none' || 
+                if ($el.tagName === "VIDEO" ||
+                    $el.tagName === "AUDIO" ||
+                    $el.getAttribute("aria-hidden") === "true" ||
+                    $el.getAttribute("hidden") !== null ||
+                    $el.style.display == 'none' ||
                     $el.getAttribute("role") === "presentation" ||
                     $el.getAttribute("tabindex") === "-1")
                     {
@@ -1887,7 +1901,7 @@ function Sa11yAnnotateBanner(type, content) {
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
                     $el.insertAdjacentHTML('beforebegin',
-                        Sa11yAnnotate(sa11yWarning, M["generalEmbedWarning"])
+                        Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_EMBED_GENERAL_WARNING')}`)
                     );
                 }
             });
@@ -1897,7 +1911,7 @@ function Sa11yAnnotateBanner(type, content) {
         // Rulesets: QA
         // ============================================================
         checkQA = () => {
-            
+
             const M = sa11yIM["QA"];
             const container = document.querySelector(sa11yCheckRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
@@ -1908,7 +1922,7 @@ function Sa11yAnnotateBanner(type, content) {
             $badDevLinks.forEach(($el) => {
                 this.errorCount++;
                 $el.classList.add("sa11y-error-text");
-                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yError, M["badLink"]($el), true));
+                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_BAD_LINK', '$el')}`, true));
             });
 
             //Warning: Find all PDFs. Although only append warning icon to first PDF on page.
@@ -1923,10 +1937,10 @@ function Sa11yAnnotateBanner(type, content) {
                 this.warningCount++;
                 checkPDF.addClass("sa11y-warning-text");
                 checkPDF.has("img").removeClass("sa11y-warning-text");
-                firstPDF.after(Sa11yAnnotate(sa11yWarning, M["pdf"](pdfCount), true));
+                firstPDF.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_BAD_LINK','pdfCount')}`, true));
             }
 
-            //Warning: Detect uppercase. 
+            //Warning: Detect uppercase.
             const $findallcaps = Array.from(container.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li:not([class^='sa11y']), blockquote"));
             const $allcaps = $findallcaps.filter($el => !containerexclusions.includes($el));
             $allcaps.forEach(function ($el) {
@@ -1939,7 +1953,7 @@ function Sa11yAnnotateBanner(type, content) {
             const $warningUppercase = document.querySelectorAll(".sa11y-warning-uppercase");
 
             $warningUppercase.forEach(($el) => {
-                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yWarning, M["uppercaseWarning"], true));
+                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_UPPERCASE_WARNING')}`, true));
             });
 
             if ($warningUppercase.length > 0) {
@@ -1955,9 +1969,9 @@ function Sa11yAnnotateBanner(type, content) {
                 if (findTHeaders.length == 0) {
                     this.errorCount++;
                     $el.classList.add("sa11y-error-border");
-                    $el.insertAdjacentHTML('beforebegin', 
-                    Sa11yAnnotate(sa11yError, M["tables"]["missingHeadings"])
-                    ); 
+                    $el.insertAdjacentHTML('beforebegin',
+                      Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_MISSING_HEADINGS')}`)
+                    );
                 }
                 if (findHeadingTags.length > 0) {
                     this.errorCount++;
@@ -1965,15 +1979,18 @@ function Sa11yAnnotateBanner(type, content) {
                         $el.classList.add("sa11y-error-heading");
                         $el.parentNode.classList.add("sa11y-error-border");
                         $el.insertAdjacentHTML('beforebegin',
-                            Sa11yAnnotate(sa11yError, M["tables"]["semanticHeading"])
+                             Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING')}`
+                                                       `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING_INFO')}`)
                         );
-                    });                        
+                    });
                 }
                 findTHeaders.forEach(($el) => {
                     if ($el.textContent.trim().length == 0) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.innerHTML = Sa11yAnnotate(sa11yError, M["tables"]["emptyHeading"]);
+                        Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING')}`
+                                                  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING_INFO')}`
+                        );
                     }
                 });
             });
@@ -1981,9 +1998,9 @@ function Sa11yAnnotateBanner(type, content) {
             //Error: Missing language tag. Lang should be at least 2 characters.
             const lang = document.querySelector("html").getAttribute("lang");
             if (lang == undefined || lang.length < 2) {
-                this.errorCount++;  
+                this.errorCount++;
                 const sa11yContainer = document.getElementById("sa11y-container");
-                sa11yContainer.insertAdjacentHTML('afterend', Sa11yAnnotateBanner(sa11yError, M["pageLanguageMessage"]));
+                sa11yContainer.insertAdjacentHTML('afterend', Sa11yAnnotateBanner(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_PAGE_LANGUAGE_MESSAGE')}`));
             }
 
             //Excessive bolding or italics.
@@ -1992,8 +2009,8 @@ function Sa11yAnnotateBanner(type, content) {
             $strongitalics.forEach(($el) => {
                 if ($el.textContent.trim().length > 400) {
                     this.warningCount++;
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["badItalics"]));
-                }
+                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BAD_ITALICS')}`));
+                  }
             });
 
             //Find blockquotes used as headers.
@@ -2004,7 +2021,9 @@ function Sa11yAnnotateBanner(type, content) {
                 if (bqHeadingText.trim().length < 25) {
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["blockquoteMessage"](bqHeadingText)));
+                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BLOCKQUOTE_MESSAGE')(bqHeadingText)}`
+                                                                                      `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BLOCKQUOTE_MESSAGE_TIP')}`)
+                    );
                 }
             });
 
@@ -2024,8 +2043,8 @@ function Sa11yAnnotateBanner(type, content) {
 
                         if ($el && boldtext.length <= 120) {
                             $el.find("strong").addClass("sa11y-fake-heading sa11y-error-heading");
-                            $el.before(
-                                Sa11yAnnotate(sa11yWarning, M["fakeHeading"](boldtext))
+                            $el.before(Sa11yAnnotate(sa11yWarning,`${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING, 'boldtext')}`)
+                                                           `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
                             );
                         }
                     }
@@ -2042,9 +2061,9 @@ function Sa11yAnnotateBanner(type, content) {
                 if ($fakeHeading.text().length <= 120 && $fakeHeading.prev(this.$h).length !== 1 && $fakeHeading.next(this.$p).length == 1) {
                     let boldtext = $fakeHeading.text();
                     $fakeHeading.addClass("sa11y-fake-heading sa11y-error-heading");
-                    $fakeHeading.find("strong").after(
-                        Sa11yAnnotate(sa11yWarning, M["fakeHeading"](boldtext), true)
-                    );
+                    $fakeHeading.find("strong").after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING', 'boldtext')}`)
+                                                                                 `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
+                                                            );
                 }
 
             });
@@ -2104,7 +2123,8 @@ function Sa11yAnnotateBanner(type, content) {
                     if (hit) {
                         this.warningCount++;
                         $first.before(
-                            Sa11yAnnotate(sa11yWarning, M["shouldBeList"](firstPrefix))
+                            Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST', 'firstPrefix')}`
+                                                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP')}`)
                         );
                         $first.addClass("sa11y-fake-list");
                         activeMatch = firstPrefix;
@@ -2118,18 +2138,6 @@ function Sa11yAnnotateBanner(type, content) {
             if ($(".sa11y-fake-list").length > 0) {
                 this.warningCount++;
             }
-
-            //Example ruleset. Be creative.
-            let $checkAnnouncement = this.root
-                .find(".announcement-component")
-                .not(this.containerIgnore)
-            if ($checkAnnouncement.length > 1) {
-                this.warningCount++;
-                $(".announcement-component:gt(0)").addClass("sa11y-warning-border");
-                $(".announcement-component:gt(0)").before(
-                    Sa11yAnnotate(sa11yWarning, M["announcementWarningMessage"])
-                );
-            }
         };
 
         // ============================================================
@@ -2140,7 +2148,7 @@ function Sa11yAnnotateBanner(type, content) {
 
             const container = document.querySelector(sa11yCheckRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
-            
+
             const $findcontrast = Array.from(container.querySelectorAll("* > :not(.sa11y-heading-label)"));
             const $contrast = $findcontrast.filter($el => !containerexclusions.includes($el));
 
@@ -2222,7 +2230,7 @@ function Sa11yAnnotateBanner(type, content) {
                         errors: [],
                         warnings: []
                     };
-                    
+
                     for (var i = 0; i < elements.length; i++) {
                         (function (n) {
                             var elem = elements[n];
@@ -2308,8 +2316,9 @@ function Sa11yAnnotateBanner(type, content) {
 
                 this.errorCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    Sa11yAnnotate(sa11yError, errorMessage(cratio, nodetext))
-                );
+                    Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio', 'nodetext')}`
+                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`)
+                                              );
             });
 
             contrastErrors.warnings.forEach(item => {
@@ -2323,8 +2332,9 @@ function Sa11yAnnotateBanner(type, content) {
 
                 this.warningCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    Sa11yAnnotate(sa11yWarning, warningMessage(nodetext))
-                );
+                    Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE', 'nodetext')}`
+                                                `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO')}`)
+                                                );
             });
         }
         // ============================================================
@@ -2335,7 +2345,7 @@ function Sa11yAnnotateBanner(type, content) {
 
             const container = document.querySelector(sa11yReadabilityRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
-            
+
             const $findreadability = Array.from(container.querySelectorAll("p, li"));
             const $readability = $findreadability.filter($el => !containerexclusions.includes($el));
 
@@ -2371,7 +2381,7 @@ function Sa11yAnnotateBanner(type, content) {
                 if (current.textContent.replace(/ |\n/g,'') !== '') {
                     readabilityarray.push(current.textContent);
                 }
-            } 
+            }
 
             let paragraphtext = readabilityarray.join(' ').trim().toString();
             var words_raw = paragraphtext.replace(/[.!?-]+/g, ' ').split(' ');
@@ -2430,8 +2440,8 @@ function Sa11yAnnotateBanner(type, content) {
             const $readabilityinfo = document.getElementById("sa11y-readability-info");
 
             if (paragraphtext.length === 0) {
-                $readabilityinfo.innerHTML = M["noPorLiMessage"];
-            } 
+                $readabilityinfo.innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY_NO_P_OR_LI_MESSAGE')}`;
+            }
             else if (words > 30) {
                 var fleschScore = flesch_reading_ease.toFixed(1);
                 var avgWordsPerSentence = (words / sentences).toFixed(1);
@@ -2440,27 +2450,27 @@ function Sa11yAnnotateBanner(type, content) {
                 //WCAG AAA pass if greater than 60
                 if (fleschScore >= 0 && fleschScore < 30) {
                     $readabilityinfo.innerHTML =
-                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${sa11yVeryDifficultReadability}</span>`;
+                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Sa11yLang._('JOOMLA_A11Y_CHECKER_VERY_DIFFICULT_READABILITY')}</span>`;
 
                 } else if (fleschScore > 31 && fleschScore < 49) {
                     $readabilityinfo.innerHTML =
-                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${sa11yDifficultReadability}</span>`;
+                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Sa11yLang._('JOOMLA_A11Y_CHECKER_DIFFICULT_READABILITY')}</span>`;
 
                 } else if (fleschScore > 50 && fleschScore < 60) {
                     $readabilityinfo.innerHTML =
-                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${sa11yFairlyDifficultReadability}</span>`;
+                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Sa11yLang._('JOOMLA_A11Y_CHECKER_FAIRLY_DIFFICULT_READABILITY')}</span>`;
                 } else {
                     $readabilityinfo.innerHTML =
-                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${sa11yGoodReadability}</span>`;
+                        `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Sa11yLang._('JOOMLA_A11Y_CHECKER_GOOD_READABILITY')}</span>`;
                 }
 
-                document.getElementById("sa11y-readability-details").innerHTML = 
-                `<li><span class='sa11y-bold'>${sa11yAvgWordPerSentence}</span> ${avgWordsPerSentence}</li>
-                <li><span class='sa11y-bold'>${sa11yComplexWords}</span> ${complexWords}%</li>
-                <li><span class='sa11y-bold'>${sa11yTotalWords}</span> ${words}</li>`;
-            } 
+                document.getElementById("sa11y-readability-details").innerHTML =
+                `<li><span class='sa11y-bold'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_AVG_WORD_PER_SENTENCE')}</span> ${avgWordsPerSentence}</li>
+                <li><span class='sa11y-bold'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_COMPLEX_WORDS')}</span> ${complexWords}%</li>
+                <li><span class='sa11y-bold'>${Sa11yLang._('JOOMLA_A11Y_CHECKER_TOTAL_WORDS')}</span> ${words}</li>`;
+            }
             else {
-                $readabilityinfo.textContent = M["notEnoughContentMessage"];
+                $readabilityinfo.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY_NOT_ENOUGH_CONTENT_MESSAGE')}`;
             }
         }
     }
@@ -2474,7 +2484,7 @@ function Sa11yAnnotateBanner(type, content) {
 })(jQuery)
 
 /*-----------------------------------------------------------------------
-Sa11y: the accessibility quality assurance assistant.                
+Sa11y: the accessibility quality assurance assistant.
 Author: Development led by Adam Chaboryk at Ryerson University.
 All acknowledgements and contributors: https://github.com/ryersondmp/sa11y
 License: https://github.com/ryersondmp/sa11y/blob/master/LICENSE.md
