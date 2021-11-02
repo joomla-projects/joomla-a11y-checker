@@ -1653,17 +1653,21 @@ jQuery.noConflict();
                     else if (error[0] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altHasBadWordMessage"](altText, error[0]), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE')}`, false, true)
+                                                                                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO')}`
+                        );
                     }
                     else if (error[2] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["altPlaceholderMessage"](altText), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_PLACEHOLDER_MESSAGE')}`, false, true));
                     }
                     else if (error[1] != null) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altHasSusWordMessage"](altText, error[1]), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE')}`, false, true)
+                                                                                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE_INFO')}`
+                        );
                     }
                     else if ((alt == "" || alt == " ") && $el.closest("a[href]")) {
                         if ($el.closest("a[href]").getAttribute("tabindex") == "-1" && $el.closest("a[href]").getAttribute("aria-hidden") == "true") {
@@ -1672,15 +1676,15 @@ jQuery.noConflict();
                         else if ($el.closest("a[href]").getAttribute("aria-hidden") == "true") {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["hyperlinkedImageAriaHidden"], false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN')}`, false, true));
                         }
                         else if ($el.closest("a[href]").textContent.trim().length == 0) {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, M["imageLinkNullAltNoTextMessage"], false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_NULL_ALT_NO_TEXT_MESSAGE')}`, false, true));
                         }
                         else {
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["linkHasAltMessage"], false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LINK_HAS_ALT_MESSAGE')}`, false, true));
                         }
                     }
 
@@ -1688,37 +1692,44 @@ jQuery.noConflict();
                     else if (alt.length > 250 && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["hyperlinkAltLengthMessage"](altText, altLength), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE')}`, false, true)
+                                                                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE')}`
+                        );
                     }
 
                     //Link and contains an alt text.
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length == 0) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["imageLinkAltTextMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE')}`, false, true)
+                                                                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE_INFO')}`
+                        );
                     }
 
                     //Contains alt text & surrounding link text.
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["anchorLinkAndAltMessage"](altText), false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE')}`, false, true)
+                                                                                                             `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE_INFO')}`
+                        );
                     }
 
                     //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR
                     else if (alt == "" || alt == " ") {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["decorativeMessage"], false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning,  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_DECORATIVE_MESSAGE')}`, false, true));
                     }
-
                     else if (alt.length > 250) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["altTooLongMessage"](altText, altLength), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning,  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_TOO_LONG_MESSAGE')}`, false, true)
+                                                                                           `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_TOO_LONG_MESSAGE_INFO')}`
+                        );
                     }
                     else if (alt != "") {
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood, M["passAlt"](altText), false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood,  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_PASS_ALT')}`, false, true));
                     }
                 }
             });
