@@ -125,7 +125,7 @@ jQuery.noConflict();
             sa11ycontainer.innerHTML =
 
                 //Main toggle button.
-                `<button type="button" aria-expanded="false" id="sa11y-toggle" aria-describedby="sa11y-notification-badge" aria-label="${Sa11yLang._('JOOMLA_A11Y_CHECKER_MAIN_TOGGLE_LABEL')}" disabled>
+                `<button type="button" aria-expanded="false" id="sa11y-toggle" aria-describedby="sa11y-notification-badge" aria-label="`${Sa11yLang._('JOOMLA_A11Y_CHECKER_MAIN_TOGGLE_LABEL')}`" disabled>
                     ${MainToggleIcon}
                     <div id="sa11y-notification-badge">
                         <span id="sa11y-notification-count"></span>
@@ -147,7 +147,7 @@ jQuery.noConflict();
                 //Readability tab.
                 `<div id="sa11y-readability-panel">
                     <div id="sa11y-readability-content">
-                        <h2 class="sa11y-header-text-inline">${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY')}</h2>
+                        <h2 class="sa11y-header-text-inline">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY')}`</h2>
                         <p id="sa11y-readability-info"></p>
                         <ul id="sa11y-readability-details"></ul>
                     </div>
@@ -157,12 +157,12 @@ jQuery.noConflict();
                 //Settings tab.
                 `<div id="sa11y-settings-panel" role="tabpanel" aria-labelledby="sa11y-settings-header">
                 <div id="sa11y-settings-header" class="sa11y-header-text">
-                    <h2 tabindex="-1">${Sa11yLang._('JOOMLA_A11Y_CHECKER_SETTINGS')}</h2>
+                    <h2 tabindex="-1">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_SETTINGS')}`</h2>
                 </div>
                 <div id="sa11y-settings-content">
                     <ul id="sa11y-settings-options">
                         <li>
-                            <label id="check-contrast" for="sa11y-contrast-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST')}</label>
+                            <label id="check-contrast" for="sa11y-contrast-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST')}`</label>
                             <button id="sa11y-contrast-toggle"
                             aria-labelledby="check-contrast"
                             class="sa11y-settings-switch"
@@ -171,28 +171,28 @@ jQuery.noConflict();
                             }">${loadContrastPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="check-labels" for="sa11y-labels-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_FORM_LABELS')}</label>
+                            <label id="check-labels" for="sa11y-labels-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_FORM_LABELS')}`</label>
                             <button id="sa11y-labels-toggle" aria-labelledby="check-labels" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadLabelsPreference ? "true" : "false"
                             }">${loadLabelsPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="check-changerequest" for="sa11y-links-advanced-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINKS_ADVANCED')} <span class="sa11y-badge">AAA</span></label>
+                            <label id="check-changerequest" for="sa11y-links-advanced-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINKS_ADVANCED')}` <span class="sa11y-badge">AAA</span></label>
                             <button id="sa11y-links-advanced-toggle" aria-labelledby="check-changerequest" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadChangeRequestPreference ? "true" : "false"
                             }">${loadChangeRequestPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="check-readability" for="sa11y-readability-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY')} <span class="sa11y-badge">AAA</span></label>
+                            <label id="check-readability" for="sa11y-readability-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY')}` <span class="sa11y-badge">AAA</span></label>
                             <button id="sa11y-readability-toggle" aria-labelledby="check-readability" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadReadabilityPreference ? "true" : "false"
                             }">${loadReadabilityPreference ? sa11yOn : sa11yOff}</button>
                         </li>
                         <li>
-                            <label id="dark-mode" for="sa11y-theme-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_DARK_MODE')}</label>
+                            <label id="dark-mode" for="sa11y-theme-toggle">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_DARK_MODE')}`</label>
                             <button id="sa11y-theme-toggle" aria-labelledby="dark-mode" class="sa11y-settings-switch"></button>
                         </li>
                     </ul>
@@ -202,7 +202,7 @@ jQuery.noConflict();
                 //Console warning messages.
                 `<div id="sa11y-panel-alert">
                 <div class="sa11y-header-text">
-                    <button id="sa11y-close-alert" class="sa11y-close-btn" aria-label="${Sa11yLang._('JOOMLA_A11Y_CHECKER_ALERT_CLOSE')}" aria-describedby="sa11y-alert-heading sa11y-panel-alert-text"></button>
+                    <button id="sa11y-close-alert" class="sa11y-close-btn" aria-label="`${Sa11yLang._('JOOMLA_A11Y_CHECKER_ALERT_CLOSE')}`" aria-describedby="sa11y-alert-heading sa11y-panel-alert-text"></button>
                     <h2 id="sa11y-alert-heading">${Sa11yLang._('JOOMLA_A11Y_CHECKER_ALERT_TEXT')}</h2>
                 </div>
                 <p id="sa11y-panel-alert-text"></p>
@@ -211,7 +211,7 @@ jQuery.noConflict();
 
                 //Main panel that conveys state of page.
                 `<div id="sa11y-panel-content">
-                <button id="sa11y-cycle-toggle" type="button" aria-label="${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHORTCUT_SR')}">
+                <button id="sa11y-cycle-toggle" type="button" aria-label="`${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHORTCUT_SR')}`">
                     <div class="sa11y-panel-icon"></div>
                 </button>
                 <div id="sa11y-panel-text"><p id="sa11y-status" aria-live="polite"></p></div>
@@ -220,10 +220,10 @@ jQuery.noConflict();
                 //Show Outline & Show Settings button.
                 `<div id="sa11y-panel-controls" role="tablist" aria-orientation="horizontal">
                 <button type="button" role="tab" aria-expanded="false" id="sa11y-outline-toggle" aria-controls="sa11y-outline-panel">
-                    ${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_OUTLINE')}
+                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_OUTLINE')}`
                 </button>
                 <button type="button" role="tab" aria-expanded="false" id="sa11y-settings-toggle" aria-controls="sa11y-settings-panel">
-                    ${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_SETTINGS')}
+                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHOW_SETTINGS')}`
                 </button>
                 <div style="width:35px"></div>
             </div>` +
@@ -641,7 +641,7 @@ jQuery.noConflict();
         //----------------------------------------------------------------------
         initializeJumpToIssueTooltip = () => {
             tippy('#sa11y-cycle-toggle', {
-                content: `<div style="text-align:center">${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHORTCUT_TOOLTIP')} &raquo;<br><span class="sa11y-shortcut-icon"></span></div>`,
+                content: `<div style="text-align:center">`${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHORTCUT_TOOLTIP')}` &raquo;<br><span class="sa11y-shortcut-icon"></span></div>`,
                 allowHTML: true,
                 delay: [900, 0],
                 trigger: "mouseenter focusin",
@@ -824,11 +824,11 @@ jQuery.noConflict();
             } else if (this.warningCount > 0 && this.errorCount === 0) {
                 notifBadge.style.display = "flex";
                 notifBadge.classList.add("sa11y-notification-badge-warning");
-                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_10(warningCount)')}`;
+                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_10', 'warningCount')}`;
             } else {
                 notifBadge.style.display = "flex";
                 notifBadge.classList.remove("sa11y-notification-badge-warning");
-                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_11(totalCount)')}`;
+                document.getElementById('sa11y-notification-count').innerHTML = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_10', 'totalCount')}`;
             }
         }
 
@@ -863,21 +863,21 @@ jQuery.noConflict();
             }
             else if (this.errorCount === 1 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_2(warningCount)')}`;
+                $sa11yStatus.textContent = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_2', 'warningCount')}`;
             }
             else if (this.errorCount > 0 && this.warningCount === 1) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_3(errorCount)')}`;
+                $sa11yStatus.textContent = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_3', 'errorCount')}`;
             }
             else if (this.errorCount > 0 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_4(errorCount, warningCount)')}`;
+                $sa11yStatus.textContent = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_4', 'errorCount', 'warningCount')}`;
             }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
                 $sa11yStatus.textContent = `${this.errorCount === 1 ?
                   `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_5')}` :
-                  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_6(errorCount)')}`
+                  `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_6', 'errorCount')}`
                 }`;
             }
             else if (this.warningCount > 0) {
@@ -885,7 +885,7 @@ jQuery.noConflict();
                 $sa11yStatus.textContent = `${
                     totalCount === 1 ?
                     `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_7')}`:
-                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_8(errorCount)')}`
+                    `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_8', 'errorCount')}`
                 }`;
             }
             else {
@@ -1199,22 +1199,22 @@ jQuery.noConflict();
                 let warning = null;
 
                 if (level - prevLevel > 1 && i !== 0) {
-                    error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_NON_CONSECUTIVE_LEVEL(prevLevel, level)')}`;
+                    error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_NON_CONSECUTIVE_LEVEL', 'prevLevel', 'level')}`;
                 } else if ($el.text().trim().length == 0) {
                     if ($el.find("img").length) {
                         const imgalt = $el.find("img").attr("alt");
                         if (imgalt == undefined || imgalt == " " || imgalt == "") {
-                            error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_EMPTY_WITH_IMAGE(level)')}`;
+                            error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY_WITH_IMAGE', 'level')}`;
                             $el.addClass("sa11y-error-text");
                         }
                     } else {
-                        error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_EMPTY(level)')}`;
+                        error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY', 'level')}`;
                         $el.addClass("sa11y-error-text");
                     }
                 } else if (i === 0 && level !== 1 && level !== 2) {
                     error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_FIRST')}`;
                 } else if ($el.text().trim().length > 170) {
-                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO(headingLength)')}`;
+                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO', 'headingLength')}`;
                 }
 
                 prevLevel = level;
@@ -1407,19 +1407,19 @@ jQuery.noConflict();
                     } else if (hasAriaLabelledBy != null || hasAriaLabel != null) {
                         $el.addClass("sa11y-good-border")
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                         );
                     } else if (hasTitle != null) {
                         let linkText = $el.attr("title");
                         $el.addClass("sa11y-good-border")
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                         );
                     } else if ($el.children().length) {
                         if (childAriaLabelledBy != null || childAriaLabel != null || childTitle != null) {
                             $el.addClass("sa11y-good-border");
                             $el.before(
-                                Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
+                                Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                             );
                         } else {
                             this.errorCount++;
@@ -1434,7 +1434,7 @@ jQuery.noConflict();
                 } else if (error[0] != null) {
                     if (hasAriaLabelledBy != null) {
                         $el.before(
-                            Sa11yAnnotate(sa11yGood, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_LABEL')}`, true)
+                            Sa11yAnnotate(sa11yGood, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
                         );
                     } else if (hasAriaLabel != null) {
                         $el.before(
@@ -1446,14 +1446,14 @@ jQuery.noConflict();
                         this.errorCount++;
                         $el.addClass("sa11y-error-text");
                         $el.after(
-                          Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD')}`(error[0]), true)
+                          Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_STOPWORD', 'error[0]')}`, true)
                                                     `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD_TIP')}`
                         );
                     }
                 } else if (error[1] != null) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
-                    $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES')}`(error[1]), true)
+                    $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES', 'error[1]')')}`, true)
                                                           `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES_DETAILS')}`
                     );
                 } else if (error[2] != null) {
@@ -1528,7 +1528,7 @@ jQuery.noConflict();
                     } else {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-text");
-                        $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME')}`, true)
+                        $el.after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME', 'linkText')}`, true)
                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP')}`
                         );
                     }
@@ -1634,7 +1634,7 @@ jQuery.noConflict();
                     if (error[0] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE')}`, false, true)
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE', 'altText', 'error[0]')}`, false, true)
                                                                                                           `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE_INFO')}`
                         );
                     }
@@ -1646,14 +1646,14 @@ jQuery.noConflict();
                     else if (error[1] != null && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE')}`, false, true)
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE', 'altText', 'error[1]')}`, false, true)
                                                                                                               `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE_INFO')}`
                         );
                     }
                     else if (error[0] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE')}`, false, true)
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE', 'altText')}`, false, true)
                                                                                         `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO')}`
                         );
                     }
@@ -1665,7 +1665,7 @@ jQuery.noConflict();
                     else if (error[1] != null) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE')}`, false, true)
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE', 'altText', 'error[1]')}`, false, true)
                                                                                           `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE_INFO')}`
                         );
                     }
@@ -1692,7 +1692,7 @@ jQuery.noConflict();
                     else if (alt.length > 250 && $el.closest("a[href]")) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE')}`, false, true)
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE', 'altText', 'altLength')}`, false, true)
                                                                                                               `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE')}`
                         );
                     }
@@ -1701,7 +1701,7 @@ jQuery.noConflict();
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length == 0) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE')}`, false, true)
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE', 'altText')}`, false, true)
                                                                                                               `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE_INFO')}`
                         );
                     }
@@ -1710,7 +1710,7 @@ jQuery.noConflict();
                     else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE')}`, false, true)
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE', 'altText')}`, false, true)
                                                                                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE_INFO')}`
                         );
                     }
@@ -1724,12 +1724,12 @@ jQuery.noConflict();
                     else if (alt.length > 250) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning,  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_TOO_LONG_MESSAGE')}`, false, true)
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning,  `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_TOO_LONG_MESSAGE', 'altText', 'altLength')}`, false, true)
                                                                                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_TOO_LONG_MESSAGE_INFO')}`
                         );
                     }
                     else if (alt != "") {
-                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood,  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_PASS_ALT')}`, false, true));
+                        $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yGood,  `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_PASS_ALT', 'altText')}`, false, true));
                     }
                 }
             });
@@ -1780,13 +1780,13 @@ jQuery.noConflict();
                         let ariaLabel = $el.attr("title");
                         this.warningCount++;
                         $el.addClass("sa11y-warning-border");
-                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE')}`, true)
+                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')}`, true)
                                                               `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`
                         );
                     } else {
                         this.warningCount++;
                         $el.addClass("sa11y-warning-border");
-                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE')}`, true)
+                        $el.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')}`, true)
                                                               `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`
                         );
                     }
@@ -1810,7 +1810,7 @@ jQuery.noConflict();
                     } else {
                         this.errorCount++;
                         $el.addClass("sa11y-error-border");
-                        $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE')}`, true)
+                        $el.after(Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE', '$el.attr("id")'}`, true)
                                                             `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO')}`
                         );
                     }
@@ -1923,7 +1923,7 @@ jQuery.noConflict();
             $badDevLinks.forEach(($el) => {
                 this.errorCount++;
                 $el.classList.add("sa11y-error-text");
-                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BAD_LINK')}`, true));
+                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_BAD_LINK', '$el')}`, true));
             });
 
             //Warning: Find all PDFs. Although only append warning icon to first PDF on page.
@@ -1938,7 +1938,7 @@ jQuery.noConflict();
                 this.warningCount++;
                 checkPDF.addClass("sa11y-warning-text");
                 checkPDF.has("img").removeClass("sa11y-warning-text");
-                firstPDF.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BAD_LINK')}`(pdfCount), true));
+                firstPDF.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_BAD_LINK','pdfCount')}`, true));
             }
 
             //Warning: Detect uppercase.
@@ -2044,7 +2044,7 @@ jQuery.noConflict();
 
                         if ($el && boldtext.length <= 120) {
                             $el.find("strong").addClass("sa11y-fake-heading sa11y-error-heading");
-                            $el.before(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING')}`)
+                            $el.before(Sa11yAnnotate(sa11yWarning,`${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING, 'boldtext')}`)
                                                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
                             );
                         }
@@ -2062,7 +2062,7 @@ jQuery.noConflict();
                 if ($fakeHeading.text().length <= 120 && $fakeHeading.prev(this.$h).length !== 1 && $fakeHeading.next(this.$p).length == 1) {
                     let boldtext = $fakeHeading.text();
                     $fakeHeading.addClass("sa11y-fake-heading sa11y-error-heading");
-                    $fakeHeading.find("strong").after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING')}`)
+                    $fakeHeading.find("strong").after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING', 'boldtext')}`)
                                                                                  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
                                                             );
                 }
@@ -2124,7 +2124,7 @@ jQuery.noConflict();
                     if (hit) {
                         this.warningCount++;
                         $first.before(
-                            Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST')(firstPrefix)}`
+                            Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST', 'firstPrefix')}`
                                                         `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP')}`)
                         );
                         $first.addClass("sa11y-fake-list");
@@ -2317,7 +2317,7 @@ jQuery.noConflict();
 
                 this.errorCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE')}`
+                    Sa11yAnnotate(sa11yError, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio', 'nodetext')}`
                                               `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`)
                                               );
             });
@@ -2333,7 +2333,7 @@ jQuery.noConflict();
 
                 this.warningCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE')}`
+                    Sa11yAnnotate(sa11yWarning, `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE', 'nodetext')}`
                                                 `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO')}`)
                                                 );
             });
