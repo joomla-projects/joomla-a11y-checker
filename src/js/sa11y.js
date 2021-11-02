@@ -1923,7 +1923,7 @@ jQuery.noConflict();
             $badDevLinks.forEach(($el) => {
                 this.errorCount++;
                 $el.classList.add("sa11y-error-text");
-                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yError, M["badLink"]($el), true));
+                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BAD_LINK')}`, true));
             });
 
             //Warning: Find all PDFs. Although only append warning icon to first PDF on page.
@@ -1938,7 +1938,7 @@ jQuery.noConflict();
                 this.warningCount++;
                 checkPDF.addClass("sa11y-warning-text");
                 checkPDF.has("img").removeClass("sa11y-warning-text");
-                firstPDF.after(Sa11yAnnotate(sa11yWarning, M["pdf"](pdfCount), true));
+                firstPDF.after(Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BAD_LINK')}`(pdfCount), true));
             }
 
             //Warning: Detect uppercase.
@@ -1954,7 +1954,7 @@ jQuery.noConflict();
             const $warningUppercase = document.querySelectorAll(".sa11y-warning-uppercase");
 
             $warningUppercase.forEach(($el) => {
-                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yWarning, M["uppercaseWarning"], true));
+                $el.insertAdjacentHTML('afterend', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_UPPERCASE_WARNING')}`, true));
             });
 
             if ($warningUppercase.length > 0) {
@@ -1971,7 +1971,7 @@ jQuery.noConflict();
                     this.errorCount++;
                     $el.classList.add("sa11y-error-border");
                     $el.insertAdjacentHTML('beforebegin',
-                    Sa11yAnnotate(sa11yError, M["tables"]["missingHeadings"])
+                      Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_MISSING_HEADINGS')}`)
                     );
                 }
                 if (findHeadingTags.length > 0) {
@@ -1980,7 +1980,8 @@ jQuery.noConflict();
                         $el.classList.add("sa11y-error-heading");
                         $el.parentNode.classList.add("sa11y-error-border");
                         $el.insertAdjacentHTML('beforebegin',
-                            Sa11yAnnotate(sa11yError, M["tables"]["semanticHeading"])
+                             Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING')}`
+                                                       `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING_INFO')}`)
                         );
                     });
                 }
@@ -1988,7 +1989,9 @@ jQuery.noConflict();
                     if ($el.textContent.trim().length == 0) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.innerHTML = Sa11yAnnotate(sa11yError, M["tables"]["emptyHeading"]);
+                        Sa11yAnnotate(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING')}`
+                                                  `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING_INFO')}`
+                        );
                     }
                 });
             });
@@ -1998,7 +2001,7 @@ jQuery.noConflict();
             if (lang == undefined || lang.length < 2) {
                 this.errorCount++;
                 const sa11yContainer = document.getElementById("sa11y-container");
-                sa11yContainer.insertAdjacentHTML('afterend', Sa11yAnnotateBanner(sa11yError, M["pageLanguageMessage"]));
+                sa11yContainer.insertAdjacentHTML('afterend', Sa11yAnnotateBanner(sa11yError, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_PAGE_LANGUAGE_MESSAGE')}`));
             }
 
             //Excessive bolding or italics.
@@ -2007,8 +2010,8 @@ jQuery.noConflict();
             $strongitalics.forEach(($el) => {
                 if ($el.textContent.trim().length > 400) {
                     this.warningCount++;
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["badItalics"]));
-                }
+                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BAD_ITALICS')}`));
+                  }
             });
 
             //Find blockquotes used as headers.
@@ -2019,7 +2022,9 @@ jQuery.noConflict();
                 if (bqHeadingText.trim().length < 25) {
                     this.warningCount++;
                     $el.classList.add("sa11y-warning-border");
-                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, M["blockquoteMessage"](bqHeadingText)));
+                    $el.insertAdjacentHTML('beforebegin', Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BLOCKQUOTE_MESSAGE')(bqHeadingText)}`
+                                                                                      `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_BLOCKQUOTE_MESSAGE_TIP')}`)
+                    );
                 }
             });
 
@@ -2039,8 +2044,8 @@ jQuery.noConflict();
 
                         if ($el && boldtext.length <= 120) {
                             $el.find("strong").addClass("sa11y-fake-heading sa11y-error-heading");
-                            $el.before(
-                                Sa11yAnnotate(sa11yWarning, M["fakeHeading"](boldtext))
+                            $el.before(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING')}`)
+                                                           `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
                             );
                         }
                     }
@@ -2057,9 +2062,9 @@ jQuery.noConflict();
                 if ($fakeHeading.text().length <= 120 && $fakeHeading.prev(this.$h).length !== 1 && $fakeHeading.next(this.$p).length == 1) {
                     let boldtext = $fakeHeading.text();
                     $fakeHeading.addClass("sa11y-fake-heading sa11y-error-heading");
-                    $fakeHeading.find("strong").after(
-                        Sa11yAnnotate(sa11yWarning, M["fakeHeading"](boldtext), true)
-                    );
+                    $fakeHeading.find("strong").after(Sa11yAnnotate(sa11yWarning,`${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING')}`)
+                                                                                 `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
+                                                            );
                 }
 
             });
@@ -2119,7 +2124,8 @@ jQuery.noConflict();
                     if (hit) {
                         this.warningCount++;
                         $first.before(
-                            Sa11yAnnotate(sa11yWarning, M["shouldBeList"](firstPrefix))
+                            Sa11yAnnotate(sa11yWarning, `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST')(firstPrefix)}`
+                                                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP')}`)
                         );
                         $first.addClass("sa11y-fake-list");
                         activeMatch = firstPrefix;
@@ -2132,18 +2138,6 @@ jQuery.noConflict();
             });
             if ($(".sa11y-fake-list").length > 0) {
                 this.warningCount++;
-            }
-
-            //Example ruleset. Be creative.
-            let $checkAnnouncement = this.root
-                .find(".announcement-component")
-                .not(this.containerIgnore)
-            if ($checkAnnouncement.length > 1) {
-                this.warningCount++;
-                $(".announcement-component:gt(0)").addClass("sa11y-warning-border");
-                $(".announcement-component:gt(0)").before(
-                    Sa11yAnnotate(sa11yWarning, M["announcementWarningMessage"])
-                );
             }
         };
 
