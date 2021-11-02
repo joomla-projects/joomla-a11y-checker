@@ -1,3 +1,7 @@
+# Under Development
+This is a work in progress port of the sa11y script to be more inline with Joomla coding styles. Especially the removal of the jquery dependency and added support for localisation.
+
+
 ![Sa11y, the accessibility quality assurance tool.](https://ryersondmp.github.io/sa11y/assets/images/github-banner.png)
 
 # Sa11y
