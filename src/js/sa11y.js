@@ -1,3 +1,6 @@
+var bla = require('sprintf-js');
+var sprintf = bla.sprintf;
+
 //----------------------------------------------------------------------
 // Templating for Error, Warning and Pass buttons.
 //----------------------------------------------------------------------
@@ -23,7 +26,7 @@ function Sa11yAnnotate(type, content, inline = false) {
             <button
             type="button"   
             aria-label="${[type]}" 
-            class="sa11y-btn 
+            class="sa11y-btn
             sa11y-${CSSName[type]}-btn${inline ? "-text" : ""}" 
             data-tippy-content="<div lang='${sa11yLangCode}'>
                 <div class='sa11y-header-text'>${[type]}
@@ -35,33 +38,9 @@ function Sa11yAnnotate(type, content, inline = false) {
         </div>`;
 }
 
-//----------------------------------------------------------------------
-// Templating for full-width banners.
-//----------------------------------------------------------------------
-function Sa11yAnnotateBanner(type, content) {
-    ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
-    CSSName = {
-        [sa11yError]: "error",
-        [sa11yWarning]: "warning",
-        [sa11yGood]: "good",
-    };
-    // TODO: Discuss Throwing Errors.
-    if (!ValidTypes.has(type)) {
-        throw Error;
-    }
-    // Check if content is a function
-    if (content && {}.toString.call(content) === "[object Function]") {
-        // if it is, call it and get the value.
-        content = content();
-    }
-    return `<div class="sa11y-instance sa11y-${CSSName[type]}-message-container">
-        <div role="region" aria-label="${[type]}" class="sa11y-${CSSName[type]}-message" lang="${sa11yLangCode}">
-            ${content}
-        </div>
-    </div>`;
-}
+const Joomla = Joomla || {};
 
-(function () {
+(function (window, document, Joomla) {
   'use strict';
 
   var Sa11y = {
@@ -76,11 +55,34 @@ function Sa11yAnnotateBanner(type, content) {
       },
       sprintf: (string, ...args) => {
         var transString = Sa11y._(string);
-        return window.sprintf(transString, ...args);
+        return sprintf(transString, ...args);
       },
       translate: (string) => {
         return Sa11y.langStrings[string] || string;
       },
+      // Templating for full-width banners.
+      annotateBanner: (type, content) => {
+        ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
+        CSSName = {
+            [sa11yError]: "error",
+            [sa11yWarning]: "warning",
+            [sa11yGood]: "good",
+        };
+        // TODO: Discuss Throwing Errors.
+        if (!ValidTypes.has(type)) {
+            throw Error;
+        }
+        // Check if content is a function
+        if (content && {}.toString.call(content) === "[object Function]") {
+            // if it is, call it and get the value.
+            content = content();
+        }
+        return `<div class="sa11y-instance sa11y-${CSSName[type]}-message-container">
+            <div role="region" aria-label="${[type]}" class="sa11y-${CSSName[type]}-message" lang="${sa11yLangCode}">
+                ${content}
+            </div>
+        </div>`;
+      }
   };
 
   if (Joomla && Joomla.Text && Joomla.Text._)
@@ -89,7 +91,7 @@ function Sa11yAnnotateBanner(type, content) {
   }
 
   window.Sa11y = Sa11y;
-}());
+}(window, document, Joomla));
 
 //Encapsulate jQuery to avoid conflicts.
 (function ($) {
@@ -1293,7 +1295,7 @@ function Sa11yAnnotateBanner(type, content) {
                 );
 
                 $("#sa11y-container").after(
-                    Sa11yAnnotateBanner(sa11yError, sa11yIM["headings"]["missingHeadingOne"])
+                  Sa11yLang.annotateBanner(sa11yError, sa11yIM["headings"]["missingHeadingOne"])
                 );
             }
         };
@@ -1983,7 +1985,7 @@ function Sa11yAnnotateBanner(type, content) {
             if (lang == undefined || lang.length < 2) {
                 this.errorCount++;  
                 const sa11yContainer = document.getElementById("sa11y-container");
-                sa11yContainer.insertAdjacentHTML('afterend', Sa11yAnnotateBanner(sa11yError, M["pageLanguageMessage"]));
+                sa11yContainer.insertAdjacentHTML('afterend', Sa11yLang.annotateBanner(sa11yError, M["pageLanguageMessage"]));
             }
 
             //Excessive bolding or italics.
@@ -2469,8 +2471,6 @@ function Sa11yAnnotateBanner(type, content) {
     if (window.navigator.userAgent.match(/MSIE|Trident/) === null) {
         new Sa11y();
     }
-
-    //End of jQuery.noConflict mode.
 })(jQuery)
 
 /*-----------------------------------------------------------------------

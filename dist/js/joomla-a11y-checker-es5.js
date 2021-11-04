@@ -6,9 +6,276 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//----------------------------------------------------------------------
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function createCommonjsModule(fn, module) {
+  return module = {
+    exports: {}
+  }, fn(module, module.exports), module.exports;
+}
+
+var sprintf$1 = createCommonjsModule(function (module, exports) {
+  /* global window, exports, define */
+  !function () {
+    var re = {
+      not_string: /[^s]/,
+      not_bool: /[^t]/,
+      not_type: /[^T]/,
+      not_primitive: /[^v]/,
+      number: /[diefg]/,
+      numeric_arg: /[bcdiefguxX]/,
+      json: /[j]/,
+      not_json: /[^j]/,
+      text: /^[^\x25]+/,
+      modulo: /^\x25{2}/,
+      placeholder: /^\x25(?:([1-9]\d*)\$|\(([^)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-gijostTuvxX])/,
+      key: /^([a-z_][a-z_\d]*)/i,
+      key_access: /^\.([a-z_][a-z_\d]*)/i,
+      index_access: /^\[(\d+)\]/,
+      sign: /^[+-]/
+    };
+
+    function sprintf(key) {
+      // `arguments` is not an array, but should be fine for this call
+      return sprintf_format(sprintf_parse(key), arguments);
+    }
+
+    function vsprintf(fmt, argv) {
+      return sprintf.apply(null, [fmt].concat(argv || []));
+    }
+
+    function sprintf_format(parse_tree, argv) {
+      var cursor = 1,
+          tree_length = parse_tree.length,
+          arg,
+          output = '',
+          i,
+          k,
+          ph,
+          pad,
+          pad_character,
+          pad_length,
+          is_positive,
+          sign;
+
+      for (i = 0; i < tree_length; i++) {
+        if (typeof parse_tree[i] === 'string') {
+          output += parse_tree[i];
+        } else if (_typeof(parse_tree[i]) === 'object') {
+          ph = parse_tree[i]; // convenience purposes only
+
+          if (ph.keys) {
+            // keyword argument
+            arg = argv[cursor];
+
+            for (k = 0; k < ph.keys.length; k++) {
+              if (arg == undefined) {
+                throw new Error(sprintf('[sprintf] Cannot access property "%s" of undefined value "%s"', ph.keys[k], ph.keys[k - 1]));
+              }
+
+              arg = arg[ph.keys[k]];
+            }
+          } else if (ph.param_no) {
+            // positional argument (explicit)
+            arg = argv[ph.param_no];
+          } else {
+            // positional argument (implicit)
+            arg = argv[cursor++];
+          }
+
+          if (re.not_type.test(ph.type) && re.not_primitive.test(ph.type) && arg instanceof Function) {
+            arg = arg();
+          }
+
+          if (re.numeric_arg.test(ph.type) && typeof arg !== 'number' && isNaN(arg)) {
+            throw new TypeError(sprintf('[sprintf] expecting number but found %T', arg));
+          }
+
+          if (re.number.test(ph.type)) {
+            is_positive = arg >= 0;
+          }
+
+          switch (ph.type) {
+            case 'b':
+              arg = parseInt(arg, 10).toString(2);
+              break;
+
+            case 'c':
+              arg = String.fromCharCode(parseInt(arg, 10));
+              break;
+
+            case 'd':
+            case 'i':
+              arg = parseInt(arg, 10);
+              break;
+
+            case 'j':
+              arg = JSON.stringify(arg, null, ph.width ? parseInt(ph.width) : 0);
+              break;
+
+            case 'e':
+              arg = ph.precision ? parseFloat(arg).toExponential(ph.precision) : parseFloat(arg).toExponential();
+              break;
+
+            case 'f':
+              arg = ph.precision ? parseFloat(arg).toFixed(ph.precision) : parseFloat(arg);
+              break;
+
+            case 'g':
+              arg = ph.precision ? String(Number(arg.toPrecision(ph.precision))) : parseFloat(arg);
+              break;
+
+            case 'o':
+              arg = (parseInt(arg, 10) >>> 0).toString(8);
+              break;
+
+            case 's':
+              arg = String(arg);
+              arg = ph.precision ? arg.substring(0, ph.precision) : arg;
+              break;
+
+            case 't':
+              arg = String(!!arg);
+              arg = ph.precision ? arg.substring(0, ph.precision) : arg;
+              break;
+
+            case 'T':
+              arg = Object.prototype.toString.call(arg).slice(8, -1).toLowerCase();
+              arg = ph.precision ? arg.substring(0, ph.precision) : arg;
+              break;
+
+            case 'u':
+              arg = parseInt(arg, 10) >>> 0;
+              break;
+
+            case 'v':
+              arg = arg.valueOf();
+              arg = ph.precision ? arg.substring(0, ph.precision) : arg;
+              break;
+
+            case 'x':
+              arg = (parseInt(arg, 10) >>> 0).toString(16);
+              break;
+
+            case 'X':
+              arg = (parseInt(arg, 10) >>> 0).toString(16).toUpperCase();
+              break;
+          }
+
+          if (re.json.test(ph.type)) {
+            output += arg;
+          } else {
+            if (re.number.test(ph.type) && (!is_positive || ph.sign)) {
+              sign = is_positive ? '+' : '-';
+              arg = arg.toString().replace(re.sign, '');
+            } else {
+              sign = '';
+            }
+
+            pad_character = ph.pad_char ? ph.pad_char === '0' ? '0' : ph.pad_char.charAt(1) : ' ';
+            pad_length = ph.width - (sign + arg).length;
+            pad = ph.width ? pad_length > 0 ? pad_character.repeat(pad_length) : '' : '';
+            output += ph.align ? sign + arg + pad : pad_character === '0' ? sign + pad + arg : pad + sign + arg;
+          }
+        }
+      }
+
+      return output;
+    }
+
+    var sprintf_cache = Object.create(null);
+
+    function sprintf_parse(fmt) {
+      if (sprintf_cache[fmt]) {
+        return sprintf_cache[fmt];
+      }
+
+      var _fmt = fmt,
+          match,
+          parse_tree = [],
+          arg_names = 0;
+
+      while (_fmt) {
+        if ((match = re.text.exec(_fmt)) !== null) {
+          parse_tree.push(match[0]);
+        } else if ((match = re.modulo.exec(_fmt)) !== null) {
+          parse_tree.push('%');
+        } else if ((match = re.placeholder.exec(_fmt)) !== null) {
+          if (match[2]) {
+            arg_names |= 1;
+            var field_list = [],
+                replacement_field = match[2],
+                field_match = [];
+
+            if ((field_match = re.key.exec(replacement_field)) !== null) {
+              field_list.push(field_match[1]);
+
+              while ((replacement_field = replacement_field.substring(field_match[0].length)) !== '') {
+                if ((field_match = re.key_access.exec(replacement_field)) !== null) {
+                  field_list.push(field_match[1]);
+                } else if ((field_match = re.index_access.exec(replacement_field)) !== null) {
+                  field_list.push(field_match[1]);
+                } else {
+                  throw new SyntaxError('[sprintf] failed to parse named argument key');
+                }
+              }
+            } else {
+              throw new SyntaxError('[sprintf] failed to parse named argument key');
+            }
+
+            match[2] = field_list;
+          } else {
+            arg_names |= 2;
+          }
+
+          if (arg_names === 3) {
+            throw new Error('[sprintf] mixing positional and named placeholders is not (yet) supported');
+          }
+
+          parse_tree.push({
+            placeholder: match[0],
+            param_no: match[1],
+            keys: match[2],
+            sign: match[3],
+            pad_char: match[4],
+            align: match[5],
+            width: match[6],
+            precision: match[7],
+            type: match[8]
+          });
+        } else {
+          throw new SyntaxError('[sprintf] unexpected placeholder');
+        }
+
+        _fmt = _fmt.substring(match[0].length);
+      }
+
+      return sprintf_cache[fmt] = parse_tree;
+    }
+    /**
+     * export to either browser or node.js
+     */
+
+    /* eslint-disable quote-props */
+
+
+    {
+      exports['sprintf'] = sprintf;
+      exports['vsprintf'] = vsprintf;
+    }
+
+    if (typeof window !== 'undefined') {
+      window['sprintf'] = sprintf;
+      window['vsprintf'] = vsprintf;
+    }
+    /* eslint-enable quote-props */
+
+  }(); // eslint-disable-line
+});
+var _sprintf = sprintf$1.sprintf; //----------------------------------------------------------------------
 // Templating for Error, Warning and Pass buttons.
 //----------------------------------------------------------------------
+
 function Sa11yAnnotate(type, content) {
   var _CSSName;
 
@@ -26,32 +293,12 @@ function Sa11yAnnotate(type, content) {
     content = content();
   }
 
-  return "\n        <div class=".concat(inline ? "sa11y-instance-inline" : "sa11y-instance", ">\n            <button\n            type=\"button\"   \n            aria-label=\"").concat([type], "\" \n            class=\"sa11y-btn \n            sa11y-").concat(CSSName[type], "-btn").concat(inline ? "-text" : "", "\" \n            data-tippy-content=\"<div lang='").concat(sa11yLangCode, "'>\n                <div class='sa11y-header-text'>").concat([type], "\n                </div>\n                ").concat(content, " \n            </div>\n        \"> \n        </button>\n        </div>");
-} //----------------------------------------------------------------------
-// Templating for full-width banners.
-//----------------------------------------------------------------------
-
-
-function Sa11yAnnotateBanner(type, content) {
-  var _CSSName2;
-
-  ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
-  CSSName = (_CSSName2 = {}, _defineProperty(_CSSName2, sa11yError, "error"), _defineProperty(_CSSName2, sa11yWarning, "warning"), _defineProperty(_CSSName2, sa11yGood, "good"), _CSSName2); // TODO: Discuss Throwing Errors.
-
-  if (!ValidTypes.has(type)) {
-    throw Error;
-  } // Check if content is a function
-
-
-  if (content && {}.toString.call(content) === "[object Function]") {
-    // if it is, call it and get the value.
-    content = content();
-  }
-
-  return "<div class=\"sa11y-instance sa11y-".concat(CSSName[type], "-message-container\">\n        <div role=\"region\" aria-label=\"").concat([type], "\" class=\"sa11y-").concat(CSSName[type], "-message\" lang=\"").concat(sa11yLangCode, "\">\n            ").concat(content, "\n        </div>\n    </div>");
+  return "\n        <div class=".concat(inline ? "sa11y-instance-inline" : "sa11y-instance", ">\n            <button\n            type=\"button\"   \n            aria-label=\"").concat([type], "\" \n            class=\"sa11y-btn\n            sa11y-").concat(CSSName[type], "-btn").concat(inline ? "-text" : "", "\" \n            data-tippy-content=\"<div lang='").concat(sa11yLangCode, "'>\n                <div class='sa11y-header-text'>").concat([type], "\n                </div>\n                ").concat(content, " \n            </div>\n        \"> \n        </button>\n        </div>");
 }
 
-(function () {
+var Joomla = Joomla || {};
+
+(function (window, document, Joomla) {
   var Sa11y = {
     langCode: 'en',
     langStrings: {},
@@ -63,18 +310,35 @@ function Sa11yAnnotateBanner(type, content) {
       return Sa11y.translate(string);
     },
     sprintf: function sprintf(string) {
-      var _window;
-
       var transString = Sa11y._(string);
 
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
       }
 
-      return (_window = window).sprintf.apply(_window, [transString].concat(args));
+      return _sprintf.apply(void 0, [transString].concat(args));
     },
     translate: function translate(string) {
       return Sa11y.langStrings[string] || string;
+    },
+    // Templating for full-width banners.
+    annotateBanner: function annotateBanner(type, content) {
+      var _CSSName2;
+
+      ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
+      CSSName = (_CSSName2 = {}, _defineProperty(_CSSName2, sa11yError, "error"), _defineProperty(_CSSName2, sa11yWarning, "warning"), _defineProperty(_CSSName2, sa11yGood, "good"), _CSSName2); // TODO: Discuss Throwing Errors.
+
+      if (!ValidTypes.has(type)) {
+        throw Error;
+      } // Check if content is a function
+
+
+      if (content && {}.toString.call(content) === "[object Function]") {
+        // if it is, call it and get the value.
+        content = content();
+      }
+
+      return "<div class=\"sa11y-instance sa11y-".concat(CSSName[type], "-message-container\">\n            <div role=\"region\" aria-label=\"").concat([type], "\" class=\"sa11y-").concat(CSSName[type], "-message\" lang=\"").concat(sa11yLangCode, "\">\n                ").concat(content, "\n            </div>\n        </div>");
     }
   };
 
@@ -83,10 +347,8 @@ function Sa11yAnnotateBanner(type, content) {
   }
 
   window.Sa11y = Sa11y;
-})(); //Encapsulate jQuery to avoid conflicts.
+})(window, document, Joomla); //Encapsulate jQuery to avoid conflicts.
 
-
-jQuery.noConflict();
 
 (function ($) {
   var Sa11yLang = window.Sa11y;
@@ -1171,7 +1433,7 @@ jQuery.noConflict();
       if ($h1.length === 0) {
         _this.errorCount++;
         $("#sa11y-outline-header").after("<div class='sa11y-instance sa11y-missing-h1'>\n                    <span class='sa11y-badge sa11y-error-badge'><span aria-hidden='true'>&#10007;</span><span class='sa11y-visually-hidden'>".concat(sa11yError, "</span></span> \n                    <span class='sa11y-red-text sa11y-bold'>").concat(sa11yIM["headings"]["missingHeadingOnePanelText"], "</span>\n                </div>"));
-        $("#sa11y-container").after(Sa11yAnnotateBanner(sa11yError, sa11yIM["headings"]["missingHeadingOne"]));
+        $("#sa11y-container").after(Sa11yLang.annotateBanner(sa11yError, sa11yIM["headings"]["missingHeadingOne"]));
       }
     });
 
@@ -1694,7 +1956,7 @@ jQuery.noConflict();
       if (lang == undefined || lang.length < 2) {
         _this.errorCount++;
         var sa11yContainer = document.getElementById("sa11y-container");
-        sa11yContainer.insertAdjacentHTML('afterend', Sa11yAnnotateBanner(sa11yError, M["pageLanguageMessage"]));
+        sa11yContainer.insertAdjacentHTML('afterend', Sa11yLang.annotateBanner(sa11yError, M["pageLanguageMessage"]));
       } //Excessive bolding or italics.
 
 
@@ -2220,8 +2482,7 @@ jQuery.noConflict();
 
   if (window.navigator.userAgent.match(/MSIE|Trident/) === null) {
     new Sa11y();
-  } //End of jQuery.noConflict mode.
-
+  }
 })(jQuery);
 /*-----------------------------------------------------------------------
 Sa11y: the accessibility quality assurance assistant.                
@@ -2231,3 +2492,7 @@ License: https://github.com/ryersondmp/sa11y/blob/master/LICENSE.md
 Copyright (c) 2020 - 2021 Ryerson University
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 ------------------------------------------------------------------------*/
+
+
+var sa11y = {};
+export { sa11y as default };
