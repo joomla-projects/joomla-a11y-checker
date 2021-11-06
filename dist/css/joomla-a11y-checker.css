@@ -202,6 +202,7 @@ html[data-sa11y-theme=dark] {
 #sa11y-container #sa11y-toggle:hover,
 #sa11y-container #sa11y-toggle:focus {
   -webkit-animation: sa11y-toggle-gradient 3s ease !important;
+  -moz-animation: sa11y-toggle-gradient 3s ease !important;
   animation: sa11y-toggle-gradient 3s ease !important;
 }
 
@@ -253,8 +254,7 @@ html[data-sa11y-theme=dark] {
   border-bottom: 4px solid transparent;
   -webkit-animation: sa11y-rotate 1.5s ease;
   animation: sa11y-rotate 1.5s ease;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 
 #sa11y-toggle svg path {
@@ -857,8 +857,7 @@ button.sa11y-warning-btn-text:focus {
 .sa11y-visually-hidden {
   border: 0;
   clip: rect(1px, 1px, 1px, 1px) !important;
-  -webkit-clip-path: inset(50%) !important;
-          clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
   display: block !important;
   height: 1px !important;
   overflow: hidden !important;
@@ -1073,28 +1072,14 @@ span.sa11y-heading-label {
 
 /* Pulse border: https://codepen.io/olam/pen/zcqea */
 .sa11y-pulse-border {
-  -webkit-animation: pulse 2s infinite;
-          animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
   border: 3px solid var(--sa11y-focus-color) !important;
   box-shadow: 0 0 0 var(--sa11y-focus-color);
 }
 
 .sa11y-pulse-border:hover,
 .sa11y-pulse-border:focus {
-  -webkit-animation: none;
-          animation: none;
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--sa11y-focus-color);
-  }
-  70% {
-    box-shadow: 0 0 0 10px var(--sa11y-pulse-color);
-  }
-  100% {
-    box-shadow: 0 0 0 0 var(--sa11y-pulse-color);
-  }
+  animation: none;
 }
 
 @keyframes pulse {
@@ -1125,6 +1110,17 @@ span.sa11y-heading-label {
     background-position: 50% 0%;
   }
 }
+@-moz-keyframes sa11y-toggle-gradient {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
 @keyframes sa11y-toggle-gradient {
   0% {
     background-position: 50% 0%;
@@ -1138,6 +1134,7 @@ span.sa11y-heading-label {
 }
 @-webkit-keyframes sa11y-rotate {
   0% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
   100% {
@@ -1146,6 +1143,7 @@ span.sa11y-heading-label {
 }
 @keyframes sa11y-rotate {
   0% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
   100% {
@@ -1154,15 +1152,13 @@ span.sa11y-heading-label {
 }
 @media (prefers-reduced-motion: reduce) {
   #sa11y-container * {
-    -webkit-animation: none !important;
-            animation: none !important;
+    animation: none !important;
     transition: none !important;
     transform: none !important;
   }
 
   #sa11y-container .loading-sa11y::before {
-    -webkit-animation: none !important;
-            animation: none !important;
+    animation: none !important;
     opacity: 0 !important;
   }
 }
@@ -1179,8 +1175,7 @@ span.sa11y-heading-label {
 /* Hacky CSS reset to ensure maximum compatibility. */
 .tippy-box[data-theme~=sa11y-theme][role=tooltip] {
   all: unset;
-  -webkit-animation: inherit;
-          animation: inherit;
+  animation: inherit;
   box-sizing: border-box !important;
 }
 

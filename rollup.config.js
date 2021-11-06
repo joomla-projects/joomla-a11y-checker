@@ -1,8 +1,6 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from "rollup-plugin-terser";
-import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import sass from 'rollup-plugin-sass';
-import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import postcss from 'postcss';
 import { existsSync } from 'fs';
@@ -26,34 +24,36 @@ export default [
       { file: `dist/js/lang/en.js`, format: 'umd', name: 'Sa11yLangEn' },
     ]
   },
-// SCSS files
-{
-  input: 'src/scss/sa11y.scss',
-  plugins: [sass({
-    output: false,
-    processor: css => postcss([])
-      .process(css)
-      .then(async (result) => {
-        const path = `dist/css/joomla-a11y-checker.css`;
-        if (!existsSync(dirname(path))) {
-          await mkdir(dirname(path), {recursive: true})
-        }
-        await writeFile(path, result.css, {encoding: 'utf8'});
+  // SCSS files
+  {
+    input: 'src/scss/sa11y.scss',
+    plugins: [sass({
+      output: false,
+      processor: (css) => {
+        postcss()
+          .process(css, { from: undefined })
+          .then(async (result) => {
+            const path = `dist/css/joomla-a11y-checker.css`;
+            const pathMin = `dist/css/joomla-a11y-checker.min.css`;
 
-        postcss([autoprefixer({
-          from: undefined,
-          to: undefined
-        }), cssnano])
-        .process(result.css)
-        .then(async (result) => {
-          const path = `dist/css/joomla-a11y-checker.min.css`;
-          if (!existsSync(dirname(path))) {
-            await mkdir(dirname(path), {recursive: true})
-          }
-          await writeFile(path, result.css, {encoding: 'utf8'});
-        });
-      })
-  })],
-  output: []
-}
+            if (!existsSync(dirname(path))) {
+              await mkdir(dirname(path), { recursive: true })
+            }
+            await writeFile(path, result.css, { encoding: 'utf8' });
+
+            postcss([cssnano])
+              .process(result.css, { from: undefined })
+              .then(async (result) => {
+                if (!existsSync(dirname(pathMin))) {
+                  await mkdir(dirname(pathMin), { recursive: true })
+                }
+                await writeFile(pathMin, result.css, { encoding: 'utf8' });
+              });
+          })
+
+        return '';
+      }
+    })]
+  }
+
 ];
