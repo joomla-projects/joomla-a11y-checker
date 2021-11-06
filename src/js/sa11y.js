@@ -1346,8 +1346,8 @@ export class Sa11y {
         // ============================================================
         // Rulesets: Link text
         // ============================================================
-        checkLinkText = function () {
-            let containsLinkTextStopWords = function (textContent) {
+        checkLinkText () {
+            const containsLinkTextStopWords = (textContent) => {
                 let urlText = [
                     "http",
                     ".asp",
@@ -1377,7 +1377,7 @@ export class Sa11y {
                 let hit = [null, null, null];
 
                 // Flag partial stop words.
-                $.each(sa11yPartialAltStopWords, function (index, word) {
+                $.each(this.options.partialAltStopWords, function (index, word) {
                     if (
                         textContent.length === word.length &&
                         textContent.toLowerCase().indexOf(word) >= 0
@@ -1388,7 +1388,7 @@ export class Sa11y {
                 });
 
                 // Other warnings we want to add.
-                $.each(sa11yWarningAltWords, function (index, word) {
+                $.each(this.options.warningAltWords, function (index, word) {
                     if (textContent.toLowerCase().indexOf(word) >= 0) {
                         hit[1] = word;
                         return false;
@@ -1422,7 +1422,6 @@ export class Sa11y {
             };
 
             let $links = this.root.find("a[href]").not(this.linkIgnore);
-            const M = sa11yIM["linktext"];
 
             $links.each((i, el) => {
                 let $el = $(el);
@@ -1435,7 +1434,7 @@ export class Sa11y {
                 var childAriaLabel = $el.children().attr("aria-label");
                 var childTitle = $el.children().attr("title");
 
-                var error = containsLinkTextStopWords($el.ignore(sa11yLinkIgnoreSpan).text().trim());
+                var error = containsLinkTextStopWords($el.ignore(this.options.linkIgnoreSpan).text().trim());
 
                 if (linkText === "noAria") {
                     linkText = $el.text();
@@ -1444,7 +1443,7 @@ export class Sa11y {
                 //Flag empty hyperlinks
                 if (
                     $el.attr("href") !== undefined &&
-                    $el.text().trim().length == 0
+                    $el.text().trim().length === 0
                 ) {
                     if ($el.find("img").length) {
                         // Do nothing
@@ -1490,8 +1489,12 @@ export class Sa11y {
                         this.errorCount++;
                         $el.addClass("sa11y-error-text");
                         $el.after(
-                          this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'), `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_STOPWORD', 'error[0]')}`, true)
-                                                    `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD_TIP')}`
+                          this.annotate(
+                            Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_STOPWORD', 'error[0]')}`,
+                            true
+                          ),
+                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD_TIP')}`
                         );
                     }
                 } else if (error[1] != null) {
@@ -1612,8 +1615,8 @@ export class Sa11y {
         // ============================================================
         // Ruleset: Alternative text
         // ============================================================
-        checkAltText = () => {
-            this.containsAltTextStopWords = function (alt) {
+        checkAltText () {
+            this.containsAltTextStopWords = (alt) => {
                 const altUrl = [
                     ".png",
                     ".jpg",
@@ -1629,12 +1632,12 @@ export class Sa11y {
                         hit[0] = word;
                     }
                 });
-                sa11ySuspiciousAltWords.forEach((word) => {
+                this.options.suspiciousAltWords.forEach((word) => {
                     if (alt.toLowerCase().indexOf(word) >= 0) {
                         hit[1] = word;
                     }
                 });
-                sa11yPlaceholderAltStopWords.forEach((word) => {
+                this.options.placeholderAltStopWords.forEach((word) => {
                     if (alt.length === word.length && alt.toLowerCase().indexOf(word) >= 0) {
                         hit[2] = word;
                     }
@@ -1643,7 +1646,7 @@ export class Sa11y {
             };
 
             // Stores the corresponding issue text to alternative text
-            const container = document.querySelector(sa11yCheckRoot);
+            const container = document.querySelector(this.options.checkRoot);
 
             const images = Array.from(container.querySelectorAll("img"));
             const excludeimages = Array.from(container.querySelectorAll(this.imageIgnore));
@@ -1870,9 +1873,9 @@ export class Sa11y {
         // ============================================================
         // Rulesets: Embedded content.
         // ============================================================
-        checkEmbeddedContent = () => {
+        checkEmbeddedContent() {
 
-            const container = document.querySelector(sa11yCheckRoot);
+            const container = document.querySelector(this.options.checkRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
 
             const $findiframes = Array.from(container.querySelectorAll("iframe, audio, video"));
@@ -1955,14 +1958,13 @@ export class Sa11y {
         // ============================================================
         // Rulesets: QA
         // ============================================================
-        checkQA = () => {
+        checkQA() {
 
-            const M = sa11yIM["QA"];
-            const container = document.querySelector(sa11yCheckRoot);
+            const container = document.querySelector(this.options.checkRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
 
             //Error: Find all links pointing to development environment.
-            const $findbadDevLinks = Array.from(container.querySelectorAll(sa11yLinksToFlag));
+            const $findbadDevLinks = this.options.linksToFlag ? Array.from(container.querySelectorAll(this.options.linksToFlag)) : [];
             const $badDevLinks = $findbadDevLinks.filter($el => !containerexclusions.includes($el));
             $badDevLinks.forEach(($el) => {
                 this.errorCount++;
@@ -2189,9 +2191,9 @@ export class Sa11y {
         // Rulesets: Contrast
         // Color contrast plugin by jasonday: https://github.com/jasonday/color-contrast
         // ============================================================
-        checkContrast = () => {
+        checkContrast () {
 
-            const container = document.querySelector(sa11yCheckRoot);
+            const container = document.querySelector(this.options.checkRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
 
             const $findcontrast = Array.from(container.querySelectorAll("* > :not(.sa11y-heading-label)"));
@@ -2347,7 +2349,7 @@ export class Sa11y {
             }
 
             contrast.check();
-            const {errorMessage, warningMessage} = sa11yIM["contrast"];
+            //const {errorMessage, warningMessage} = sa11yIM["contrast"];
 
             contrastErrors.errors.forEach(item => {
                 var name = item.elem;
@@ -2361,9 +2363,11 @@ export class Sa11y {
 
                 this.errorCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'), `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', 'cratio', 'nodetext')}`
-                                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`)
-                                              );
+                    this.annotate(
+                      Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
+                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio, nodetext)} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`
+                    )
+                );
             });
 
             contrastErrors.warnings.forEach(item => {
@@ -2377,9 +2381,11 @@ export class Sa11y {
 
                 this.warningCount++;
                 name.insertAdjacentHTML('beforebegin',
-                    this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'), `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE', 'nodetext')}`
-                                                `${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO')}`)
-                                                );
+                    this.annotate(
+                      Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
+                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE', nodetext)} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO')}`
+                    )
+                );
             });
         };
 
