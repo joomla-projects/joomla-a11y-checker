@@ -1592,12 +1592,12 @@ export class Sa11y {
                 }
 
                 //New tab or new window.
-                var containsNewWindowPhrases = sa11yNewWindowPhrases.some(function (pass) {
+                const containsNewWindowPhrases = this.options.newWindowPhrases.some(function (pass) {
                     return linkText.toLowerCase().indexOf(pass) >= 0;
                 });
 
                 //Link that points to a file type indicates that it does.
-                var containsFileTypePhrases = sa11yFileTypePhrases.some(function (pass) {
+                const containsFileTypePhrases = this.options.fileTypePhrases.some(function (pass) {
                     return linkText.toLowerCase().indexOf(pass) >= 0;
                 });
 
@@ -2444,7 +2444,10 @@ export class Sa11y {
                 name.insertAdjacentHTML('beforebegin',
                     this.annotate(
                       Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio, nodetext)} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`
+                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio, nodetext)} 
+                        <hr aria-hidden="true"> 
+                        ${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO', cratio, nodetext)}`,
+                      true
                     )
                 );
             });
@@ -2474,7 +2477,7 @@ export class Sa11y {
         // ============================================================
         checkReadability () {
 
-            const container = document.querySelector(sa11yReadabilityRoot);
+            const container = document.querySelector(this.options.readabilityRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
 
             const $findreadability = Array.from(container.querySelectorAll("p, li"));
@@ -2552,12 +2555,12 @@ export class Sa11y {
             //Reference: https://github.com/Yoast/YoastSEO.js/issues/267
 
             let flesch_reading_ease;
-            if (sa11yReadabilityLang === "en") {
+            if (this.options.readabilityLang === 'en') {
                 flesch_reading_ease = 206.835 - (1.015 * words / sentences) - (84.6 * total_syllables / words);
-            } else if (sa11yReadabilityLang === "fr") {
+            } else if (this.options.readabilityLang === 'fr') {
                 //French (Kandel & Moles)
                 flesch_reading_ease = 207 - (1.015 * words / sentences) - (73.6 * total_syllables / words);
-            } else if (sa11yReadabilityLang === "es") {
+            } else if (this.options.readabilityLang === 'es') {
                 flesch_reading_ease = 206.84 - (1.02 * words / sentences) - (0.60 * (100 * total_syllables / words));
             }
 
@@ -2567,7 +2570,6 @@ export class Sa11y {
                 flesch_reading_ease = 0;
             }
 
-            const M = sa11yIM["readability"];
             const $readabilityinfo = document.getElementById("sa11y-readability-info");
 
             if (paragraphtext.length === 0) {
