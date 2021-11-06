@@ -74,10 +74,9 @@ export const Sa11yLang = {
 
         if (args && args.length) {
           args.forEach((arg) => {
-            transString = transString.replace('%s', arg)
+            transString = transString.replace(/%\([a-zA-z]+\)/, arg);
           });
         }
-
         return transString;
       },
       translate: function(string) {
