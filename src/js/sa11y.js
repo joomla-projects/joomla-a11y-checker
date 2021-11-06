@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
 // Templating for Error, Warning and Pass buttons.
 //----------------------------------------------------------------------
-function Sa11yAnnotate(type, content, inline = false) {
-    ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
-    CSSName = {
+export function Sa11yAnnotate(type, content, inline = false) {
+    const ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
+    const CSSName = {
         [sa11yError]: "error",
         [sa11yWarning]: "warning",
         [sa11yGood]: "good",
@@ -38,9 +38,9 @@ function Sa11yAnnotate(type, content, inline = false) {
 //----------------------------------------------------------------------
 // Templating for full-width banners.
 //----------------------------------------------------------------------
-function Sa11yAnnotateBanner(type, content) {
-    ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
-    CSSName = {
+export function Sa11yAnnotateBanner(type, content) {
+    const ValidTypes = new Set([sa11yError, sa11yWarning, sa11yGood]);
+    const CSSName = {
         [sa11yError]: "error",
         [sa11yWarning]: "warning",
         [sa11yGood]: "good",
@@ -61,43 +61,219 @@ function Sa11yAnnotateBanner(type, content) {
     </div>`;
 }
 
-(function () {
-  'use strict';
-
-  var Sa11y = {
-      langCode: 'en',
+export const Sa11yLang = {
       langStrings: {},
-      addI18n: (code, strings) => {
-          Sa11y.langCode = code;
-          Sa11y.langStrings = strings;
+      addI18n: function (strings) {
+        this.langStrings = strings;
       },
-      _: (string) => {
-          return Sa11y.translate(string)
+      _: function(string) {
+          return this.translate(string)
       },
-      sprintf: (string, ...args) => {
-        var transString = Sa11y._(string);
-        return window.sprintf(transString, ...args);
-      },
-      translate: (string) => {
-        return Sa11y.langStrings[string] || string;
-      },
-  };
+      sprintf: function(string, ...args) {
+        let transString = this._(string);
 
-  if (Joomla && Joomla.Text && Joomla.Text._)
-  {
-    Sa11y.translate = Joomla.Text._;
+        if (args && args.length) {
+          args.forEach((arg) => {
+            transString = transString.replace('%s', arg)
+          });
+        }
+
+        return transString;
+      },
+      translate: function(string) {
+        return this.langStrings[string] || string;
+      },
+};
+
+if (window.Joomla && Joomla.Text && Joomla.Text._)
+{
+  Sa11yLang.translate = Joomla.Text._;
+}
+
+  const defaultOptions = {
+    langCode: 'en',
+
+    // Target area to scan.
+    checkRoot: 'body', // A content container
+
+    // Readability configuration.
+    readabilityRoot: 'body',
+    readabilityLang: 'en',
+
+    // Inclusions and exclusions. Use commas to seperate classes or elements.
+    containerIgnore: '.sa11y-ignore', // Ignore specific regions.
+    outlineIgnore: '', // Exclude headings from outline panel.
+    headerIgnore: '', // Ignore specific headings. E.g. "h1.jumbotron-heading"
+    imageIgnore: '', // Ignore specific images.
+    linkIgnore: '', // Ignore specific links.
+    linkIgnoreSpan: 'noscript, span.sr-only-example', // Ignore specific classes within links. Example: <a href="#">learn more <span class="sr-only-example">(opens new tab)</span></a>.
+    linksToFlag: '', // Links you don't want your content editors pointing to (e.g. development environments).
+
+    // Embedded content.
+    videoContent: "video, [src*='youtube.com'], [src*='vimeo.com'], [src*='yuja.com'], [src*='panopto.com']",
+    audioContent: "audio, [src*='soundcloud.com'], [src*='simplecast.com'], [src*='podbean.com'], [src*='buzzsprout.com'], [src*='blubrry.com'], [src*='transistor.fm'], [src*='fusebox.fm'], [src*='libsyn.com']",
+    embeddedContent: '',
+
+    // Alt Text stop words.
+    suspiciousAltWords: ['image', 'graphic', 'picture', 'photo'],
+    placeholderAltStopWords: [
+      'alt',
+      'image',
+      'photo',
+      'decorative',
+      'photo',
+      'placeholder',
+      'placeholder image',
+      'spacer',
+      '.',
+    ],
+    // Link Text stop words
+    partialAltStopWords: [
+      'click',
+      'click here',
+      'click here for more',
+      'click here to learn more',
+      'click here to learn more.',
+      'check out',
+      'download',
+      'download here',
+      'download here.',
+      'find out',
+      'find out more',
+      'find out more.',
+      'form',
+      'here',
+      'here.',
+      'info',
+      'information',
+      'link',
+      'learn',
+      'learn more',
+      'learn more.',
+      'learn to',
+      'more',
+      'page',
+      'paper',
+      'read more',
+      'read',
+      'read this',
+      'this',
+      'this page',
+      'this page.',
+      'this website',
+      'this website.',
+      'view',
+      'view our',
+      'website',
+      '.',
+    ],
+    warningAltWords: [
+      '< ',
+      ' >',
+      'click here',
+    ],
+    // Link Text (Advanced)
+    newWindowPhrases: [
+      'external',
+      'new tab',
+      'new window',
+      'pop-up',
+      'pop up',
+    ],
+    // Link Text (Advanced). Only some items in list would need to be translated.
+    fileTypePhrases: [
+      'document',
+      'pdf',
+      'doc',
+      'docx',
+      'word',
+      'mp3',
+      'ppt',
+      'text',
+      'pptx',
+      'powerpoint',
+      'txt',
+      'exe',
+      'dmg',
+      'rtf',
+      'install',
+      'windows',
+      'macos',
+      'spreadsheet',
+      'worksheet',
+      'csv',
+      'xls',
+      'xlsx',
+      'video',
+      'mp4',
+      'mov',
+      'avi',
+    ],
+  };
+  defaultOptions.embeddedContent = `${defaultOptions.videoContent}, ${defaultOptions.audioContent}`;
+
+  /**
+   * Load and validate options
+   *
+   * @param {Sa11y}  instance
+   * @param {Object} customOptions
+   * @returns {Object}
+   */
+  const loadOptions = (instance, customOptions) => {
+    const options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
+
+    // Check required options
+    ['langCode', 'checkRoot', 'readabilityRoot', 'readabilityLang'].forEach((option) => {
+      if (!options[option]) {
+        throw new Error(`Option [${option}] is required`);
+      }
+    });
+
+    // Container ignores apply to self and children.
+    if (options.containerIgnore) {
+      let containerSelectors = options.containerIgnore.split(',').map((el) => {
+        return `${el} *, ${el}`
+      });
+
+      options.containerIgnore = '[aria-hidden="true"], #sa11y-container *, .sa11y-instance *, ' + containerSelectors.join(', ')
+    } else {
+      options.containerIgnore = '[aria-hidden="true"], #sa11y-container *, .sa11y-instance *';
+    }
+    instance.containerIgnore = options.containerIgnore;
+
+    // Images ignore
+    instance.imageIgnore = instance.containerIgnore + ', [role="presentation"], [src^="https://trck.youvisit.com"]';
+
+    if (options.imageIgnore) {
+      instance.imageIgnore = options.imageIgnore + ',' + instance.imageIgnore;
+    }
+
+    // Ignore specific headings
+    instance.headerIgnore = options.containerIgnore;
+
+    if (options.headerIgnore) {
+      instance.headerIgnore = options.headerIgnore + ',' + instance.headerIgnore;
+    }
+
+    // Links ignore defaults plus sa11y links.
+    instance.linkIgnore = instance.containerIgnore + ', [aria-hidden="true"], .anchorjs-link';
+
+    if (options.linkIgnore) {
+      instance.linkIgnore = options.linkIgnore + ',' + instance.linkIgnore;
+    }
+
+    return options;
   }
 
-  window.Sa11y = Sa11y;
-}());
+  export class Sa11y {
+        constructor(options) {
+          this.containerIgnore = '';
+          this.imageIgnore = '';
+          this.headerIgnore = '';
+          this.linkIgnore = '';
 
-//Encapsulate jQuery to avoid conflicts.
-(function ($) {
-
-    var Sa11yLang = window.Sa11y;
-
-    class Sa11y {
-        constructor() {
+          // Load options
+          this.options = loadOptions(this, options);
 
             //Icon on the main toggle. Easy to replace.
             const MainToggleIcon =
@@ -106,8 +282,8 @@ function Sa11yAnnotateBanner(type, content) {
             const sa11ycontainer = document.createElement("div");
             sa11ycontainer.setAttribute("id", "sa11y-container");
             sa11ycontainer.setAttribute("role", "region");
-            sa11ycontainer.setAttribute("lang", sa11yLangCode);
-            sa11ycontainer.setAttribute("aria-label", sa11yContainerLabel);
+            sa11ycontainer.setAttribute("lang", this.options.langCode);
+            sa11ycontainer.setAttribute("aria-label", Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTAINER_LABEL'));
 
             let loadContrastPreference =
                 localStorage.getItem("sa11y-remember-contrast") === "On";
@@ -167,28 +343,28 @@ function Sa11yAnnotateBanner(type, content) {
                             class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadContrastPreference ? "true" : "false"
-                            }">${loadContrastPreference ? sa11yOn : sa11yOff}</button>
+                            }">${loadContrastPreference ? Sa11yLang._('JOOMLA_A11Y_CHECKER_ON') : Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}</button>
                         </li>
                         <li>
                             <label id="check-labels" for="sa11y-labels-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_FORM_LABELS')}</label>
                             <button id="sa11y-labels-toggle" aria-labelledby="check-labels" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadLabelsPreference ? "true" : "false"
-                            }">${loadLabelsPreference ? sa11yOn : sa11yOff}</button>
+                            }">${loadLabelsPreference ? Sa11yLang._('JOOMLA_A11Y_CHECKER_ON') : Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}</button>
                         </li>
                         <li>
                             <label id="check-changerequest" for="sa11y-links-advanced-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINKS_ADVANCED')}<span class="sa11y-badge">AAA</span></label>
                             <button id="sa11y-links-advanced-toggle" aria-labelledby="check-changerequest" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadChangeRequestPreference ? "true" : "false"
-                            }">${loadChangeRequestPreference ? sa11yOn : sa11yOff}</button>
+                            }">${loadChangeRequestPreference ? Sa11yLang._('JOOMLA_A11Y_CHECKER_ON') : Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}</button>
                         </li>
                         <li>
                             <label id="check-readability" for="sa11y-readability-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_READABILITY')}<span class="sa11y-badge">AAA</span></label>
                             <button id="sa11y-readability-toggle" aria-labelledby="check-readability" class="sa11y-settings-switch"
                             aria-pressed="${
                                 loadReadabilityPreference ? "true" : "false"
-                            }">${loadReadabilityPreference ? sa11yOn : sa11yOff}</button>
+                            }">${loadReadabilityPreference ? Sa11yLang._('JOOMLA_A11Y_CHECKER_ON') : Sa11yLang._('JOOMLA_A11Y_CHECKER_OFF')}</button>
                         </li>
                         <li>
                             <label id="dark-mode" for="sa11y-theme-toggle">${Sa11yLang._('JOOMLA_A11Y_CHECKER_DARK_MODE')}</label>
@@ -237,16 +413,12 @@ function Sa11yAnnotateBanner(type, content) {
             this.settingPanelToggles();
 
             // Preload before CheckAll function.
-            $(document).ready(() => {
-                this.loadGlobals();
-                this.sa11yMainToggle();
-                this.sanitizeHTMLandComputeARIA();
-                this.initializeJumpToIssueTooltip();
-            });
+            this.sa11yMainToggle();
+            this.sanitizeHTMLandComputeARIA();
+            this.initializeJumpToIssueTooltip();
 
             //500ms to let the page settle down (e.g. slow loading JavaScript components).
             setTimeout(() => {
-                $(document).ready(() => {
                     document.getElementById("sa11y-toggle").disabled = false;
 
                     //To-do: Yes, this is total crap and needs to be re-thinked. On document.ready, it crudely checks/annotates the page, and then instantly clears/resets everything except for the badge counter. Need to figure out a way to update badge counter without painting entire page with error buttons.
@@ -254,15 +426,13 @@ function Sa11yAnnotateBanner(type, content) {
                         this.checkAll();
                         this.resetAll();
                     }
-
-                });
             }, 500);
         }
 
         //----------------------------------------------------------------------
         // Main toggle button
         //----------------------------------------------------------------------
-        sa11yMainToggle = () => {
+        sa11yMainToggle() {
 
             //Keeps checker active when navigating between pages until it is toggled off.
             const sa11yToggle = document.getElementById("sa11y-toggle");
@@ -318,80 +488,9 @@ function Sa11yAnnotateBanner(type, content) {
         }
 
         // ============================================================
-        // Global configuration settings.
-        // Stores the list of elements to ignore based on configuration.
-        // Credits to John Jameson, PrincetonU for this snippet.
-        // ============================================================
-        loadGlobals = () => {
-
-            // Look for a content container
-            if (typeof sa11yCheckRoot !== "string" || $(sa11yCheckRoot).length === 0) {
-                sa11yCheckRoot = "body";
-            }
-
-            // Readability
-            if (typeof sa11yReadabilityRoot !== "string" || $(sa11yReadabilityRoot).length === 0) {
-                sa11yReadabilityRoot = "body";
-            }
-
-            // Combine default and custom ignores.
-            const separator = ", ";
-
-            // Ignore specific classes within links.
-            if (sa11yLinkIgnoreSpan.length > 0) {
-                let sa11yLinkIgnoreSpanSelectors = sa11yLinkIgnoreSpan.split(",");
-                sa11yLinkIgnoreSpan =
-                    "noscript" + separator + sa11yLinkIgnoreSpanSelectors.join();
-            } else {
-                sa11yLinkIgnoreSpan =
-                    "noscript";
-            }
-
-            // Container ignores apply to self and children.
-            if (sa11yContainerIgnore.length > 0) {
-                let containerSelectors = sa11yContainerIgnore.split(",");
-                for (let i = 0; i < containerSelectors.length; i++) {
-                    containerSelectors[i] =
-                        containerSelectors[i] + " *, " + containerSelectors[i];
-                }
-                sa11yContainerIgnore =
-                    "[aria-hidden='true'], #sa11y-container *, .sa11y-instance *" + separator + containerSelectors.join();
-            } else {
-                sa11yContainerIgnore =
-                    "[aria-hidden='true'], #sa11y-container *, .sa11y-instance *";
-            }
-            this.containerIgnore = sa11yContainerIgnore;
-            // Images ignore defaults plus presentation role.
-            if (sa11yImageIgnore.length > 1) {
-                sa11yImageIgnore += separator;
-            }
-            this.imageIgnore =
-                sa11yImageIgnore +
-                this.containerIgnore +
-                separator +
-                "[role='presentation'], [src^='https://trck.youvisit.com']";
-
-            this.headerIgnore = sa11yHeaderIgnore;
-            // Links ignore defaults plus sa11y links.
-            if (sa11yLinkIgnore.length > 0) {
-                sa11yLinkIgnore += separator;
-            }
-            this.linkIgnore =
-                sa11yLinkIgnore +
-                sa11yContainerIgnore +
-                separator +
-                "[aria-hidden='true'], .anchorjs-link";
-            if (sa11yHeaderIgnore.length > 0) {
-                this.headerIgnore += separator + sa11yContainerIgnore;
-            } else {
-                this.headerIgnore = sa11yContainerIgnore;
-            }
-        };
-
-        // ============================================================
         // Helpers: Sanitize HTML and compute ARIA for hyperlinks
         // ============================================================
-        sanitizeHTMLandComputeARIA = () => {
+        sanitizeHTMLandComputeARIA() {
 
             //Helper: Help clean up HTML characters for tooltips and outline panel.
             this.sanitizeForHTML = function (string) {
@@ -488,7 +587,7 @@ function Sa11yAnnotateBanner(type, content) {
         //----------------------------------------------------------------------
         // Setting's panel: Additional ruleset toggles.
         //----------------------------------------------------------------------
-        settingPanelToggles = () => {
+        settingPanelToggles() {
             //Toggle: Contrast
             const $sa11yContrastCheck = document.getElementById("sa11y-contrast-toggle");
             $sa11yContrastCheck.onclick = async () => {
@@ -638,7 +737,7 @@ function Sa11yAnnotateBanner(type, content) {
         //----------------------------------------------------------------------
         // Tooltip for Jump-to-Issue button.
         //----------------------------------------------------------------------
-        initializeJumpToIssueTooltip = () => {
+        initializeJumpToIssueTooltip() {
             tippy('#sa11y-cycle-toggle', {
                 content: `<div style="text-align:center">${Sa11yLang._('JOOMLA_A11Y_CHECKER_SHORTCUT_TOOLTIP')} &raquo;<br><span class="sa11y-shortcut-icon"></span></div>`,
                 allowHTML: true,
@@ -661,8 +760,8 @@ function Sa11yAnnotateBanner(type, content) {
         checkAll = async () => {
             this.errorCount = 0;
             this.warningCount = 0;
-            this.root = $(sa11yCheckRoot);
-            this.readabilityRoot = $(sa11yReadabilityRoot);
+            this.root = $(this.options.checkRoot);
+            this.readabilityRoot = $(this.options.readabilityRoot);
 
             this.findElements();
 
@@ -700,7 +799,7 @@ function Sa11yAnnotateBanner(type, content) {
             this.detectOverflow();
 
             //Don't show badge when panel is opened.
-            if (document.getElementsByClassName("sa11y-on").length == 0) {
+            if (!document.getElementsByClassName('sa11y-on').length) {
                 this.updateBadge();
             }
         };
@@ -1198,22 +1297,22 @@ function Sa11yAnnotateBanner(type, content) {
                 let warning = null;
 
                 if (level - prevLevel > 1 && i !== 0) {
-                    error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_NON_CONSECUTIVE_LEVEL', 'prevLevel', 'level')}`;
-                } else if ($el.text().trim().length == 0) {
+                    error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_NON_CONSECUTIVE_LEVEL', prevLevel, level)}`;
+                } else if ($el.text().trim().length === 0) {
                     if ($el.find("img").length) {
                         const imgalt = $el.find("img").attr("alt");
-                        if (imgalt == undefined || imgalt == " " || imgalt == "") {
-                            error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY_WITH_IMAGE', 'level')}`;
+                        if (imgalt === undefined || imgalt === " " || imgalt === "") {
+                            error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY_WITH_IMAGE', level)}`;
                             $el.addClass("sa11y-error-text");
                         }
                     } else {
-                        error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY', 'level')}`;
+                        error = `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_EMPTY', level)}`;
                         $el.addClass("sa11y-error-text");
                     }
                 } else if (i === 0 && level !== 1 && level !== 2) {
                     error = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_FIRST')}`;
                 } else if ($el.text().trim().length > 170) {
-                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO', 'headingLength')}`;
+                    warning = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO', headingLength)}`;
                 }
 
                 prevLevel = level;
@@ -1240,10 +1339,10 @@ function Sa11yAnnotateBanner(type, content) {
                 <span class='sa11y-outline-list-item sa11y-yellow-text sa11y-bold'>${htext}</span>
             </li>`;
 
-                if ($el.not(sa11yOutlineIgnore).length !== 0) {
+                if ($el.not(this.options.outlineIgnore).length !== 0) {
 
                     //Append heading labels.
-                    $el.not(sa11yOutlineIgnore).append(
+                    $el.not(this.options.outlineIgnore).append(
                         `<span class='sa11y-heading-label'>H${level}</span>`
                     );
 
@@ -2476,12 +2575,11 @@ function Sa11yAnnotateBanner(type, content) {
     }
 
     //No IE support.
-    if (window.navigator.userAgent.match(/MSIE|Trident/) === null) {
-        new Sa11y();
-    }
+    // if (window.navigator.userAgent.match(/MSIE|Trident/) === null) {
+    //     new Sa11y();
+    // }
 
-    //End of jQuery.noConflict mode.
-})(jQuery)
+
 
 /*-----------------------------------------------------------------------
 Sa11y: the accessibility quality assurance assistant.

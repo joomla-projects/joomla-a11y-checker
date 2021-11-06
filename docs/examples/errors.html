@@ -153,11 +153,11 @@
               throughout the year in bears of temperate and arctic climates, as they build up fat reserves in the summer
               and autumn and lose weight during the winter.</p>
           </div>
-          <div class="col-md-6">
+          <!--div class="col-md-6">
             <iframe width="100%" height="100%" title="Bears on YouTube" src="https://www.youtube.com/embed/yMDOin3yWhU"
               frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen></iframe>
-          </div>
+          </div-->
         </div>
       </div>
     </div>
@@ -197,12 +197,25 @@
   <!-- Tippy.js CDN scripts -->
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://unpkg.com/tippy.js@6"></script>
- 
+
 <!--Sa11y-->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/src/sa11y.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/src/sa11y-english.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/src/sa11y.min.js"></script>
- 
+<link rel="stylesheet" href="../../dist/css/joomla-a11y-checker.css" />
+<!--<script src="../../src/js/sa11y-english.js"></script>-->
+<!--<script src="../../dist/js/joomla-a11y-checker.js" type="module"></script>-->
+<!--<script src="../../src/js/sa11y.js" type="module"></script>-->
+<script type="module">
+ import { Sa11y, Sa11yLang } from '../../src/js/sa11y.js';
+ import EngSetting from '../../src/js/lang/en.js';
+
+ // Set translations
+ Sa11yLang.addI18n(EngSetting.strings);
+
+ // Instantiate
+ const checker = new Sa11y(EngSetting.options);
+
+ console.log(checker);
+</script>
+
 </body>
 
 </html>
