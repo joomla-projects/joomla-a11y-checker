@@ -198,23 +198,35 @@
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://unpkg.com/tippy.js@6"></script>
 
-<!--Sa11y-->
-<link rel="stylesheet" href="../../dist/css/joomla-a11y-checker.css" />
-<!--<script src="../../src/js/sa11y-english.js"></script>-->
-<!--<script src="../../dist/js/joomla-a11y-checker.js" type="module"></script>-->
-<!--<script src="../../src/js/sa11y.js" type="module"></script>-->
-<script type="module">
- import { Sa11y, Sa11yLang } from '../../src/js/sa11y.js';
- import EngSetting from '../../src/js/lang/en.js';
+  <!--Sa11y-->
+  <link rel="stylesheet" href="../../dist/css/joomla-a11y-checker.css" />
 
- // Set translations
- Sa11yLang.addI18n(EngSetting.strings);
+  <!--
+  <script src="../../dist/js/joomla-a11y-checker.umd.js" type="module"></script>
+  <script src="../../dist/js/lang/en.js" type="module"></script>
+  <script type="module">
+    // Set translations
+    Sa11y.Sa11yLang.addI18n(Sa11yLangEn.strings);
 
- // Instantiate
- const checker = new Sa11y(EngSetting.options);
+    // Instantiate
+    const checker = new Sa11y.Sa11y(Sa11yLangEn.options);
 
- console.log(checker);
-</script>
+    console.log(checker);
+  </script>
+  -->
+
+  <script type="module">
+   import { Sa11y, Sa11yLang } from '../../src/js/sa11y.js';
+   import EngSetting from '../../src/js/lang/en.js';
+
+   // Set translations
+   Sa11yLang.addI18n(EngSetting.strings);
+
+   // Instantiate
+   const checker = new Sa11y(EngSetting.options);
+
+   console.log(checker);
+  </script>
 
 </body>
 
