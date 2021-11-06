@@ -753,7 +753,7 @@ export class Sa11y {
         // ============================================================
         // Reset all
         // ============================================================
-        resetAll = (restartPanel = true) => {
+        resetAll (restartPanel = true) {
             this.panelActive = false;
             this.clearEverything();
 
@@ -810,13 +810,13 @@ export class Sa11y {
                 document.querySelector('#sa11y-panel').classList.remove("sa11y-active");
             }
         };
-        clearEverything = () => {};
+        clearEverything () {};
 
         // ============================================================
         // Initialize tooltips for error/warning/pass buttons: (Tippy.js)
         // Although you can also swap this with Bootstrap's tooltip library for example.
         // ============================================================
-        initializeTooltips = () => {
+        initializeTooltips () {
             tippy(".sa11y-btn", {
                 interactive: true,
                 trigger: "mouseenter click focusin", //Focusin trigger to ensure "Jump to issue" button displays tooltip.
@@ -835,7 +835,7 @@ export class Sa11y {
         // ============================================================
         // Detect parent containers that have hidden overflow.
         // ============================================================
-        detectOverflow = () => {
+        detectOverflow () {
             const findParentWithOverflow = ($el, property, value) => {
             while($el !== null) {
                 const style = window.getComputedStyle($el);
@@ -859,7 +859,7 @@ export class Sa11y {
         // ============================================================
         // Update iOS style notification badge on icon.
         // ============================================================
-        updateBadge = () => {
+        updateBadge () {
             let totalCount = this.errorCount + this.warningCount;
             let warningCount = this.warningCount;
             const notifBadge = document.getElementById("sa11y-notification-badge");
@@ -879,7 +879,7 @@ export class Sa11y {
         // ----------------------------------------------------------------------
         // Main panel: Display and update panel.
         // ----------------------------------------------------------------------
-        updatePanel = () => {
+        updatePanel () {
             this.panelActive = true;
             let totalCount = this.errorCount + this.warningCount;
             let warningCount = this.warningCount;
@@ -1187,7 +1187,7 @@ export class Sa11y {
                 const $closeAlertToggle = document.getElementById("sa11y-close-alert");
 
                 //If location is less than 0 = hidden element (e.g. display:none);
-                if (hiddenPosition == 0) {
+                if (hiddenPosition === 0) {
                     $alertPanel.classList.add("sa11y-active");
                     $alertText.textContent = `${Sa11yLang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_1')}`;
 
@@ -1210,7 +1210,7 @@ export class Sa11y {
         // ============================================================
         // Finds all elements and caches them
         // ============================================================
-        findElements = () => {
+        findElements () {
             let {
                 root,
                 containerIgnore
@@ -1224,7 +1224,7 @@ export class Sa11y {
         // ============================================================
         // Rulesets: Check Headings
         // ============================================================
-        checkHeaders = () => {
+        checkHeaders () {
             let prevLevel;
             this.$h.each((i, el) => {
                 let $el = $(el);
@@ -1441,10 +1441,7 @@ export class Sa11y {
                 }
 
                 //Flag empty hyperlinks
-                if (
-                    $el.attr("href") !== undefined &&
-                    $el.text().trim().length === 0
-                ) {
+                if ( $el.attr('href') && !$el.text().trim()) {
                     if ($el.find("img").length) {
                         // Do nothing
                     } else if (hasAriaLabelledBy != null || hasAriaLabel != null) {
@@ -1474,16 +1471,16 @@ export class Sa11y {
                         $el.addClass("sa11y-error-border");
                         $el.after(this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'), `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_EMPTY')}`, true));
                     }
-                } else if (error[0] != null) {
-                    if (hasAriaLabelledBy != null) {
+                } else if (error[0] !== null) {
+                    if (hasAriaLabelledBy) {
                         $el.before(
-                            this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_GOOD'), `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText')}`, true)
+                            this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_GOOD'), Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', 'linkText'), true)
                         );
-                    } else if (hasAriaLabel != null) {
+                    } else if (hasAriaLabel) {
                         $el.before(
                             this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_GOOD'), M["linkLabel"](hasAriaLabel), true)
                         );
-                    } else if ($el.attr("aria-hidden") == "true" && $el.attr("tabindex") == "-1") {
+                    } else if ($el.attr("aria-hidden") === "true" && $el.attr("tabindex") === "-1") {
                         //Do nothing.
                     } else {
                         this.errorCount++;
@@ -1496,7 +1493,7 @@ export class Sa11y {
                           )
                         );
                     }
-                } else if (error[1] != null) {
+                } else if (error[1] !== null) {
                     this.warningCount++;
                     $el.addClass("sa11y-warning-text");
                     $el.after(
@@ -1525,7 +1522,7 @@ export class Sa11y {
         // ============================================================
         // Rulesets: Links (Advanced)
         // ============================================================
-        checkLinksAdvanced = () => {
+        checkLinksAdvanced () {
 
             //const M = sa11yIM["linksAdvanced"];
 
@@ -1842,7 +1839,7 @@ export class Sa11y {
         // ============================================================
         // Rulesets: Labels
         // ============================================================
-        checkLabels = () => {
+        checkLabels () {
 
             let $inputs = this.root
                 .find("input, select, textarea")
@@ -2476,7 +2473,7 @@ export class Sa11y {
         // Rulesets: Readability
         // Adapted from Greg Kraus' readability script: https://accessibility.oit.ncsu.edu/it-accessibility-at-nc-state/developers/tools/readability-bookmarklet/
         // ============================================================
-        checkReadability = () => {
+        checkReadability () {
 
             const container = document.querySelector(sa11yReadabilityRoot);
             const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
@@ -2635,17 +2632,20 @@ export class Sa11y {
         content = content();
       }
 
+      // Escape content, it is need because it used inside data-tippy-content=""
+      const $div = document.createElement('div');
+      $div.textContent = content;
+      const escapedContent = $div.innerHTML.replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+
       return `
         <div class=${inline ? "sa11y-instance-inline" : "sa11y-instance"}>
             <button
             type="button"
             aria-label="${[type]}"
-            class="sa11y-btn
-            sa11y-${CSSName[type]}-btn${inline ? "-text" : ""}"
+            class="sa11y-btn sa11y-${CSSName[type]}-btn${inline ? "-text" : ""}"
             data-tippy-content="<div lang='${this.options.langCode}'>
-                <div class='sa11y-header-text'>${[type]}
-                </div>
-                ${content}
+                <div class='sa11y-header-text'>${[type]}</div>
+                ${escapedContent}
             </div>
         ">
         </button>
@@ -2677,6 +2677,7 @@ export class Sa11y {
         // if it is, call it and get the value.
         content = content();
       }
+
       return `<div class="sa11y-instance sa11y-${CSSName[type]}-message-container">
       <div role="region" aria-label="${[type]}" class="sa11y-${CSSName[type]}-message" lang="${this.options.langCode}">
           ${content}
