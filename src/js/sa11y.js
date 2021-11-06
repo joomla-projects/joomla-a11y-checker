@@ -1488,7 +1488,7 @@ export class Sa11y {
                         $el.after(
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_STOPWORD', error[0])} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD_TIP')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_STOPWORD', error[0])} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_STOPWORD_TIP')}`,
                             true
                           )
                         );
@@ -1499,7 +1499,7 @@ export class Sa11y {
                     $el.after(
                       this.annotate(
                         Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                        `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES', error[1])} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES_DETAILS')}`,
+                        `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES', error[1])} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_BEST_PRACTICES_DETAILS')}`,
                         true
                       )
                     );
@@ -1510,7 +1510,7 @@ export class Sa11y {
                         $el.after(
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL_TIP')}`,
+                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_URL_TIP')}`,
                             true
                           )
                         );
@@ -1582,7 +1582,7 @@ export class Sa11y {
                         $el.after(
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME', 'linkText')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME', 'linkText')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP')}`,
                             true
                           )
                         );
@@ -1608,7 +1608,7 @@ export class Sa11y {
                     $el.after(
                       this.annotate(
                         Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING_TIP')}`,
+                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_NEW_TAB_WARNING_TIP')}`,
                         true
                       )
                     );
@@ -1620,7 +1620,7 @@ export class Sa11y {
                     $el.after(
                       this.annotate(
                         Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING_TIP')}`,
+                        `${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_FILE_TYPE_WARNING_TIP')}`,
                         true
                       )
                     );
@@ -1701,7 +1701,7 @@ export class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE', 'altText', 'error[0]')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE_INFO')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE', 'altText', 'error[0]')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_BAD_ALT_MESSAGE_INFO')}`,
                             false
                           )
                         );
@@ -1718,7 +1718,7 @@ export class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE', 'altText', 'error[1]')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE_INFO')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE', 'altText', 'error[1]')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_SUS_ALT_MESSAGE_INFO')}`,
                             false
                           )
                         );
@@ -1730,7 +1730,7 @@ export class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE', 'altText')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE', 'altText')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO')}`,
                             false
                           )
                         );
@@ -1747,7 +1747,7 @@ export class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE', 'altText', 'error[1]')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE_INFO')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE', 'altText', 'error[1]')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_SUS_WORD_MESSAGE_INFO')}`,
                             false
                           )
                         );
@@ -1779,7 +1779,7 @@ export class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE', 'altText', 'altLength')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE_INFO')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE', 'altText', 'altLength')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_HYPERLINK_ALT_LENGTH_MESSAGE_INFO')}`,
                             false
                           )
                         );
@@ -1793,7 +1793,7 @@ export class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE', 'altText')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE_INFO')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE', 'altText')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE_INFO')}`,
                             false
                           )
                         );
@@ -1806,7 +1806,7 @@ export class Sa11y {
                         $el.closest("a[href]").insertAdjacentHTML(
                           'beforebegin',
                           this.annotate(Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE', 'altText')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE_INFO')}`,
+                            `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE', 'altText')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LINK_ANCHOR_LINK_AND_ALT_MESSAGE_INFO')}`,
                             false
                           )
                         );
@@ -1873,7 +1873,7 @@ export class Sa11y {
                     $el.addClass("sa11y-warning-border");
                     $el.after(this.annotate(
                       Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                      `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE_TIP')}`,
+                      `${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_INPUT_RESET_MESSAGE_TIP')}`,
                       true
                       )
                     );
@@ -1886,7 +1886,7 @@ export class Sa11y {
                         $el.addClass("sa11y-warning-border");
                         $el.after(this.annotate(
                           Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                          `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`,
+                          `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`,
                           true
                           )
                         );
@@ -1895,7 +1895,7 @@ export class Sa11y {
                         $el.addClass("sa11y-warning-border");
                         $el.after(this.annotate(
                           Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                          `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`,
+                          `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE', 'ariaLabel')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO')}`,
                           true)
                         );
                     }
@@ -1921,7 +1921,7 @@ export class Sa11y {
                         $el.addClass("sa11y-error-border");
                         $el.after(this.annotate(
                           Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                          `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE', '$el.attr("id")')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO')}`,
+                          `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE', '$el.attr("id")')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO')}`,
                           true)
                         );
                     }
@@ -2093,7 +2093,7 @@ export class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING_INFO')}`
+                            `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_SEMANTIC_HEADING_INFO')}`
                           )
                         );
                     });
@@ -2104,7 +2104,7 @@ export class Sa11y {
                         $el.classList.add("sa11y-error-border");
                         $el.innerHTML = this.annotate(
                           Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING_INFO')}`
+                          `${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_TABLES_EMPTY_HEADING_INFO')}`
                         );
                     }
                 });
@@ -2186,7 +2186,7 @@ export class Sa11y {
                     $fakeHeading.find("strong").after(
                       this.annotate(
                         Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                        `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING', 'boldtext')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
+                        `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING', 'boldtext')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO')}`
                       )
                     );
                 }
@@ -2250,7 +2250,7 @@ export class Sa11y {
                         $first.before(
                             this.annotate(
                               Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST', 'firstPrefix')} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP')}`
+                              `${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST', 'firstPrefix')} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP')}`
                             )
                         );
                         $first.addClass("sa11y-fake-list");
@@ -2445,7 +2445,7 @@ export class Sa11y {
                 name.insertAdjacentHTML('beforebegin',
                     this.annotate(
                       Sa11yLang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio, nodetext)} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`
+                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio, nodetext)} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO')}`
                     )
                 );
             });
@@ -2463,7 +2463,7 @@ export class Sa11y {
                 name.insertAdjacentHTML('beforebegin',
                     this.annotate(
                       Sa11yLang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE', nodetext)} ${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO')}`
+                      `${Sa11yLang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE', nodetext)} <hr aria-hidden="true"> ${Sa11yLang._('JOOMLA_A11Y_CHECKER_CONTRAST_WARNING_MESSAGE_INFO')}`
                     )
                 );
             });
