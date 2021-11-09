@@ -11,6 +11,44 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
     integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+
+  <!--Sa11y StyleSheet-->
+  <link rel="stylesheet" href="../../dist/css/joomla-a11y-checker.css" />
+
+  <!-- Bootstrap + Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous" defer></script>
+
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const $iframeCheck = document.getElementById('iframe-check');
+      const $newtabonly = document.getElementById('newtabonly');
+
+      if (window.top === window) {
+        $iframeCheck.parentElement.removeChild($iframeCheck);
+        $newtabonly.style.display = 'block';
+      } else {
+        $iframeCheck.style.display = 'block';
+        $newtabonly.style.display = 'none';
+      }
+    });
+  </script>
+
+  <!-- Tippy.js CDN scripts -->
+  <script src="https://unpkg.com/@popperjs/core@2" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/tippy.js@6" crossorigin="anonymous" defer></script>
+
+  <!--Sa11y JavaScript-->
+  <script type="module">
+    import Sa11y from '../../src/js/sa11y.js';
+    import EngSetting from '../../src/js/lang/en.js';
+
+    // Set translations
+    Sa11y.Lang.addI18n(EngSetting.strings);
+
+    // Instantiate
+    const checker = new Sa11y.Sa11y(EngSetting.options);
+  </script>
 </head>
 <body>
   <header>
@@ -182,10 +220,10 @@
             </div>
           </div>
         </div>
-        
+
         <div class="row">
           <div class="col-md-6">
-            
+
             <p>The FAMILY URSIDAE IS ONE OF THE NINE families in the suborder Caniformia, or "doglike" carnivorans,
               within the order Carnivora. Bears' closest living relatives are the pinnipeds, canids, and musteloids.
               Modern bears comprise eight species
@@ -199,7 +237,7 @@
               those of procyonids, which supports the inclusion of these two species in Ursidae rather than in
               Procyonidae, where they had been placed
               by some earlier authorities.</p>
-              
+
             <p>- bears<br>
               - beats<br>
               - battlestar galactica
@@ -248,41 +286,6 @@
         ignored. If a content editor can't edit it, don't scan it. Purposely super low contrast for testing purposes.</p>
     </div>
   </footer>
-  <!-- Bootstrap + Jquery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-  </script>
-
-  <script>
-    $(document).ready(function () {
-      if (window.top == window) {
-        $("#iframe-check").remove();
-      } else {
-        $("#iframe-check").css("display", "block")
-      }
-
-      if (window.top != window) {
-        $("#newtabonly").css("display", "none")
-      } else {
-        $("#newtabonly").css("display", "block")
-      }
-    });
-  </script>
-
-  <!--Jquery (Yes, loaded a second time on purpose...)-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js"></script>
-
-  <!-- Tippy.js CDN scripts -->
-  <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="https://unpkg.com/tippy.js@6"></script>
-  
-<!--Sa11y-->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/src/sa11y.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/src/sa11y-english.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@latest/src/sa11y.min.js"></script>
 
 </body>
 
