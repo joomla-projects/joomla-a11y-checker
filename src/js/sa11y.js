@@ -910,28 +910,28 @@ class Sa11y {
             }
             else if (this.errorCount === 1 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_2', warningCount);
+                $sa11yStatus.textContent = Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_2', this.warningCount);
             }
             else if (this.errorCount > 0 && this.warningCount === 1) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_3', errorCount);
+                $sa11yStatus.textContent = Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_3', this.errorCount);
             }
             else if (this.errorCount > 0 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
-                $sa11yStatus.textContent = Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_4', errorCount, warningCount);
+                $sa11yStatus.textContent = Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_4', this.errorCount, this.warningCount);
             }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-errors");
                 $sa11yStatus.textContent = this.errorCount === 1 ?
                   Lang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_5') :
-                  Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_6', errorCount)
+                  Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_6', this.errorCount)
                 ;
             }
             else if (this.warningCount > 0) {
                 $panelContent.setAttribute("class", "sa11y-warnings");
                 $sa11yStatus.textContent = totalCount === 1 ?
                     Lang._('JOOMLA_A11Y_CHECKER_PANEL_STATUS_7'):
-                    Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_8', errorCount)
+                    Lang.sprintf('JOOMLA_A11Y_CHECKER_PANEL_STATUS_8', this.warningCount)
                 ;
             }
             else {
@@ -1480,7 +1480,7 @@ class Sa11y {
                         );
                     } else if (hasAriaLabel) {
                         $el.before(
-                            this.annotate(Lang._('JOOMLA_A11Y_CHECKER_GOOD'), M["linkLabel"](hasAriaLabel), true)
+                            this.annotate(Lang._('JOOMLA_A11Y_CHECKER_GOOD'), Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_LABEL', hasAriaLabel), true)
                         );
                     } else if ($el.attr("aria-hidden") === "true" && $el.attr("tabindex") === "-1") {
                         //Do nothing.
@@ -2212,7 +2212,7 @@ class Sa11y {
                     return prefixDecrement[match];
                 });
             };
-            this.$p.each(function (i, el) {
+            this.$p.each((i, el) => {
                 let $first = $(el);
                 let hit = false;
                 // Grab first two characters.
