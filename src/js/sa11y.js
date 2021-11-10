@@ -1711,7 +1711,7 @@ class Sa11y {
                     else if (error[2] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('JOOMLA_A11Y_CHECKER_ERROR'), `${Lang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE')}`, false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('JOOMLA_A11Y_CHECKER_ERROR'), `${Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE', altText)}`, false, true));
                     }
                     else if (error[1] != null && $el.closest("a[href]")) {
                         this.warningCount++;
