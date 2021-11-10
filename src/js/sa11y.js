@@ -1260,7 +1260,7 @@ class Sa11y {
                 } else if (i === 0 && level !== 1 && level !== 2) {
                     error = `${Lang._('JOOMLA_A11Y_CHECKER_HEADING_FIRST')}`;
                 } else if ($el.text().trim().length > 170) {
-                    warning = `${Lang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Lang._('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO', headingLength)}`;
+                    warning = `${Lang._('JOOMLA_A11Y_CHECKER_HEADING_LONG')} . ${Lang.sprintf('JOOMLA_A11Y_CHECKER_HEADING_LONG_INFO', headingLength)}`;
                 }
 
                 prevLevel = level;
