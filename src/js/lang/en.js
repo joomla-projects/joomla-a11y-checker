@@ -121,7 +121,7 @@ export default {
     "JOOMLA_A11Y_CHECKER_LABELS_MISSING_IMAGE_INPUT_MESSAGE": "Image button is missing alt text. Please add alt text to provide an accessible name. For example: <em>Search</em> or <em>Submit</em>.",
     "JOOMLA_A11Y_CHECKER_LABELS_MISSING_LABEL_MESSAGE": "There is no label associated with this input. Please add an <span class=\"sa11y-kbd\">id</span> to this input, and add a matching <span class=\"sa11y-kbd\">for</span> attribute to the label.",
     "JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE": "There is no label associated with this input. Add a <span class=\"sa11y-kbd\">for</span> attribute to the label that matches the <span class=\"sa11y-kbd\">id</span> of this input.",
-    "JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO": "The ID for this input is: <span class=\"sa11y-bold\">id=&#34;${t}&#34;</span>",
+    "JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO": "The ID for this input is: <span class=\"sa11y-bold\">id=&#34;%(t)&#34;</span>",
 
     // Embedded content
     "JOOMLA_A11Y_CHECKER_EMBED_AUDIO": "Please ensure to provide a <span class=\"sa11y-bold\">transcript for all podcasts.</span> Providing transcripts for audio content is a mandatory Level A requirement. Transcripts support people who are D/deaf or hard-of-hearing, but can benefit everyone. Consider placing the transcript below or within an accordion panel.",

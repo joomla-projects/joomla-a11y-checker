@@ -1923,7 +1923,7 @@ class Sa11y {
                         $el.addClass("sa11y-error-border");
                         $el.after(this.annotate(
                           Lang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                          `${Lang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE', $el.attr("id"))} <hr aria-hidden="true"> ${Lang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO')}`,
+                          `${Lang._('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO', $el.attr("id"))}`,
                           true)
                         );
                     }
