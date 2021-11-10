@@ -1732,7 +1732,7 @@ class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Lang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                            `${Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE', altText)} <hr aria-hidden="true"> ${Lang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO')}`,
+                            `${Lang._('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO', error[0],altText)}`,
                             false
                           )
                         );
