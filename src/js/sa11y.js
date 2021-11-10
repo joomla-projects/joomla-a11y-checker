@@ -1466,7 +1466,7 @@ class Sa11y {
                         } else {
                             this.errorCount++;
                             $el.addClass("sa11y-error-border");
-                            $el.after(this.annotate(Lang._('JOOMLA_A11Y_CHECKER_ERROR'), Lang._('JOOMLA_A11Y_CHECKER_LINK_EMPTY_LINK_NO_LABEL'), true));
+                            $el.after(this.annotate(Lang._('JOOMLA_A11Y_CHECKER_ERROR'), Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_EMPTY_LINK_NO_LABEL'), true));
                         }
                     } else {
                         this.errorCount++;
@@ -2252,7 +2252,7 @@ class Sa11y {
                         $first.before(
                             this.annotate(
                               Lang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                              `${Lang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST', 'firstPrefix')} <hr aria-hidden="true"> ${Lang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP')}`
+                              `${Lang.sprintf('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST', firstPrefix)} <hr aria-hidden="true"> ${Lang._('JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP')}`
                             )
                         );
                         $first.addClass("sa11y-fake-list");
@@ -2447,8 +2447,8 @@ class Sa11y {
                 name.insertAdjacentHTML('beforebegin',
                     this.annotate(
                       Lang._('JOOMLA_A11Y_CHECKER_ERROR'),
-                      `${Lang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio, nodetext)} 
-                        <hr aria-hidden="true"> 
+                      `${Lang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE', cratio, nodetext)}
+                        <hr aria-hidden="true">
                         ${Lang.sprintf('JOOMLA_A11Y_CHECKER_CONTRAST_ERROR_MESSAGE_INFO', cratio, nodetext)}`,
                       true
                     )
