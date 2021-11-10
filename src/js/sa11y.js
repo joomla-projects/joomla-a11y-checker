@@ -1584,7 +1584,7 @@ class Sa11y {
                         $el.after(
                           this.annotate(
                             Lang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME', linkText)} <hr aria-hidden="true"> ${Lang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP')}`,
+                            `${Lang._('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IDENTICAL_NAME_TIP', linkText)}`,
                             true
                           )
                         );
