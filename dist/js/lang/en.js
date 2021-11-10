@@ -127,7 +127,7 @@
       "JOOMLA_A11Y_CHECKER_LABELS_MISSING_IMAGE_INPUT_MESSAGE": "Image button is missing alt text. Please add alt text to provide an accessible name. For example: <em>Search</em> or <em>Submit</em>.",
       "JOOMLA_A11Y_CHECKER_LABELS_MISSING_LABEL_MESSAGE": "There is no label associated with this input. Please add an <span class=\"sa11y-kbd\">id</span> to this input, and add a matching <span class=\"sa11y-kbd\">for</span> attribute to the label.",
       "JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE": "There is no label associated with this input. Add a <span class=\"sa11y-kbd\">for</span> attribute to the label that matches the <span class=\"sa11y-kbd\">id</span> of this input.",
-      "JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO": "The ID for this input is: <span class=\"sa11y-bold\">id=&#34;${t}&#34;</span>",
+      "JOOMLA_A11Y_CHECKER_LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO": "The ID for this input is: <span class=\"sa11y-bold\">id=&#34;%(t)&#34;</span>",
 
       // Embedded content
       "JOOMLA_A11Y_CHECKER_EMBED_AUDIO": "Please ensure to provide a <span class=\"sa11y-bold\">transcript for all podcasts.</span> Providing transcripts for audio content is a mandatory Level A requirement. Transcripts support people who are D/deaf or hard-of-hearing, but can benefit everyone. Consider placing the transcript below or within an accordion panel.",
@@ -150,11 +150,11 @@
       "JOOMLA_A11Y_CHECKER_QA_BAD_LINK": "Bad link found. Link appears to point to a development environment. This link points to: <span class=\"sa11y-bold sa11y-red-text\">$(el)</span>",
       "JOOMLA_A11Y_CHECKER_QA_BLOCKQUOTE_MESSAGE": "Is this a heading? <span class=\"sa11y-bold sa11y-red-text\">%(bqHeadingText)</span>",
       "JOOMLA_A11Y_CHECKER_QA_BLOCKQUOTE_MESSAGE_TIP": "Blockquotes should be used for quotes only. If this is intended to be a heading, change this blockquote to a semantic heading (e.g. Heading 2 or Heading 3).",
-      "JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING": "Is this a heading? <span class=\"sa11y-bold sa11y-red-text\">$(boldtext)</span>",
+      "JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING": "Is this a heading? <span class=\"sa11y-bold sa11y-red-text\">%(boldtext)</span>",
       "JOOMLA_A11Y_CHECKER_QA_FAKE_HEADING_INFO": "A line of bold text might look like a heading, but someone using a screen reader cannot tell that it is important or jump to its content. Bolded text should never replace semantic headings (Heading 2 to Heading 6).",
       "JOOMLA_A11Y_CHECKER_QA_PAGE_LANGUAGE_MESSAGE": "Page language not declared! Please <a href=\"https://www.w3.org/International/questions/qa-html-language-declarations\" target=\"_blank\">declare language on HTML tag.</a>",
       "JOOMLA_A11Y_CHECKER_QA_PDF_COUNT": "PDFs are considered web content and must be made accessible as well. PDFs often contain issues for people who use screen readers (missing structural tags or missing form field labels) and people who have low vision (text does not reflow when enlarged). <ul><li>If this is a form, consider using an accessible HTML form as an alternative.</li><li>If this is a document, consider converting it into a web page.</li></ul><br>Otherwise, please check <span class=\"sa11y-bold sa11y-red-text\">%(pdfCount)</span> <a href=\"https://www.adobe.com/accessibility/products/acrobat/using-acrobat-pro-accessibility-checker.html\" target=\"_blank\">PDF(s) for accessibility in Acrobat DC.</a>",
-      "JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST": "Are you trying to create a list? Possible list item found: <span class=\"sa11y-bold sa11y-red-text\">$(firstPrefix)</span>",
+      "JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST": "Are you trying to create a list? Possible list item found: <span class=\"sa11y-bold sa11y-red-text\">%(firstPrefix)</span>",
       "JOOMLA_A11Y_CHECKER_QA_SHOULD_BE_LIST_TIP": "Make sure to use semantic lists by using the bullet or number formatting buttons instead. When using a semantic list, assistive technologies are able to convey information such as the total number of items and the relative position of each item in the list. Learn more about <a href=\"https://www.w3.org/WAI/tutorials/page-structure/content/#lists\" target=\"_blank\">semantic lists.</a>",
       "JOOMLA_A11Y_CHECKER_QA_UPPERCASE_WARNING": "Found all caps. Some screen readers may interpret all caps text as an acronym and will read each letter individually. Additionally, some people find all caps more difficult to read and it may give the appearance of SHOUTING.",
 
