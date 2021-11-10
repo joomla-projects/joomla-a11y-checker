@@ -1795,7 +1795,7 @@ class Sa11y {
                           'beforebegin',
                           this.annotate(
                             Lang._('JOOMLA_A11Y_CHECKER_WARNING'),
-                            `${Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE', altText)} <hr aria-hidden="true"> ${Lang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE_INFO')}`,
+                            `${Lang._('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('JOOMLA_A11Y_CHECKER_LINK_IMAGE_LINK_ALT_TEXT_MESSAGE_INFO', altText)}`,
                             false
                           )
                         );
