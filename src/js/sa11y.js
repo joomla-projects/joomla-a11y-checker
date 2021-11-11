@@ -1304,8 +1304,8 @@ class Sa11y {
             </li>`;
 
             let ignoreArray = [];
-            if (sa11yOutlineIgnore) {
-                ignoreArray = Array.from(document.querySelectorAll(sa11yOutlineIgnore));
+            if (outlineIgnore) {
+                ignoreArray = Array.from(document.querySelectorAll(outlineIgnore));
             }
 
             if (!ignoreArray.includes(el)) {
