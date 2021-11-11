@@ -137,7 +137,7 @@
 
       // Contrast
       'CONTRAST_ERROR_MESSAGE': 'This text does not have enough contrast with the background. The contrast ratio should be at least 4.5:1 for normal text and 3:1 for large text.',
-      'CONTRAST_ERROR_MESSAGE_INFO': 'The contrast ratio is <span class="sa11y-red-text sa11y-bold">%(cratio)</span> for the following text:<span class="sa11y-bold sa11y-red-text">%(nodetext)</span>',
+      'CONTRAST_ERROR_MESSAGE_INFO': 'The contrast ratio is <span class="sa11y-red-text sa11y-bold">%(cratio)</span> for the following text: <span class="sa11y-bold sa11y-red-text">%(nodetext)</span>',
       'CONTRAST_WARNING_MESSAGE': 'The contrast of this text is unknown and needs to be manually reviewed. Ensure the text and the background have strong contrasting colours. The contrast ratio should be at least 4.5:1 for normal text and 3:1 for large text.',
       'CONTRAST_WARNING_MESSAGE_INFO': 'Please review contrast of the following text:<br><span class="sa11y-bold">%(nodetext)</span>',
 
