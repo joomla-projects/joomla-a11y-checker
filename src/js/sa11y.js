@@ -1304,8 +1304,8 @@ class Sa11y {
             </li>`;
 
             let ignoreArray = [];
-            if (outlineIgnore) {
-                ignoreArray = Array.from(document.querySelectorAll(outlineIgnore));
+            if (this.options.outlineIgnore) {
+                ignoreArray = Array.from(document.querySelectorAll(this.options.outlineIgnore));
             }
 
             if (!ignoreArray.includes(el)) {
@@ -1313,7 +1313,7 @@ class Sa11y {
                     el.insertAdjacentHTML("beforeend", `<span class='sa11y-heading-label'>H${level}</span>`);
 
                     //Heading errors
-                    if (error != null && el.closest("a").length != null) {
+                    if (error != null && el.closest("a")) {
                         this.errorCount++;
                         el.classList.add("sa11y-error-heading");
                         el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('ERROR'), error, true));
@@ -1326,7 +1326,7 @@ class Sa11y {
                     }
 
                     //Heading warnings
-                    else if (warning != null && el.closest("a").length != null) {
+                    else if (warning != null && el.closest("a")) {
                         this.warningCount++;
                         el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('WARNING'), warning));
                         document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liWarning);
