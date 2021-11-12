@@ -23,7 +23,7 @@
     "lint": "npm run lint:css && npm run lint:js",
     "lint:js": "node ./node_modules/eslint/bin/eslint.js src",
     "lint:css": "stylelint --config .stylelintrc.json -s scss \"src/scss/**/*.scss\"",
-    "serve": "light-server -b localhost -s ./ -w \"src/**/* # npm run build # reload\""
+    "serve": "light-server -p 8080 -b localhost -s ./ -w \"src/**/* # npm run build # reload\""
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
