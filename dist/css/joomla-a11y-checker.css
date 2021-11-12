@@ -368,16 +368,19 @@ html[data-sa11y-theme=dark] {
 #sa11y-container .sa11y-errors .sa11y-panel-icon {
   background: var(--sa11y-panel-error) !important;
   mask: var(--sa11y-error-svg) center no-repeat !important;
+  -webkit-mask: var(--sa11y-error-svg) center no-repeat !important;
 }
 
 #sa11y-container .sa11y-good .sa11y-panel-icon {
   background: var(--sa11y-good) !important;
   mask: var(--sa11y-good-svg) center no-repeat !important;
+  -webkit-mask: var(--sa11y-good-svg) center no-repeat !important;
 }
 
 #sa11y-container .sa11y-warnings .sa11y-panel-icon {
   background: var(--sa11y-warning-svg-color) !important;
   mask: var(--sa11y-warning-svg) center no-repeat !important;
+  -webkit-mask: var(--sa11y-warning-svg) center no-repeat !important;
 }
 
 /* Shortcut icon */
@@ -388,6 +391,7 @@ html[data-sa11y-theme=dark] {
   margin-top: 5px !important;
   background: var(--sa11y-panel-primary) !important;
   mask: var(--sa11y-shortcut-svg) center no-repeat !important;
+  -webkit-mask: var(--sa11y-shortcut-svg) center no-repeat !important;
 }
 
 /* Outline and settings Panel */
@@ -668,6 +672,7 @@ html[data-sa11y-theme=dark] {
 #sa11y-container .sa11y-close-btn:after {
   background: var(--sa11y-setting-switch-bg-off) !important;
   mask: var(--sa11y-close-btn-svg) center no-repeat !important;
+  -webkit-mask: var(--sa11y-close-btn-svg) center no-repeat !important;
 }
 
 /* Toggle buttons within Settings panel. */
@@ -699,11 +704,13 @@ html[data-sa11y-theme=dark] {
 #sa11y-container .sa11y-settings-switch[aria-pressed=true]:after {
   background: var(--sa11y-setting-switch-bg-on) !important;
   mask: var(--sa11y-setting-switch-on-svg) center no-repeat !important;
+  -webkit-mask: var(--sa11y-setting-switch-on-svg) center no-repeat !important;
 }
 
 #sa11y-container .sa11y-settings-switch[aria-pressed=false]:after {
   background: var(--sa11y-setting-switch-bg-off) !important;
   mask: var(--sa11y-setting-switch-off-svg) center no-repeat !important;
+  -webkit-mask: var(--sa11y-setting-switch-off-svg) center no-repeat !important;
 }
 
 /* Default keyboard focus */
