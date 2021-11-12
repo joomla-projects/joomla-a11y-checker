@@ -15,7 +15,7 @@ npm run serve
 
 Then open [](http://localhost:8080/docs/examples/errors.html)
 
-Any change inside /src folder files will trigger the build process for the files and will reload the page with the new changes
+Any change inside /src folder files will trigger the build process for the files and will reload the page with the new changes.
 
 ![Sa11y, the accessibility quality assurance tool.](https://ryersondmp.github.io/sa11y/assets/images/github-banner.png)
 
