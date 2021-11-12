@@ -1,6 +1,21 @@
 # Under Development
 This is a work in progress port of the sa11y script to be more inline with Joomla coding styles. Especially the removal of the jquery dependency and added support for localisation.
 
+## Dev environment
+
+We have included a light server to test the example files. To use this environment just:
+1. Clone this repo on your computer
+2. Be sure you have node installed and up to date
+3. Execute *npm install*
+4. In a terminal execute:
+
+```
+npm run serve
+```
+
+Then open [](http://localhost:8080/docs/examples/errors.html)
+
+Any change inside /src folder files will trigger the build process for the files and will reload the page with the new changes.
 
 ![Sa11y, the accessibility quality assurance tool.](https://ryersondmp.github.io/sa11y/assets/images/github-banner.png)
 

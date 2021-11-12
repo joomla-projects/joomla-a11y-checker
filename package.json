@@ -22,7 +22,8 @@
     "build": "rimraf dist && node ./node_modules/rollup/dist/bin/rollup -c rollup.config.js",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:js": "node ./node_modules/eslint/bin/eslint.js src",
-    "lint:css": "stylelint --config .stylelintrc.json -s scss \"src/scss/**/*.scss\""
+    "lint:css": "stylelint --config .stylelintrc.json -s scss \"src/scss/**/*.scss\"",
+    "serve": "light-server -p 8080 -b localhost -s ./ -w \"src/**/* # npm run build # reload\""
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
@@ -47,5 +48,7 @@
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.19.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "light-server": "^2.9.1"
+  }
 }
