@@ -468,63 +468,73 @@ class Sa11y {
 
             //Helper: Compute alt text on images within a text node.
             this.computeTextNodeWithImage = function ($el) {
-                let returnText = "";
+              const imgArray = Array.from($el.querySelectorAll("img"));
+              let returnText = "";
                 //No image, has text.
-                if ($el.find("img").length === 0 && $el.text().trim().length > 1) {
-                    returnText = $el.text().trim();
+                if (imgArray.length === 0 && $el.textContent.trim().length > 1) {
+                  returnText = $el.textContent.trim();
                 }
                 //Has image, no text.
-                else if ($el.find("img").length && $el.text().trim().length === 0) {
-                    let imgalt = $el.find("img").attr("alt");
+                else if (imgArray.length && $el.textContent.trim().length === 0) {
+                  let imgalt = imgArray[0].getAttribute("alt");
                     if (imgalt == undefined || imgalt == " " || imgalt == "") {
                         returnText = " ";
-                    } else if ($el.find("img").attr("alt") !== undefined) {
+                      } else if (imgalt !== undefined) {
                         returnText = imgalt;
                     }
                 }
                 //Has image and text.
                 //To-do: This is a hack? Any way to do this better?
-                else if ($el.find("img").length && $el.text().trim().length) {
-                    $el.find("img").each(function(){
-                       $(this).clone().insertAfter($(this)).replaceWith(" <span class='sa11y-clone-image-text' aria-hidden='true'>" + $(this).attr('alt') + "</span> ");
-                    });
-                    returnText = $el.text().trim();
+                else if (imgArray.length && $el.textContent.trim().length) {
+                  imgArray.forEach(element => {
+                      element.insertAdjacentHTML("afterend", " <span class='sa11y-clone-image-text' aria-hidden='true'>" + imgArray[0].getAttribute("alt") + "</span> ")
+                  });
+                  returnText = $el.textContent.trim();
                 }
                 return returnText;
             }
 
             //Helper: Handle ARIA labels for Link Text module.
             this.computeAriaLabel = function ($el) {
+              const el = $el.get(0); //remove when calling functions are converted
 
-                if ($el.is("[aria-label]")) {
-                    return $el.attr("aria-label");
-                }
-                else if ($el.is("[aria-labelledby]")) {
-                    let target = $el.attr("aria-labelledby").split(/\s+/);
+              if (el.matches("[aria-label]")) {
+                  return el.getAttribute("aria-label");
+              }
+                else if (el.matches("[aria-labelledby]")) {
+                    let target = el.getAttribute("aria-labelledby").split(/\s+/);
                     if (target.length > 0) {
                         let returnText = "";
-                        $.each($(target), function (i, el) {
-                            returnText += $("#" + el).ignore("span.sa11y-heading-label").text() + " ";
-                        });
+                        target.forEach((x) => {
+                          if (document.querySelector("#" + x) === null) {
+                              returnText += " ";
+                          } else {
+                              returnText += document.querySelector("#" + x).firstChild.nodeValue + " ";
+                          }
+                      })
                         return returnText;
                     } else {
                         return "";
                     }
                 }
                 //Children of element.
-                else if ($el.children().is("[aria-label]")) {
-                    return $el.children().attr("aria-label");
+                else if (Array.from(el.children).filter(x => x.matches("[aria-label]")).length > 0) {
+                  return Array.from(el.children)[0].getAttribute("aria-label");
                 }
-                else if ($el.children().is("[title]")) {
-                    return $el.children().attr("title");
+                else if (Array.from(el.children).filter(x => x.matches("[title]")).length > 0) {
+                  return Array.from(el.children)[0].getAttribute("title");
                 }
-                else if ($el.children().is("[aria-labelledby]")) {
-                    let target = $el.children().attr("aria-labelledby").split(/\s+/);
+                else if (Array.from(el.children).filter(x => x.matches("[aria-labelledby]")).length > 0) {
+                  let target = Array.from(el.children)[0].getAttribute("aria-labelledby").split(/\s+/);
                     if (target.length > 0) {
                         let returnText = "";
-                        $.each($(target), function (i, el) {
-                            returnText += $("#" + el).ignore("span.sa11y-heading-label").text() + " ";
-                        });
+                        target.forEach((x) => {
+                          if (document.querySelector("#" + x) === null) {
+                              returnText += " ";
+                          } else {
+                              returnText += document.querySelector("#" + x).firstChild.nodeValue + " ";
+                          }
+                      })
                         return returnText;
                     } else {
                         return "";
@@ -1220,14 +1230,13 @@ class Sa11y {
         // Finds all elements and caches them
         // ============================================================
         findElements () {
-            let {
-                root,
-                containerIgnore
-            } = this;
-            this.$p = root.find("p").not(containerIgnore);
-            this.$h = root
-                .find("h1, h2, h3, h4, h5, h6, [role='heading'][aria-level]")
-                .not(containerIgnore);
+          const allHeadings = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6, [role='heading'][aria-level]"));
+          const allPs = Array.from(document.querySelectorAll("p"));
+
+          const containerExclusions = Array.from(document.querySelectorAll(this.containerIgnore));
+
+          this.$h = allHeadings.filter(heading => !containerExclusions.includes(heading))
+          this.$p = allPs.filter(p => !containerExclusions.includes(p))
         };
 
         // ============================================================
@@ -1235,45 +1244,45 @@ class Sa11y {
         // ============================================================
         checkHeaders () {
             let prevLevel;
-            this.$h.each((i, el) => {
-                let $el = $(el);
-                let text = this.computeTextNodeWithImage($el);
+
+            this.$h.forEach((el, i) => {
+              let text = this.computeTextNodeWithImage(el);
                 let htext = this.sanitizeForHTML(text);
                 let level;
 
-                if ($el.attr("aria-level")) {
-                    level = +$el.attr("aria-level");
+                if (el.getAttribute("aria-level")) {
+                  level = +el.getAttribute("aria-level");
                 } else {
-                    level = +$el[0].tagName.slice(1);
+                  level = +el.tagName.slice(1);
                 }
 
-                let headingLength = $el.text().trim().length;
+                let headingLength = el.textContent.trim().length;
                 let error = null;
                 let warning = null;
 
                 if (level - prevLevel > 1 && i !== 0) {
                     error = Lang.sprintf('HEADING_NON_CONSECUTIVE_LEVEL', prevLevel, level);
-                } else if ($el.text().trim().length === 0) {
-                    if ($el.find("img").length) {
-                        const imgalt = $el.find("img").attr("alt");
+                  } else if (el.textContent.trim().length == 0) {
+                    if (el.querySelectorAll("img").length) {
+                        const imgalt = el.querySelector("img").getAttribute("alt");
                         if (imgalt === undefined || imgalt === " " || imgalt === "") {
                             error = Lang.sprintf('HEADING_EMPTY_WITH_IMAGE', level);
-                            $el.addClass("sa11y-error-text");
+                            el.classList.add("sa11y-error-text");
                         }
                     } else {
                         error = Lang.sprintf('HEADING_EMPTY', level);
-                        $el.addClass("sa11y-error-text");
-                    }
+                        el.classList.add("sa11y-error-text");
+                      }
                 } else if (i === 0 && level !== 1 && level !== 2) {
                     error = `${Lang._('HEADING_FIRST')}`;
-                } else if ($el.text().trim().length > 170) {
+                  } else if (el.textContent.trim().length > 170) {
                     warning = `${Lang._('HEADING_LONG')} . ${Lang.sprintf('HEADING_LONG_INFO', headingLength)}`;
                 }
 
                 prevLevel = level;
 
                 let li =
-                    `<li class='sa11y-outline-${level}'>
+                `<li class='sa11y-outline-${level}'>
                 <span class='sa11y-badge'>${level}</span>
                 <span class='sa11y-outline-list-item'>${htext}</span>
             </li>`;
@@ -1294,40 +1303,41 @@ class Sa11y {
                 <span class='sa11y-outline-list-item sa11y-yellow-text sa11y-bold'>${htext}</span>
             </li>`;
 
-                if ($el.not(this.options.outlineIgnore).length !== 0) {
+            let ignoreArray = [];
+            if (this.options.outlineIgnore) {
+                ignoreArray = Array.from(document.querySelectorAll(this.options.outlineIgnore));
+            }
 
+            if (!ignoreArray.includes(el)) {
                     //Append heading labels.
-                    $el.not(this.options.outlineIgnore).append(
-                        `<span class='sa11y-heading-label'>H${level}</span>`
-                    );
+                    el.insertAdjacentHTML("beforeend", `<span class='sa11y-heading-label'>H${level}</span>`);
 
                     //Heading errors
-                    if (error != null && $el.closest("a").length > 0) {
+                    if (error != null && el.closest("a")) {
                         this.errorCount++;
-                        $el.addClass("sa11y-error-heading");
-                        $el.closest("a").after(this.annotate(Lang._('ERROR'), error, true));
-                        $("#sa11y-outline-list").append(liError);
+                        el.classList.add("sa11y-error-heading");
+                        el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('ERROR'), error, true));
+                        document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                     } else if (error != null) {
                         this.errorCount++;
-                        $el.addClass("sa11y-error-heading");
-                        $el.before(this.annotate(Lang._('ERROR'), error));
-                        $("#sa11y-outline-list").append(liError);
+                        el.classList.add("sa11y-error-heading");
+                        el.insertAdjacentHTML("beforebegin", this.annotate(Lang._('ERROR'), error));
+                        document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                     }
 
                     //Heading warnings
-                    else if (warning != null && $el.closest("a").length > 0) {
+                    else if (warning != null && el.closest("a")) {
                         this.warningCount++;
-                        $el.closest("a").after(this.annotate(Lang._('WARNING'), warning));
-                        $("#sa11y-outline-list").append(liWarning);
+                        el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('WARNING'), warning));
+                        document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liWarning);
                     } else if (warning != null) {
-                        this.warningCount++;
-                        $el.before(this.annotate(Lang._('WARNING'), warning));
-                        $("#sa11y-outline-list").append(liWarning);
+                        el.insertAdjacentHTML("beforebegin", this.annotate(Lang._('WARNING'), warning));
+                        document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liWarning);
                     }
 
                     //Not an error or warning
                     else if (error == null || warning == null) {
-                        $("#sa11y-outline-list").append(li);
+                        document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", li);
                     }
                 }
             });
@@ -2221,7 +2231,7 @@ class Sa11y {
                     return prefixDecrement[match];
                 });
             };
-            this.$p.each((i, el) => {
+            this.$p.forEach((el, i) => {
                 let $first = $(el);
                 let hit = false;
                 // Grab first two characters.
