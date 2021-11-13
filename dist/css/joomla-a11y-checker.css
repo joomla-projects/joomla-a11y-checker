@@ -804,10 +804,10 @@ button.sa11y-warning-btn-text {
 /* Error */
 button.sa11y-error-btn,
 button.sa11y-error-btn-text {
-  background: 50% 50% var(--sa11y-error) var(--sa11y-error-svg) no-repeat !important;
-  background-color: var(--sa11y-error) !important;
-  background-size: 22px !important;
-  border: 1px solid var(--sa11y-error) !important;
+  background: 50% 50% var(--sa11y-error) var(--sa11y-error-svg) no-repeat;
+  background-color: var(--sa11y-error);
+  background-size: 22px;
+  border: 1px solid var(--sa11y-error);
 }
 
 button.sa11y-error-btn:hover,
