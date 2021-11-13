@@ -13,7 +13,7 @@ We have included a light server to test the example files. To use this environme
 npm run serve
 ```
 
-Then open [](http://localhost:8080/docs/examples/errors.html)
+Then open [http://localhost:8080/docs/examples/errors.html](http://localhost:8080/docs/examples/errors.html) in your browser.
 
 Any change inside /src folder files will trigger the build process for the files and will reload the page with the new changes.
 
