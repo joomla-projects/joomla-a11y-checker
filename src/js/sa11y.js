@@ -16,7 +16,7 @@ const isElementHidden = ($el) => {
 const escapeHTML = (text) => {
   const $div = document.createElement('div');
   $div.textContent = text;
-  return $div.innerHTML.replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+  return $div.innerHTML.replaceAll('"', '&quot;').replaceAll("'", '&#039;').replaceAll("`", '&#x60;');
 }
 
 /**
@@ -469,28 +469,6 @@ class Sa11y {
         // ============================================================
         sanitizeHTMLandComputeARIA() {
 
-            //Helper: Help clean up HTML characters for tooltips and outline panel.
-            this.sanitizeForHTML = function (string) {
-                let entityMap = {
-                    "&": "&amp;",
-                    "<": "&lt;",
-                    ">": "&gt;",
-                    '"': "&quot;",
-                    "'": "&#39;",
-                    "/": "&#x2F;",
-                    "`": "&#x60;",
-                    "=": "&#x3D;",
-                };
-                return String(string).replace(/[&<>"'`=\/]/g, function (s) {
-                    return entityMap[s];
-                });
-            };
-
-            //Mini ignore function.
-            $.fn.ignore = function (sel) {
-                return this.clone().find(sel || ">*").remove().end();
-            };
-
             //Helper: Compute alt text on images within a text node.
             this.computeTextNodeWithImage = function ($el) {
               const imgArray = Array.from($el.querySelectorAll("img"));
@@ -502,7 +480,7 @@ class Sa11y {
                 //Has image, no text.
                 else if (imgArray.length && $el.textContent.trim().length === 0) {
                   let imgalt = imgArray[0].getAttribute("alt");
-                    if (imgalt == undefined || imgalt == " " || imgalt == "") {
+                    if (!imgalt || imgalt === " ") {
                         returnText = " ";
                       } else if (imgalt !== undefined) {
                         returnText = imgalt;
@@ -520,14 +498,12 @@ class Sa11y {
             }
 
             //Helper: Handle ARIA labels for Link Text module.
-            this.computeAriaLabel = function ($el) {
-              // jQuery check, remove when calling functions are converted
-              const el = $el.length ? $el[0] : $el;
+            this.computeAriaLabel = function (el) {
 
               if (el.matches("[aria-label]")) {
                   return el.getAttribute("aria-label");
               }
-                else if (el.matches("[aria-labelledby]")) {
+              else if (el.matches("[aria-labelledby]")) {
                     let target = el.getAttribute("aria-labelledby").split(/\s+/);
                     if (target.length > 0) {
                         let returnText = "";
@@ -750,9 +726,6 @@ class Sa11y {
             this.warningCount = 0;
             this.$root = document.querySelector(this.options.checkRoot);
 
-            // @TODO: remove when jQuery dependency will be removed
-            this.root = $(this.options.checkRoot);
-
             this.findElements();
 
             //Ruleset checks
@@ -926,11 +899,8 @@ class Sa11y {
         updatePanel () {
             this.panelActive = true;
             let totalCount = this.errorCount + this.warningCount;
-            let warningCount = this.warningCount;
-            let errorCount = this.errorCount;
 
             this.buildPanel();
-
             this.skipToIssue();
 
             const $sa11ySkipBtn = document.getElementById("sa11y-cycle-toggle");
@@ -1002,7 +972,7 @@ class Sa11y {
             const $headingAnnotations = document.querySelectorAll(".sa11y-heading-label");
 
             //Show outline panel
-            $outlineToggle.addEventListener('click', (e) => {
+            $outlineToggle.addEventListener('click', () => {
                 if ($outlineToggle.getAttribute("aria-expanded") === "true") {
                     $outlineToggle.classList.remove("sa11y-outline-active");
                     $outlinePanel.classList.remove("sa11y-active");
@@ -1049,7 +1019,7 @@ class Sa11y {
             }
 
             //Show settings panel
-            $settingsToggle.addEventListener('click', (e) => {
+            $settingsToggle.addEventListener('click', () => {
                 if ($settingsToggle.getAttribute("aria-expanded") === "true") {
                     $settingsToggle.classList.remove("sa11y-settings-active");
                     $settingsPanel.classList.remove("sa11y-active");
@@ -1139,8 +1109,9 @@ class Sa11y {
 
         skipToIssue = () => {
             /* Polyfill for scrollTo. scrollTo instead of .animate(), so Sa11y could use jQuery slim build. Credit: https://stackoverflow.com/a/67108752 & https://github.com/iamdustan/smoothscroll */
-            var reducedMotionQuery = false;
-            var scrollBehavior = "smooth";
+            //let reducedMotionQuery = false;
+            //let scrollBehavior = 'smooth';
+            /*
             if (!('scrollBehavior' in document.documentElement.style)) {
                 var js = document.createElement('script');
                 js.src = "https://cdn.jsdelivr.net/npm/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js";
@@ -1154,17 +1125,18 @@ class Sa11y {
                     scrollBehavior = "auto";
                 }
             }
+            */
 
             let sa11yBtnLocation = 0;
-            const findSa11yBtn = $(".sa11y-btn").length;
+            const findSa11yBtn = document.querySelectorAll('.sa11y-btn').length;
 
             //Jump to issue using keyboard shortcut.
-            document.onkeyup = function (e) {
-                if (e.altKey && e.code == "Period") {
+            document.addEventListener('keyup', (e) => {
+                if (e.altKey && e.code === "Period") {
                     skipToIssueToggle();
                     e.preventDefault();
                 }
-            };
+            });
 
             //Jump to issue using click.
             const $skipToggle = document.getElementById("sa11y-cycle-toggle");
@@ -1180,7 +1152,7 @@ class Sa11y {
                 const $alertPanel = document.getElementById("sa11y-panel-alert");
                 const $alertText = document.getElementById("sa11y-panel-alert-text");
                 const $alertPanelPreview = document.getElementById("sa11y-panel-alert-preview");
-                const $closeAlertToggle = document.getElementById("sa11y-close-alert");
+                //const $closeAlertToggle = document.getElementById("sa11y-close-alert");
 
                  //Mini function: Find visibible parent of hidden element.
                 const findVisibleParent = ($el, property, value) => {
@@ -1197,7 +1169,7 @@ class Sa11y {
 
                 //Mini function: Calculate top of element.
                 const offset = ($el) => {
-                  var rect = $el.getBoundingClientRect(),
+                  let rect = $el.getBoundingClientRect(),
                   scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                   return { top: rect.top + scrollTop}
               }
@@ -1205,7 +1177,7 @@ class Sa11y {
                 //'offsetTop' will always return 0 if element is hidden. We rely on offsetTop to determine if element is hidden, although we use 'getBoundingClientRect' to set the scroll position.
                 let scrollPosition;
                 let offsetTopPosition = $findButtons[sa11yBtnLocation].offsetTop;
-                if (offsetTopPosition == 0) {
+                if (offsetTopPosition === 0) {
                     let visiblePosition = findVisibleParent($findButtons[sa11yBtnLocation], 'display', 'none');
                     scrollPosition = offset(visiblePosition.previousElementSibling).top - 50;
                 } else {
@@ -1217,7 +1189,7 @@ class Sa11y {
                     setTimeout(function() {
                         window.scrollTo({
                             top: scrollPosition,
-                            behavior: scrollBehavior
+                            behavior: 'smooth'
                         });
                     }, 1);
 
@@ -1237,7 +1209,7 @@ class Sa11y {
                 }
 
                 //Alert if element is hidden.
-                if (offsetTopPosition == 0) {
+                if (offsetTopPosition === 0) {
                     $alertPanel.classList.add("sa11y-active");
                     $alertText.textContent = `${Lang._('PANEL_STATUS_1')}`;
                     $alertPanelPreview.innerHTML = $findButtons[sa11yBtnLocation].getAttribute('data-tippy-content');
@@ -1275,7 +1247,7 @@ class Sa11y {
 
             this.$h.forEach((el, i) => {
               let text = this.computeTextNodeWithImage(el);
-                let htext = this.sanitizeForHTML(text);
+                let htext = escapeHTML(text);
                 let level;
 
                 if (el.getAttribute("aria-level")) {
@@ -1426,7 +1398,7 @@ class Sa11y {
                 let hit = [null, null, null];
 
                 // Flag partial stop words.
-                this.options.partialAltStopWords.forEach((word, index) => {
+                this.options.partialAltStopWords.forEach((word) => {
                     if (
                         textContent.length === word.length &&
                         textContent.toLowerCase().indexOf(word) >= 0
@@ -1437,7 +1409,7 @@ class Sa11y {
                 });
 
                 // Other warnings we want to add.
-                this.options.warningAltWords.forEach((word, index) => {
+                this.options.warningAltWords.forEach((word) => {
                     if (textContent.toLowerCase().indexOf(word) >= 0) {
                         hit[1] = word;
                         return false;
@@ -1445,7 +1417,7 @@ class Sa11y {
                 });
 
                 // Flag link text containing URLs.
-                urlText.forEach((word, index) => {
+                urlText.forEach((word) => {
                     if (textContent.toLowerCase().indexOf(word) >= 0) {
                         hit[2] = word;
                         return false;
@@ -1478,7 +1450,7 @@ class Sa11y {
             const $links = Array.from(this.$root.querySelectorAll('a[href]'))
               .filter($a => !$linkIgnore.includes($a));
 
-            $links.forEach((el, i) => {
+            $links.forEach((el) => {
                 let linkText = this.computeAriaLabel(el);
                 let hasAriaLabelledBy = el.getAttribute('aria-labelledby');
                 let hasAriaLabel = el.getAttribute('aria-label');
@@ -1602,7 +1574,7 @@ class Sa11y {
               .filter($a => !$linkIgnore.includes($a));
 
             let seen = {};
-            $linksTargetBlank.forEach((el, i) => {
+            $linksTargetBlank.forEach((el) => {
                 let linkText = this.computeAriaLabel(el);
 
                 if (linkText === 'noAria') {
@@ -1756,7 +1728,7 @@ class Sa11y {
                 }
                 // If alt attribute is present, further tests are done.
                 else {
-                    let altText = this.sanitizeForHTML(alt); //Prevent tooltip from breaking.
+                    let altText = escapeHTML(alt); //Prevent tooltip from breaking.
                     let error = containsAltTextStopWords(altText);
                     let altLength = alt.length;
 
@@ -1912,8 +1884,7 @@ class Sa11y {
                 return !this.$containerExclusions.includes($i) && !isElementHidden($i);
               });
 
-            $inputs.forEach((el, i) => {
-                let $el = $(el);
+            $inputs.forEach((el) => {
                 let ariaLabel = this.computeAriaLabel(el);
                 const type = el.getAttribute('type')
 
@@ -2112,7 +2083,10 @@ class Sa11y {
             $badDevLinks.forEach(($el) => {
                 this.errorCount++;
                 $el.classList.add("sa11y-error-text");
-                $el.insertAdjacentHTML('afterend', this.annotate(Lang._('ERROR'), Lang.sprintf('QA_BAD_LINK', $el.attr('href')), true));
+                $el.insertAdjacentHTML(
+                  'afterend',
+                  this.annotate(Lang._('ERROR'), Lang.sprintf('QA_BAD_LINK', $el.getAttribute('href')), true)
+                );
             });
 
             //Warning: Find all PDFs. Although only append warning icon to first PDF on page.
@@ -2139,9 +2113,9 @@ class Sa11y {
             const $findallcaps = Array.from(this.$root.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li:not([class^='sa11y']), blockquote"));
             const $allcaps = $findallcaps.filter($el => !this.$containerExclusions.includes($el));
             $allcaps.forEach(function ($el) {
-                var uppercasePattern = /(?!<a[^>]*?>)(\b[A-Z][',!:A-Z\s]{15,}|\b[A-Z]{15,}\b)(?![^<]*?<\/a>)/g;
+                let uppercasePattern = /(?!<a[^>]*?>)(\b[A-Z][',!:A-Z\s]{15,}|\b[A-Z]{15,}\b)(?![^<]*?<\/a>)/g;
 
-                var html = $el.innerHTML;
+                let html = $el.innerHTML;
                 $el.innerHTML = html.replace(uppercasePattern, "<span class='sa11y-warning-uppercase'>$1</span>");
             });
 
@@ -2172,7 +2146,7 @@ class Sa11y {
                     this.errorCount++;
                     findHeadingTags.forEach(($el) => {
                         $el.classList.add("sa11y-error-heading");
-                        $el.parentNode.classList.add("sa11y-error-border");
+                        $el.parentElement.classList.add("sa11y-error-border");
                         $el.insertAdjacentHTML(
                           'beforebegin',
                           this.annotate(
@@ -2215,7 +2189,7 @@ class Sa11y {
             //Find blockquotes used as headers.
             const $findblockquotes = Array.from(this.$root.querySelectorAll("blockquote"));
             const $blockquotes = $findblockquotes.filter($el => !this.$containerExclusions.includes($el));
-            $blockquotes.forEach(($el, i) => {
+            $blockquotes.forEach(($el) => {
                 let bqHeadingText = $el.textContent;
                 if (bqHeadingText.trim().length < 25) {
                     this.warningCount++;
@@ -2232,13 +2206,13 @@ class Sa11y {
 
             // Warning: Detect fake headings.
             const $p = this.$p;
-            $p.forEach(($el, i) => {
+            $p.forEach(($el) => {
                 let brAfter = $el.innerHTML.indexOf("</strong><br>");
                 let brBefore = $el.innerHTML.indexOf("<br></strong>");
 
                 //Check paragraphs greater than x characters.
                 if ($el && $el.textContent.trim().length >= 300) {
-                  var firstChild = $el.firstChild;
+                  let firstChild = $el.firstChild;
 
                     //If paragraph starts with <strong> tag and ends with <br>.
                     if (firstChild.tagName === "STRONG" && (brBefore !== -1 || brAfter !== -1)) {
@@ -2295,7 +2269,7 @@ class Sa11y {
                     return prefixDecrement[match];
                 });
             };
-            this.$p.forEach((el, i) => {
+            this.$p.forEach((el) => {
                 let hit = false;
                 // Grab first two characters.
                 let firstPrefix = el.textContent.substring(0, 2);
@@ -2364,11 +2338,11 @@ class Sa11y {
             };
 
             let elements = $contrast;
-            var contrast = {
+            let contrast = {
                 // Parse rgb(r, g, b) and rgba(r, g, b, a) strings into an array.
                 // Adapted from https://github.com/gka/chroma.js
                 parseRgb: function (css) {
-                    var i, m, rgb, _i, _j;
+                    let i, m, rgb, _i, _j;
                     if (m = css.match(/rgb\(\s*(\-?\d+),\s*(\-?\d+)\s*,\s*(\-?\d+)\s*\)/)) {
                         rgb = m.slice(1, 4);
                         for (i = _i = 0; _i <= 2; i = ++_i) {
@@ -2386,22 +2360,22 @@ class Sa11y {
                 },
                 // Based on http://www.w3.org/TR/WCAG20/#relativeluminancedef
                 relativeLuminance: function (c) {
-                    var lum = [];
-                    for (var i = 0; i < 3; i++) {
-                        var v = c[i] / 255;
+                    let lum = [];
+                    for (let i = 0; i < 3; i++) {
+                      let v = c[i] / 255;
                         lum.push(v < 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
                     }
                     return (0.2126 * lum[0]) + (0.7152 * lum[1]) + (0.0722 * lum[2]);
                 },
                 // Based on http://www.w3.org/TR/WCAG20/#contrast-ratiodef
                 contrastRatio: function (x, y) {
-                    var l1 = contrast.relativeLuminance(contrast.parseRgb(x));
-                    var l2 = contrast.relativeLuminance(contrast.parseRgb(y));
-                    return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+                  let l1 = contrast.relativeLuminance(contrast.parseRgb(x));
+                  let l2 = contrast.relativeLuminance(contrast.parseRgb(y));
+                  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
                 },
 
                 getBackground: function (el) {
-                    var styles = getComputedStyle(el),
+                    let styles = getComputedStyle(el),
                         bgColor = styles.backgroundColor,
                         bgImage = styles.backgroundImage,
                         rgb = contrast.parseRgb(bgColor) + '',
@@ -2427,9 +2401,9 @@ class Sa11y {
                     }
                 },
                 // check visibility - based on jQuery method
-                isVisible: function (el) {
-                    return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
-                },
+                // isVisible: function (el) {
+                //     return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+                // },
                 check: function () {
                     // resets results
                     contrastErrors = {
@@ -2437,12 +2411,12 @@ class Sa11y {
                         warnings: []
                     };
 
-                    for (var i = 0; i < elements.length; i++) {
-                        (function (n) {
-                            var elem = elements[n];
-                            // test if visible. Although we want invisible too.
+                    for (let i = 0; i < elements.length; i++) {
+                        (function (elem) {
+
+                            // Test if visible. Although we want invisible too.
                             if (contrast /* .isVisible(elem) */) {
-                                var style = getComputedStyle(elem),
+                                let style = getComputedStyle(elem),
                                     color = style.color,
                                     fill = style.fill,
                                     fontSize = parseInt(style.fontSize),
@@ -2501,7 +2475,7 @@ class Sa11y {
                                     }
                                 }
                             }
-                        })(i);
+                        })(elements[i]);
                     }
                     return contrastErrors;
                 }
@@ -2511,18 +2485,19 @@ class Sa11y {
             //const {errorMessage, warningMessage} = sa11yIM["contrast"];
 
             contrastErrors.errors.forEach(item => {
-                var name = item.elem;
-                var cratio = item.ratio;
-                var clone = name.cloneNode(true);
-                var removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
-                for(var i = 0; i < removeSa11yHeadingLabel.length; i++){
+                let name = item.elem;
+                let cratio = item.ratio;
+                let clone = name.cloneNode(true);
+                let removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
+                for(let i = 0; i < removeSa11yHeadingLabel.length; i++){
                     clone.removeChild(removeSa11yHeadingLabel[i])
                 }
-                var nodetext = clone.textContent;
+                let nodetext = clone.textContent;
 
                 this.errorCount++;
-                name.insertAdjacentHTML('beforebegin',
-                    this.annotate(
+                name.insertAdjacentHTML(
+                  'beforebegin',
+                  this.annotate(
                       Lang._('ERROR'),
                       `${Lang.sprintf('CONTRAST_ERROR_MESSAGE', cratio, nodetext)}
                         <hr aria-hidden="true">
@@ -2533,17 +2508,18 @@ class Sa11y {
             });
 
             contrastErrors.warnings.forEach(item => {
-                var name = item.elem;
-                var clone = name.cloneNode(true);
-                var removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
-                for(var i = 0; i < removeSa11yHeadingLabel.length; i++){
+                let name = item.elem;
+                let clone = name.cloneNode(true);
+                let removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
+                for(let i = 0; i < removeSa11yHeadingLabel.length; i++){
                     clone.removeChild(removeSa11yHeadingLabel[i])
                 }
-                var nodetext = clone.textContent;
+                let nodetext = clone.textContent;
 
                 this.warningCount++;
-                name.insertAdjacentHTML('beforebegin',
-                    this.annotate(
+                name.insertAdjacentHTML(
+                  'beforebegin',
+                  this.annotate(
                       Lang._('WARNING'),
                       `${Lang.sprintf('CONTRAST_WARNING_MESSAGE', nodetext)} <hr aria-hidden="true"> ${Lang._('CONTRAST_WARNING_MESSAGE_INFO')}`
                     )
@@ -2576,51 +2552,51 @@ class Sa11y {
                 }
                 wordCheck = wordCheck.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
                 wordCheck = wordCheck.replace(/^y/, '');
-                var syllable_string = wordCheck.match(/[aeiouy]{1,2}/g);
+                let syllable_string = wordCheck.match(/[aeiouy]{1,2}/g);
+                let syllables = 0;
 
                 if (!!syllable_string) {
-                    var syllables = syllable_string.length;
-                } else {
-                    syllables = 0;
+                    syllables = syllable_string.length;
                 }
+
                 return syllables;
             }
 
-            var readabilityarray = [];
-            for (var i = 0; i < $readability.length; i++) {
-            var current = $readability[i];
+            let readabilityarray = [];
+            for (let i = 0; i < $readability.length; i++) {
+                var current = $readability[i];
                 if (current.textContent.replace(/ |\n/g,'') !== '') {
                     readabilityarray.push(current.textContent);
                 }
             }
 
             let paragraphtext = readabilityarray.join(' ').trim().toString();
-            var words_raw = paragraphtext.replace(/[.!?-]+/g, ' ').split(' ');
-            var words = 0;
-            for (var i = 0; i < words_raw.length; i++) {
+            let words_raw = paragraphtext.replace(/[.!?-]+/g, ' ').split(' ');
+            let words = 0;
+            for (let i = 0; i < words_raw.length; i++) {
                 if (words_raw[i] != 0) {
                     words = words + 1;
                 }
             }
 
-            var sentences_raw = paragraphtext.split(/[.!?]+/);
-            var sentences = 0;
-            for (var i = 0; i < sentences_raw.length; i++) {
-                if (sentences_raw[i] != '') {
+            let sentences_raw = paragraphtext.split(/[.!?]+/);
+            let sentences = 0;
+            for (let i = 0; i < sentences_raw.length; i++) {
+                if (sentences_raw[i] !== '') {
                     sentences = sentences + 1;
                 }
             }
 
-            var total_syllables = 0;
-            var syllables1 = 0;
-            var syllables2 = 0;
-            for (var i = 0; i < words_raw.length; i++) {
+            let total_syllables = 0;
+            let syllables1 = 0;
+            let syllables2 = 0;
+            for (let i = 0; i < words_raw.length; i++) {
                 if (words_raw[i] != 0) {
                     var syllable_count = number_of_syllables(words_raw[i]);
-                    if (syllable_count == 1) {
+                    if (syllable_count === 1) {
                         syllables1 = syllables1 + 1;
                     }
-                    if (syllable_count == 2) {
+                    if (syllable_count === 2) {
                         syllables2 = syllables2 + 1;
                     }
                     total_syllables = total_syllables + syllable_count;
@@ -2650,12 +2626,12 @@ class Sa11y {
             const $readabilityinfo = document.getElementById("sa11y-readability-info");
 
             if (paragraphtext.length === 0) {
-                $readabilityinfo.innerHTML = `${Lang._('READABILITY_NO_P_OR_LI_MESSAGE')}`;
+                $readabilityinfo.innerHTML = Lang._('READABILITY_NO_P_OR_LI_MESSAGE');
             }
             else if (words > 30) {
-                var fleschScore = flesch_reading_ease.toFixed(1);
-                var avgWordsPerSentence = (words / sentences).toFixed(1);
-                var complexWords = Math.round(100 * ((words - (syllables1 + syllables2)) / words));
+                let fleschScore = flesch_reading_ease.toFixed(1);
+                let avgWordsPerSentence = (words / sentences).toFixed(1);
+                let complexWords = Math.round(100 * ((words - (syllables1 + syllables2)) / words));
 
                 //WCAG AAA pass if greater than 60
                 if (fleschScore >= 0 && fleschScore < 30) {
