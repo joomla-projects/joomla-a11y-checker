@@ -722,8 +722,12 @@ class Sa11y {
         checkAll = async () => {
             this.errorCount = 0;
             this.warningCount = 0;
+            this.$root = document.querySelector(this.options.checkRoot);
+            this.$readabilityRoot = document.querySelector(this.options.readabilityRoot);
+
             this.root = $(this.options.checkRoot);
             this.readabilityRoot = $(this.options.readabilityRoot);
+
 
             this.findElements();
 
@@ -1230,13 +1234,13 @@ class Sa11y {
         // Finds all elements and caches them
         // ============================================================
         findElements () {
-          const allHeadings = Array.from(document.querySelectorAll("h1, h2, h3, h4, h5, h6, [role='heading'][aria-level]"));
-          const allPs = Array.from(document.querySelectorAll("p"));
+          const allHeadings = Array.from(this.$root.querySelectorAll("h1, h2, h3, h4, h5, h6, [role='heading'][aria-level]"));
+          const allPs = Array.from(this.$root.querySelectorAll("p"));
 
-          const containerExclusions = Array.from(document.querySelectorAll(this.containerIgnore));
+          this.$containerExclusions = Array.from(document.querySelectorAll(this.containerIgnore));
 
-          this.$h = allHeadings.filter(heading => !containerExclusions.includes(heading))
-          this.$p = allPs.filter(p => !containerExclusions.includes(p))
+          this.$h = allHeadings.filter(heading => !this.$containerExclusions.includes(heading))
+          this.$p = allPs.filter(p => !this.$containerExclusions.includes(p))
         };
 
         // ============================================================
@@ -1262,7 +1266,7 @@ class Sa11y {
 
                 if (level - prevLevel > 1 && i !== 0) {
                     error = Lang.sprintf('HEADING_NON_CONSECUTIVE_LEVEL', prevLevel, level);
-                  } else if (el.textContent.trim().length == 0) {
+                  } else if (el.textContent.trim().length === 0) {
                     if (el.querySelectorAll("img").length) {
                         const imgalt = el.querySelector("img").getAttribute("alt");
                         if (imgalt === undefined || imgalt === " " || imgalt === "") {
@@ -1274,7 +1278,7 @@ class Sa11y {
                         el.classList.add("sa11y-error-text");
                       }
                 } else if (i === 0 && level !== 1 && level !== 2) {
-                    error = `${Lang._('HEADING_FIRST')}`;
+                    error = Lang._('HEADING_FIRST');
                   } else if (el.textContent.trim().length > 170) {
                     warning = `${Lang._('HEADING_LONG')} . ${Lang.sprintf('HEADING_LONG_INFO', headingLength)}`;
                 }
@@ -1343,21 +1347,23 @@ class Sa11y {
             });
 
             //Check to see there is at least one H1 on the page.
-            let $h1 = this.root
-                .find("h1, [role='heading'][aria-level='1']")
-                .not(this.containerIgnore);
+            const $h1 = Array.from(this.$root.querySelectorAll('h1, [role="heading"][aria-level="1"]'))
+              .filter($h => !this.$containerExclusions.includes($h));
+
             if ($h1.length === 0) {
                 this.errorCount++;
 
-                $("#sa11y-outline-header").after(
-                    `<div class='sa11y-instance sa11y-missing-h1'>
+                document.querySelector('#sa11y-outline-header').insertAdjacentHTML(
+                  'afterend',
+                  `<div class='sa11y-instance sa11y-missing-h1'>
                     <span class='sa11y-badge sa11y-error-badge'><span aria-hidden='true'>&#10007;</span><span class='sa11y-visually-hidden'>${Lang._('ERROR')}</span></span>
                     <span class='sa11y-red-text sa11y-bold'>${Lang._('PANEL_HEADING_MISSING_ONE')}</span>
                 </div>`
                 );
 
-                $("#sa11y-container").after(
-                    this.annotateBanner(Lang._('ERROR'), `${Lang._('HEADING_MISSING_ONE')}`)
+                document.querySelector("#sa11y-container").insertAdjacentHTML(
+                  'afterend',
+                  this.annotateBanner(Lang._('ERROR'), Lang._('HEADING_MISSING_ONE'))
                 );
             }
         };
