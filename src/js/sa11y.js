@@ -45,14 +45,6 @@ const Lang = {
   },
 };
 
-if (window.Joomla && Joomla.Text && Joomla.Text._)
-{
-  const stringPrefix = 'JOOMLA_A11Y_CHECKER_';
-  Lang.translate = (string) => {
-    return Joomla.Text._(stringPrefix + string, string);
-  }
-}
-
 /**
  * Sa11y default options
  */
