@@ -726,9 +726,9 @@ class Sa11y {
             this.$root = document.querySelector(this.options.checkRoot);
             this.$readabilityRoot = document.querySelector(this.options.readabilityRoot);
 
+            // @TODO: remove when jQuery dependency will be removed
             this.root = $(this.options.checkRoot);
             this.readabilityRoot = $(this.options.readabilityRoot);
-
 
             this.findElements();
 
@@ -2324,12 +2324,8 @@ class Sa11y {
         // Color contrast plugin by jasonday: https://github.com/jasonday/color-contrast
         // ============================================================
         checkContrast () {
-
-            const container = document.querySelector(this.options.checkRoot);
-            const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
-
-            const $findcontrast = Array.from(container.querySelectorAll("* > :not(.sa11y-heading-label)"));
-            const $contrast = $findcontrast.filter($el => !containerexclusions.includes($el));
+            const $findcontrast = Array.from(this.$root.querySelectorAll("* > :not(.sa11y-heading-label)"));
+            const $contrast = $findcontrast.filter($el => !this.$containerExclusions.includes($el));
 
             var contrastErrors = {
                 errors: [],
