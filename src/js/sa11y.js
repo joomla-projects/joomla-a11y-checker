@@ -1683,7 +1683,7 @@ class Sa11y {
         // Ruleset: Alternative text
         // ============================================================
         checkAltText () {
-            this.containsAltTextStopWords = (alt) => {
+            const containsAltTextStopWords = (alt) => {
                 const altUrl = [
                     ".png",
                     ".jpg",
@@ -1713,35 +1713,33 @@ class Sa11y {
             };
 
             // Stores the corresponding issue text to alternative text
-            const container = document.querySelector(this.options.checkRoot);
-
-            const images = Array.from(container.querySelectorAll("img"));
-            const excludeimages = Array.from(container.querySelectorAll(this.imageIgnore));
+            const images = Array.from(this.$root.querySelectorAll("img"));
+            const excludeimages = Array.from(this.$root.querySelectorAll(this.imageIgnore));
             const $img = images.filter($el => !excludeimages.includes($el));
 
             $img.forEach(($el) => {
                 let alt = $el.getAttribute("alt")
-                if (alt == undefined) {
+                if ( alt === null ) {
                     if ($el.closest('a[href]')) {
                         if ($el.closest('a[href]').textContent.trim().length > 1) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), `${Lang._('MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE')}`, false, true));
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE'), false, true));
                         }
-                        else if ($el.closest('a[href]').textContent.trim().length == 0) {
+                        else if ($el.closest('a[href]').textContent.trim().length === 0) {
                             $el.classList.add("sa11y-error-border");
-                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), `${Lang._('MISSING_ALT_LINK_MESSAGE')}`, false, true));
+                            $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_MESSAGE'), false, true));
                         }
                     }
                     // General failure message if image is missing alt.
                     else {
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), `${Lang._('MISSING_ALT_MESSAGE')}`, false, true));
+                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_MESSAGE'), false, true));
                     }
                 }
                 // If alt attribute is present, further tests are done.
                 else {
                     let altText = this.sanitizeForHTML(alt); //Prevent tooltip from breaking.
-                    let error = this.containsAltTextStopWords(altText);
+                    let error = containsAltTextStopWords(altText);
                     let altLength = alt.length;
 
                     // Image fails if a stop word was found.
@@ -1760,7 +1758,7 @@ class Sa11y {
                     else if (error[2] != null && $el.closest("a[href]")) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), `${Lang.sprintf('LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE', altText)}`, false, true));
+                        $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang.sprintf('LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE', altText), false, true));
                     }
                     else if (error[1] != null && $el.closest("a[href]")) {
                         this.warningCount++;
@@ -1789,7 +1787,7 @@ class Sa11y {
                     else if (error[2] != null) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), `${Lang.sprintf('LINK_ALT_PLACEHOLDER_MESSAGE', altText)}`, false));
+                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang.sprintf('LINK_ALT_PLACEHOLDER_MESSAGE', altText), false));
                     }
                     else if (error[1] != null) {
                         this.warningCount++;
@@ -1803,22 +1801,22 @@ class Sa11y {
                           )
                         );
                     }
-                    else if ((alt == "" || alt == " ") && $el.closest("a[href]")) {
-                        if ($el.closest("a[href]").getAttribute("tabindex") == "-1" && $el.closest("a[href]").getAttribute("aria-hidden") == "true") {
+                    else if ((alt === "" || alt === " ") && $el.closest("a[href]")) {
+                        if ($el.closest("a[href]").getAttribute("tabindex") === "-1" && $el.closest("a[href]").getAttribute("aria-hidden") === "true") {
                             //Do nothing.
                         }
-                        else if ($el.closest("a[href]").getAttribute("aria-hidden") == "true") {
+                        else if ($el.closest("a[href]").getAttribute("aria-hidden") === "true") {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), `${Lang._('LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN')}`, false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN'), false, true));
                         }
-                        else if ($el.closest("a[href]").textContent.trim().length == 0) {
+                        else if ($el.closest("a[href]").textContent.trim().length === 0) {
                             this.errorCount++;
                             $el.classList.add("sa11y-error-border");
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), `${Lang._('LINK_IMAGE_LINK_NULL_ALT_NO_TEXT_MESSAGE')}`, false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_IMAGE_LINK_NULL_ALT_NO_TEXT_MESSAGE'), false, true));
                         }
                         else {
-                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), `${Lang._('LINK_LINK_HAS_ALT_MESSAGE')}`, false, true));
+                            $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), Lang._('LINK_LINK_HAS_ALT_MESSAGE'), false, true));
                         }
                     }
 
@@ -1837,7 +1835,7 @@ class Sa11y {
                     }
 
                     //Link and contains an alt text.
-                    else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length == 0) {
+                    else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length === 0) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
                         $el.closest("a[href]").insertAdjacentHTML(
@@ -1851,7 +1849,7 @@ class Sa11y {
                     }
 
                     //Contains alt text & surrounding link text.
-                    else if (alt != "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
+                    else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
                         $el.closest("a[href]").insertAdjacentHTML(
@@ -1864,10 +1862,10 @@ class Sa11y {
                     }
 
                     //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR
-                    else if (alt == "" || alt == " ") {
+                    else if (alt === "" || alt === " ") {
                         this.warningCount++;
                         $el.classList.add("sa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'),  `${Lang._('LINK_DECORATIVE_MESSAGE')}`, false, true));
+                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'),  Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
                     }
                     else if (alt.length > 250) {
                         this.warningCount++;
@@ -1880,8 +1878,8 @@ class Sa11y {
                           )
                         );
                     }
-                    else if (alt != "") {
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'),  `${Lang.sprintf('LINK_PASS_ALT', altText)}`, false, true));
+                    else if (alt !== "") {
+                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'),  Lang.sprintf('LINK_PASS_ALT', altText), false, true));
                     }
                 }
             });
