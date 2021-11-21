@@ -496,7 +496,8 @@ class Sa11y {
 
             //Helper: Handle ARIA labels for Link Text module.
             this.computeAriaLabel = function ($el) {
-              const el = $el.get(0); //remove when calling functions are converted
+              // jQuery check, remove when calling functions are converted
+              const el = $el.length ? $el[0] : $el;
 
               if (el.matches("[aria-label]")) {
                   return el.getAttribute("aria-label");
@@ -1402,7 +1403,7 @@ class Sa11y {
                 let hit = [null, null, null];
 
                 // Flag partial stop words.
-                $.each(this.options.partialAltStopWords, function (index, word) {
+                this.options.partialAltStopWords.forEach((word, index) => {
                     if (
                         textContent.length === word.length &&
                         textContent.toLowerCase().indexOf(word) >= 0
@@ -1413,7 +1414,7 @@ class Sa11y {
                 });
 
                 // Other warnings we want to add.
-                $.each(this.options.warningAltWords, function (index, word) {
+                this.options.warningAltWords.forEach((word, index) => {
                     if (textContent.toLowerCase().indexOf(word) >= 0) {
                         hit[1] = word;
                         return false;
@@ -1421,7 +1422,7 @@ class Sa11y {
                 });
 
                 // Flag link text containing URLs.
-                $.each(urlText, function (index, word) {
+                urlText.forEach((word, index) => {
                     if (textContent.toLowerCase().indexOf(word) >= 0) {
                         hit[2] = word;
                         return false;
@@ -1441,104 +1442,129 @@ class Sa11y {
             Example: <a href="#">learn more <span class="sr-only">(external)</span></a>
 
             This function will ignore the text "(external)", and correctly flag this link as an error for non descript link text. */
-
-            $.fn.ignore = function (sel) {
-                return this.clone().find(sel || ">*").remove().end();
+            const fnIgnore = (element, selector) => {
+              const $clone = element.cloneNode(true);
+              const $excluded = Array.from(selector ? $clone.querySelectorAll(selector) : $clone.children);
+              $excluded.forEach(($c) => {
+                $c.parentElement.removeChild($c);
+              });
+              return $clone;
             };
 
-            let $links = this.root.find("a[href]").not(this.linkIgnore);
+            const $linkIgnore = Array.from(this.$root.querySelectorAll(this.linkIgnore));
+            const $links = Array.from(this.$root.querySelectorAll('a[href]'))
+              .filter($a => !$linkIgnore.includes($a));
 
-            $links.each((i, el) => {
-                let $el = $(el);
-                let linkText = this.computeAriaLabel($el);
+            $links.forEach((el, i) => {
+                let linkText = this.computeAriaLabel(el);
+                let hasAriaLabelledBy = el.getAttribute('aria-labelledby');
+                let hasAriaLabel = el.getAttribute('aria-label');
+                let hasTitle = el.getAttribute('title');
+                let childAriaLabelledBy = null;
+                let childAriaLabel = null;
+                let childTitle = null;
 
-                var hasAriaLabelledBy = $el.attr("aria-labelledby");
-                var hasAriaLabel = $el.attr("aria-label");
-                var hasTitle = $el.attr("title");
-                var childAriaLabelledBy = $el.children().attr("aria-labelledby");
-                var childAriaLabel = $el.children().attr("aria-label");
-                var childTitle = $el.children().attr("title");
+                if (el.children.length) {
+                  let $firstChild = el.children[0];
+                  childAriaLabelledBy = $firstChild.getAttribute('aria-labelledby');
+                  childAriaLabel = $firstChild.getAttribute('aria-label');
+                  childTitle = $firstChild.getAttribute('title');
+                }
 
-                var error = containsLinkTextStopWords($el.ignore(this.options.linkIgnoreSpan).text().trim());
+                let error = containsLinkTextStopWords(fnIgnore(el, this.options.linkIgnoreSpan).textContent.trim());
 
-                if (linkText === "noAria") {
-                    linkText = $el.text();
+                if (linkText === 'noAria') {
+                  linkText = el.textContent;
                 }
 
                 //Flag empty hyperlinks
-                if ( $el.attr('href') && !$el.text().trim()) {
-                    if ($el.find("img").length) {
+                if ( el.getAttribute('href') && !el.textContent.trim() ) {
+                    if (el.querySelectorAll('img').length) {
                         // Do nothing
-                    } else if (hasAriaLabelledBy != null || hasAriaLabel != null) {
-                        $el.addClass("sa11y-good-border")
-                        $el.before(
-                            this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
+                    } else if (hasAriaLabelledBy || hasAriaLabel) {
+                        el.classList.add("sa11y-good-border");
+                        el.insertAdjacentHTML(
+                          'beforebegin',
+                          this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
                         );
-                    } else if (hasTitle != null) {
-                        let linkText = $el.attr("title");
-                        $el.addClass("sa11y-good-border")
-                        $el.before(
-                            this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
+                    } else if (hasTitle) {
+                        let linkText = hasTitle;
+                        el.classList.add("sa11y-good-border")
+                        el.insertAdjacentHTML(
+                          'beforebegin',
+                          this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
                         );
-                    } else if ($el.children().length) {
-                        if (childAriaLabelledBy != null || childAriaLabel != null || childTitle != null) {
-                            $el.addClass("sa11y-good-border");
-                            $el.before(
-                                this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
-                            );
+                    } else if (el.children.length) {
+                        if (childAriaLabelledBy || childAriaLabel || childTitle) {
+                          el.classList.add("sa11y-good-border");
+                          el.insertAdjacentHTML(
+                            'beforebegin',
+                            this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
+                          );
                         } else {
-                            this.errorCount++;
-                            $el.addClass("sa11y-error-border");
-                            $el.after(this.annotate(Lang._('ERROR'), Lang.sprintf('LINK_EMPTY_LINK_NO_LABEL'), true));
+                          this.errorCount++;
+                          el.classList.add("sa11y-error-border");
+                          el.insertAdjacentHTML(
+                            'afterend',
+                            this.annotate(Lang._('ERROR'), Lang.sprintf('LINK_EMPTY_LINK_NO_LABEL'), true)
+                          );
                         }
                     } else {
-                        this.errorCount++;
-                        $el.addClass("sa11y-error-border");
-                        $el.after(this.annotate(Lang._('ERROR'), `${Lang._('LINK_EMPTY')}`, true));
+                      this.errorCount++;
+                      el.classList.add("sa11y-error-border");
+                      el.insertAdjacentHTML(
+                        'afterend',
+                        this.annotate(Lang._('ERROR'), Lang._('LINK_EMPTY'), true)
+                      );
                     }
                 } else if (error[0] !== null) {
                     if (hasAriaLabelledBy) {
-                        $el.before(
-                            this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
-                        );
+                      el.insertAdjacentHTML(
+                        'beforebegin',
+                        this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
+                      );
                     } else if (hasAriaLabel) {
-                        $el.before(
-                            this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', hasAriaLabel), true)
-                        );
-                    } else if ($el.attr("aria-hidden") === "true" && $el.attr("tabindex") === "-1") {
+                      el.insertAdjacentHTML(
+                        'beforebegin',
+                        this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', hasAriaLabel), true)
+                      );
+                    } else if (el.getAttribute('aria-hidden') === 'true' && el.getAttribute('tabindex') === '-1') {
                         //Do nothing.
                     } else {
-                        this.errorCount++;
-                        $el.addClass("sa11y-error-text");
-                        $el.after(
-                          this.annotate(
-                            Lang._('ERROR'),
-                            `${Lang.sprintf('LINK_STOPWORD', error[0])} <hr aria-hidden="true"> ${Lang._('LINK_STOPWORD_TIP')}`,
-                            true
-                          )
-                        );
+                      this.errorCount++;
+                      el.classList.add("sa11y-error-text");
+                      el.insertAdjacentHTML(
+                        'afterend',
+                        this.annotate(
+                          Lang._('ERROR'),
+                          `${Lang.sprintf('LINK_STOPWORD', error[0])} <hr aria-hidden="true"> ${Lang._('LINK_STOPWORD_TIP')}`,
+                          true
+                        )
+                      );
                     }
                 } else if (error[1] !== null) {
-                    this.warningCount++;
-                    $el.addClass("sa11y-warning-text");
-                    $el.after(
-                      this.annotate(
-                        Lang._('WARNING'),
-                        `${Lang.sprintf('LINK_BEST_PRACTICES', error[1])} <hr aria-hidden="true"> ${Lang._('LINK_BEST_PRACTICES_DETAILS')}`,
-                        true
-                      )
-                    );
+                  this.warningCount++;
+                  el.classList.add("sa11y-warning-text");
+                  el.insertAdjacentHTML(
+                    'afterend',
+                    this.annotate(
+                      Lang._('WARNING'),
+                      `${Lang.sprintf('LINK_BEST_PRACTICES', error[1])} <hr aria-hidden="true"> ${Lang._('LINK_BEST_PRACTICES_DETAILS')}`,
+                      true
+                    )
+                  );
                 } else if (error[2] != null) {
                     if (linkText.length > 40) {
-                        this.warningCount++;
-                        $el.addClass("sa11y-warning-text");
-                        $el.after(
-                          this.annotate(
-                            Lang._('WARNING'),
-                            `${Lang._('LINK_URL')} <hr aria-hidden="true"> ${Lang._('LINK_URL_TIP')}`,
-                            true
-                          )
-                        );
+                      this.warningCount++;
+                      el.classList.add("sa11y-warning-text");
+                      el.insertAdjacentHTML(
+                        'afterend',
+                        this.annotate(
+                          Lang._('WARNING'),
+                          `${Lang._('LINK_URL')} <hr aria-hidden="true"> ${Lang._('LINK_URL_TIP')}`,
+                          true
+                        )
+                      );
                     }
                 }
             });
