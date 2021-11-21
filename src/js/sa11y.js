@@ -4,7 +4,7 @@
 
 // Determine element visibility
 const isElementHidden = ($el) => {
-  if ($el.offsetWidth === 0 && $el.offsetHeight === 0) {
+  if ($el.getAttribute('hidden') || ($el.offsetWidth === 0 && $el.offsetHeight === 0)) {
     return true;
   } else {
     const compStyles = getComputedStyle($el);
@@ -189,11 +189,15 @@ if (window.Joomla && Joomla.Text && Joomla.Text._)
     const options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
 
     // Check required options
-    ['langCode', 'checkRoot', 'readabilityRoot', 'readabilityLang'].forEach((option) => {
+    ['langCode', 'checkRoot'].forEach((option) => {
       if (!options[option]) {
         throw new Error(`Option [${option}] is required`);
       }
     });
+
+    if (!options.readabilityRoot) {
+      options.readabilityRoot = options.checkRoot;
+    }
 
     // Container ignores apply to self and children.
     if (options.containerIgnore) {
@@ -745,11 +749,9 @@ class Sa11y {
             this.errorCount = 0;
             this.warningCount = 0;
             this.$root = document.querySelector(this.options.checkRoot);
-            this.$readabilityRoot = document.querySelector(this.options.readabilityRoot);
 
             // @TODO: remove when jQuery dependency will be removed
             this.root = $(this.options.checkRoot);
-            this.readabilityRoot = $(this.options.readabilityRoot);
 
             this.findElements();
 
@@ -2022,12 +2024,8 @@ class Sa11y {
         // Rulesets: Embedded content.
         // ============================================================
         checkEmbeddedContent() {
-
-            const container = document.querySelector(this.options.checkRoot);
-            const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
-
-            const $findiframes = Array.from(container.querySelectorAll("iframe, audio, video"));
-            const $iframes = $findiframes.filter($el => !containerexclusions.includes($el));
+            const $findiframes = Array.from(this.$root.querySelectorAll("iframe, audio, video"));
+            const $iframes = $findiframes.filter($el => !this.$containerExclusions.includes($el));
 
             //Warning: Video content.
             const $videos = $iframes.filter($el => $el.matches(this.options.videoContent));
@@ -2056,7 +2054,7 @@ class Sa11y {
                     $el.tagName === "AUDIO" ||
                     $el.getAttribute("aria-hidden") === "true" ||
                     $el.getAttribute("hidden") !== null ||
-                    $el.style.display == 'none' ||
+                    $el.style.display === 'none' ||
                     $el.getAttribute("role") === "presentation")
                     {
                         //Ignore if hidden.
@@ -2108,12 +2106,9 @@ class Sa11y {
         // ============================================================
         checkQA() {
 
-            const container = document.querySelector(this.options.checkRoot);
-            const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
-
             //Error: Find all links pointing to development environment.
-            const $findbadDevLinks = this.options.linksToFlag ? Array.from(container.querySelectorAll(this.options.linksToFlag)) : [];
-            const $badDevLinks = $findbadDevLinks.filter($el => !containerexclusions.includes($el));
+            const $findbadDevLinks = this.options.linksToFlag ? Array.from(this.$root.querySelectorAll(this.options.linksToFlag)) : [];
+            const $badDevLinks = $findbadDevLinks.filter($el => !this.$containerExclusions.includes($el));
             $badDevLinks.forEach(($el) => {
                 this.errorCount++;
                 $el.classList.add("sa11y-error-text");
@@ -2121,23 +2116,28 @@ class Sa11y {
             });
 
             //Warning: Find all PDFs. Although only append warning icon to first PDF on page.
-            let checkPDF = this.root
-                .find("a[href$='.pdf']")
-                .not(this.containerIgnore);
-            let firstPDF = this.root
-                .find("a[href$='.pdf']:first")
-                .not(this.containerIgnore);
+            let checkPDF = Array.from(this.$root.querySelectorAll('a[href$=".pdf"]'))
+              .filter(p => !this.$containerExclusions.includes(p));
+            let firstPDF = checkPDF[0];
             let pdfCount = checkPDF.length;
+
             if (checkPDF.length > 0) {
-                this.warningCount++;
-                checkPDF.addClass("sa11y-warning-text");
-                checkPDF.has("img").removeClass("sa11y-warning-text");
-                firstPDF.after(this.annotate(Lang._('WARNING'), Lang.sprintf('QA_BAD_LINK', pdfCount), true));
+              this.warningCount++;
+              checkPDF.forEach(($pdf) => {
+                $pdf.classList.add('sa11y-warning-text');
+                if ($pdf.querySelector('img')) {
+                  $pdf.classList.remove('sa11y-warning-text');
+                }
+              });
+              firstPDF.insertAdjacentHTML(
+                'afterend',
+                this.annotate(Lang._('WARNING'), Lang.sprintf('QA_BAD_LINK', pdfCount), true)
+              );
             }
 
             //Warning: Detect uppercase.
-            const $findallcaps = Array.from(container.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li:not([class^='sa11y']), blockquote"));
-            const $allcaps = $findallcaps.filter($el => !containerexclusions.includes($el));
+            const $findallcaps = Array.from(this.$root.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li:not([class^='sa11y']), blockquote"));
+            const $allcaps = $findallcaps.filter($el => !this.$containerExclusions.includes($el));
             $allcaps.forEach(function ($el) {
                 var uppercasePattern = /(?!<a[^>]*?>)(\b[A-Z][',!:A-Z\s]{15,}|\b[A-Z]{15,}\b)(?![^<]*?<\/a>)/g;
 
@@ -2148,7 +2148,7 @@ class Sa11y {
             const $warningUppercase = document.querySelectorAll(".sa11y-warning-uppercase");
 
             $warningUppercase.forEach(($el) => {
-                $el.insertAdjacentHTML('afterend', this.annotate(Lang._('WARNING'), `${Lang._('QA_UPPERCASE_WARNING')}`, true));
+                $el.insertAdjacentHTML('afterend', this.annotate(Lang._('WARNING'), Lang._('QA_UPPERCASE_WARNING'), true));
             });
 
             if ($warningUppercase.length > 0) {
@@ -2156,16 +2156,16 @@ class Sa11y {
             }
 
             //Tables check.
-            const $findtables = Array.from(container.querySelectorAll("table:not([role='presentation'])"));
-            const $tables = $findtables.filter($el => !containerexclusions.includes($el));
+            const $findtables = Array.from(this.$root.querySelectorAll("table:not([role='presentation'])"));
+            const $tables = $findtables.filter($el => !this.$containerExclusions.includes($el));
             $tables.forEach(($el) => {
                 let findTHeaders = $el.querySelectorAll("th");
                 let findHeadingTags = $el.querySelectorAll("h1, h2, h3, h4, h5, h6");
-                if (findTHeaders.length == 0) {
+                if (findTHeaders.length === 0) {
                     this.errorCount++;
                     $el.classList.add("sa11y-error-border");
                     $el.insertAdjacentHTML('beforebegin',
-                      this.annotate(Lang._('ERROR'), `${Lang._('TABLES_MISSING_HEADINGS')}`)
+                      this.annotate(Lang._('ERROR'), Lang._('TABLES_MISSING_HEADINGS'))
                     );
                 }
                 if (findHeadingTags.length > 0) {
@@ -2183,7 +2183,7 @@ class Sa11y {
                     });
                 }
                 findTHeaders.forEach(($el) => {
-                    if ($el.textContent.trim().length == 0) {
+                    if ($el.textContent.trim().length === 0) {
                         this.errorCount++;
                         $el.classList.add("sa11y-error-border");
                         $el.innerHTML = this.annotate(
@@ -2196,25 +2196,25 @@ class Sa11y {
 
             //Error: Missing language tag. Lang should be at least 2 characters.
             const lang = document.querySelector("html").getAttribute("lang");
-            if (lang == undefined || lang.length < 2) {
+            if (!lang || lang.length < 2) {
                 this.errorCount++;
                 const sa11yContainer = document.getElementById("sa11y-container");
-                sa11yContainer.insertAdjacentHTML('afterend', this.annotateBanner(Lang._('ERROR'), `${Lang._('QA_PAGE_LANGUAGE_MESSAGE')}`));
+                sa11yContainer.insertAdjacentHTML('afterend', this.annotateBanner(Lang._('ERROR'), Lang._('QA_PAGE_LANGUAGE_MESSAGE')));
             }
 
             //Excessive bolding or italics.
-            const $findstrongitalics = Array.from(container.querySelectorAll("strong, em"));
-            const $strongitalics = $findstrongitalics.filter($el => !containerexclusions.includes($el));
+            const $findstrongitalics = Array.from(this.$root.querySelectorAll("strong, em"));
+            const $strongitalics = $findstrongitalics.filter($el => !this.$containerExclusions.includes($el));
             $strongitalics.forEach(($el) => {
                 if ($el.textContent.trim().length > 400) {
                     this.warningCount++;
-                    $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('QA_BAD_ITALICS')}`));
+                    $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('QA_BAD_ITALICS')));
                   }
             });
 
             //Find blockquotes used as headers.
-            const $findblockquotes = Array.from(container.querySelectorAll("blockquote"));
-            const $blockquotes = $findblockquotes.filter($el => !containerexclusions.includes($el));
+            const $findblockquotes = Array.from(this.$root.querySelectorAll("blockquote"));
+            const $blockquotes = $findblockquotes.filter($el => !this.$containerExclusions.includes($el));
             $blockquotes.forEach(($el, i) => {
                 let bqHeadingText = $el.textContent;
                 if (bqHeadingText.trim().length < 25) {
@@ -2231,8 +2231,7 @@ class Sa11y {
             });
 
             // Warning: Detect fake headings.
-            const $findp = Array.from(container.querySelectorAll("p"));
-            const $p = $findp.filter($el => !containerexclusions.includes($el));
+            const $p = this.$p;
             $p.forEach(($el, i) => {
                 let brAfter = $el.innerHTML.indexOf("</strong><br>");
                 let brBefore = $el.innerHTML.indexOf("<br></strong>");
@@ -2263,7 +2262,7 @@ class Sa11y {
                   // 1) Has less than 120 characters (typical heading length).
                   // 2) The previous element is not a heading.
                   const prevElement = $el.previousElementSibling;
-                  const tagName = "";
+                  let tagName = "";
                   if (prevElement !== null) {
                       tagName = prevElement.tagName;
                   }
@@ -2277,8 +2276,8 @@ class Sa11y {
                       )
                     );
                    }
-               };
-            if ($(".sa11y-fake-heading").length > 0) {
+               }
+            if (this.$root.querySelectorAll(".sa11y-fake-heading").length > 0) {
                 this.warningCount++;
             }
 
@@ -2297,10 +2296,9 @@ class Sa11y {
                 });
             };
             this.$p.forEach((el, i) => {
-                let $first = $(el);
                 let hit = false;
                 // Grab first two characters.
-                let firstPrefix = $first.text().substring(0, 2);
+                let firstPrefix = el.textContent.substring(0, 2);
                 if (
                     firstPrefix.trim().length > 0 &&
                     firstPrefix !== activeMatch &&
@@ -2308,12 +2306,9 @@ class Sa11y {
                 ) {
                     // We have a prefix and a possible hit
                     // Split p by carriage return if present and compare.
-                    let hasBreak = $first.html().indexOf("<br>");
+                    let hasBreak = el.innerHTML.indexOf("<br>");
                     if (hasBreak !== -1) {
-                        let subParagraph = $first
-                            .html()
-                            .substring(hasBreak + 4)
-                            .trim();
+                        let subParagraph = el.innerHTML.substring(hasBreak + 4).trim();
                         let subPrefix = subParagraph.substring(0, 2);
                         if (firstPrefix === decrement(subPrefix)) {
                             hit = true;
@@ -2321,10 +2316,10 @@ class Sa11y {
                     }
                     // Decrement the second p prefix and compare .
                     if (!hit) {
-                        let $second = $(el).next("p");
+                        let $second = el.nextElementSibling.nodeName === 'P' ? el.nextElementSibling : null;
                         if ($second) {
                             let secondPrefix = decrement(
-                                $first.next().text().substring(0, 2)
+                              el.nextElementSibling.textContent.substring(0, 2)
                             );
                             if (firstPrefix === secondPrefix) {
                                 hit = true;
@@ -2333,13 +2328,14 @@ class Sa11y {
                     }
                     if (hit) {
                         this.warningCount++;
-                        $first.before(
-                            this.annotate(
-                              Lang._('WARNING'),
-                              `${Lang.sprintf('QA_SHOULD_BE_LIST', firstPrefix)} <hr aria-hidden="true"> ${Lang._('QA_SHOULD_BE_LIST_TIP')}`
-                            )
+                        el.insertAdjacentHTML(
+                          'beforebegin',
+                          this.annotate(
+                            Lang._('WARNING'),
+                            `${Lang.sprintf('QA_SHOULD_BE_LIST', firstPrefix)} <hr aria-hidden="true"> ${Lang._('QA_SHOULD_BE_LIST_TIP')}`
+                          )
                         );
-                        $first.addClass("sa11y-fake-list");
+                        el.classList.add("sa11y-fake-list");
                         activeMatch = firstPrefix;
                     } else {
                         activeMatch = "";
@@ -2348,7 +2344,7 @@ class Sa11y {
                     activeMatch = "";
                 }
             });
-            if ($(".sa11y-fake-list").length > 0) {
+            if (this.$root.querySelectorAll('.sa11y-fake-list').length > 0) {
                 this.warningCount++;
             }
         });
@@ -2560,16 +2556,13 @@ class Sa11y {
         // Adapted from Greg Kraus' readability script: https://accessibility.oit.ncsu.edu/it-accessibility-at-nc-state/developers/tools/readability-bookmarklet/
         // ============================================================
         checkReadability () {
-
             const container = document.querySelector(this.options.readabilityRoot);
-            const containerexclusions = Array.from(container.querySelectorAll(this.containerIgnore));
-
             const $findreadability = Array.from(container.querySelectorAll("p, li"));
-            const $readability = $findreadability.filter($el => !containerexclusions.includes($el));
+            const $readability = $findreadability.filter($el => !this.$containerExclusions.includes($el));
 
             //Crude hack to add a period to the end of list items to make a complete sentence.
             $readability.forEach($el => {
-                var listText = $el.textContent;
+                let listText = $el.textContent;
                 if (listText.charAt(listText.length - 1) !== ".") {
                     $el.insertAdjacentHTML("beforeend", "<span class='sa11y-readability-period sa11y-visually-hidden'>.</span>");
                 }
@@ -2687,7 +2680,7 @@ class Sa11y {
                 <li><span class='sa11y-bold'>${Lang._('TOTAL_WORDS')}</span> ${words}</li>`;
             }
             else {
-                $readabilityinfo.textContent = `${Lang._('READABILITY_NOT_ENOUGH_CONTENT_MESSAGE')}`;
+                $readabilityinfo.textContent = Lang._('READABILITY_NOT_ENOUGH_CONTENT_MESSAGE');
             }
         };
 
