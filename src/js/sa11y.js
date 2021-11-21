@@ -1,4 +1,25 @@
 /**
+ * Utility methods
+ */
+
+// Determine element visibility
+const isElementHidden = ($el) => {
+  if ($el.offsetWidth === 0 && $el.offsetHeight === 0) {
+    return true;
+  } else {
+    const compStyles = getComputedStyle($el);
+    return compStyles.getPropertyValue('display') === 'none';
+  }
+};
+
+// Escape HTML, encode HTML symbols
+const escapeHTML = (text) => {
+  const $div = document.createElement('div');
+  $div.textContent = text;
+  return $div.innerHTML.replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+}
+
+/**
  * Sa11y Translation object
  */
 const Lang = {
@@ -1889,96 +1910,115 @@ class Sa11y {
         // Rulesets: Labels
         // ============================================================
         checkLabels () {
+            const $inputs = Array.from(this.$root.querySelectorAll('input, select, textarea'))
+              .filter($i => {
+                return !this.$containerExclusions.includes($i) && !isElementHidden($i);
+              });
 
-            let $inputs = this.root
-                .find("input, select, textarea")
-                .not(this.containerIgnore)
-                .not("input:hidden");
-
-            $inputs.each((i, el) => {
+            $inputs.forEach((el, i) => {
                 let $el = $(el);
-                let ariaLabel = this.computeAriaLabel($el);
+                let ariaLabel = this.computeAriaLabel(el);
+                const type = el.getAttribute('type')
 
                 //If button type is submit or button: pass
-                if ($el.attr("type") === "submit" || $el.attr("type") === "button" || $el.attr("type") === "hidden") {
+                if (type === "submit" || type === "button" || type === "hidden") {
                     //Do nothing
                 }
                 //Inputs where type="image".
-                else if ($el.attr("type") === "image") {
-                    let imgalt = $el.attr("alt");
-                    if (imgalt == undefined || imgalt == "" || imgalt == " ") {
-                        if ($el.attr("aria-label") !== undefined) {
+                else if (type === "image") {
+                    let imgalt = el.getAttribute("alt");
+                    if (!imgalt || imgalt === ' ') {
+                        if (el.getAttribute("aria-label")) {
                             //Good.
                         } else {
                             this.errorCount++;
-                            $el.addClass("sa11y-error-border");
-                            $el.after(this.annotate(Lang._('ERROR'), `${Lang._('LABELS_MISSING_IMAGE_INPUT_MESSAGE')}`, true));
+                            el.classList.add("sa11y-error-border");
+                            el.insertAdjacentHTML(
+                              'afterend',
+                              this.annotate(Lang._('ERROR'), Lang._('LABELS_MISSING_IMAGE_INPUT_MESSAGE'), true)
+                            );
                         }
                     }
                 }
                 //Recommendation to remove reset buttons.
-                else if ($el.attr("type") === "reset") {
-                    this.warningCount++;
-                    $el.addClass("sa11y-warning-border");
-                    $el.after(this.annotate(
+                else if (type === "reset") {
+                  this.warningCount++;
+                  el.classList.add("sa11y-warning-border");
+                  el.insertAdjacentHTML(
+                    'afterend',
+                    this.annotate(
                       Lang._('WARNING'),
                       `${Lang._('LABELS_INPUT_RESET_MESSAGE')} <hr aria-hidden="true"> ${Lang._('LABELS_INPUT_RESET_MESSAGE_TIP')}`,
                       true
-                      )
-                    );
+                    )
+                  );
                 }
                 //Uses ARIA. Warn them to ensure there's a visible label.
-                else if ($el.attr("aria-label") || $el.attr("aria-labelledby") || $el.attr("title")) {
-                    if ($el.attr("title")) {
-                        let ariaLabel = $el.attr("title");
-                        this.warningCount++;
-                        $el.addClass("sa11y-warning-border");
-                        $el.after(this.annotate(
+                else if (el.getAttribute("aria-label") || el.getAttribute("aria-labelledby") || el.getAttribute("title")) {
+                    if (el.getAttribute("title")) {
+                      let ariaLabel = el.getAttribute("title");
+                      this.warningCount++;
+                      el.classList.add("sa11y-warning-border");
+                      el.insertAdjacentHTML(
+                        'afterend',
+                        this.annotate(
                           Lang._('WARNING'),
                           `${Lang._('LABELS_ARIA_LABEL_INPUT_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO', ariaLabel)}`,
                           true
-                          )
-                        );
+                        )
+                      );
                     } else {
-                        this.warningCount++;
-                        $el.addClass("sa11y-warning-border");
-                        $el.after(this.annotate(
+                      this.warningCount++;
+                      el.classList.add("sa11y-warning-border");
+                      el.insertAdjacentHTML(
+                        'afterend',
+                        this.annotate(
                           Lang._('WARNING'),
                           `${Lang._('LABELS_ARIA_LABEL_INPUT_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO', ariaLabel)}`,
-                          true)
-                        );
+                          true
+                        )
+                      );
                     }
                 }
                 //Implicit labels.
-                else if (
-                    $el.parents().is("label") &&
-                    $el.parents("label").text().trim().length !== 0
-                    ) {
-                    //Do nothing if label has text.
+                else if (el.closest('label') && el.closest('label').textContent.trim()) {
+                  //Do nothing if label has text.
                 }
                 //Has an ID but doesn't have a matching FOR attribute.
-                else if ($el.attr("id") && ($el.prevAll().is("label")) || $el.nextAll().is("label")) {
-                    let prevlabel = $el.prevAll("label");
-                    let nextlabel = $el.nextAll("label");
-                    if (
-                        (prevlabel.attr("for") === $el.attr("id")) ||
-                        (nextlabel.attr("for") === $el.attr("id"))
-                        ) {
-                        //Do nothing.
-                    } else {
-                        this.errorCount++;
-                        $el.addClass("sa11y-error-border");
-                        $el.after(this.annotate(
-                          Lang._('ERROR'),
-                          `${Lang._('LABELS_NO_FOR_ATTRIBUTE_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO', $el.attr("id"))}`,
-                          true)
-                        );
+                else if (el.getAttribute("id")
+                  && Array.from(el.parentElement.children).filter($c => $c.nodeName === 'LABEL').length
+                ) {
+                  const $labels = Array.from(el.parentElement.children).filter($c => $c.nodeName === 'LABEL');
+                  let hasFor = false;
+
+                  $labels.forEach(($l) => {
+                    if (hasFor) return;
+
+                    if ($l.getAttribute('for') === el.getAttribute('id')){
+                      hasFor = true;
                     }
+                  });
+
+                  if (!hasFor) {
+                    this.errorCount++;
+                    el.classList.add("sa11y-error-border");
+                    el.insertAdjacentHTML(
+                      'afterend',
+                      this.annotate(
+                        Lang._('ERROR'),
+                        `${Lang._('LABELS_NO_FOR_ATTRIBUTE_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO', el.getAttribute('id'))}`,
+                        true
+                      )
+                    );
+                  }
                 }
                 else {
-                    this.errorCount++;
-                    $el.addClass("sa11y-error-border");
-                    $el.after(this.annotate(Lang._('ERROR'), Lang._('LABELS_MISSING_LABEL_MESSAGE'), true));
+                  this.errorCount++;
+                  el.classList.add("sa11y-error-border");
+                  el.insertAdjacentHTML(
+                    'afterend',
+                    this.annotate(Lang._('ERROR'), Lang._('LABELS_MISSING_LABEL_MESSAGE'), true)
+                  );
                 }
             });
         };
@@ -2683,9 +2723,7 @@ class Sa11y {
       }
 
       // Escape content, it is need because it used inside data-tippy-content=""
-      const $div = document.createElement('div');
-      $div.textContent = content;
-      const escapedContent = $div.innerHTML.replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+      content = escapeHTML(content);
 
       return `
         <div class=${inline ? "sa11y-instance-inline" : "sa11y-instance"}>
@@ -2695,7 +2733,7 @@ class Sa11y {
             class="sa11y-btn sa11y-${CSSName[type]}-btn${inline ? "-text" : ""}"
             data-tippy-content="<div lang='${this.options.langCode}'>
                 <div class='sa11y-header-text'>${[type]}</div>
-                ${escapedContent}
+                ${content}
             </div>
         ">
         </button>
