@@ -1595,25 +1595,19 @@ class Sa11y {
         // Rulesets: Links (Advanced)
         // ============================================================
         checkLinksAdvanced () {
+            const $linkIgnore = Array.from(this.$root.querySelectorAll(this.linkIgnore + ', #sa11y-container a, .sa11y-exclude'));
+            const $linksTargetBlank = Array.from(this.$root.querySelectorAll('a[href]'))
+              .filter($a => !$linkIgnore.includes($a));
 
-            //const M = sa11yIM["linksAdvanced"];
+            let seen = {};
+            $linksTargetBlank.forEach((el, i) => {
+                let linkText = this.computeAriaLabel(el);
 
-            let $linksTargetBlank = this.root
-                .find("a[href]")
-                .not(this.linkIgnore)
-                .not("#sa11y-container a")
-                .not(".sa11y-exclude");
-
-            var seen = {};
-            $linksTargetBlank.each((i, el) => {
-                let $el = $(el);
-                let linkText = this.computeAriaLabel($el);
-
-                if (linkText === "noAria") {
-                    linkText = $el.text();
+                if (linkText === 'noAria') {
+                    linkText = el.textContent;
                 }
 
-                const fileTypeMatch = $el.filter(`
+                const fileTypeMatch = el.matches(`
                     a[href$='.pdf'],
                     a[href$='.doc'],
                     a[href$='.zip'],
@@ -1630,34 +1624,33 @@ class Sa11y {
                     a[href$='.mp4'],
                     a[href$='.mov'],
                     a[href$='.avi']
-                `).length;
+                `);
 
                 //Links with identical accessible names have equivalent purpose.
 
                 //If link has an image, process alt attribute,
                 //To-do: Kinda hacky. Doesn't return accessible name of link in correct order.
-                var alt = $el.find("img").attr("alt");
-                if (alt === undefined) {
-                    alt = "";
-                }
+                const $img = el.querySelector('img');
+                let alt = $img ? ($img.getAttribute('alt') || '') : '';
 
                 //Return link text and image's alt text.
-                var linkTextTrimmed = linkText.trim().toLowerCase() + " " + alt;
-                var href = $el.attr("href");
+                let linkTextTrimmed = linkText.trim().toLowerCase() + " " + alt;
+                let href = el.getAttribute("href");
 
                 if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
                     if (seen[href]) {
                         //Nothing
                     } else {
-                        this.warningCount++;
-                        $el.addClass("sa11y-warning-text");
-                        $el.after(
-                          this.annotate(
-                            Lang._('WARNING'),
-                            `${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
-                            true
-                          )
-                        );
+                      this.warningCount++;
+                      el.classList.add("sa11y-warning-text");
+                      el.insertAdjacentHTML(
+                        'afterend',
+                        this.annotate(
+                          Lang._('WARNING'),
+                          `${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
+                          true
+                        )
+                      );
                     }
                 } else {
                     seen[linkTextTrimmed] = true;
@@ -1674,29 +1667,31 @@ class Sa11y {
                     return linkText.toLowerCase().indexOf(pass) >= 0;
                 });
 
-                if ($el.attr("target") === "_blank" && fileTypeMatch === 0 && !containsNewWindowPhrases) {
-                    this.warningCount++;
-                    $el.addClass("sa11y-warning-text");
-                    $el.after(
-                      this.annotate(
-                        Lang._('WARNING'),
-                        `${Lang._('NEW_TAB_WARNING')} <hr aria-hidden="true"> ${Lang._('NEW_TAB_WARNING_TIP')}`,
-                        true
-                      )
-                    );
+                if (el.getAttribute("target") === "_blank" && !fileTypeMatch && !containsNewWindowPhrases) {
+                  this.warningCount++;
+                  el.classList.add("sa11y-warning-text");
+                  el.insertAdjacentHTML(
+                    'afterend',
+                    this.annotate(
+                      Lang._('WARNING'),
+                      `${Lang._('NEW_TAB_WARNING')} <hr aria-hidden="true"> ${Lang._('NEW_TAB_WARNING_TIP')}`,
+                      true
+                    )
+                  );
                 }
 
-                if (fileTypeMatch === 1 && !containsFileTypePhrases) {
-                    this.warningCount++;
-                    $el.addClass("sa11y-warning-text");
-                    $el.after(
-                      this.annotate(
-                        Lang._('WARNING'),
-                        `${Lang._('FILE_TYPE_WARNING')} <hr aria-hidden="true"> ${Lang._('FILE_TYPE_WARNING_TIP')}`,
-                        true
-                      )
-                    );
-                 }
+                if (fileTypeMatch && !containsFileTypePhrases) {
+                  this.warningCount++;
+                  el.classList.add("sa11y-warning-text");
+                  el.insertAdjacentHTML(
+                    'afterend',
+                    this.annotate(
+                      Lang._('WARNING'),
+                      `${Lang._('FILE_TYPE_WARNING')} <hr aria-hidden="true"> ${Lang._('FILE_TYPE_WARNING_TIP')}`,
+                      true
+                    )
+                  );
+                }
             });
         }
 
