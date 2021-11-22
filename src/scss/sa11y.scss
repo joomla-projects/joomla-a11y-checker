@@ -870,7 +870,8 @@ button.sa11y-warning-btn-text:focus {
 }
 
 .sa11y-header-text-inline,
-.sa11y-header-text h2 {
+.sa11y-header-text h2,
+.sa11y-header-text {
   display: block;
   margin-bottom: 3px;
   font-size: var(--sa11y-large-text);
