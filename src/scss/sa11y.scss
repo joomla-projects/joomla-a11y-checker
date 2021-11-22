@@ -108,15 +108,6 @@ html[data-sa11y-theme="dark"] {
   }
 }
 
-@media screen and (-ms-high-contrast: active) {
-  #sa11y-container button:focus,
-  #sa11y-container #sa11y-panel a:focus,
-  #sa11y-container [tabindex="0"]:focus,
-  #sa11y-container [tabindex="-1"]:focus {
-    outline: transparent solid 2px !important;
-  }
-}
-
 /* Reset. Keep specificity high to avoid conflicting CSS. */
 .sa11y-instance,
 .sa11y-instance-inline,
