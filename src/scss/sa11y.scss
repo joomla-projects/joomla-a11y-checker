@@ -108,41 +108,6 @@ html[data-sa11y-theme="dark"] {
   }
 }
 
-/* Reset. Keep specificity high to avoid conflicting CSS. */
-.sa11y-instance,
-.sa11y-instance-inline,
-.sa11y-error-message-container,
-#sa11y-container h1,
-#sa11y-container h2,
-#sa11y-container div,
-#sa11y-container p,
-#sa11y-container span,
-#sa11y-container ol,
-#sa11y-container ul,
-#sa11y-container li,
-#sa11y-container a,
-#sa11y-container label,
-#sa11y-container button,
-#sa11y-container svg {
-  all: unset;
-  box-sizing: border-box;
-}
-
-.sa11y-instance *::before,
-.sa11y-instance-inline *:before,
-.sa11y-instance *::after,
-.sa11y-instance-inline *:after,
-.sa11y-error-message-container *::before,
-.sa11y-error-message-container *:before,
-.sa11y-error-message-container *::after,
-.sa11y-error-message-container *:after,
-#sa11y-container *::before,
-#sa11y-container *:before,
-#sa11y-container *::after,
-#sa11y-container *:after {
-  all: unset;
-}
-
 #sa11y-container div {
   display: block;
 }
