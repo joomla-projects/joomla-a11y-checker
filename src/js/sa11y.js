@@ -2105,7 +2105,7 @@ class Sa11y {
               });
               firstPDF.insertAdjacentHTML(
                 'afterend',
-                this.annotate(Lang._('WARNING'), Lang.sprintf('QA_BAD_LINK', pdfCount), true)
+                this.annotate(Lang._('WARNING'), Lang.sprintf('QA_PDF_COUNT', pdfCount), true)
               );
             }
 
