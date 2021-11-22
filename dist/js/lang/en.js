@@ -43,7 +43,7 @@
       'DIFFICULT_READABILITY': 'Difficult',
       'FAIRLY_DIFFICULT_READABILITY': 'Fairly difficult',
       'GOOD_READABILITY': 'Good',
-      'READABILITY': 'Readability',
+      'READABILITY': 'Readability:',
       'TOTAL_WORDS': 'Words:',
       'VERY_DIFFICULT_READABILITY': 'Very difficult',
 
