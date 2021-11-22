@@ -146,7 +146,7 @@
 
       // QA
       'QA_BAD_ITALICS': 'Bold and italic tags have semantic meaning, and should <span class="sa11y-bold">not</span> be used to highlight entire paragraphs. Bolded text should be used to provide strong <span class="sa11y-bold">emphasis</span> on a word or phrase. Italics should be used to highlight proper names (i.e. book and article titles), foreign words, quotes. Long quotes should be formatted as a blockquote.',
-      'QA_BAD_LINK': 'Bad link found. Link appears to point to a development environment. This link points to: <span class="sa11y-bold sa11y-red-text">$(el)</span>',
+      'QA_BAD_LINK': 'Bad link found. Link appears to point to a development environment. This link points to: <span class="sa11y-bold sa11y-red-text">%(el)</span>',
       'QA_BLOCKQUOTE_MESSAGE': 'Is this a heading? <span class="sa11y-bold sa11y-red-text">%(bqHeadingText)</span>',
       'QA_BLOCKQUOTE_MESSAGE_TIP': 'Blockquotes should be used for quotes only. If this is intended to be a heading, change this blockquote to a semantic heading (e.g. Heading 2 or Heading 3).',
       'QA_FAKE_HEADING': 'Is this a heading? <span class="sa11y-bold sa11y-red-text">%(boldtext)</span>',
