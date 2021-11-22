@@ -868,7 +868,7 @@ button.sa11y-warning-btn-text:focus {
 }
 
 .sa11y-header-text-inline,
-.sa11y-header-text {
+.sa11y-header-text h2 {
   display: block;
   margin-bottom: 3px;
   font-size: var(--sa11y-large-text);
@@ -921,6 +921,7 @@ button.sa11y-warning-btn-text:focus {
 
 p#sa11y-readability-info {
   margin-left: 10px;
+  display: inline;
 }
 
 .sa11y-readability-score {
