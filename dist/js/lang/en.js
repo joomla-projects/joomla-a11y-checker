@@ -59,8 +59,7 @@
       'PANEL_STATUS_7': 'Please review warning.',
       'PANEL_STATUS_8': 'Please review %(warningCount) warnings.',
       'PANEL_STATUS_9': 'No accessibility errors found.',
-      // Can't find this one
-      'notVisibleAlert': 'The item you are trying to view is not visible; it may be hidden or inside of an accordion or tab component. Here"s a preview: ',
+      'PANEL_STATUS_12': 'The item you are trying to view is not visible; it may be hidden or inside of an accordion or tab component. Here\'s a preview: ',
 
       // Headings
       'HEADING_EMPTY': 'Empty heading found! To fix, delete this line or change its format from <span class="sa11y-red-text sa11y-bold">Heading %(level)</span> to <span class="sa11y-bold">Normal</span> or <span class="sa11y-bold">Paragraph</span>.',

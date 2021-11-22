@@ -1217,7 +1217,7 @@
                   //Alert if element is hidden.
                   if (offsetTopPosition === 0) {
                       $alertPanel.classList.add("sa11y-active");
-                      $alertText.textContent = `${Lang._('PANEL_STATUS_1')}`;
+                      $alertText.textContent = `${Lang._('PANEL_STATUS_12')}`;
                       $alertPanelPreview.innerHTML = $findButtons[sa11yBtnLocation].getAttribute('data-tippy-content');
                   } else if (offsetTopPosition < 1) {
                       $alertPanel.classList.remove("sa11y-active");
