@@ -1,42 +1,42 @@
 .jumbotron {
-    margin-bottom: 0rem!important
+    margin-bottom: 0rem;
 }
 
 main a, footer a {
-    color: #0065d1!important;
-    text-decoration: underline !important;
+    color: #0065d1;
+    text-decoration: underline;
 }
 
 main a:hover,
 main a:focus {
-    text-decoration: none!important
+    text-decoration: none;
 }
 .btn-primary {
-    color: #fff!important;
-    background-color:#245ec5!important;
-    border-color:#245ec5!important;
+    color: #fff;
+    background-color:#245ec5;
+    border-color:#245ec5;
   }
 
 .list-group-item.active {
-    color: white!important;
-    background-color: #005fc5!important;
-    border-color: #005fc5!important
+    color: white;
+    background-color: #005fc5;
+    border-color: #005fc5;
 }
 
 .nav-link {
-    color: white!important
+    color: white;
 }
 
 .nav-link:focus,
 .nav-link:hover {
-    text-decoration: underline!important;
-    color: aqua!important
+    text-decoration: underline;
+    color: aqua;
 }
 
 .sa11y-website-frame-message {
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    background-color: #6a00aa!important;
+    background-color: #6a00aa;
     text-align: center;
     color: #fff;
     display: flex;
