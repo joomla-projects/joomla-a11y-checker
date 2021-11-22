@@ -2505,7 +2505,7 @@
                     'beforebegin',
                     this.annotate(
                         Lang._('WARNING'),
-                        `${Lang.sprintf('CONTRAST_WARNING_MESSAGE', nodetext)} <hr aria-hidden="true"> ${Lang._('CONTRAST_WARNING_MESSAGE_INFO')}`
+                        `${Lang.sprintf('CONTRAST_WARNING_MESSAGE')} <hr aria-hidden="true"> ${Lang._('CONTRAST_WARNING_MESSAGE_INFO', nodetext)}`, true
                       )
                   );
               });
