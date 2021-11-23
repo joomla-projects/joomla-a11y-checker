@@ -64,10 +64,10 @@
       // Headings
       'HEADING_EMPTY': 'Empty heading found! To fix, delete this line or change its format from <strong>Heading %(level)</strong> to <strong>Normal</strong> or <strong>Paragraph</strong>.',
       'HEADING_EMPTY_WITH_IMAGE': 'Heading has no text, but contains an image. If this is not a heading, change its format from <strong>Heading %(level)</strong> to <strong>Normal</strong> or <strong>Paragraph</strong>. Otherwise, please add alt text to the image if it is not decorative.',
-      'HEADING_FIRST': 'The first heading on a page should usually be a Heading 1 or Heading 2. Heading 1 should be the start of the main content section, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank">Heading Structure. %(sa11yNewTab)</a>',
+      'HEADING_FIRST': 'The first heading on a page should usually be a Heading 1 or Heading 2. Heading 1 should be the start of the main content section, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank">Heading Structure.</a>',
       'HEADING_LONG': 'Heading is long! Headings should be used to organize content and convey structure. They should be brief, informative, and unique. Please keep headings less than 160 characters (no more than a sentence).',
       'HEADING_LONG_INFO': 'Character Count: <strong>%(headingLength)</strong>.',
-      'HEADING_MISSING_ONE': 'Missing Heading 1. Heading 1 should be the start of the main content area, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank">Heading Structure. %(sa11yNewTab)</a>',
+      'HEADING_MISSING_ONE': 'Missing Heading 1. Heading 1 should be the start of the main content area, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank">Heading Structure.</a>',
       'HEADING_NON_CONSECUTIVE_LEVEL': 'Non-consecutive heading level used. Headings should never skip levels, or go from <strong>Heading %(prevLevel)</strong> to <strong>Heading %(level)</strong>.',
       'PANEL_HEADING_MISSING_ONE': 'Missing Heading 1!',
 
@@ -75,7 +75,7 @@
       'LINK_BEST_PRACTICES': 'Consider replacing the link text: <strong>%(error)</strong>',
       'LINK_BEST_PRACTICES_DETAILS': '<ul><li>&quot;Click here&quot; places focus on mouse mechanics, when many people do not use a mouse or may be viewing this website on a mobile device. Consider using a different verb that relates to the task.</li><li>Avoid using HTML symbols as call to actions unless they are hidden to assistive technologies.</li></ul>',
       'LINK_EMPTY': 'Remove empty links without any text.',
-      'LINK_EMPTY_LINK_NO_LABEL': 'Link does not have discernable text that is visible to screen readers and other assistive technology. To fix:<ul><li>Add some concise text that describes where the link takes you.</li><li>If it is an <a href="https://a11y-101.com/development/icons-and-links" target="_blank">icon link or SVG,%(sa11yNewTab)</a> it is likely missing a descriptive label.</li><li>If you think this link is an error due to a copy/paste bug, consider deleting it.</li></ul>',
+      'LINK_EMPTY_LINK_NO_LABEL': 'Link does not have discernable text that is visible to screen readers and other assistive technology. To fix:<ul><li>Add some concise text that describes where the link takes you.</li><li>If it is an <a href="https://a11y-101.com/development/icons-and-links" target="_blank">icon link or SVG</a> it is likely missing a descriptive label.</li><li>If you think this link is an error due to a copy/paste bug, consider deleting it.</li></ul>',
       'LINK_LABEL': 'The descriptive label for this link is: <strong>%(linkText)</strong>',
       'LINK_STOPWORD': 'Link text may not be descriptive enough out of context: <strong>%(error)</strong>',
       'LINK_STOPWORD_TIP': '<strong>Tip!</strong> Link text should always be clear, unique, and meaningful. Avoid common words like "click here"; or "learn more".',
@@ -122,7 +122,7 @@
       'LABELS_ARIA_LABEL_INPUT_MESSAGE': 'Input has an accessible name, although please ensure there is a visible label too.',
       'LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO': 'The accessible name for this input is: <strong>%(ariaLabel)</strong>',
       'LABELS_INPUT_RESET_MESSAGE': 'Reset buttons should <strong>not</strong> be used unless specifically needed because they are easy to activate by mistake.',
-      'LABELS_INPUT_RESET_MESSAGE_TIP': '<strong>Tip!</strong> Learn why <a href="https://www.nngroup.com/articles/reset-and-cancel-buttons/" target="_blank">Reset and Cancel buttons pose usability issues. %(sa11yNewTab)</a>',
+      'LABELS_INPUT_RESET_MESSAGE_TIP': '<strong>Tip!</strong> Learn why <a href="https://www.nngroup.com/articles/reset-and-cancel-buttons/" target="_blank">Reset and Cancel buttons pose usability issues.</a>',
       'LABELS_MISSING_IMAGE_INPUT_MESSAGE': 'Image button is missing alt text. Please add alt text to provide an accessible name. For example: <em>Search</em> or <em>Submit</em>.',
       'LABELS_MISSING_LABEL_MESSAGE': 'There is no label associated with this input. Please add an <span class="sa11y-kbd">id</span> to this input, and add a matching <span class="sa11y-kbd">for</span> attribute to the label.',
       'LABELS_NO_FOR_ATTRIBUTE_MESSAGE': 'There is no label associated with this input. Add a <span class="sa11y-kbd">for</span> attribute to the label that matches the <span class="sa11y-kbd">id</span> of this input.',
@@ -130,8 +130,8 @@
 
       // Embedded content
       'EMBED_AUDIO': 'Please ensure to provide a <strong>transcript for all podcasts.</strong> Providing transcripts for audio content is a mandatory Level A requirement. Transcripts support people who are D/deaf or hard-of-hearing, but can benefit everyone. Consider placing the transcript below or within an accordion panel.',
-      'EMBED_GENERAL_WARNING': 'Unable to check embedded content. Please make sure that images have alt text, videos have captions, text has sufficient contrast, and interactive components are <a href="https://webaim.org/techniques/keyboard/" target="_blank">keyboard accessible. %(sa11yNewTab)</a>',
-      'EMBED_MISSING_TITLE': 'Embedded content requires an accessible name that describes its contents. Please provide a unique <span class="sa11y-kbd">title</span> or <span class="sa11y-kbd">aria-label</span> attribute on the <span class="sa11y-kbd">iframe</span> element. Learn more about <a href="https://dequeuniversity.com/tips/provide-iframe-titles" target="_blank">iFrames. %(sa11yNewTab)</a>',
+      'EMBED_GENERAL_WARNING': 'Unable to check embedded content. Please make sure that images have alt text, videos have captions, text has sufficient contrast, and interactive components are <a href="https://webaim.org/techniques/keyboard/" target="_blank">keyboard accessible.</a>',
+      'EMBED_MISSING_TITLE': 'Embedded content requires an accessible name that describes its contents. Please provide a unique <span class="sa11y-kbd">title</span> or <span class="sa11y-kbd">aria-label</span> attribute on the <span class="sa11y-kbd">iframe</span> element. Learn more about <a href="https://dequeuniversity.com/tips/provide-iframe-titles" target="_blank">iFrames.</a>',
       'EMBED_VIDEO': 'Please ensure <strong>all videos have closed captioning.</strong> Providing captions for all audio and video content is a mandatory Level A requirement. Captions support people who are D/deaf or hard-of-hearing.',
 
       // Contrast
