@@ -2189,8 +2189,7 @@
               });
 
               // Warning: Detect fake headings.
-              const $p = this.$p;
-              $p.forEach(($el) => {
+              this.$p.forEach(($el) => {
                   let brAfter = $el.innerHTML.indexOf("</strong><br>");
                   let brBefore = $el.innerHTML.indexOf("<br></strong>");
 
@@ -2235,6 +2234,7 @@
                       );
                      }
                  }
+              });
               if (this.$root.querySelectorAll(".sa11y-fake-heading").length > 0) {
                   this.warningCount++;
               }
@@ -2305,7 +2305,6 @@
               if (this.$root.querySelectorAll('.sa11y-fake-list').length > 0) {
                   this.warningCount++;
               }
-          });
         };
 
           // ============================================================
