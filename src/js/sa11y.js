@@ -379,8 +379,7 @@ class Sa11y {
                 //End of main container.
                 `</div>`;
 
-            const pagebody = document.getElementsByTagName("BODY")[0];
-            pagebody.prepend(sa11ycontainer);
+            document.body.prepend(sa11ycontainer);
 
             //Put before document.ready because of CSS flicker when dark mode is enabled.
             this.settingPanelToggles();
@@ -389,21 +388,6 @@ class Sa11y {
             this.sa11yMainToggle();
             this.sanitizeHTMLandComputeARIA();
             this.initializeJumpToIssueTooltip();
-/*
-            //500ms to let the page settle down (e.g. slow loading JavaScript components).
-            setTimeout(() => {
-                    document.getElementById("sa11y-toggle").disabled = false;
-
-                    // @Todo: Yes, this is total crap and needs to be re-thinked. On document.ready, it crudely checks/annotates the page,
-                    // and then instantly clears/resets everything except for the badge counter.
-                    // Need to figure out a way to update badge counter without painting entire page with error buttons.
-                    if (localStorage.getItem("sa11y-remember-panel") === "Closed" || localStorage.getItem("sa11y-remember-panel") === null) {
-                        this.checkAll();
-                        this.resetAll();
-                    }
-            }, 500);
-
- */
         }
 
         //----------------------------------------------------------------------
@@ -717,6 +701,18 @@ class Sa11y {
                 appendTo: document.body,
             });
         }
+
+  // ----------------------------------------------------------------------
+  // Do Initial check
+  // ----------------------------------------------------------------------
+  doInitialCheck() {
+    document.getElementById("sa11y-toggle").disabled = false;
+
+    if (localStorage.getItem("sa11y-remember-panel") === "Closed" || !localStorage.getItem("sa11y-remember-panel")) {
+      this.checkAll();
+      this.resetAll();
+    }
+  }
 
         // ----------------------------------------------------------------------
         // Check all

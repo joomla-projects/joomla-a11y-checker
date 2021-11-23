@@ -46,6 +46,10 @@
 
     // Instantiate
     const checker = new Sa11y.Sa11y(EngSetting.options);
+
+    window.addEventListener('load', () => {
+      checker.doInitialCheck();
+    });
   </script>
 </head>
 
