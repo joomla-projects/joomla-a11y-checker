@@ -36,27 +36,62 @@ Read [Sa11y 2.0 release notes.](https://github.com/ryersondmp/sa11y/releases/tag
 :arrow_right: [View project website and demo](https://ryersondmp.github.io/sa11y/) or grab the latest [bookmarklet.](https://ryersondmp.github.io/sa11y/#install)
 
 ## Installation
-Sa11y relies on jQuery and works best using a tooltip library that features a positioning system. Positioning systems ensure that tooltips are never hidden by conflicting CSS styling such as `overflow: hidden;`. This version of Sa11y was built with [Tippy.js](https://github.com/atomiks/tippyjs), a highly customizable tooltip library.
 
-To install on your website, insert Sa11y right after the jQuery script tag, and right before the closing `</body>` tag. Include both Tippy.js and Popper.js before Sa11y. Sa11y consists of three files (located in `/src/`).
+To install on your website, insert Sa11y right in the head tag. Include both Tippy.js and Popper.js before Sa11y. Sa11y consists of three files (located in `/dist/`).
 
 - **sa11y.css**: The main stylesheet. Should be included in the `<head>` of the document (if possible).
 - **sa11y-english.js**: Global configurations and exclusions go here. All text strings and tooltip messages are located here for easy translation.
 - **sa11y.js**: Contains all logic and rulesets.
 
 ### Example installation:
+As module:
 ```html
-//Latest jQuery (Bookmarklet uses jQuery slim build)
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js"></script>
+<!--StyleSheet-->
+<link rel="stylesheet" href="css/joomla-a11y-checker.min.css" />
 
-//Tippy.js v6 CDN (tooltip library)
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
+<!-- Tippy.js CDN (tooltip library) -->
+<script src="https://unpkg.com/@popperjs/core@2" defer></script>
+<script src="https://unpkg.com/tippy.js@6" defer></script>
 
-//Sa11y (fork the latest code from GitHub)
-<link rel="stylesheet" href="sa11y.css"/>
-<script src="sa11y-english.js"></script>
-<script src="sa11y-v2.js"></script>
+<script type="module">
+  import Sa11y from 'js/sa11y.js';
+  import Sa11yLangEn from 'js/lang/en.js';
+  
+  window.addEventListener('load', () => {
+    // Set translations
+    Sa11y.Lang.addI18n(Sa11yLangEn.strings);
+
+    // Instantiate
+    const checker = new Sa11y.Sa11y(Sa11yLangEn.options);
+    checker.doInitialCheck();
+  });
+</script>
+
+```
+
+As regular script:
+
+```html
+<!--StyleSheet-->
+<link rel="stylesheet" href="css/joomla-a11y-checker.min.css" />
+
+<!-- Tippy.js CDN (tooltip library) -->
+<script src="https://unpkg.com/@popperjs/core@2" defer></script>
+<script src="https://unpkg.com/tippy.js@6" defer></script>
+
+<script src="dist/js/joomla-a11y-checker.umd.min.js" defer></script>
+<script src="dist/js/lang/en.js" defer></script>
+
+<script>
+  window.addEventListener('load', () => {
+    // Set translations
+    Sa11y.Lang.addI18n(Sa11yLangEn.strings);
+
+    // Instantiate
+    const checker = new Sa11y.Sa11y(Sa11yLangEn.options);
+    checker.doInitialCheck();
+  });
+</script>
 ```
 
 #### Other notes
