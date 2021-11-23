@@ -11,7 +11,7 @@
     "url": "https://github.com/joomla-projects/joomla-a11y-checker/issues"
   },
   "homepage": "https://github.com/joomla-projects/joomla-a11y-checker",
-  "main": "src/js/sa11y.js",
+  "main": "src/js/jooa11y.js",
   "keywords": [
     "Joomla",
     "a11y",

@@ -400,26 +400,26 @@ hr {
 .pb40 {padding-bottom:40px;}
 .pb80 {padding-bottom:80px;}
 
-.sa11y-hero {
+.jooa11y-hero {
     padding-top: 90px;
     padding-bottom: 90px;
     background-color: #cbcbcb;
 }
 
-.sa11y-demo {
+.jooa11y-demo {
     padding-top: 70px;
     padding-bottom: 70px;
     background-color: #00a9ef;
 }
 
-.btn-sa11y {
+.btn-jooa11y {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
   text-align: center;
   vertical-align: middle;
   color: white !important;
-  background: #004c9b;           
+  background: #004c9b;
   padding: 10px 20px;
   margin: 1em;
   font-size: 1.2em;
@@ -428,7 +428,7 @@ hr {
   text-decoration: none !important;
 }
 
-a.btn-sa11y:hover, a.btn-sa11y:focus {
+a.btn-jooa11y:hover, a.btn-jooa11y:focus {
   background: black;
 }
 

@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Sa11y = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Jooa11y = factory());
 })(this, (function () { 'use strict';
 
   /**
@@ -26,7 +26,7 @@
   };
 
   /**
-   * Sa11y Translation object
+   * Jooa11y Translation object
    */
   const Lang = {
     langStrings: {},
@@ -60,7 +60,7 @@
   }
 
   /**
-   * Sa11y default options
+   * Jooa11y default options
    */
     const defaultOptions = {
       langCode: 'en',
@@ -73,7 +73,7 @@
       readabilityLang: 'en',
 
       // Inclusions and exclusions. Use commas to seperate classes or elements.
-      containerIgnore: '.sa11y-ignore', // Ignore specific regions.
+      containerIgnore: '.jooa11y-ignore', // Ignore specific regions.
       outlineIgnore: '', // Exclude headings from outline panel.
       headerIgnore: '', // Ignore specific headings. E.g. "h1.jumbotron-heading"
       imageIgnore: '', // Ignore specific images.
@@ -187,7 +187,7 @@
     /**
      * Load and validate options
      *
-     * @param {Sa11y}  instance
+     * @param {Jooa11y}  instance
      * @param {Object} customOptions
      * @returns {Object}
      */
@@ -211,9 +211,9 @@
           return `${el} *, ${el}`
         });
 
-        options.containerIgnore = '[aria-hidden="true"], #sa11y-container *, .sa11y-instance *, ' + containerSelectors.join(', ');
+        options.containerIgnore = '[aria-hidden="true"], #jooa11y-container *, .jooa11y-instance *, ' + containerSelectors.join(', ');
       } else {
-        options.containerIgnore = '[aria-hidden="true"], #sa11y-container *, .sa11y-instance *';
+        options.containerIgnore = '[aria-hidden="true"], #jooa11y-container *, .jooa11y-instance *';
       }
       instance.containerIgnore = options.containerIgnore;
 
@@ -231,7 +231,7 @@
         instance.headerIgnore = options.headerIgnore + ',' + instance.headerIgnore;
       }
 
-      // Links ignore defaults plus sa11y links.
+      // Links ignore defaults plus jooa11y links.
       instance.linkIgnore = instance.containerIgnore + ', [aria-hidden="true"], .anchorjs-link';
 
       if (options.linkIgnore) {
@@ -242,9 +242,9 @@
     };
 
   /**
-   * Sa11y class
+   * Jooa11y class
    */
-  class Sa11y {
+  class Jooa11y {
           constructor(options) {
             this.containerIgnore = '';
             this.imageIgnore = '';
@@ -258,125 +258,125 @@
               const MainToggleIcon =
                   "<svg role='img' focusable='false' width='35px' height='35px' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='#ffffff' d='M256 48c114.953 0 208 93.029 208 208 0 114.953-93.029 208-208 208-114.953 0-208-93.029-208-208 0-114.953 93.029-208 208-208m0-40C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 56C149.961 64 64 149.961 64 256s85.961 192 192 192 192-85.961 192-192S362.039 64 256 64zm0 44c19.882 0 36 16.118 36 36s-16.118 36-36 36-36-16.118-36-36 16.118-36 36-36zm117.741 98.023c-28.712 6.779-55.511 12.748-82.14 15.807.851 101.023 12.306 123.052 25.037 155.621 3.617 9.26-.957 19.698-10.217 23.315-9.261 3.617-19.699-.957-23.316-10.217-8.705-22.308-17.086-40.636-22.261-78.549h-9.686c-5.167 37.851-13.534 56.208-22.262 78.549-3.615 9.255-14.05 13.836-23.315 10.217-9.26-3.617-13.834-14.056-10.217-23.315 12.713-32.541 24.185-54.541 25.037-155.621-26.629-3.058-53.428-9.027-82.141-15.807-8.6-2.031-13.926-10.648-11.895-19.249s10.647-13.926 19.249-11.895c96.686 22.829 124.283 22.783 220.775 0 8.599-2.03 17.218 3.294 19.249 11.895 2.029 8.601-3.297 17.219-11.897 19.249z'/></svg>";
 
-              const sa11ycontainer = document.createElement("div");
-              sa11ycontainer.setAttribute("id", "sa11y-container");
-              sa11ycontainer.setAttribute("role", "region");
-              sa11ycontainer.setAttribute("lang", this.options.langCode);
-              sa11ycontainer.setAttribute("aria-label", Lang._('CONTAINER_LABEL'));
+              const jooa11ycontainer = document.createElement("div");
+              jooa11ycontainer.setAttribute("id", "jooa11y-container");
+              jooa11ycontainer.setAttribute("role", "region");
+              jooa11ycontainer.setAttribute("lang", this.options.langCode);
+              jooa11ycontainer.setAttribute("aria-label", Lang._('CONTAINER_LABEL'));
 
               let loadContrastPreference =
-                  localStorage.getItem("sa11y-remember-contrast") === "On";
+                  localStorage.getItem("jooa11y-remember-contrast") === "On";
 
               let loadLabelsPreference =
-                  localStorage.getItem("sa11y-remember-labels") === "On";
+                  localStorage.getItem("jooa11y-remember-labels") === "On";
 
               let loadChangeRequestPreference =
-                  localStorage.getItem("sa11y-remember-links-advanced") === "On";
+                  localStorage.getItem("jooa11y-remember-links-advanced") === "On";
 
               let loadReadabilityPreference =
-                  localStorage.getItem("sa11y-remember-readability") === "On";
+                  localStorage.getItem("jooa11y-remember-readability") === "On";
 
-              sa11ycontainer.innerHTML =
+              jooa11ycontainer.innerHTML =
 
                   //Main toggle button.
-                  `<button type="button" aria-expanded="false" id="sa11y-toggle" aria-describedby="sa11y-notification-badge" aria-label="${Lang._('MAIN_TOGGLE_LABEL')}">
+                  `<button type="button" aria-expanded="false" id="jooa11y-toggle" aria-describedby="jooa11y-notification-badge" aria-label="${Lang._('MAIN_TOGGLE_LABEL')}">
                     ${MainToggleIcon}
-                    <div id="sa11y-notification-badge">
-                        <span id="sa11y-notification-count"></span>
+                    <div id="jooa11y-notification-badge">
+                        <span id="jooa11y-notification-count"></span>
                     </div>
                 </button>` +
 
                   //Start of main container.
-                  `<div id="sa11y-panel">` +
+                  `<div id="jooa11y-panel">` +
 
                   //Page Outline tab.
-                  `<div id="sa11y-outline-panel" role="tabpanel" aria-labelledby="sa11y-outline-header">
-                <div id="sa11y-outline-header" class="sa11y-header-text">
+                  `<div id="jooa11y-outline-panel" role="tabpanel" aria-labelledby="jooa11y-outline-header">
+                <div id="jooa11y-outline-header" class="jooa11y-header-text">
                     <h2 tabindex="-1">${Lang._('PAGE_OUTLINE')}</h2>
                 </div>
-                <div id="sa11y-outline-content">
-                    <ul id="sa11y-outline-list"></ul>
+                <div id="jooa11y-outline-content">
+                    <ul id="jooa11y-outline-list"></ul>
                 </div>` +
 
                   //Readability tab.
-                  `<div id="sa11y-readability-panel">
-                    <div id="sa11y-readability-content">
-                        <h2 class="sa11y-header-text-inline">${Lang._('READABILITY')}</h2>
-                        <p id="sa11y-readability-info"></p>
-                        <ul id="sa11y-readability-details"></ul>
+                  `<div id="jooa11y-readability-panel">
+                    <div id="jooa11y-readability-content">
+                        <h2 class="jooa11y-header-text-inline">${Lang._('READABILITY')}</h2>
+                        <p id="jooa11y-readability-info"></p>
+                        <ul id="jooa11y-readability-details"></ul>
                     </div>
                 </div>
             </div>` + //End of Page Outline tab.
 
                   //Settings tab.
-                  `<div id="sa11y-settings-panel" role="tabpanel" aria-labelledby="sa11y-settings-header">
-                <div id="sa11y-settings-header" class="sa11y-header-text">
+                  `<div id="jooa11y-settings-panel" role="tabpanel" aria-labelledby="jooa11y-settings-header">
+                <div id="jooa11y-settings-header" class="jooa11y-header-text">
                     <h2 tabindex="-1">${Lang._('SETTINGS')}</h2>
                 </div>
-                <div id="sa11y-settings-content">
-                    <ul id="sa11y-settings-options">
+                <div id="jooa11y-settings-content">
+                    <ul id="jooa11y-settings-options">
                         <li>
-                            <label id="check-contrast" for="sa11y-contrast-toggle">${Lang._('CONTRAST')}</label>
-                            <button id="sa11y-contrast-toggle"
+                            <label id="check-contrast" for="jooa11y-contrast-toggle">${Lang._('CONTRAST')}</label>
+                            <button id="jooa11y-contrast-toggle"
                             aria-labelledby="check-contrast"
-                            class="sa11y-settings-switch"
+                            class="jooa11y-settings-switch"
                             aria-pressed="${
                                 loadContrastPreference ? "true" : "false"
                             }">${loadContrastPreference ? Lang._('ON') : Lang._('OFF')}</button>
                         </li>
                         <li>
-                            <label id="check-labels" for="sa11y-labels-toggle">${Lang._('FORM_LABELS')}</label>
-                            <button id="sa11y-labels-toggle" aria-labelledby="check-labels" class="sa11y-settings-switch"
+                            <label id="check-labels" for="jooa11y-labels-toggle">${Lang._('FORM_LABELS')}</label>
+                            <button id="jooa11y-labels-toggle" aria-labelledby="check-labels" class="jooa11y-settings-switch"
                             aria-pressed="${
                                 loadLabelsPreference ? "true" : "false"
                             }">${loadLabelsPreference ? Lang._('ON') : Lang._('OFF')}</button>
                         </li>
                         <li>
-                            <label id="check-changerequest" for="sa11y-links-advanced-toggle">${Lang._('LINKS_ADVANCED')}<span class="sa11y-badge">AAA</span></label>
-                            <button id="sa11y-links-advanced-toggle" aria-labelledby="check-changerequest" class="sa11y-settings-switch"
+                            <label id="check-changerequest" for="jooa11y-links-advanced-toggle">${Lang._('LINKS_ADVANCED')}<span class="jooa11y-badge">AAA</span></label>
+                            <button id="jooa11y-links-advanced-toggle" aria-labelledby="check-changerequest" class="jooa11y-settings-switch"
                             aria-pressed="${
                                 loadChangeRequestPreference ? "true" : "false"
                             }">${loadChangeRequestPreference ? Lang._('ON') : Lang._('OFF')}</button>
                         </li>
                         <li>
-                            <label id="check-readability" for="sa11y-readability-toggle">${Lang._('READABILITY')}<span class="sa11y-badge">AAA</span></label>
-                            <button id="sa11y-readability-toggle" aria-labelledby="check-readability" class="sa11y-settings-switch"
+                            <label id="check-readability" for="jooa11y-readability-toggle">${Lang._('READABILITY')}<span class="jooa11y-badge">AAA</span></label>
+                            <button id="jooa11y-readability-toggle" aria-labelledby="check-readability" class="jooa11y-settings-switch"
                             aria-pressed="${
                                 loadReadabilityPreference ? "true" : "false"
                             }">${loadReadabilityPreference ? Lang._('ON') : Lang._('OFF')}</button>
                         </li>
                         <li>
-                            <label id="dark-mode" for="sa11y-theme-toggle">${Lang._('DARK_MODE')}</label>
-                            <button id="sa11y-theme-toggle" aria-labelledby="dark-mode" class="sa11y-settings-switch"></button>
+                            <label id="dark-mode" for="jooa11y-theme-toggle">${Lang._('DARK_MODE')}</label>
+                            <button id="jooa11y-theme-toggle" aria-labelledby="dark-mode" class="jooa11y-settings-switch"></button>
                         </li>
                     </ul>
                 </div>
             </div>` +
 
                   //Console warning messages.
-                  `<div id="sa11y-panel-alert">
-                <div class="sa11y-header-text">
-                    <button id="sa11y-close-alert" class="sa11y-close-btn" aria-label="${Lang._('ALERT_CLOSE')}" aria-describedby="sa11y-alert-heading sa11y-panel-alert-text"></button>
-                    <h2 id="sa11y-alert-heading">${Lang._('ALERT_TEXT')}</h2>
+                  `<div id="jooa11y-panel-alert">
+                <div class="jooa11y-header-text">
+                    <button id="jooa11y-close-alert" class="jooa11y-close-btn" aria-label="${Lang._('ALERT_CLOSE')}" aria-describedby="jooa11y-alert-heading jooa11y-panel-alert-text"></button>
+                    <h2 id="jooa11y-alert-heading">${Lang._('ALERT_TEXT')}</h2>
                 </div>
-                <p id="sa11y-panel-alert-text"></p>
-                <div id="sa11y-panel-alert-preview"></div>
+                <p id="jooa11y-panel-alert-text"></p>
+                <div id="jooa11y-panel-alert-preview"></div>
             </div>` +
 
                   //Main panel that conveys state of page.
-                  `<div id="sa11y-panel-content">
-                <button id="sa11y-cycle-toggle" type="button" aria-label="${Lang._('SHORTCUT_SR')}">
-                    <div class="sa11y-panel-icon"></div>
+                  `<div id="jooa11y-panel-content">
+                <button id="jooa11y-cycle-toggle" type="button" aria-label="${Lang._('SHORTCUT_SR')}">
+                    <div class="jooa11y-panel-icon"></div>
                 </button>
-                <div id="sa11y-panel-text"><p id="sa11y-status" aria-live="polite"></p></div>
+                <div id="jooa11y-panel-text"><p id="jooa11y-status" aria-live="polite"></p></div>
             </div>` +
 
                   //Show Outline & Show Settings button.
-                  `<div id="sa11y-panel-controls" role="tablist" aria-orientation="horizontal">
-                <button type="button" role="tab" aria-expanded="false" id="sa11y-outline-toggle" aria-controls="sa11y-outline-panel">
+                  `<div id="jooa11y-panel-controls" role="tablist" aria-orientation="horizontal">
+                <button type="button" role="tab" aria-expanded="false" id="jooa11y-outline-toggle" aria-controls="jooa11y-outline-panel">
                     ${Lang._('SHOW_OUTLINE')}
                 </button>
-                <button type="button" role="tab" aria-expanded="false" id="sa11y-settings-toggle" aria-controls="sa11y-settings-panel">
+                <button type="button" role="tab" aria-expanded="false" id="jooa11y-settings-toggle" aria-controls="jooa11y-settings-panel">
                     ${Lang._('SHOW_SETTINGS')}
                 </button>
                 <div style="width:35px"></div>
@@ -385,13 +385,13 @@
                   //End of main container.
                   `</div>`;
 
-              document.body.append(sa11ycontainer);
+              document.body.append(jooa11ycontainer);
 
               //Put before document.ready because of CSS flicker when dark mode is enabled.
               this.settingPanelToggles();
 
               // Preload before CheckAll function.
-              this.sa11yMainToggle();
+              this.jooa11yMainToggle();
               this.sanitizeHTMLandComputeARIA();
               this.initializeJumpToIssueTooltip();
           }
@@ -399,39 +399,39 @@
           //----------------------------------------------------------------------
           // Main toggle button
           //----------------------------------------------------------------------
-          sa11yMainToggle() {
+          jooa11yMainToggle() {
 
               //Keeps checker active when navigating between pages until it is toggled off.
-              const sa11yToggle = document.getElementById("sa11y-toggle");
-              sa11yToggle.addEventListener('click', (e) => {
-                  if (localStorage.getItem("sa11y-remember-panel") === "Opened") {
-                      localStorage.setItem("sa11y-remember-panel", "Closed");
-                      sa11yToggle.classList.remove("sa11y-on");
-                      sa11yToggle.setAttribute("aria-expanded", "false");
+              const jooa11yToggle = document.getElementById("jooa11y-toggle");
+              jooa11yToggle.addEventListener('click', (e) => {
+                  if (localStorage.getItem("jooa11y-remember-panel") === "Opened") {
+                      localStorage.setItem("jooa11y-remember-panel", "Closed");
+                      jooa11yToggle.classList.remove("jooa11y-on");
+                      jooa11yToggle.setAttribute("aria-expanded", "false");
                       this.resetAll();
                       this.updateBadge();
                       e.preventDefault();
                   } else {
-                      localStorage.setItem("sa11y-remember-panel", "Opened");
-                      sa11yToggle.classList.add("sa11y-on");
-                      sa11yToggle.setAttribute("aria-expanded", "true");
+                      localStorage.setItem("jooa11y-remember-panel", "Opened");
+                      jooa11yToggle.classList.add("jooa11y-on");
+                      jooa11yToggle.setAttribute("aria-expanded", "true");
                       this.checkAll();
                       //Don't show badge when panel is opened.
-                      document.getElementById("sa11y-notification-badge").style.display = 'none';
+                      document.getElementById("jooa11y-notification-badge").style.display = 'none';
                       e.preventDefault();
                   }
               });
 
               //Remember to leave it open
-              if (localStorage.getItem("sa11y-remember-panel") === "Opened") {
-                  sa11yToggle.classList.add("sa11y-on");
-                  sa11yToggle.setAttribute("aria-expanded", "true");
+              if (localStorage.getItem("jooa11y-remember-panel") === "Opened") {
+                  jooa11yToggle.classList.add("jooa11y-on");
+                  jooa11yToggle.setAttribute("aria-expanded", "true");
               }
 
               //Crudely give a little time to load any other content or slow post-rendered JS, iFrames, etc.
-              if (sa11yToggle.classList.contains("sa11y-on")) {
-                  sa11yToggle.classList.toggle("loading-sa11y");
-                  sa11yToggle.setAttribute("aria-expanded", "true");
+              if (jooa11yToggle.classList.contains("jooa11y-on")) {
+                  jooa11yToggle.classList.toggle("loading-jooa11y");
+                  jooa11yToggle.setAttribute("aria-expanded", "true");
                   setTimeout(this.checkAll, 800);
               }
 
@@ -444,11 +444,11 @@
                   } else {
                       isEscape = (evt.keyCode === 27);
                   }
-                  if (isEscape && document.getElementById("sa11y-panel").classList.contains("sa11y-active")) {
+                  if (isEscape && document.getElementById("jooa11y-panel").classList.contains("jooa11y-active")) {
                       tippy.hideAll();
-                      sa11yToggle.setAttribute("aria-expanded", "false");
-                      sa11yToggle.classList.remove("sa11y-on");
-                      sa11yToggle.click();
+                      jooa11yToggle.setAttribute("aria-expanded", "false");
+                      jooa11yToggle.classList.remove("jooa11y-on");
+                      jooa11yToggle.click();
                       this.resetAll();
                   }
               };
@@ -480,7 +480,7 @@
                   //To-do: This is a hack? Any way to do this better?
                   else if (imgArray.length && $el.textContent.trim().length) {
                     imgArray.forEach(element => {
-                        element.insertAdjacentHTML("afterend", " <span class='sa11y-clone-image-text' aria-hidden='true'>" + imgArray[0].getAttribute("alt") + "</span> ");
+                        element.insertAdjacentHTML("afterend", " <span class='jooa11y-clone-image-text' aria-hidden='true'>" + imgArray[0].getAttribute("alt") + "</span> ");
                     });
                     returnText = $el.textContent.trim();
                   }
@@ -543,81 +543,81 @@
           //----------------------------------------------------------------------
           settingPanelToggles() {
               //Toggle: Contrast
-              const $sa11yContrastCheck = document.getElementById("sa11y-contrast-toggle");
-              $sa11yContrastCheck.onclick = async () => {
-                  if (localStorage.getItem("sa11y-remember-contrast") === "On") {
-                      localStorage.setItem("sa11y-remember-contrast", "Off");
-                      $sa11yContrastCheck.textContent = Lang._('OFF');
-                      $sa11yContrastCheck.setAttribute("aria-pressed", "false");
+              const $jooa11yContrastCheck = document.getElementById("jooa11y-contrast-toggle");
+              $jooa11yContrastCheck.onclick = async () => {
+                  if (localStorage.getItem("jooa11y-remember-contrast") === "On") {
+                      localStorage.setItem("jooa11y-remember-contrast", "Off");
+                      $jooa11yContrastCheck.textContent = Lang._('OFF');
+                      $jooa11yContrastCheck.setAttribute("aria-pressed", "false");
                       this.resetAll(false);
                       await this.checkAll();
                   } else {
-                      localStorage.setItem("sa11y-remember-contrast", "On");
-                      $sa11yContrastCheck.textContent = Lang._('ON');
-                      $sa11yContrastCheck.setAttribute("aria-pressed", "true");
+                      localStorage.setItem("jooa11y-remember-contrast", "On");
+                      $jooa11yContrastCheck.textContent = Lang._('ON');
+                      $jooa11yContrastCheck.setAttribute("aria-pressed", "true");
                       this.resetAll(false);
                       await this.checkAll();
                   }
               };
 
               //Toggle: Form labels
-              const $sa11yLabelsCheck = document.getElementById("sa11y-labels-toggle");
-              $sa11yLabelsCheck.onclick = async () => {
-                  if (localStorage.getItem("sa11y-remember-labels") === "On") {
-                      localStorage.setItem("sa11y-remember-labels", "Off");
-                      $sa11yLabelsCheck.textContent = Lang._('OFF');
-                      $sa11yLabelsCheck.setAttribute("aria-pressed", "false");
+              const $jooa11yLabelsCheck = document.getElementById("jooa11y-labels-toggle");
+              $jooa11yLabelsCheck.onclick = async () => {
+                  if (localStorage.getItem("jooa11y-remember-labels") === "On") {
+                      localStorage.setItem("jooa11y-remember-labels", "Off");
+                      $jooa11yLabelsCheck.textContent = Lang._('OFF');
+                      $jooa11yLabelsCheck.setAttribute("aria-pressed", "false");
                       this.resetAll(false);
                       await this.checkAll();
                   } else {
-                      localStorage.setItem("sa11y-remember-labels", "On");
-                      $sa11yLabelsCheck.textContent = Lang._('ON');
-                      $sa11yLabelsCheck.setAttribute("aria-pressed", "true");
+                      localStorage.setItem("jooa11y-remember-labels", "On");
+                      $jooa11yLabelsCheck.textContent = Lang._('ON');
+                      $jooa11yLabelsCheck.setAttribute("aria-pressed", "true");
                       this.resetAll(false);
                       await this.checkAll();
                   }
               };
 
               //Toggle: Links (Advanced)
-              const $sa11yChangeRequestCheck = document.getElementById("sa11y-links-advanced-toggle");
-              $sa11yChangeRequestCheck.onclick = async () => {
-                  if (localStorage.getItem("sa11y-remember-links-advanced") === "On") {
-                      localStorage.setItem("sa11y-remember-links-advanced", "Off");
-                      $sa11yChangeRequestCheck.textContent = Lang._('OFF');
-                      $sa11yChangeRequestCheck.setAttribute("aria-pressed", "false");
+              const $jooa11yChangeRequestCheck = document.getElementById("jooa11y-links-advanced-toggle");
+              $jooa11yChangeRequestCheck.onclick = async () => {
+                  if (localStorage.getItem("jooa11y-remember-links-advanced") === "On") {
+                      localStorage.setItem("jooa11y-remember-links-advanced", "Off");
+                      $jooa11yChangeRequestCheck.textContent = Lang._('OFF');
+                      $jooa11yChangeRequestCheck.setAttribute("aria-pressed", "false");
                       this.resetAll(false);
                       await this.checkAll();
                   } else {
-                      localStorage.setItem("sa11y-remember-links-advanced", "On");
-                      $sa11yChangeRequestCheck.textContent = Lang._('ON');
-                      $sa11yChangeRequestCheck.setAttribute("aria-pressed", "true");
+                      localStorage.setItem("jooa11y-remember-links-advanced", "On");
+                      $jooa11yChangeRequestCheck.textContent = Lang._('ON');
+                      $jooa11yChangeRequestCheck.setAttribute("aria-pressed", "true");
                       this.resetAll(false);
                       await this.checkAll();
                   }
               };
 
               //Toggle: Readability
-              const $sa11yReadabilityCheck = document.getElementById("sa11y-readability-toggle");
-              $sa11yReadabilityCheck.onclick = async () => {
-                  if (localStorage.getItem("sa11y-remember-readability") === "On") {
-                      localStorage.setItem("sa11y-remember-readability", "Off");
-                      $sa11yReadabilityCheck.textContent = Lang._('OFF');
-                      $sa11yReadabilityCheck.setAttribute("aria-pressed", "false");
-                      document.getElementById("sa11y-readability-panel").classList.remove("sa11y-active");
+              const $jooa11yReadabilityCheck = document.getElementById("jooa11y-readability-toggle");
+              $jooa11yReadabilityCheck.onclick = async () => {
+                  if (localStorage.getItem("jooa11y-remember-readability") === "On") {
+                      localStorage.setItem("jooa11y-remember-readability", "Off");
+                      $jooa11yReadabilityCheck.textContent = Lang._('OFF');
+                      $jooa11yReadabilityCheck.setAttribute("aria-pressed", "false");
+                      document.getElementById("jooa11y-readability-panel").classList.remove("jooa11y-active");
                       this.resetAll(false);
                       await this.checkAll();
                   } else {
-                      localStorage.setItem("sa11y-remember-readability", "On");
-                      $sa11yReadabilityCheck.textContent = Lang._('ON');
-                      $sa11yReadabilityCheck.setAttribute("aria-pressed", "true");
-                      document.getElementById("sa11y-readability-panel").classList.add("sa11y-active");
+                      localStorage.setItem("jooa11y-remember-readability", "On");
+                      $jooa11yReadabilityCheck.textContent = Lang._('ON');
+                      $jooa11yReadabilityCheck.setAttribute("aria-pressed", "true");
+                      document.getElementById("jooa11y-readability-panel").classList.add("jooa11y-active");
                       this.resetAll(false);
                       await this.checkAll();
                   }
               };
 
-              if (localStorage.getItem("sa11y-remember-readability") === "On") {
-                  document.getElementById("sa11y-readability-panel").classList.add("sa11y-active");
+              if (localStorage.getItem("jooa11y-remember-readability") === "On") {
+                  document.getElementById("jooa11y-readability-panel").classList.add("jooa11y-active");
               }
 
               //Toggle: Dark mode. (Credits: https://derekkedziora.com/blog/dark-mode-revisited)
@@ -625,66 +625,66 @@
               let systemInitiatedDark = window.matchMedia(
                   "(prefers-color-scheme: dark)"
               );
-              const $sa11yTheme = document.getElementById("sa11y-theme-toggle");
+              const $jooa11yTheme = document.getElementById("jooa11y-theme-toggle");
               const html = document.querySelector("html");
-              const theme = localStorage.getItem("sa11y-remember-theme");
+              const theme = localStorage.getItem("jooa11y-remember-theme");
               if (systemInitiatedDark.matches) {
-                  $sa11yTheme.textContent = Lang._('ON');
-                  $sa11yTheme.setAttribute("aria-pressed", "true");
+                  $jooa11yTheme.textContent = Lang._('ON');
+                  $jooa11yTheme.setAttribute("aria-pressed", "true");
               } else {
-                  $sa11yTheme.textContent = Lang._('OFF');
-                  $sa11yTheme.setAttribute("aria-pressed", "false");
+                  $jooa11yTheme.textContent = Lang._('OFF');
+                  $jooa11yTheme.setAttribute("aria-pressed", "false");
               }
 
               function prefersColorTest(systemInitiatedDark) {
                   if (systemInitiatedDark.matches) {
-                      html.setAttribute("data-sa11y-theme", "dark");
-                      $sa11yTheme.textContent = Lang._('ON');
-                      $sa11yTheme.setAttribute("aria-pressed", "true");
-                      localStorage.setItem("sa11y-remember-theme", "");
+                      html.setAttribute("data-jooa11y-theme", "dark");
+                      $jooa11yTheme.textContent = Lang._('ON');
+                      $jooa11yTheme.setAttribute("aria-pressed", "true");
+                      localStorage.setItem("jooa11y-remember-theme", "");
                   } else {
-                      html.setAttribute("data-sa11y-theme", "light");
-                      $sa11yTheme.textContent = Lang._('OFF');
-                      $sa11yTheme.setAttribute("aria-pressed", "false");
-                      localStorage.setItem("sa11y-remember-theme", "");
+                      html.setAttribute("data-jooa11y-theme", "light");
+                      $jooa11yTheme.textContent = Lang._('OFF');
+                      $jooa11yTheme.setAttribute("aria-pressed", "false");
+                      localStorage.setItem("jooa11y-remember-theme", "");
                   }
               }
 
               systemInitiatedDark.addListener(prefersColorTest);
-              $sa11yTheme.onclick = async () => {
-                  const theme = localStorage.getItem("sa11y-remember-theme");
+              $jooa11yTheme.onclick = async () => {
+                  const theme = localStorage.getItem("jooa11y-remember-theme");
                   if (theme === "dark") {
-                      html.setAttribute("data-sa11y-theme", "light");
-                      localStorage.setItem("sa11y-remember-theme", "light");
-                      $sa11yTheme.textContent = Lang._('OFF');
-                      $sa11yTheme.setAttribute("aria-pressed", "false");
+                      html.setAttribute("data-jooa11y-theme", "light");
+                      localStorage.setItem("jooa11y-remember-theme", "light");
+                      $jooa11yTheme.textContent = Lang._('OFF');
+                      $jooa11yTheme.setAttribute("aria-pressed", "false");
                   } else if (theme === "light") {
-                      html.setAttribute("data-sa11y-theme", "dark");
-                      localStorage.setItem("sa11y-remember-theme", "dark");
-                      $sa11yTheme.textContent = Lang._('ON');
-                      $sa11yTheme.setAttribute("aria-pressed", "true");
+                      html.setAttribute("data-jooa11y-theme", "dark");
+                      localStorage.setItem("jooa11y-remember-theme", "dark");
+                      $jooa11yTheme.textContent = Lang._('ON');
+                      $jooa11yTheme.setAttribute("aria-pressed", "true");
                   } else if (systemInitiatedDark.matches) {
-                      html.setAttribute("data-sa11y-theme", "light");
-                      localStorage.setItem("sa11y-remember-theme", "light");
-                      $sa11yTheme.textContent = Lang._('OFF');
-                      $sa11yTheme.setAttribute("aria-pressed", "false");
+                      html.setAttribute("data-jooa11y-theme", "light");
+                      localStorage.setItem("jooa11y-remember-theme", "light");
+                      $jooa11yTheme.textContent = Lang._('OFF');
+                      $jooa11yTheme.setAttribute("aria-pressed", "false");
                   } else {
-                      html.setAttribute("data-sa11y-theme", "dark");
-                      localStorage.setItem("sa11y-remember-theme", "dark");
-                      $sa11yTheme.textContent = Lang._('OFF');
-                      $sa11yTheme.setAttribute("aria-pressed", "true");
+                      html.setAttribute("data-jooa11y-theme", "dark");
+                      localStorage.setItem("jooa11y-remember-theme", "dark");
+                      $jooa11yTheme.textContent = Lang._('OFF');
+                      $jooa11yTheme.setAttribute("aria-pressed", "true");
                   }
               };
               if (theme === "dark") {
-                  html.setAttribute("data-sa11y-theme", "dark");
-                  localStorage.setItem("sa11y-remember-theme", "dark");
-                  $sa11yTheme.textContent = Lang._('ON');
-                  $sa11yTheme.setAttribute("aria-pressed", "true");
+                  html.setAttribute("data-jooa11y-theme", "dark");
+                  localStorage.setItem("jooa11y-remember-theme", "dark");
+                  $jooa11yTheme.textContent = Lang._('ON');
+                  $jooa11yTheme.setAttribute("aria-pressed", "true");
               } else if (theme === "light") {
-                  html.setAttribute("data-sa11y-theme", "light");
-                  localStorage.setItem("sa11y-remember-theme", "light");
-                  $sa11yTheme.textContent = Lang._('OFF');
-                  $sa11yTheme.setAttribute("aria-pressed", "false");
+                  html.setAttribute("data-jooa11y-theme", "light");
+                  localStorage.setItem("jooa11y-remember-theme", "light");
+                  $jooa11yTheme.textContent = Lang._('OFF');
+                  $jooa11yTheme.setAttribute("aria-pressed", "false");
               }
           }
 
@@ -692,14 +692,14 @@
           // Tooltip for Jump-to-Issue button.
           //----------------------------------------------------------------------
           initializeJumpToIssueTooltip() {
-              tippy('#sa11y-cycle-toggle', {
-                  content: `<div style="text-align:center">${Lang._('SHORTCUT_TOOLTIP')} &raquo;<br><span class="sa11y-shortcut-icon"></span></div>`,
+              tippy('#jooa11y-cycle-toggle', {
+                  content: `<div style="text-align:center">${Lang._('SHORTCUT_TOOLTIP')} &raquo;<br><span class="jooa11y-shortcut-icon"></span></div>`,
                   allowHTML: true,
                   delay: [900, 0],
                   trigger: "mouseenter focusin",
                   arrow: true,
                   placement: 'top',
-                  theme: "sa11y-theme",
+                  theme: "jooa11y-theme",
                   aria: {
                       content: null,
                       expanded: false,
@@ -708,15 +708,15 @@
               });
           }
 
-    // ----------------------------------------------------------------------
-    // Do Initial check
-    // ----------------------------------------------------------------------
-    doInitialCheck() {
-      if (localStorage.getItem("sa11y-remember-panel") === "Closed" || !localStorage.getItem("sa11y-remember-panel")) {
-        this.panelActive = true; // Prevent panel popping up after initial check
-        this.checkAll();
-      }
-    }
+          // ----------------------------------------------------------------------
+          // Do Initial check
+          // ----------------------------------------------------------------------
+          doInitialCheck() {
+              if (localStorage.getItem("jooa11y-remember-panel") === "Closed" || !localStorage.getItem("jooa11y-remember-panel")) {
+                  this.panelActive = true; // Prevent panel popping up after initial check
+                  this.checkAll();
+               }
+          }
 
           // ----------------------------------------------------------------------
           // Check all
@@ -733,19 +733,19 @@
               this.checkLinkText();
               this.checkAltText();
 
-              if (localStorage.getItem("sa11y-remember-contrast") === "On") {
+              if (localStorage.getItem("jooa11y-remember-contrast") === "On") {
                   this.checkContrast();
               }
 
-              if (localStorage.getItem("sa11y-remember-labels") === "On") {
+              if (localStorage.getItem("jooa11y-remember-labels") === "On") {
                   this.checkLabels();
               }
 
-              if (localStorage.getItem("sa11y-remember-links-advanced") === "On") {
+              if (localStorage.getItem("jooa11y-remember-links-advanced") === "On") {
                   this.checkLinksAdvanced();
               }
 
-              if (localStorage.getItem("sa11y-remember-readability") === "On") {
+              if (localStorage.getItem("jooa11y-remember-readability") === "On") {
                   this.checkReadability();
               }
 
@@ -762,7 +762,7 @@
               this.detectOverflow();
 
               //Don't show badge when panel is opened.
-              if (!document.getElementsByClassName('sa11y-on').length) {
+              if (!document.getElementsByClassName('jooa11y-on').length) {
                   this.updateBadge();
               }
           };
@@ -775,56 +775,56 @@
               this.clearEverything();
 
               //Remove eventListeners on the Show Outline and Show Panel toggles.
-              const $outlineToggle = document.getElementById("sa11y-outline-toggle");
+              const $outlineToggle = document.getElementById("jooa11y-outline-toggle");
               const resetOutline = $outlineToggle.cloneNode(true);
               $outlineToggle.parentNode.replaceChild(resetOutline, $outlineToggle);
 
-              const $settingsToggle = document.getElementById("sa11y-settings-toggle");
+              const $settingsToggle = document.getElementById("jooa11y-settings-toggle");
               const resetSettings = $settingsToggle.cloneNode(true);
               $settingsToggle.parentNode.replaceChild(resetSettings, $settingsToggle);
 
               //Errors
-              document.querySelectorAll('.sa11y-error-border').forEach((el) => el.classList.remove('sa11y-error-border'));
-              document.querySelectorAll('.sa11y-error-heading').forEach((el) => el.classList.remove('sa11y-error-heading'));
-              document.querySelectorAll('.sa11y-error-text').forEach((el) => el.classList.remove('sa11y-error-text'));
+              document.querySelectorAll('.jooa11y-error-border').forEach((el) => el.classList.remove('jooa11y-error-border'));
+              document.querySelectorAll('.jooa11y-error-heading').forEach((el) => el.classList.remove('jooa11y-error-heading'));
+              document.querySelectorAll('.jooa11y-error-text').forEach((el) => el.classList.remove('jooa11y-error-text'));
 
               //Warnings
-              document.querySelectorAll('.sa11y-warning-border').forEach((el) => el.classList.remove('sa11y-warning-border'));
-              document.querySelectorAll('.sa11y-warning-text').forEach((el) => el.classList.remove('sa11y-warning-text'));
-              document.querySelectorAll('p').forEach((el) => el.classList.remove('sa11y-fake-list'));
-              let allcaps = document.querySelectorAll('.sa11y-warning-uppercase');
+              document.querySelectorAll('.jooa11y-warning-border').forEach((el) => el.classList.remove('jooa11y-warning-border'));
+              document.querySelectorAll('.jooa11y-warning-text').forEach((el) => el.classList.remove('jooa11y-warning-text'));
+              document.querySelectorAll('p').forEach((el) => el.classList.remove('jooa11y-fake-list'));
+              let allcaps = document.querySelectorAll('.jooa11y-warning-uppercase');
               allcaps.forEach(el => el.outerHTML = el.innerHTML);
 
               //Good
-              document.querySelectorAll('.sa11y-good-border').forEach((el) => el.classList.remove('sa11y-good-border'));
-              document.querySelectorAll('.sa11y-good-text').forEach((el) => el.classList.remove('sa11y-good-text'));
+              document.querySelectorAll('.jooa11y-good-border').forEach((el) => el.classList.remove('jooa11y-good-border'));
+              document.querySelectorAll('.jooa11y-good-text').forEach((el) => el.classList.remove('jooa11y-good-text'));
 
               //Remove
               document.querySelectorAll(`
-                .sa11y-instance,
-                .sa11y-instance-inline,
-                .sa11y-heading-label,
-                #sa11y-outline-list li,
-                .sa11y-readability-period,
-                #sa11y-readability-info span,
-                #sa11y-readability-details li,
-                .sa11y-clone-image-text
+                .jooa11y-instance,
+                .jooa11y-instance-inline,
+                .jooa11y-heading-label,
+                #jooa11y-outline-list li,
+                .jooa11y-readability-period,
+                #jooa11y-readability-info span,
+                #jooa11y-readability-details li,
+                .jooa11y-clone-image-text
             `).forEach(el => el.parentNode.removeChild(el));
 
               //Etc
-              document.querySelectorAll('.sa11y-overflow').forEach((el) => el.classList.remove('sa11y-overflow'));
-              document.querySelectorAll('.sa11y-fake-heading').forEach((el) => el.classList.remove('sa11y-fake-heading'));
-              document.querySelectorAll('.sa11y-pulse-border').forEach((el) => el.classList.remove('sa11y-pulse-border'));
-              document.querySelector('#sa11y-panel-alert').classList.remove("sa11y-active");
+              document.querySelectorAll('.jooa11y-overflow').forEach((el) => el.classList.remove('jooa11y-overflow'));
+              document.querySelectorAll('.jooa11y-fake-heading').forEach((el) => el.classList.remove('jooa11y-fake-heading'));
+              document.querySelectorAll('.jooa11y-pulse-border').forEach((el) => el.classList.remove('jooa11y-pulse-border'));
+              document.querySelector('#jooa11y-panel-alert').classList.remove("jooa11y-active");
 
-              var empty = document.querySelector('#sa11y-panel-alert-text');
+              var empty = document.querySelector('#jooa11y-panel-alert-text');
               while(empty.firstChild) empty.removeChild(empty.firstChild);
 
-              var clearStatus = document.querySelector('#sa11y-status');
+              var clearStatus = document.querySelector('#jooa11y-status');
               while(clearStatus.firstChild) clearStatus.removeChild(clearStatus.firstChild);
 
               if (restartPanel) {
-                  document.querySelector('#sa11y-panel').classList.remove("sa11y-active");
+                  document.querySelector('#jooa11y-panel').classList.remove("jooa11y-active");
               }
           };
           clearEverything () {};
@@ -834,12 +834,12 @@
           // Although you can also swap this with Bootstrap's tooltip library for example.
           // ============================================================
           initializeTooltips () {
-              tippy(".sa11y-btn", {
+              tippy(".jooa11y-btn", {
                   interactive: true,
                   trigger: "mouseenter click focusin", //Focusin trigger to ensure "Jump to issue" button displays tooltip.
                   arrow: true,
                   delay: [200, 0], //Slight delay to ensure mouse doesn't quickly trigger and hide tooltip.
-                  theme: "sa11y-theme",
+                  theme: "jooa11y-theme",
                   placement: 'bottom',
                   allowHTML: true,
                   aria: {
@@ -864,11 +864,11 @@
                   }
                   return null;
               };
-              const $findButtons = document.querySelectorAll('.sa11y-btn');
+              const $findButtons = document.querySelectorAll('.jooa11y-btn');
               $findButtons.forEach(function ($el) {
                   const overflowing = findParentWithOverflow($el, 'overflow', 'hidden');
                   if (overflowing !== null) {
-                      overflowing.classList.add('sa11y-overflow');
+                      overflowing.classList.add('jooa11y-overflow');
                   }
               });
           }
@@ -879,17 +879,17 @@
           updateBadge () {
               let totalCount = this.errorCount + this.warningCount;
               let warningCount = this.warningCount;
-              const notifBadge = document.getElementById("sa11y-notification-badge");
+              const notifBadge = document.getElementById("jooa11y-notification-badge");
               if (totalCount === 0) {
                   notifBadge.style.display = "none";
               } else if (this.warningCount > 0 && this.errorCount === 0) {
                   notifBadge.style.display = "flex";
-                  notifBadge.classList.add("sa11y-notification-badge-warning");
-                  document.getElementById('sa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', warningCount);
+                  notifBadge.classList.add("jooa11y-notification-badge-warning");
+                  document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', warningCount);
               } else {
                   notifBadge.style.display = "flex";
-                  notifBadge.classList.remove("sa11y-notification-badge-warning");
-                  document.getElementById('sa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', totalCount);
+                  notifBadge.classList.remove("jooa11y-notification-badge-warning");
+                  document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', totalCount);
               }
           }
 
@@ -903,55 +903,55 @@
               this.buildPanel();
               this.skipToIssue();
 
-              const $sa11ySkipBtn = document.getElementById("sa11y-cycle-toggle");
+              const $jooa11ySkipBtn = document.getElementById("jooa11y-cycle-toggle");
 
-              $sa11ySkipBtn.disabled = false;
-              $sa11ySkipBtn.setAttribute("style", "cursor: pointer !important;");
+              $jooa11ySkipBtn.disabled = false;
+              $jooa11ySkipBtn.setAttribute("style", "cursor: pointer !important;");
 
-              const $sa11yPanel = document.getElementById("sa11y-panel");
-              $sa11yPanel.classList.add("sa11y-active");
+              const $jooa11yPanel = document.getElementById("jooa11y-panel");
+              $jooa11yPanel.classList.add("jooa11y-active");
 
-              const $panelContent = document.getElementById("sa11y-panel-content");
-              const $sa11yStatus = document.getElementById("sa11y-status");
-              const $findButtons = document.querySelectorAll('.sa11y-btn');
+              const $panelContent = document.getElementById("jooa11y-panel-content");
+              const $jooa11yStatus = document.getElementById("jooa11y-status");
+              const $findButtons = document.querySelectorAll('.jooa11y-btn');
 
               if (this.errorCount === 1 && this.warningCount === 1) {
-                  $panelContent.setAttribute("class", "sa11y-errors");
-                  $sa11yStatus.textContent = Lang._('PANEL_STATUS_1');
+                  $panelContent.setAttribute("class", "jooa11y-errors");
+                  $jooa11yStatus.textContent = Lang._('PANEL_STATUS_1');
               }
               else if (this.errorCount === 1 && this.warningCount > 0) {
-                  $panelContent.setAttribute("class", "sa11y-errors");
-                  $sa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_2', this.warningCount);
+                  $panelContent.setAttribute("class", "jooa11y-errors");
+                  $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_2', this.warningCount);
               }
               else if (this.errorCount > 0 && this.warningCount === 1) {
-                  $panelContent.setAttribute("class", "sa11y-errors");
-                  $sa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_3', this.errorCount);
+                  $panelContent.setAttribute("class", "jooa11y-errors");
+                  $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_3', this.errorCount);
               }
               else if (this.errorCount > 0 && this.warningCount > 0) {
-                  $panelContent.setAttribute("class", "sa11y-errors");
-                  $sa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_4', this.errorCount, this.warningCount);
+                  $panelContent.setAttribute("class", "jooa11y-errors");
+                  $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_4', this.errorCount, this.warningCount);
               }
               else if (this.errorCount > 0) {
-                  $panelContent.setAttribute("class", "sa11y-errors");
-                  $sa11yStatus.textContent = this.errorCount === 1 ?
+                  $panelContent.setAttribute("class", "jooa11y-errors");
+                  $jooa11yStatus.textContent = this.errorCount === 1 ?
                     Lang._('PANEL_STATUS_5') :
                     Lang.sprintf('PANEL_STATUS_6', this.errorCount)
                   ;
               }
               else if (this.warningCount > 0) {
-                  $panelContent.setAttribute("class", "sa11y-warnings");
-                  $sa11yStatus.textContent = totalCount === 1 ?
+                  $panelContent.setAttribute("class", "jooa11y-warnings");
+                  $jooa11yStatus.textContent = totalCount === 1 ?
                       Lang._('PANEL_STATUS_7'):
                       Lang.sprintf('PANEL_STATUS_8', this.warningCount)
                   ;
               }
               else {
-                  $panelContent.setAttribute("class", "sa11y-good");
-                  $sa11yStatus.textContent = Lang._('PANEL_STATUS_9');
+                  $panelContent.setAttribute("class", "jooa11y-good");
+                  $jooa11yStatus.textContent = Lang._('PANEL_STATUS_9');
 
                   if ($findButtons.length === 0) {
-                      $sa11ySkipBtn.disabled = true;
-                      $sa11ySkipBtn.setAttribute("style", "cursor: default !important;");
+                      $jooa11ySkipBtn.disabled = true;
+                      $jooa11ySkipBtn.setAttribute("style", "cursor: default !important;");
                   }
               }
           };
@@ -961,41 +961,41 @@
           // ----------------------------------------------------------------------
           buildPanel = () => {
 
-              const $outlineToggle = document.getElementById("sa11y-outline-toggle");
-              const $outlinePanel = document.getElementById("sa11y-outline-panel");
-              const $outlineList = document.getElementById("sa11y-outline-list");
+              const $outlineToggle = document.getElementById("jooa11y-outline-toggle");
+              const $outlinePanel = document.getElementById("jooa11y-outline-panel");
+              const $outlineList = document.getElementById("jooa11y-outline-list");
 
-              const $settingsToggle = document.getElementById("sa11y-settings-toggle");
-              const $settingsPanel = document.getElementById("sa11y-settings-panel");
-              const $settingsContent = document.getElementById("sa11y-settings-content");
+              const $settingsToggle = document.getElementById("jooa11y-settings-toggle");
+              const $settingsPanel = document.getElementById("jooa11y-settings-panel");
+              const $settingsContent = document.getElementById("jooa11y-settings-content");
 
-              const $headingAnnotations = document.querySelectorAll(".sa11y-heading-label");
+              const $headingAnnotations = document.querySelectorAll(".jooa11y-heading-label");
 
               //Show outline panel
               $outlineToggle.addEventListener('click', () => {
                   if ($outlineToggle.getAttribute("aria-expanded") === "true") {
-                      $outlineToggle.classList.remove("sa11y-outline-active");
-                      $outlinePanel.classList.remove("sa11y-active");
+                      $outlineToggle.classList.remove("jooa11y-outline-active");
+                      $outlinePanel.classList.remove("jooa11y-active");
                       $outlineToggle.textContent = Lang._('SHOW_OUTLINE');
                       $outlineToggle.setAttribute("aria-expanded", "false");
-                      localStorage.setItem("sa11y-remember-outline", "Closed");
+                      localStorage.setItem("jooa11y-remember-outline", "Closed");
                   } else {
-                      $outlineToggle.classList.add("sa11y-outline-active");
-                      $outlinePanel.classList.add("sa11y-active");
+                      $outlineToggle.classList.add("jooa11y-outline-active");
+                      $outlinePanel.classList.add("jooa11y-active");
                       $outlineToggle.textContent = Lang._('HIDE_OUTLINE');
                       $outlineToggle.setAttribute("aria-expanded", "true");
-                      localStorage.setItem("sa11y-remember-outline", "Opened");
+                      localStorage.setItem("jooa11y-remember-outline", "Opened");
                   }
 
                   //Set focus on Page Outline heading for accessibility.
-                  document.querySelector("#sa11y-outline-header > h2").focus();
+                  document.querySelector("#jooa11y-outline-header > h2").focus();
 
                   //Show heading level annotations.
-                  $headingAnnotations.forEach(($el) => $el.classList.toggle("sa11y-label-visible"));
+                  $headingAnnotations.forEach(($el) => $el.classList.toggle("jooa11y-label-visible"));
 
                   //Close Settings panel when Show Outline is active.
-                  $settingsPanel.classList.remove("sa11y-active");
-                  $settingsToggle.classList.remove("sa11y-settings-active");
+                  $settingsPanel.classList.remove("jooa11y-active");
+                  $settingsToggle.classList.remove("jooa11y-settings-active");
                   $settingsToggle.setAttribute("aria-expanded", "false");
                   $settingsToggle.textContent = Lang._('SHOW_SETTINGS');
 
@@ -1006,12 +1006,12 @@
               });
 
               //Remember to leave outline open
-              if (localStorage.getItem("sa11y-remember-outline") === "Opened") {
-                  $outlineToggle.classList.add("sa11y-outline-active");
-                  $outlinePanel.classList.add("sa11y-active");
+              if (localStorage.getItem("jooa11y-remember-outline") === "Opened") {
+                  $outlineToggle.classList.add("jooa11y-outline-active");
+                  $outlinePanel.classList.add("jooa11y-active");
                   $outlineToggle.textContent = Lang._('HIDE_OUTLINE');
                   $outlineToggle.setAttribute("aria-expanded", "true");
-                  $headingAnnotations.forEach(($el) => $el.classList.toggle("sa11y-label-visible"));
+                  $headingAnnotations.forEach(($el) => $el.classList.toggle("jooa11y-label-visible"));
                   //Keyboard accessibility fix for scrollable panel content.
                   if ($outlineList.clientHeight > 250) {
                       $outlineList.setAttribute("tabindex", "0");
@@ -1021,27 +1021,27 @@
               //Show settings panel
               $settingsToggle.addEventListener('click', () => {
                   if ($settingsToggle.getAttribute("aria-expanded") === "true") {
-                      $settingsToggle.classList.remove("sa11y-settings-active");
-                      $settingsPanel.classList.remove("sa11y-active");
+                      $settingsToggle.classList.remove("jooa11y-settings-active");
+                      $settingsPanel.classList.remove("jooa11y-active");
                       $settingsToggle.textContent = Lang._('SHOW_SETTINGS');
                       $settingsToggle.setAttribute("aria-expanded", "false");
                   } else {
-                      $settingsToggle.classList.add("sa11y-settings-active");
-                      $settingsPanel.classList.add("sa11y-active");
+                      $settingsToggle.classList.add("jooa11y-settings-active");
+                      $settingsPanel.classList.add("jooa11y-active");
                       $settingsToggle.textContent = Lang._('HIDE_SETTINGS');
                       $settingsToggle.setAttribute("aria-expanded", "true");
                   }
 
                   //Set focus on Settings heading for accessibility.
-                  document.querySelector("#sa11y-settings-header > h2").focus();
+                  document.querySelector("#jooa11y-settings-header > h2").focus();
 
                   //Close Show Outline panel when Settings is active.
-                  $outlinePanel.classList.remove("sa11y-active");
-                  $outlineToggle.classList.remove("sa11y-outline-active");
+                  $outlinePanel.classList.remove("jooa11y-active");
+                  $outlineToggle.classList.remove("jooa11y-outline-active");
                   $outlineToggle.setAttribute("aria-expanded", "false");
                   $outlineToggle.textContent = Lang._('SHOW_OUTLINE');
-                  $headingAnnotations.forEach(($el) => $el.classList.remove("sa11y-label-visible"));
-                  localStorage.setItem("sa11y-remember-outline", "Closed");
+                  $headingAnnotations.forEach(($el) => $el.classList.remove("jooa11y-label-visible"));
+                  localStorage.setItem("jooa11y-remember-outline", "Closed");
 
                   //Keyboard accessibility fix for scrollable panel content.
                   if ($settingsContent.clientHeight > 350) {
@@ -1050,8 +1050,8 @@
               });
 
               //Enhanced keyboard accessibility for panel.
-              document.getElementById('sa11y-panel-controls').addEventListener('keydown', function(e) {
-              const $tab = document.querySelectorAll('#sa11y-outline-toggle[role=tab], #sa11y-settings-toggle[role=tab]');
+              document.getElementById('jooa11y-panel-controls').addEventListener('keydown', function(e) {
+              const $tab = document.querySelectorAll('#jooa11y-outline-toggle[role=tab], #jooa11y-settings-toggle[role=tab]');
                   if (e.key === 'ArrowRight') {
                       for (let i = 0; i < $tab.length; i++) {
                           if ($tab[i].getAttribute('aria-expanded') === "true" || $tab[i].getAttribute('aria-expanded') === "false") {
@@ -1090,16 +1090,16 @@
                   }
               });
 
-              const $closeAlertToggle = document.getElementById("sa11y-close-alert");
-              const $alertPanel = document.getElementById("sa11y-panel-alert");
-              const $alertText = document.getElementById("sa11y-panel-alert-text");
-              const $sa11ySkipBtn = document.getElementById("sa11y-cycle-toggle");
+              const $closeAlertToggle = document.getElementById("jooa11y-close-alert");
+              const $alertPanel = document.getElementById("jooa11y-panel-alert");
+              const $alertText = document.getElementById("jooa11y-panel-alert-text");
+              const $jooa11ySkipBtn = document.getElementById("jooa11y-cycle-toggle");
 
               $closeAlertToggle.addEventListener('click', () => {
-                  $alertPanel.classList.remove("sa11y-active");
+                  $alertPanel.classList.remove("jooa11y-active");
                   while($alertText.firstChild) $alertText.removeChild($alertText.firstChild);
-                  document.querySelectorAll('.sa11y-pulse-border').forEach((el) => el.classList.remove('sa11y-pulse-border'));
-                  $sa11ySkipBtn.focus();
+                  document.querySelectorAll('.jooa11y-pulse-border').forEach((el) => el.classList.remove('jooa11y-pulse-border'));
+                  $jooa11ySkipBtn.focus();
               });
           }
 
@@ -1108,7 +1108,7 @@
           // ============================================================
 
           skipToIssue = () => {
-              /* Polyfill for scrollTo. scrollTo instead of .animate(), so Sa11y could use jQuery slim build. Credit: https://stackoverflow.com/a/67108752 & https://github.com/iamdustan/smoothscroll */
+              /* Polyfill for scrollTo. scrollTo instead of .animate(), so Jooa11y could use jQuery slim build. Credit: https://stackoverflow.com/a/67108752 & https://github.com/iamdustan/smoothscroll */
               //let reducedMotionQuery = false;
               //let scrollBehavior = 'smooth';
               /*
@@ -1127,8 +1127,8 @@
               }
               */
 
-              let sa11yBtnLocation = 0;
-              const findSa11yBtn = document.querySelectorAll('.sa11y-btn').length;
+              let jooa11yBtnLocation = 0;
+              const findJooa11yBtn = document.querySelectorAll('.jooa11y-btn').length;
 
               //Jump to issue using keyboard shortcut.
               document.addEventListener('keyup', (e) => {
@@ -1139,7 +1139,7 @@
               });
 
               //Jump to issue using click.
-              const $skipToggle = document.getElementById("sa11y-cycle-toggle");
+              const $skipToggle = document.getElementById("jooa11y-cycle-toggle");
               $skipToggle.addEventListener('click', (e) => {
                   skipToIssueToggle();
                   e.preventDefault();
@@ -1148,11 +1148,11 @@
               const skipToIssueToggle = function () {
 
                   //Calculate location of both visible and hidden buttons.
-                  const $findButtons = document.querySelectorAll('.sa11y-btn');
-                  const $alertPanel = document.getElementById("sa11y-panel-alert");
-                  const $alertText = document.getElementById("sa11y-panel-alert-text");
-                  const $alertPanelPreview = document.getElementById("sa11y-panel-alert-preview");
-                  //const $closeAlertToggle = document.getElementById("sa11y-close-alert");
+                  const $findButtons = document.querySelectorAll('.jooa11y-btn');
+                  const $alertPanel = document.getElementById("jooa11y-panel-alert");
+                  const $alertText = document.getElementById("jooa11y-panel-alert-text");
+                  const $alertPanelPreview = document.getElementById("jooa11y-panel-alert-preview");
+                  //const $closeAlertToggle = document.getElementById("jooa11y-close-alert");
 
                    //Mini function: Find visibible parent of hidden element.
                   const findVisibleParent = ($el, property, value) => {
@@ -1176,12 +1176,12 @@
 
                   //'offsetTop' will always return 0 if element is hidden. We rely on offsetTop to determine if element is hidden, although we use 'getBoundingClientRect' to set the scroll position.
                   let scrollPosition;
-                  let offsetTopPosition = $findButtons[sa11yBtnLocation].offsetTop;
+                  let offsetTopPosition = $findButtons[jooa11yBtnLocation].offsetTop;
                   if (offsetTopPosition === 0) {
-                      let visiblePosition = findVisibleParent($findButtons[sa11yBtnLocation], 'display', 'none');
+                      let visiblePosition = findVisibleParent($findButtons[jooa11yBtnLocation], 'display', 'none');
                       scrollPosition = offset(visiblePosition.previousElementSibling).top - 50;
                   } else {
-                      scrollPosition = offset($findButtons[sa11yBtnLocation]).top - 50;
+                      scrollPosition = offset($findButtons[jooa11yBtnLocation]).top - 50;
                   }
 
                   //Scroll to element if offsetTop is less than or equal to 0.
@@ -1198,30 +1198,30 @@
                         const overflowing = findVisibleParent($el, 'display', 'none');
                         if (overflowing !== null) {
                             let hiddenparent = overflowing.previousElementSibling;
-                            hiddenparent.classList.add("sa11y-pulse-border");
+                            hiddenparent.classList.add("jooa11y-pulse-border");
                         }
                       });
 
-                      $findButtons[sa11yBtnLocation].focus();
+                      $findButtons[jooa11yBtnLocation].focus();
                   }
                   else {
-                      $findButtons[sa11yBtnLocation].focus();
+                      $findButtons[jooa11yBtnLocation].focus();
                   }
 
                   //Alert if element is hidden.
                   if (offsetTopPosition === 0) {
-                      $alertPanel.classList.add("sa11y-active");
+                      $alertPanel.classList.add("jooa11y-active");
                       $alertText.textContent = `${Lang._('PANEL_STATUS_12')}`;
-                      $alertPanelPreview.innerHTML = $findButtons[sa11yBtnLocation].getAttribute('data-tippy-content');
+                      $alertPanelPreview.innerHTML = $findButtons[jooa11yBtnLocation].getAttribute('data-tippy-content');
                   } else if (offsetTopPosition < 1) {
-                      $alertPanel.classList.remove("sa11y-active");
-                      document.querySelectorAll('.sa11y-pulse-border').forEach(($el) => $el.classList.remove('sa11y-pulse-border'));
+                      $alertPanel.classList.remove("jooa11y-active");
+                      document.querySelectorAll('.jooa11y-pulse-border').forEach(($el) => $el.classList.remove('jooa11y-pulse-border'));
                   }
 
                   //Reset index so it scrolls back to top of page.
-                  sa11yBtnLocation += 1;
-                  if (sa11yBtnLocation >= findSa11yBtn) {
-                      sa11yBtnLocation = 0;
+                  jooa11yBtnLocation += 1;
+                  if (jooa11yBtnLocation >= findJooa11yBtn) {
+                      jooa11yBtnLocation = 0;
                   }
               };
           }
@@ -1267,11 +1267,11 @@
                           const imgalt = el.querySelector("img").getAttribute("alt");
                           if (imgalt === undefined || imgalt === " " || imgalt === "") {
                               error = Lang.sprintf('HEADING_EMPTY_WITH_IMAGE', level);
-                              el.classList.add("sa11y-error-text");
+                              el.classList.add("jooa11y-error-text");
                           }
                       } else {
                           error = Lang.sprintf('HEADING_EMPTY', level);
-                          el.classList.add("sa11y-error-text");
+                          el.classList.add("jooa11y-error-text");
                         }
                   } else if (i === 0 && level !== 1 && level !== 2) {
                       error = Lang._('HEADING_FIRST');
@@ -1282,25 +1282,25 @@
                   prevLevel = level;
 
                   let li =
-                  `<li class='sa11y-outline-${level}'>
-                <span class='sa11y-badge'>${level}</span>
-                <span class='sa11y-outline-list-item'>${htext}</span>
+                  `<li class='jooa11y-outline-${level}'>
+                <span class='jooa11y-badge'>${level}</span>
+                <span class='jooa11y-outline-list-item'>${htext}</span>
             </li>`;
 
                   let liError =
-                      `<li class='sa11y-outline-${level}'>
-                <span class='sa11y-badge sa11y-error-badge'>
+                      `<li class='jooa11y-outline-${level}'>
+                <span class='jooa11y-badge jooa11y-error-badge'>
                 <span aria-hidden='true'>&#10007;</span>
-                <span class='sa11y-visually-hidden'>${Lang._('ERROR')}</span> ${level}</span>
-                <span class='sa11y-outline-list-item sa11y-red-text sa11y-bold'>${htext}</span>
+                <span class='jooa11y-visually-hidden'>${Lang._('ERROR')}</span> ${level}</span>
+                <span class='jooa11y-outline-list-item jooa11y-red-text jooa11y-bold'>${htext}</span>
             </li>`;
 
                   let liWarning =
-                      `<li class='sa11y-outline-${level}'>
-                <span class='sa11y-badge sa11y-warning-badge'>
+                      `<li class='jooa11y-outline-${level}'>
+                <span class='jooa11y-badge jooa11y-warning-badge'>
                 <span aria-hidden='true'>&#x3f;</span>
-                <span class='sa11y-visually-hidden'>${Lang._('WARNING')}</span> ${level}</span>
-                <span class='sa11y-outline-list-item sa11y-yellow-text sa11y-bold'>${htext}</span>
+                <span class='jooa11y-visually-hidden'>${Lang._('WARNING')}</span> ${level}</span>
+                <span class='jooa11y-outline-list-item jooa11y-yellow-text jooa11y-bold'>${htext}</span>
             </li>`;
 
               let ignoreArray = [];
@@ -1310,34 +1310,34 @@
 
               if (!ignoreArray.includes(el)) {
                       //Append heading labels.
-                      el.insertAdjacentHTML("beforeend", `<span class='sa11y-heading-label'>H${level}</span>`);
+                      el.insertAdjacentHTML("beforeend", `<span class='jooa11y-heading-label'>H${level}</span>`);
 
                       //Heading errors
                       if (error != null && el.closest("a")) {
                           this.errorCount++;
-                          el.classList.add("sa11y-error-heading");
+                          el.classList.add("jooa11y-error-heading");
                           el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('ERROR'), error, true));
-                          document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liError);
+                          document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                       } else if (error != null) {
                           this.errorCount++;
-                          el.classList.add("sa11y-error-heading");
+                          el.classList.add("jooa11y-error-heading");
                           el.insertAdjacentHTML("beforebegin", this.annotate(Lang._('ERROR'), error));
-                          document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liError);
+                          document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                       }
 
                       //Heading warnings
                       else if (warning != null && el.closest("a")) {
                           this.warningCount++;
                           el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('WARNING'), warning));
-                          document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liWarning);
+                          document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liWarning);
                       } else if (warning != null) {
                           el.insertAdjacentHTML("beforebegin", this.annotate(Lang._('WARNING'), warning));
-                          document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", liWarning);
+                          document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liWarning);
                       }
 
                       //Not an error or warning
                       else if (error == null || warning == null) {
-                          document.querySelector("#sa11y-outline-list").insertAdjacentHTML("beforeend", li);
+                          document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", li);
                       }
                   }
               });
@@ -1349,15 +1349,15 @@
               if ($h1.length === 0) {
                   this.errorCount++;
 
-                  document.querySelector('#sa11y-outline-header').insertAdjacentHTML(
+                  document.querySelector('#jooa11y-outline-header').insertAdjacentHTML(
                     'afterend',
-                    `<div class='sa11y-instance sa11y-missing-h1'>
-                    <span class='sa11y-badge sa11y-error-badge'><span aria-hidden='true'>&#10007;</span><span class='sa11y-visually-hidden'>${Lang._('ERROR')}</span></span>
-                    <span class='sa11y-red-text sa11y-bold'>${Lang._('PANEL_HEADING_MISSING_ONE')}</span>
+                    `<div class='jooa11y-instance jooa11y-missing-h1'>
+                    <span class='jooa11y-badge jooa11y-error-badge'><span aria-hidden='true'>&#10007;</span><span class='jooa11y-visually-hidden'>${Lang._('ERROR')}</span></span>
+                    <span class='jooa11y-red-text jooa11y-bold'>${Lang._('PANEL_HEADING_MISSING_ONE')}</span>
                 </div>`
                   );
 
-                  document.querySelector("#sa11y-container").insertAdjacentHTML(
+                  document.querySelector("#jooa11y-container").insertAdjacentHTML(
                     'afterend',
                     this.annotateBanner(Lang._('ERROR'), Lang._('HEADING_MISSING_ONE'))
                   );
@@ -1475,28 +1475,28 @@
                   //Flag empty hyperlinks
                   if ( el.getAttribute('href') && !el.textContent.trim() ) {
                       if (el.querySelectorAll('img').length) ; else if (hasAriaLabelledBy || hasAriaLabel) {
-                          el.classList.add("sa11y-good-border");
+                          el.classList.add("jooa11y-good-border");
                           el.insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
                           );
                       } else if (hasTitle) {
                           let linkText = hasTitle;
-                          el.classList.add("sa11y-good-border");
+                          el.classList.add("jooa11y-good-border");
                           el.insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
                           );
                       } else if (el.children.length) {
                           if (childAriaLabelledBy || childAriaLabel || childTitle) {
-                            el.classList.add("sa11y-good-border");
+                            el.classList.add("jooa11y-good-border");
                             el.insertAdjacentHTML(
                               'beforebegin',
                               this.annotate(Lang._('GOOD'), Lang.sprintf('LINK_LABEL', linkText), true)
                             );
                           } else {
                             this.errorCount++;
-                            el.classList.add("sa11y-error-border");
+                            el.classList.add("jooa11y-error-border");
                             el.insertAdjacentHTML(
                               'afterend',
                               this.annotate(Lang._('ERROR'), Lang.sprintf('LINK_EMPTY_LINK_NO_LABEL'), true)
@@ -1504,7 +1504,7 @@
                           }
                       } else {
                         this.errorCount++;
-                        el.classList.add("sa11y-error-border");
+                        el.classList.add("jooa11y-error-border");
                         el.insertAdjacentHTML(
                           'afterend',
                           this.annotate(Lang._('ERROR'), Lang._('LINK_EMPTY'), true)
@@ -1523,7 +1523,7 @@
                         );
                       } else if (el.getAttribute('aria-hidden') === 'true' && el.getAttribute('tabindex') === '-1') ; else {
                         this.errorCount++;
-                        el.classList.add("sa11y-error-text");
+                        el.classList.add("jooa11y-error-text");
                         el.insertAdjacentHTML(
                           'afterend',
                           this.annotate(
@@ -1535,7 +1535,7 @@
                       }
                   } else if (error[1] !== null) {
                     this.warningCount++;
-                    el.classList.add("sa11y-warning-text");
+                    el.classList.add("jooa11y-warning-text");
                     el.insertAdjacentHTML(
                       'afterend',
                       this.annotate(
@@ -1547,7 +1547,7 @@
                   } else if (error[2] != null) {
                       if (linkText.length > 40) {
                         this.warningCount++;
-                        el.classList.add("sa11y-warning-text");
+                        el.classList.add("jooa11y-warning-text");
                         el.insertAdjacentHTML(
                           'afterend',
                           this.annotate(
@@ -1565,7 +1565,7 @@
           // Rulesets: Links (Advanced)
           // ============================================================
           checkLinksAdvanced () {
-              const $linkIgnore = Array.from(this.$root.querySelectorAll(this.linkIgnore + ', #sa11y-container a, .sa11y-exclude'));
+              const $linkIgnore = Array.from(this.$root.querySelectorAll(this.linkIgnore + ', #jooa11y-container a, .jooa11y-exclude'));
               const $linksTargetBlank = Array.from(this.$root.querySelectorAll('a[href]'))
                 .filter($a => !$linkIgnore.includes($a));
 
@@ -1610,7 +1610,7 @@
                   if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
                       if (seen[href]) ; else {
                         this.warningCount++;
-                        el.classList.add("sa11y-warning-text");
+                        el.classList.add("jooa11y-warning-text");
                         el.insertAdjacentHTML(
                           'afterend',
                           this.annotate(
@@ -1637,7 +1637,7 @@
 
                   if (el.getAttribute("target") === "_blank" && !fileTypeMatch && !containsNewWindowPhrases) {
                     this.warningCount++;
-                    el.classList.add("sa11y-warning-text");
+                    el.classList.add("jooa11y-warning-text");
                     el.insertAdjacentHTML(
                       'afterend',
                       this.annotate(
@@ -1650,7 +1650,7 @@
 
                   if (fileTypeMatch && !containsFileTypePhrases) {
                     this.warningCount++;
-                    el.classList.add("sa11y-warning-text");
+                    el.classList.add("jooa11y-warning-text");
                     el.insertAdjacentHTML(
                       'afterend',
                       this.annotate(
@@ -1706,17 +1706,17 @@
                   if ( alt === null ) {
                       if ($el.closest('a[href]')) {
                           if ($el.closest('a[href]').textContent.trim().length > 1) {
-                              $el.classList.add("sa11y-error-border");
+                              $el.classList.add("jooa11y-error-border");
                               $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE'), false, true));
                           }
                           else if ($el.closest('a[href]').textContent.trim().length === 0) {
-                              $el.classList.add("sa11y-error-border");
+                              $el.classList.add("jooa11y-error-border");
                               $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_MESSAGE'), false, true));
                           }
                       }
                       // General failure message if image is missing alt.
                       else {
-                          $el.classList.add("sa11y-error-border");
+                          $el.classList.add("jooa11y-error-border");
                           $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_MESSAGE'), false, true));
                       }
                   }
@@ -1729,7 +1729,7 @@
                       // Image fails if a stop word was found.
                       if (error[0] != null && $el.closest("a[href]")) {
                           this.errorCount++;
-                          $el.classList.add("sa11y-error-border");
+                          $el.classList.add("jooa11y-error-border");
                           $el.closest("a[href]").insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(
@@ -1741,12 +1741,12 @@
                       }
                       else if (error[2] != null && $el.closest("a[href]")) {
                           this.errorCount++;
-                          $el.classList.add("sa11y-error-border");
+                          $el.classList.add("jooa11y-error-border");
                           $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang.sprintf('LINK_IMAGE_PLACEHOLDER_ALT_MESSAGE', altText), false, true));
                       }
                       else if (error[1] != null && $el.closest("a[href]")) {
                           this.warningCount++;
-                          $el.classList.add("sa11y-warning-border");
+                          $el.classList.add("jooa11y-warning-border");
                           $el.closest("a[href]").insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(
@@ -1758,7 +1758,7 @@
                       }
                       else if (error[0] != null) {
                           this.errorCount++;
-                          $el.classList.add("sa11y-error-border");
+                          $el.classList.add("jooa11y-error-border");
                           $el.insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(
@@ -1770,12 +1770,12 @@
                       }
                       else if (error[2] != null) {
                           this.errorCount++;
-                          $el.classList.add("sa11y-error-border");
+                          $el.classList.add("jooa11y-error-border");
                           $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang.sprintf('LINK_ALT_PLACEHOLDER_MESSAGE', altText), false));
                       }
                       else if (error[1] != null) {
                           this.warningCount++;
-                          $el.classList.add("sa11y-warning-border");
+                          $el.classList.add("jooa11y-warning-border");
                           $el.insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(
@@ -1789,12 +1789,12 @@
                           if ($el.closest("a[href]").getAttribute("tabindex") === "-1" && $el.closest("a[href]").getAttribute("aria-hidden") === "true") ;
                           else if ($el.closest("a[href]").getAttribute("aria-hidden") === "true") {
                               this.errorCount++;
-                              $el.classList.add("sa11y-error-border");
+                              $el.classList.add("jooa11y-error-border");
                               $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN'), false, true));
                           }
                           else if ($el.closest("a[href]").textContent.trim().length === 0) {
                               this.errorCount++;
-                              $el.classList.add("sa11y-error-border");
+                              $el.classList.add("jooa11y-error-border");
                               $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_IMAGE_LINK_NULL_ALT_NO_TEXT_MESSAGE'), false, true));
                           }
                           else {
@@ -1805,7 +1805,7 @@
                       //Link and contains alt text.
                       else if (alt.length > 250 && $el.closest("a[href]")) {
                           this.warningCount++;
-                          $el.classList.add("sa11y-warning-border");
+                          $el.classList.add("jooa11y-warning-border");
                           $el.closest("a[href]").insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(
@@ -1819,7 +1819,7 @@
                       //Link and contains an alt text.
                       else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length === 0) {
                           this.warningCount++;
-                          $el.classList.add("sa11y-warning-border");
+                          $el.classList.add("jooa11y-warning-border");
                           $el.closest("a[href]").insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(
@@ -1833,7 +1833,7 @@
                       //Contains alt text & surrounding link text.
                       else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
                           this.warningCount++;
-                          $el.classList.add("sa11y-warning-border");
+                          $el.classList.add("jooa11y-warning-border");
                           $el.closest("a[href]").insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(Lang._('WARNING'),
@@ -1846,12 +1846,12 @@
                       //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR
                       else if (alt === "" || alt === " ") {
                           this.warningCount++;
-                          $el.classList.add("sa11y-warning-border");
+                          $el.classList.add("jooa11y-warning-border");
                           $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'),  Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
                       }
                       else if (alt.length > 250) {
                           this.warningCount++;
-                          $el.classList.add("sa11y-warning-border");
+                          $el.classList.add("jooa11y-warning-border");
                           $el.insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(Lang._('WARNING'),
@@ -1888,7 +1888,7 @@
                       if (!imgalt || imgalt === ' ') {
                           if (el.getAttribute("aria-label")) ; else {
                               this.errorCount++;
-                              el.classList.add("sa11y-error-border");
+                              el.classList.add("jooa11y-error-border");
                               el.insertAdjacentHTML(
                                 'afterend',
                                 this.annotate(Lang._('ERROR'), Lang._('LABELS_MISSING_IMAGE_INPUT_MESSAGE'), true)
@@ -1899,7 +1899,7 @@
                   //Recommendation to remove reset buttons.
                   else if (type === "reset") {
                     this.warningCount++;
-                    el.classList.add("sa11y-warning-border");
+                    el.classList.add("jooa11y-warning-border");
                     el.insertAdjacentHTML(
                       'afterend',
                       this.annotate(
@@ -1914,7 +1914,7 @@
                       if (el.getAttribute("title")) {
                         let ariaLabel = el.getAttribute("title");
                         this.warningCount++;
-                        el.classList.add("sa11y-warning-border");
+                        el.classList.add("jooa11y-warning-border");
                         el.insertAdjacentHTML(
                           'afterend',
                           this.annotate(
@@ -1925,7 +1925,7 @@
                         );
                       } else {
                         this.warningCount++;
-                        el.classList.add("sa11y-warning-border");
+                        el.classList.add("jooa11y-warning-border");
                         el.insertAdjacentHTML(
                           'afterend',
                           this.annotate(
@@ -1955,7 +1955,7 @@
 
                     if (!hasFor) {
                       this.errorCount++;
-                      el.classList.add("sa11y-error-border");
+                      el.classList.add("jooa11y-error-border");
                       el.insertAdjacentHTML(
                         'afterend',
                         this.annotate(
@@ -1968,7 +1968,7 @@
                   }
                   else {
                     this.errorCount++;
-                    el.classList.add("sa11y-error-border");
+                    el.classList.add("jooa11y-error-border");
                     el.insertAdjacentHTML(
                       'afterend',
                       this.annotate(Lang._('ERROR'), Lang._('LABELS_MISSING_LABEL_MESSAGE'), true)
@@ -1990,7 +1990,7 @@
                   let track = $el.getElementsByTagName('TRACK');
                   if ($el.tagName === "VIDEO" && track.length) ; else {
                       this.warningCount++;
-                      $el.classList.add("sa11y-warning-border");
+                      $el.classList.add("jooa11y-warning-border");
                       $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('EMBED_VIDEO')));
                   }
               });
@@ -1999,7 +1999,7 @@
               const $audio = $iframes.filter($el => $el.matches(this.options.audioContent));
               $audio.forEach(($el) => {
                   this.warningCount++;
-                  $el.classList.add("sa11y-warning-border");
+                  $el.classList.add("jooa11y-warning-border");
                   $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('EMBED_AUDIO')));
                 });
 
@@ -2016,11 +2016,11 @@
                       if ($el.getAttribute("aria-label") === null || $el.getAttribute("aria-label") === '') {
                           if ($el.getAttribute("aria-labelledby") === null) {
                               //Make sure red error border takes precedence
-                              if ($el.classList.contains("sa11y-warning-border")) {
-                                  $el.classList.remove("sa11y-warning-border");
+                              if ($el.classList.contains("jooa11y-warning-border")) {
+                                  $el.classList.remove("jooa11y-warning-border");
                               }
                               this.errorCount++;
-                              $el.classList.add("sa11y-error-border");
+                              $el.classList.add("jooa11y-error-border");
                               $el.insertAdjacentHTML('beforebegin',
                                   this.annotate(Lang._('ERROR'), Lang._('EMBED_MISSING_TITLE'))
                               );
@@ -2042,7 +2042,7 @@
                       ;
                   else {
                       this.warningCount++;
-                      $el.classList.add("sa11y-warning-border");
+                      $el.classList.add("jooa11y-warning-border");
                       $el.insertAdjacentHTML('beforebegin',
                           this.annotate(Lang._('WARNING'), Lang._('EMBED_GENERAL_WARNING'))
                       );
@@ -2060,7 +2060,7 @@
               const $badDevLinks = $findbadDevLinks.filter($el => !this.$containerExclusions.includes($el));
               $badDevLinks.forEach(($el) => {
                   this.errorCount++;
-                  $el.classList.add("sa11y-error-text");
+                  $el.classList.add("jooa11y-error-text");
                   $el.insertAdjacentHTML(
                     'afterend',
                     this.annotate(Lang._('ERROR'), Lang.sprintf('QA_BAD_LINK', $el.getAttribute('href')), true)
@@ -2076,9 +2076,9 @@
               if (checkPDF.length > 0) {
                 this.warningCount++;
                 checkPDF.forEach(($pdf) => {
-                  $pdf.classList.add('sa11y-warning-text');
+                  $pdf.classList.add('jooa11y-warning-text');
                   if ($pdf.querySelector('img')) {
-                    $pdf.classList.remove('sa11y-warning-text');
+                    $pdf.classList.remove('jooa11y-warning-text');
                   }
                 });
                 firstPDF.insertAdjacentHTML(
@@ -2088,16 +2088,16 @@
               }
 
               //Warning: Detect uppercase.
-              const $findallcaps = Array.from(this.$root.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li:not([class^='sa11y']), blockquote"));
+              const $findallcaps = Array.from(this.$root.querySelectorAll("h1, h2, h3, h4, h5, h6, p, li:not([class^='jooa11y']), blockquote"));
               const $allcaps = $findallcaps.filter($el => !this.$containerExclusions.includes($el));
               $allcaps.forEach(function ($el) {
                   let uppercasePattern = /(?!<a[^>]*?>)(\b[A-Z][',!:A-Z\s]{15,}|\b[A-Z]{15,}\b)(?![^<]*?<\/a>)/g;
 
                   let html = $el.innerHTML;
-                  $el.innerHTML = html.replace(uppercasePattern, "<span class='sa11y-warning-uppercase'>$1</span>");
+                  $el.innerHTML = html.replace(uppercasePattern, "<span class='jooa11y-warning-uppercase'>$1</span>");
               });
 
-              const $warningUppercase = document.querySelectorAll(".sa11y-warning-uppercase");
+              const $warningUppercase = document.querySelectorAll(".jooa11y-warning-uppercase");
 
               $warningUppercase.forEach(($el) => {
                   $el.insertAdjacentHTML('afterend', this.annotate(Lang._('WARNING'), Lang._('QA_UPPERCASE_WARNING'), true));
@@ -2115,7 +2115,7 @@
                   let findHeadingTags = $el.querySelectorAll("h1, h2, h3, h4, h5, h6");
                   if (findTHeaders.length === 0) {
                       this.errorCount++;
-                      $el.classList.add("sa11y-error-border");
+                      $el.classList.add("jooa11y-error-border");
                       $el.insertAdjacentHTML('beforebegin',
                         this.annotate(Lang._('ERROR'), Lang._('TABLES_MISSING_HEADINGS'))
                       );
@@ -2123,8 +2123,8 @@
                   if (findHeadingTags.length > 0) {
                       this.errorCount++;
                       findHeadingTags.forEach(($el) => {
-                          $el.classList.add("sa11y-error-heading");
-                          $el.parentElement.classList.add("sa11y-error-border");
+                          $el.classList.add("jooa11y-error-heading");
+                          $el.parentElement.classList.add("jooa11y-error-border");
                           $el.insertAdjacentHTML(
                             'beforebegin',
                             this.annotate(
@@ -2137,7 +2137,7 @@
                   findTHeaders.forEach(($el) => {
                       if ($el.textContent.trim().length === 0) {
                           this.errorCount++;
-                          $el.classList.add("sa11y-error-border");
+                          $el.classList.add("jooa11y-error-border");
                           $el.innerHTML = this.annotate(
                             Lang._('ERROR'),
                             `${Lang._('TABLES_EMPTY_HEADING')} <hr aria-hidden="true"> ${Lang._('TABLES_EMPTY_HEADING_INFO')}`
@@ -2150,8 +2150,8 @@
               const lang = document.querySelector("html").getAttribute("lang");
               if (!lang || lang.length < 2) {
                   this.errorCount++;
-                  const sa11yContainer = document.getElementById("sa11y-container");
-                  sa11yContainer.insertAdjacentHTML('afterend', this.annotateBanner(Lang._('ERROR'), Lang._('QA_PAGE_LANGUAGE_MESSAGE')));
+                  const jooa11yContainer = document.getElementById("jooa11y-container");
+                  jooa11yContainer.insertAdjacentHTML('afterend', this.annotateBanner(Lang._('ERROR'), Lang._('QA_PAGE_LANGUAGE_MESSAGE')));
               }
 
               //Excessive bolding or italics.
@@ -2171,7 +2171,7 @@
                   let bqHeadingText = $el.textContent;
                   if (bqHeadingText.trim().length < 25) {
                       this.warningCount++;
-                      $el.classList.add("sa11y-warning-border");
+                      $el.classList.add("jooa11y-warning-border");
                       $el.insertAdjacentHTML(
                         'beforebegin',
                         this.annotate(
@@ -2196,7 +2196,7 @@
                         let boldtext = firstChild.textContent;
 
                           if ($el && boldtext.length <= 120) {
-                            firstChild.classList.add("sa11y-fake-heading", "sa11y-error-heading");
+                            firstChild.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
                             $el.insertAdjacentHTML('beforebegin',
                                 this.annotate(
                                   Lang._('WARNING'),
@@ -2219,7 +2219,7 @@
                     }
                     if ($el.textContent.length <= 120 && tagName.charAt(0) !== "H") {
                         let boldtext = $el.textContent;
-                        $el.classList.add("sa11y-fake-heading", "sa11y-error-heading");
+                        $el.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
                         $el.firstChild.insertAdjacentHTML("afterend",
                         this.annotate(
                           Lang._('WARNING'),
@@ -2229,7 +2229,7 @@
                      }
                  }
               });
-              if (this.$root.querySelectorAll(".sa11y-fake-heading").length > 0) {
+              if (this.$root.querySelectorAll(".jooa11y-fake-heading").length > 0) {
                   this.warningCount++;
               }
 
@@ -2287,7 +2287,7 @@
                               `${Lang.sprintf('QA_SHOULD_BE_LIST', firstPrefix)} <hr aria-hidden="true"> ${Lang._('QA_SHOULD_BE_LIST_TIP')}`
                             )
                           );
-                          el.classList.add("sa11y-fake-list");
+                          el.classList.add("jooa11y-fake-list");
                           activeMatch = firstPrefix;
                       } else {
                           activeMatch = "";
@@ -2296,7 +2296,7 @@
                       activeMatch = "";
                   }
               });
-              if (this.$root.querySelectorAll('.sa11y-fake-list').length > 0) {
+              if (this.$root.querySelectorAll('.jooa11y-fake-list').length > 0) {
                   this.warningCount++;
               }
         };
@@ -2306,7 +2306,7 @@
           // Color contrast plugin by jasonday: https://github.com/jasonday/color-contrast
           // ============================================================
           checkContrast () {
-              const $findcontrast = Array.from(this.$root.querySelectorAll("* > :not(.sa11y-heading-label)"));
+              const $findcontrast = Array.from(this.$root.querySelectorAll("* > :not(.jooa11y-heading-label)"));
               const $contrast = $findcontrast.filter($el => !this.$containerExclusions.includes($el));
 
               var contrastErrors = {
@@ -2459,15 +2459,15 @@
               };
 
               contrast.check();
-              //const {errorMessage, warningMessage} = sa11yIM["contrast"];
+              //const {errorMessage, warningMessage} = jooa11yIM["contrast"];
 
               contrastErrors.errors.forEach(item => {
                   let name = item.elem;
                   let cratio = item.ratio;
                   let clone = name.cloneNode(true);
-                  let removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
-                  for(let i = 0; i < removeSa11yHeadingLabel.length; i++){
-                      clone.removeChild(removeSa11yHeadingLabel[i]);
+                  let removeJooa11yHeadingLabel = clone.querySelectorAll('.jooa11y-heading-label');
+                  for(let i = 0; i < removeJooa11yHeadingLabel.length; i++){
+                      clone.removeChild(removeJooa11yHeadingLabel[i]);
                   }
                   let nodetext = clone.textContent;
 
@@ -2487,9 +2487,9 @@
               contrastErrors.warnings.forEach(item => {
                   let name = item.elem;
                   let clone = name.cloneNode(true);
-                  let removeSa11yHeadingLabel = clone.querySelectorAll('.sa11y-heading-label');
-                  for(let i = 0; i < removeSa11yHeadingLabel.length; i++){
-                      clone.removeChild(removeSa11yHeadingLabel[i]);
+                  let removeJooa11yHeadingLabel = clone.querySelectorAll('.jooa11y-heading-label');
+                  for(let i = 0; i < removeJooa11yHeadingLabel.length; i++){
+                      clone.removeChild(removeJooa11yHeadingLabel[i]);
                   }
                   let nodetext = clone.textContent;
 
@@ -2517,7 +2517,7 @@
               $readability.forEach($el => {
                   let listText = $el.textContent;
                   if (listText.charAt(listText.length - 1) !== ".") {
-                      $el.insertAdjacentHTML("beforeend", "<span class='sa11y-readability-period sa11y-visually-hidden'>.</span>");
+                      $el.insertAdjacentHTML("beforeend", "<span class='jooa11y-readability-period jooa11y-visually-hidden'>.</span>");
                   }
               });
 
@@ -2600,7 +2600,7 @@
                   flesch_reading_ease = 0;
               }
 
-              const $readabilityinfo = document.getElementById("sa11y-readability-info");
+              const $readabilityinfo = document.getElementById("jooa11y-readability-info");
 
               if (paragraphtext.length === 0) {
                   $readabilityinfo.innerHTML = Lang._('READABILITY_NO_P_OR_LI_MESSAGE');
@@ -2613,24 +2613,24 @@
                   //WCAG AAA pass if greater than 60
                   if (fleschScore >= 0 && fleschScore < 30) {
                       $readabilityinfo.innerHTML =
-                          `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Lang._('VERY_DIFFICULT_READABILITY')}</span>`;
+                          `<span>${fleschScore}</span> <span class="jooa11y-readability-score">${Lang._('VERY_DIFFICULT_READABILITY')}</span>`;
 
                   } else if (fleschScore > 31 && fleschScore < 49) {
                       $readabilityinfo.innerHTML =
-                          `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Lang._('DIFFICULT_READABILITY')}</span>`;
+                          `<span>${fleschScore}</span> <span class="jooa11y-readability-score">${Lang._('DIFFICULT_READABILITY')}</span>`;
 
                   } else if (fleschScore > 50 && fleschScore < 60) {
                       $readabilityinfo.innerHTML =
-                          `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Lang._('FAIRLY_DIFFICULT_READABILITY')}</span>`;
+                          `<span>${fleschScore}</span> <span class="jooa11y-readability-score">${Lang._('FAIRLY_DIFFICULT_READABILITY')}</span>`;
                   } else {
                       $readabilityinfo.innerHTML =
-                          `<span>${fleschScore}</span> <span class="sa11y-readability-score">${Lang._('GOOD_READABILITY')}</span>`;
+                          `<span>${fleschScore}</span> <span class="jooa11y-readability-score">${Lang._('GOOD_READABILITY')}</span>`;
                   }
 
-                  document.getElementById("sa11y-readability-details").innerHTML =
-                  `<li><span class='sa11y-bold'>${Lang._('AVG_WORD_PER_SENTENCE')}</span> ${avgWordsPerSentence}</li>
-                <li><span class='sa11y-bold'>${Lang._('COMPLEX_WORDS')}</span> ${complexWords}%</li>
-                <li><span class='sa11y-bold'>${Lang._('TOTAL_WORDS')}</span> ${words}</li>`;
+                  document.getElementById("jooa11y-readability-details").innerHTML =
+                  `<li><span class='jooa11y-bold'>${Lang._('AVG_WORD_PER_SENTENCE')}</span> ${avgWordsPerSentence}</li>
+                <li><span class='jooa11y-bold'>${Lang._('COMPLEX_WORDS')}</span> ${complexWords}%</li>
+                <li><span class='jooa11y-bold'>${Lang._('TOTAL_WORDS')}</span> ${words}</li>`;
               }
               else {
                   $readabilityinfo.textContent = Lang._('READABILITY_NOT_ENOUGH_CONTENT_MESSAGE');
@@ -2667,13 +2667,13 @@
         content = escapeHTML(content);
 
         return `
-        <div class=${inline ? "sa11y-instance-inline" : "sa11y-instance"}>
+        <div class=${inline ? "jooa11y-instance-inline" : "jooa11y-instance"}>
             <button
             type="button"
             aria-label="${[type]}"
-            class="sa11y-btn sa11y-${CSSName[type]}-btn${inline ? "-text" : ""}"
+            class="jooa11y-btn jooa11y-${CSSName[type]}-btn${inline ? "-text" : ""}"
             data-tippy-content="<div lang='${this.options.langCode}'>
-                <div class='sa11y-header-text'>${[type]}</div>
+                <div class='jooa11y-header-text'>${[type]}</div>
                 ${content}
             </div>
         ">
@@ -2707,8 +2707,8 @@
           content = content();
         }
 
-        return `<div class="sa11y-instance sa11y-${CSSName[type]}-message-container">
-      <div role="region" aria-label="${[type]}" class="sa11y-${CSSName[type]}-message" lang="${this.options.langCode}">
+        return `<div class="jooa11y-instance jooa11y-${CSSName[type]}-message-container">
+      <div role="region" aria-label="${[type]}" class="jooa11y-${CSSName[type]}-message" lang="${this.options.langCode}">
           ${content}
       </div>
   </div>`;
@@ -2716,22 +2716,22 @@
 
     }
 
-  var sa11y = {
+  var jooa11y = {
     Lang,
-    Sa11y,
+    Jooa11y,
   };
 
 
 
   /*-----------------------------------------------------------------------
-  Sa11y: the accessibility quality assurance assistant.
+  sa11y: the accessibility quality assurance assistant.
   Author: Development led by Adam Chaboryk at Ryerson University.
-  All acknowledgements and contributors: https://github.com/ryersondmp/sa11y
-  License: https://github.com/ryersondmp/sa11y/blob/master/LICENSE.md
+  All acknowledgements and contributors: https://github.com/ryersondmp/jooa11y
+  License: https://github.com/ryersondmp/jooa11y/blob/master/LICENSE.md
   Copyright (c) 2020 - 2021 Ryerson University
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
   ------------------------------------------------------------------------*/
 
-  return sa11y;
+  return jooa11y;
 
 }));

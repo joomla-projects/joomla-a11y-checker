@@ -1,12 +1,12 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Sa11yLangEn = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Jooa11yLangEn = factory());
 })(this, (function () { 'use strict';
 
   var en = {
     // Language specific options.
-    // For more see defaultOptions in sa11y.js
+    // For more see defaultOptions in jooa11y.js
     options: {
       langCode: 'en',
     },
@@ -49,8 +49,8 @@
 
       // Panel status
       'PANEL_STATUS_1': '1 accessibility error and 1 warning found.',
-      'PANEL_STATUS_10': '%(warningCount) <span class="sa11y-visually-hidden">warnings found.</span>',
-      'PANEL_STATUS_11': '%(totalCount) <span class="sa11y-visually-hidden">total issues found.</span>',
+      'PANEL_STATUS_10': '%(warningCount) <span class="jooa11y-visually-hidden">warnings found.</span>',
+      'PANEL_STATUS_11': '%(totalCount) <span class="jooa11y-visually-hidden">total issues found.</span>',
       'PANEL_STATUS_2': '1 accessibility error and %(warningCount) warnings found.',
       'PANEL_STATUS_3': '%(errorCount) accessibility errors and 1 warning found.',
       'PANEL_STATUS_4': '%(errorCount) accessibility errors and %(warningCount) warnings found.',
@@ -103,7 +103,7 @@
       'LINK_ANCHOR_LINK_AND_ALT_MESSAGE': 'Image link contains <strong>both alt text and surrounding link text.</strong> If this image is decorative and is being used as a functional link to another page, consider marking the image as decorative or null - the surrounding link text should suffice.',
       'LINK_ANCHOR_LINK_AND_ALT_MESSAGE_INFO': 'Alt text: <strong>%(altText)</strong>',
       'LINK_DECORATIVE_MESSAGE': 'Image is marked as <strong>decorative</strong> and will be ignored by assistive technology. If the image conveys a story, mood or important information - be sure to add alt text.',
-      'LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN': 'Link around image has <span class="sa11y-kbd">aria-hidden=&quot;true&quot;</span> but is still keyboard focusable. If you are intending to hide a redundant or duplicate link, add <span class="sa11y-kbd">tabindex=&quot;-1&quot;</span> as well.',
+      'LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN': 'Link around image has <span class="jooa11y-kbd">aria-hidden=&quot;true&quot;</span> but is still keyboard focusable. If you are intending to hide a redundant or duplicate link, add <span class="jooa11y-kbd">tabindex=&quot;-1&quot;</span> as well.',
       'LINK_IMAGE_BAD_ALT_MESSAGE': 'File extension within the alt text found. Ensure the alt text describes the destination of the link, not a literal description of the image. Remove: <strong>%(error)</strong>.',
       'LINK_IMAGE_BAD_ALT_MESSAGE_INFO': 'The alt text for this image is: <strong>%(altText)</strong>',
       'LINK_IMAGE_LINK_ALT_TEXT_MESSAGE': 'Image link contains alt text, although please ensure alt text describes the destination page. <strong>Consider using the title of the page it links to as the alt text.</strong> Does the alt text describe where the link takes you?',
@@ -124,14 +124,14 @@
       'LABELS_INPUT_RESET_MESSAGE': 'Reset buttons should <strong>not</strong> be used unless specifically needed because they are easy to activate by mistake.',
       'LABELS_INPUT_RESET_MESSAGE_TIP': '<strong>Tip!</strong> Learn why <a href="https://www.nngroup.com/articles/reset-and-cancel-buttons/" target="_blank">Reset and Cancel buttons pose usability issues.</a>',
       'LABELS_MISSING_IMAGE_INPUT_MESSAGE': 'Image button is missing alt text. Please add alt text to provide an accessible name. For example: <em>Search</em> or <em>Submit</em>.',
-      'LABELS_MISSING_LABEL_MESSAGE': 'There is no label associated with this input. Please add an <span class="sa11y-kbd">id</span> to this input, and add a matching <span class="sa11y-kbd">for</span> attribute to the label.',
-      'LABELS_NO_FOR_ATTRIBUTE_MESSAGE': 'There is no label associated with this input. Add a <span class="sa11y-kbd">for</span> attribute to the label that matches the <span class="sa11y-kbd">id</span> of this input.',
+      'LABELS_MISSING_LABEL_MESSAGE': 'There is no label associated with this input. Please add an <span class="jooa11y-kbd">id</span> to this input, and add a matching <span class="jooa11y-kbd">for</span> attribute to the label.',
+      'LABELS_NO_FOR_ATTRIBUTE_MESSAGE': 'There is no label associated with this input. Add a <span class="jooa11y-kbd">for</span> attribute to the label that matches the <span class="jooa11y-kbd">id</span> of this input.',
       'LABELS_NO_FOR_ATTRIBUTE_MESSAGE_INFO': 'The ID for this input is: <strong>id=&#34;%(t)&#34;</strong>',
 
       // Embedded content
       'EMBED_AUDIO': 'Please ensure to provide a <strong>transcript for all podcasts.</strong> Providing transcripts for audio content is a mandatory Level A requirement. Transcripts support people who are D/deaf or hard-of-hearing, but can benefit everyone. Consider placing the transcript below or within an accordion panel.',
       'EMBED_GENERAL_WARNING': 'Unable to check embedded content. Please make sure that images have alt text, videos have captions, text has sufficient contrast, and interactive components are <a href="https://webaim.org/techniques/keyboard/" target="_blank">keyboard accessible.</a>',
-      'EMBED_MISSING_TITLE': 'Embedded content requires an accessible name that describes its contents. Please provide a unique <span class="sa11y-kbd">title</span> or <span class="sa11y-kbd">aria-label</span> attribute on the <span class="sa11y-kbd">iframe</span> element. Learn more about <a href="https://dequeuniversity.com/tips/provide-iframe-titles" target="_blank">iFrames.</a>',
+      'EMBED_MISSING_TITLE': 'Embedded content requires an accessible name that describes its contents. Please provide a unique <span class="jooa11y-kbd">title</span> or <span class="jooa11y-kbd">aria-label</span> attribute on the <span class="jooa11y-kbd">iframe</span> element. Learn more about <a href="https://dequeuniversity.com/tips/provide-iframe-titles" target="_blank">iFrames.</a>',
       'EMBED_VIDEO': 'Please ensure <strong>all videos have closed captioning.</strong> Providing captions for all audio and video content is a mandatory Level A requirement. Captions support people who are D/deaf or hard-of-hearing.',
 
       // Contrast
@@ -142,7 +142,7 @@
 
       // Readability
       'READABILITY_NOT_ENOUGH_CONTENT_MESSAGE': 'Not enough content to calculate readability score.',
-      'READABILITY_NO_P_OR_LI_MESSAGE': 'Unable to calculate readability score. No paragraph <span class="sa11y-badge">&lt;p&gt;</span> or list content <span class="sa11y-badge">&lt;li&gt;</span> found.',
+      'READABILITY_NO_P_OR_LI_MESSAGE': 'Unable to calculate readability score. No paragraph <span class="jooa11y-badge">&lt;p&gt;</span> or list content <span class="jooa11y-badge">&lt;li&gt;</span> found.',
 
       // QA
       'QA_BAD_ITALICS': 'Bold and italic tags have semantic meaning, and should <strong>not</strong> be used to highlight entire paragraphs. Bolded text should be used to provide strong <strong>emphasis</strong> on a word or phrase. Italics should be used to highlight proper names (i.e. book and article titles), foreign words, quotes. Long quotes should be formatted as a blockquote.',
