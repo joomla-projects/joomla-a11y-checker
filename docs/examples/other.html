@@ -49,13 +49,12 @@
     import Sa11y from '../../src/js/sa11y.js';
     import EngSetting from '../../src/js/lang/en.js';
 
-    // Set translations
-    Sa11y.Lang.addI18n(EngSetting.strings);
-
-    // Instantiate
-    const checker = new Sa11y.Sa11y(EngSetting.options);
-
     window.addEventListener('load', () => {
+      // Set translations
+      Sa11y.Lang.addI18n(EngSetting.strings);
+
+      // Instantiate
+      const checker = new Sa11y.Sa11y(EngSetting.options);
       checker.doInitialCheck();
     });
   </script>

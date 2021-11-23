@@ -379,7 +379,7 @@ class Sa11y {
                 //End of main container.
                 `</div>`;
 
-            document.body.prepend(sa11ycontainer);
+            document.body.append(sa11ycontainer);
 
             //Put before document.ready because of CSS flicker when dark mode is enabled.
             this.settingPanelToggles();
@@ -706,11 +706,9 @@ class Sa11y {
   // Do Initial check
   // ----------------------------------------------------------------------
   doInitialCheck() {
-    document.getElementById("sa11y-toggle").disabled = false;
-
     if (localStorage.getItem("sa11y-remember-panel") === "Closed" || !localStorage.getItem("sa11y-remember-panel")) {
+      this.panelActive = true; // Prevent panel popping up after initial check
       this.checkAll();
-      this.resetAll();
     }
   }
 
