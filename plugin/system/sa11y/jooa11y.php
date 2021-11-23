@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Plugin
- * @subpackage  System.sa11y
+ * @subpackage  System.jooa11y
  *
  * @copyright   (C) 2021 Open Source Matters, Inc. <https://www.joomla.org>
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -14,11 +14,11 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 
 /**
- * Sa11y plugin to add an accessibility checker
+ * Jooa11y plugin to add an accessibility checker
  *
  * @since  __DEPLOY_VERSION__
  */
-class PlgSystemSa11y extends CMSPlugin
+class PlgSystemJooa11y extends CMSPlugin
 {
 	/**
 	 * Application object.
@@ -133,6 +133,6 @@ class PlgSystemSa11y extends CMSPlugin
 
 		/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 		$wa = $document->getWebAssetManager();
-		$wa->useScript('sa11y');
+		$wa->useScript('jooa11y');
 	}
 }
