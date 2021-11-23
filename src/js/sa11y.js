@@ -702,15 +702,15 @@ class Sa11y {
             });
         }
 
-  // ----------------------------------------------------------------------
-  // Do Initial check
-  // ----------------------------------------------------------------------
-  doInitialCheck() {
-    if (localStorage.getItem("sa11y-remember-panel") === "Closed" || !localStorage.getItem("sa11y-remember-panel")) {
-      this.panelActive = true; // Prevent panel popping up after initial check
-      this.checkAll();
-    }
-  }
+        // ----------------------------------------------------------------------
+        // Do Initial check
+        // ----------------------------------------------------------------------
+        doInitialCheck() {
+            if (localStorage.getItem("sa11y-remember-panel") === "Closed" || !localStorage.getItem("sa11y-remember-panel")) {
+                this.panelActive = true; // Prevent panel popping up after initial check
+                this.checkAll();
+             }
+        }
 
         // ----------------------------------------------------------------------
         // Check all
