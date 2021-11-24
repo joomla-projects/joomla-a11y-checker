@@ -94,7 +94,7 @@ export default {
     'LINK_ALT_PLACEHOLDER_MESSAGE': 'Non-descript or placeholder alt text found. Replace the following alt text with something more meaningful: <strong>%(altText)</strong>.',
     'LINK_ALT_TOO_LONG_MESSAGE': 'Alt text description is <strong>too long</strong>. Alt text should be concise, yet meaningful like a <em>tweet</em> (around 100 characters). If this is a complex image or a graph, consider putting the long description of the image in the text below or an accordion component.',
     'LINK_ALT_TOO_LONG_MESSAGE_INFO': 'The alt text is <strong>%(altLength)</strong> characters: <strong>%(altText)</strong>',
-    'LINK_ANCHOR_LINK_AND_ALT_MESSAGE': 'Image link contains <strong>both alt text and surrounding link text.</strong> If this image is decorative and is being used as a functional link to another page, consider marking the image as decorative or null - the surrounding link text should suffice.',
+    'LINK_ANCHOR_LINK_AND_ALT_MESSAGE': 'Image link contains <strong>both alt text and surrounding link text.</strong> If this image is decorative and is being used as a functional link to another page, consider marking the image as decorative - the surrounding link text should suffice.',
     'LINK_ANCHOR_LINK_AND_ALT_MESSAGE_INFO': 'Alt text: <strong>%(altText)</strong>',
     'LINK_DECORATIVE_MESSAGE': 'Image is marked as <strong>decorative</strong> and will be ignored by assistive technology. If the image conveys a story, mood or important information - be sure to add alt text.',
     'LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN': 'Link around image has <span class="jooa11y-kbd">aria-hidden=&quot;true&quot;</span> but is still keyboard focusable. If you are intending to hide a redundant or duplicate link, add <span class="jooa11y-kbd">tabindex=&quot;-1&quot;</span> as well.',
@@ -108,7 +108,7 @@ export default {
     'LINK_IMAGE_SUS_ALT_MESSAGE_INFO': 'The alt text for this image is: <strong>%(altText)</strong>.',
     'LINK_LINK_HAS_ALT_MESSAGE': 'Image is marked as decorative, although the link is using the surrounding text as a descriptive label.',
     'LINK_PASS_ALT': 'The alt text for this image is: <strong>%(altText)</strong>',
-    'MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE': 'Image is being used as a link with surrounding text, although the alt attribute should be marked as decorative or null.',
+    'MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE': 'Image is being used as a link with surrounding text, although the alt attribute should be marked as decorative.',
     'MISSING_ALT_LINK_MESSAGE': 'Image is being used as a link but is missing alt text! Please ensure alt text describes where the link takes you.',
     'MISSING_ALT_MESSAGE': 'Missing alt text! If the image conveys a story, mood, or important information - be sure to describe the image.',
 
