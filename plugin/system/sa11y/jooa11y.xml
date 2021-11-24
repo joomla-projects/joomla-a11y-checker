@@ -8,7 +8,7 @@
 	<authorEmail>admin@joomla.org</authorEmail>
 	<authorUrl>www.joomla.org</authorUrl>
 	<version>4.1.0</version>
-	<description>PLG_SYSTEM_SKIPTO_XML_DESCRIPTION</description>
+	<description>PLG_SYSTEM_JOOA11Y_XML_DESCRIPTION</description>
 	<files>
 		<filename plugin="jooa11y">jooa11y.php</filename>
 	</files>

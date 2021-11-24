@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\CMSApplicationInterface;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 
@@ -79,7 +80,10 @@ class PlgSystemJooa11y extends CMSPlugin
 			return false;
 		}
 
-	// Only on HTML documents
+		// Get the document object.
+		$document = $this->app->getDocument();
+
+		// Only on HTML documents
 		if ($document->getType() !== 'html')
 		{
 			return false;
@@ -91,7 +95,7 @@ class PlgSystemJooa11y extends CMSPlugin
 			return true;
 		}
 
-	// Load the checker if authorised
+		// Load the checker if authorised
 		if (!$this->isAuthorisedDisplayChecker())
 		{
 			return false;
@@ -133,6 +137,9 @@ class PlgSystemJooa11y extends CMSPlugin
 
 		/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 		$wa = $document->getWebAssetManager();
-		$wa->useScript('jooa11y');
+		$wa->registerAndUseStyle('jooa11y', '');
+		$wa->registerAndUseScript('jooa11y', '');
+		$wa->registerAndUseScript('jooa11y', '');
+
 	}
 }
