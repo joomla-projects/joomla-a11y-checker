@@ -1195,9 +1195,6 @@ span.jooa11y-heading-label {
 .tippy-box[data-theme~="jooa11y-theme"] *:not(.jooa11y-header-text):not(.jooa11y-bold) {
   font-size: var(--jooa11y-normal-text);
 }
-.tippy-box[data-theme~="jooa11y-theme"] *:not(.jooa11y-header-text):not(.jooa11y-bold) {
-  font-weight: normal;
-}
 .tippy-box[data-theme~="jooa11y-theme"] ul {
   padding: 5px 10px 0 20px;
   margin: 0;
