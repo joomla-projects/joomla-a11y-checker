@@ -87,7 +87,7 @@
 					filter="string"
 				/>
 			</fieldset>
-			<fieldset name="options">
+			<fieldset name="preferences">
 				<field
 					name="contrast"
 					type="radio"
@@ -124,6 +124,16 @@
 					layout="joomla.form.field.radio.switcher"
 					label="PLG_SYSTEM_JOOA11Y_FIELD_PREF_READABILITY"
 					default="On"
+					>
+					<option value="Off">JOFF</option>
+					<option value="On">JON</option>
+				</field>
+				<field
+					name="darkmode"
+					type="radio"
+					layout="joomla.form.field.radio.switcher"
+					label="PLG_SYSTEM_JOOA11Y_FIELD_PREF_DARKMODE"
+					default="Off"
 					>
 					<option value="Off">JOFF</option>
 					<option value="On">JON</option>
