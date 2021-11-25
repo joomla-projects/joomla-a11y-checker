@@ -112,34 +112,37 @@ class PlgSystemJooa11y extends CMSPlugin
 
 		// Add plugin settings from the xml
 		$document->addScriptOptions(
-			'defaultOptions',
+			'jooa11yOptions',
 			[
 				// Language
-				'langCode' => $this->params->get('langCode'),
-				'readabilityLang' => $this->params->get('readabilityLang'),
+				'langCode'        => $this->params->get('langCode', 'en'),
+				'readabilityLang' => $this->params->get('readabilityLang', 'en'),
 				// Advanced Fieldset
-				'checkRoot' => $this->params->get('checkRoot'),
-				'readabilityRoot' => $this->params->get('readabilityRoot'),
+				'checkRoot'       => $this->params->get('checkRoot', 'main'),
+				'readabilityRoot' => $this->params->get('readabilityRoot', 'main'),
 				'containerIgnore' => $this->params->get('containerIgnore'),
-				'outlineIgnore' => $this->params->get('outlineIgnore'),
-				'headerIgnore' => $this->params->get('headerIgnore'),
-				'imageIgnore' => $this->params->get('imageIgnore'),
-				'linkIgnore' => $this->params->get('linkIgnore'),
-				'linkIgnoreSpan' => $this->params->get('linkIgnore'),
-				'linksToFlag' => $this->params->get('linkIgnore'),
+				'outlineIgnore'   => $this->params->get('outlineIgnore'),
+				'headerIgnore'    => $this->params->get('headerIgnore'),
+				'imageIgnore'     => $this->params->get('imageIgnore'),
+				'linkIgnore'      => $this->params->get('linkIgnore'),
+				'linkIgnoreSpan'  => $this->params->get('linkIgnore'),
+				'linksToFlag'     => $this->params->get('linkIgnore'),
 				// Start up preferences
-				'contrast' => $this->params->get('contrast'),
-				'labels' => $this->params->get('labels'),
-				'links-advanced' => $this->params->get('links-advanced'),
-				'readability' => $this->params->get('readability'),
+				'contrast'        => $this->params->get('contrast', 'on'),
+				'labels'          => $this->params->get('labels', 'on'),
+				'links_advanced'  => $this->params->get('links_advanced', 'off'),
+				'readability'     => $this->params->get('readability', 'off'),
+				'darkmode'        => $this->params->get('darkmode', 'off'),
 			]
 		);
 
-		/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
-		$wa = $document->getWebAssetManager();
-		$wa->registerAndUseStyle('jooa11y', '');
-		$wa->registerAndUseScript('jooa11y', '');
-		$wa->registerAndUseScript('jooa11y', '');
+		/** @var Joomla\CMS\WebAsset\WebAssetManager $wa
+		* I know the code below can be improved - help! */
+
+		$wa = $document->getWebAssetManager()
+			->registerAndUseScript('jooa11y', 'plg_system_jooa11y/joomla-a11y-checker.js')
+			->registerAndUseScript('jooa11y-lang', 'plg_system_jooa11y/lang/en.js')
+			->registerAndUseStyle('jooa11y', 'plg_system_jooa11y/joomla-a11y-checker.css');
 
 	}
 }
