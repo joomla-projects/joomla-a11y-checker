@@ -108,7 +108,6 @@ html[data-jooa11y-theme=dark] {
 #jooa11y-container * {
   font-family: var(--jooa11y-font-face);
   line-height: 22px;
-  direction: ltr;
   -webkit-font-smoothing: auto;
 }
 
@@ -121,7 +120,7 @@ html[data-jooa11y-theme=dark] {
   font-weight: normal;
   letter-spacing: unset;
   word-break: normal;
-  padding-left: 0;
+  padding-inline-start: 0;
   margin-bottom: 0;
 }
 
@@ -131,7 +130,6 @@ html[data-jooa11y-theme=dark] {
 
 .jooa11y-instance-inline {
   display: inline-block;
-  text-align: left;
 }
 
 .jooa11y-overflow {
@@ -141,7 +139,7 @@ html[data-jooa11y-theme=dark] {
 /*===== Main button ===== */
 #jooa11y-container #jooa11y-toggle {
   position: fixed;
-  right: 15px;
+  inset-inline-end: 15px;
   bottom: 15px;
   z-index: 9999999999;
   width: 55px;
@@ -248,12 +246,11 @@ html[data-jooa11y-theme=dark] {
 
 #jooa11y-container #jooa11y-panel {
   position: fixed;
-  right: 42px;
+  inset-inline-end: 42px;
   bottom: 25px;
   z-index: 8890;
   width: 310px;
   overflow: visible;
-  text-align: left;
   visibility: hidden;
   background: var(--jooa11y-panel-bg);
   border-radius: 0.25em;
@@ -427,23 +424,23 @@ html[data-jooa11y-theme=dark] {
 }
 
 #jooa11y-container #jooa11y-outline-list .jooa11y-outline-2 {
-  margin-left: 15px;
+  margin-inline-start: 15px;
 }
 
 #jooa11y-container #jooa11y-outline-list .jooa11y-outline-3 {
-  margin-left: 30px;
+  margin-inline-start: 30px;
 }
 
 #jooa11y-container #jooa11y-outline-list .jooa11y-outline-4 {
-  margin-left: 45px;
+  margin-inline-start: 45px;
 }
 
 #jooa11y-container #jooa11y-outline-list .jooa11y-outline-5 {
-  margin-left: 60px;
+  margin-inline-start: 60px;
 }
 
 #jooa11y-container #jooa11y-outline-list .jooa11y-outline-6 {
-  margin-left: 75px;
+  margin-inline-start: 75px;
 }
 
 #jooa11y-container #jooa11y-outline-list {
@@ -463,7 +460,7 @@ html[data-jooa11y-theme=dark] {
 /* Readability panel */
 #jooa11y-container .jooa11y-readability-level {
   display: inline-block;
-  padding-left: 10px;
+  padding-inline-start: 10px;
 }
 
 #jooa11y-container #jooa11y-readability-content {
@@ -513,7 +510,7 @@ html[data-jooa11y-theme=dark] {
   position: relative;
   width: 35px;
   height: 35px;
-  margin-right: 10px;
+  margin-inline-end: 10px;
   overflow: visible;
   cursor: pointer;
   border: 0;
@@ -615,6 +612,10 @@ html[data-jooa11y-theme=dark] {
   border: 0;
   border-radius: 50%;
   transition: all 0.2s ease-in-out;
+}
+
+[dir=rtl] #jooa11y-container .jooa11y-close-btn {
+  float: left;
 }
 
 #jooa11y-container .jooa11y-close-btn:hover,
@@ -880,13 +881,13 @@ button.jooa11y-warning-btn-text:focus {
 }
 
 p#jooa11y-readability-info {
-  margin-left: 10px;
+  margin-inline-start: 10px;
   display: inline;
 }
 
 .jooa11y-readability-score {
   padding: 2px 5px;
-  margin-left: 5px;
+  margin-inline-start: 5px;
   color: var(--jooa11y-panel-primary);
   background-color: var(--jooa11y-panel-badge);
   border-radius: 0.25em;
