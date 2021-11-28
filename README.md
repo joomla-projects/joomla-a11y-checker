@@ -54,15 +54,15 @@ As module:
 <script src="https://unpkg.com/tippy.js@6" defer></script>
 
 <script type="module">
-  import Sa11y from 'js/sa11y.js';
-  import Sa11yLangEn from 'js/lang/en.js';
+  import Jooa11y from 'js/jooa11y.js';
+  import Jooa11yLangEn from 'js/lang/en.js';
   
   window.addEventListener('load', () => {
     // Set translations
-    Sa11y.Lang.addI18n(Sa11yLangEn.strings);
+    Jooa11y.Lang.addI18n(Jooa11yLangEn.strings);
 
     // Instantiate
-    const checker = new Sa11y.Sa11y(Sa11yLangEn.options);
+    const checker = new Jooa11y.Jooa11y(Jooa11yLangEn.options);
     checker.doInitialCheck();
   });
 </script>
@@ -85,10 +85,10 @@ As regular script:
 <script>
   window.addEventListener('load', () => {
     // Set translations
-    Sa11y.Lang.addI18n(Sa11yLangEn.strings);
+    Jooa11y.Lang.addI18n(Jooa11yLangEn.strings);
 
     // Instantiate
-    const checker = new Sa11y.Sa11y(Sa11yLangEn.options);
+    const checker = new Jooa11y.Jooa11y(Jooa11yLangEn.options);
     checker.doInitialCheck();
   });
 </script>
