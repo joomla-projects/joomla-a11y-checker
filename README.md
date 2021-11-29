@@ -70,7 +70,7 @@ As module:
 
 ```
 
-As regular script (note: tippy.js is uncluded in Jooa11y bundle):
+As regular script (note: tippy.js is included in Jooa11y bundle):
 
 ```html
 <!--StyleSheet-->
