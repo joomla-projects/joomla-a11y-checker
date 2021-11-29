@@ -66,10 +66,10 @@
       langCode: 'en',
 
       // Target area to scan.
-      checkRoot: 'body', // A content container
+      checkRoot: 'main', // A content container
 
       // Readability configuration.
-      readabilityRoot: 'body',
+      readabilityRoot: 'main',
       readabilityLang: 'en',
 
       // Inclusions and exclusions. Use commas to seperate classes or elements.
