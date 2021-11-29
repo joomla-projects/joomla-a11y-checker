@@ -53,6 +53,7 @@ As module:
 <script src="https://unpkg.com/@popperjs/core@2" defer></script>
 <script src="https://unpkg.com/tippy.js@6" defer></script>
 
+<!--Jooa11y JavaScript-->
 <script type="module">
   import Jooa11y from 'js/jooa11y.js';
   import Jooa11yLangEn from 'js/lang/en.js';
@@ -69,18 +70,15 @@ As module:
 
 ```
 
-As regular script:
+As regular script (note: tippy.js is uncluded in Jooa11y bundle):
 
 ```html
 <!--StyleSheet-->
 <link rel="stylesheet" href="css/joomla-a11y-checker.min.css" />
 
-<!-- Tippy.js CDN (tooltip library) -->
-<script src="https://unpkg.com/@popperjs/core@2" defer></script>
-<script src="https://unpkg.com/tippy.js@6" defer></script>
-
+<!--Jooa11y JavaScript-->
 <script src="dist/js/joomla-a11y-checker.umd.min.js" defer></script>
-<script src="dist/js/lang/en.js" defer></script>
+<script src="dist/js/lang/en.umd.js" defer></script>
 
 <script>
   window.addEventListener('load', () => {
