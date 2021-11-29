@@ -30,12 +30,14 @@
     "@babel/preset-env": "^7.14.7",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-replace": "^3.0.0",
     "autoprefixer": "^10.2.6",
     "cssnano": "^5.0.6",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
+    "light-server": "^2.9.1",
     "postcss": "^8.3.10",
     "rimraf": "^3.0.2",
     "rollup": "^2.52.7",
@@ -46,8 +48,10 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.19.0",
-    "light-server": "^2.9.1"
+    "stylelint-scss": "^3.19.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@popperjs/core": "^2.11.0",
+    "tippy.js": "^6.3.7"
+  }
 }

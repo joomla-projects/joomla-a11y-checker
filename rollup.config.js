@@ -1,4 +1,5 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import sass from 'rollup-plugin-sass';
 import cssnano from 'cssnano';
@@ -7,11 +8,27 @@ import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname } from 'path';
 
+const rollupPluginJooa11y = function() {
+  return{
+    name: 'rollup-plugin-jooa11y',
+    transform (code, id) {
+      if (id.indexOf('/jooa11y.js') !== -1) {
+        // Preppend tippy import
+        return {
+          code: 'import tippy from \'tippy.js\';\n ' + code,
+          map: null
+        };
+      }
+      return null;
+    }
+  }
+}
+
 export default [
   // ES6 files
   {
     input: 'src/js/jooa11y.js',
-    plugins: [nodeResolve()],
+    plugins: [rollupPluginJooa11y(), nodeResolve(), replace({'process.env.NODE_ENV': JSON.stringify('production')})],
     output: [
       { file: 'dist/js/joomla-a11y-checker.umd.js', format: 'umd', name: 'Jooa11y' },
       {
@@ -23,7 +40,7 @@ export default [
     input: 'src/js/lang/en.js',
     plugins: [nodeResolve()],
     output: [
-      { file: 'dist/js/lang/en.js', format: 'umd', name: 'Jooa11yLangEn' },
+      { file: 'dist/js/lang/en.umd.js', format: 'umd', name: 'Jooa11yLangEn' },
     ],
   },
   // SCSS files
