@@ -9,6 +9,8 @@
 	<title>JOOA11Y - The Joomla Accessibility Checker</title>
 	<link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 
+	<link rel="stylesheet" href="../../dist/css/joomla-a11y-checker.css" />
+
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -32,10 +34,8 @@
 						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownExamples">
 							<li><a class="dropdown-item" href="errors.html">Errors</a></li>
 							<li><a class="dropdown-item" href="warnings.html">Warnings</a></li>
-							<li><a class="dropdown-item" href="pass.html">Pass</a></li>
-							<li>
-								<hr class="dropdown-divider" />
-							</li>
+							<li><a class="dropdown-item" href="pass.html">No Errors</a></li>
+
 						</ul>
 					</li>
 					<li class="nav-item dropdown">
@@ -63,159 +63,145 @@
 			</div>
 		</div>
 	</nav>
-	<section class="bg-secondary">
-		<div class="container">
-			<div class="text-center text-white py-5">
-				<h1>Tables</h1>
+	<main>
+		<section id="title" class="bg-secondary">
+			<div class="container">
+				<div class="text-center text-white py-5">
+					<h1>Tables</h1>
+				</div>
 			</div>
-		</div>
-	</section>
-	<main id="mainContent" class="col-sm-12">
-		<section id="example warning">
+		</section>
+		<section id="content">
 			<div class="container pt-4">
 				<div class="row">
 					<div class="col-sm-12">
-            <h2>Tables</h2>
+						<h2>Tables</h2>
 						<p>There are 3 simple accessibility tests for a table. Tables with <kbd>role=&apos;presentation&apos;</kbd>
-						  will be ignored.</p>
+							will be ignored.</p>
 						<ol>
-						  <li>Table must contain at least one table heading or <kbd>th</kbd></li>
-						  <li>Table must not contain an empty table heading or empty <kbd>th</kbd></li>
-						  <li>Table must not contain any semantic headings (H1, h3, h3...)</li>
+							<li>Table must contain at least one table heading or <kbd>th</kbd></li>
+							<li>Table must not contain an empty table heading or empty <kbd>th</kbd></li>
+							<li>Table must not contain any semantic headings (H1, h3, h3...)</li>
 						</ol>
-						<div class="ms-5">
+						<div class="ms-5 pt-4">
+							<h3>Example 1 - Pass</h3>
+								<table class="table pt-3">
+								<tbody>
+									<tr class="table-primary">
+									<th>Event Name</th>
+									<th>Time</th>
+									<th>Location</th>
+									</tr>
 
-						  <h3 class="pt-3">Example 1 - Pass</h3>
-						  <table class="table pt-3">
-							<tbody>
-							  <tr class="table-primary">
-								<th>Event Name</th>
-								<th>Time</th>
-								<th>Location</th>
-							  </tr>
+									<tr>
+									<td>Keynote</td>
+									<td>9:00 AM</td>
+									<td>Auditorium</td>
+									</tr>
 
-							  <tr>
-								<td>Keynote</td>
-								<td>9:00 AM</td>
-								<td>Auditorium</td>
-							  </tr>
+									<tr>
+									<td>Lunch</td>
+									<td>12:00 PM</td>
+									<td>Skyline Room</td>
+									</tr>
 
-							  <tr>
-								<td>Lunch</td>
-								<td>12:00 PM</td>
-								<td>Skyline Room</td>
-							  </tr>
+									<tr>
+									<td>Closing Dinner</td>
+									<td>5:00 PM</td>
+									<td>Metropolitan Room</td>
+									</tr>
+								</tbody>
+								</table>
+							<h3>Example 2 - Missing table headers</h3>
+								<table class="table pt-3">
+								<tbody>
+									<tr class="table-primary">
+									<td>Event Name</td>
+									<td>Time</td>
+									<td>Location</td>
+									</tr>
 
-							  <tr>
-								<td>Closing Dinner</td>
-								<td>5:00 PM</td>
-								<td>Metropolitan Room</td>
-							  </tr>
-							</tbody>
-						  </table>
+									<tr>
+									<td>Keynote</td>
+									<td>9:00 AM</td>
+									<td>Auditorium</td>
+									</tr>
 
+									<tr>
+									<td>Lunch</td>
+									<td>12:00 PM</td>
+									<td>Skyline Room</td>
+									</tr>
 
-						  <h3 class="pt-3">Example 2 - Missing table headers</h3>
-						  <table class="table">
-							<tbody>
-							  <tr class="table-primary">
-								<td>Event Name</td>
-								<td>Time</td>
-								<td>Location</td>
-							  </tr>
+									<tr>
+									<td>Closing Dinner</td>
+									<td>5:00 PM</td>
+									<td>Metropolitan Room</td>
+									</tr>
+								</tbody>
+								</table>
+							<h3>Example 3 - Table containing empty table header</h3>
+								<table class="table pt-3">
+								<tbody>
+									<tr class="table-primary">
+									<th></th>
+									<th>Time</th>
+									<th>Location</th>
+									</tr>
 
-							  <tr>
-								<td>Keynote</td>
-								<td>9:00 AM</td>
-								<td>Auditorium</td>
-							  </tr>
+									<tr>
+									<td>Keynote</td>
+									<td>9:00 AM</td>
+									<td>Auditorium</td>
+									</tr>
 
-							  <tr>
-								<td>Lunch</td>
-								<td>12:00 PM</td>
-								<td>Skyline Room</td>
-							  </tr>
+									<tr>
+									<td>Lunch</td>
+									<td>12:00 PM</td>
+									<td>Skyline Room</td>
+									</tr>
 
-							  <tr>
-								<td>Closing Dinner</td>
-								<td>5:00 PM</td>
-								<td>Metropolitan Room</td>
-							  </tr>
-							</tbody>
-						  </table>
+									<tr>
+									<td>Closing Dinner</td>
+									<td>5:00 PM</td>
+									<td>Metropolitan Room</td>
+									</tr>
+								</tbody>
+								</table>
+							<h3>Example 4 - Table containing semantic headings</h3>
+								<table class="table pt-3">
+								<tbody>
+									<tr class="table-primary">
+									<th>
+										<h4 style="font-size:1.2em!important">Event</h4>
+									</th>
+									<th>
+										<h4 style="font-size:1.2em!important">Time</h4>
+									</th>
+									<th>
+										<h4 style="font-size:1.2em!important">Location</h4>
+									</th>
+									</tr>
+									<tr>
+									<td>Keynote</td>
+									<td>9:00 AM</td>
+									<td>Auditorium</td>
+									</tr>
 
-						  <h3 class="pt-3">Example 3 - Table containing empty table header</h3>
-						  <table class="table">
-							<tbody>
-							  <tr class="table-primary">
-								<th></th>
-								<th>Time</th>
-								<th>Location</th>
-							  </tr>
+									<tr>
+									<td>Lunch</td>
+									<td>12:00 PM</td>
+									<td>Skyline Room</td>
+									</tr>
 
-							  <tr>
-								<td>Keynote</td>
-								<td>9:00 AM</td>
-								<td>Auditorium</td>
-							  </tr>
-
-							  <tr>
-								<td>Lunch</td>
-								<td>12:00 PM</td>
-								<td>Skyline Room</td>
-							  </tr>
-
-							  <tr>
-								<td>Closing Dinner</td>
-								<td>5:00 PM</td>
-								<td>Metropolitan Room</td>
-							  </tr>
-							</tbody>
-						  </table>
-
-						  <h3 class="pt-3">Example 4 - Table containing semantic headings</h3>
-						  <table class="table">
-							<tbody>
-							  <tr class="table-primary">
-								<th>
-								  <h4 style="font-size:1.2em!important">Event</h4>
-								</th>
-								<th>
-								  <h4 style="font-size:1.2em!important">Time</h4>
-								</th>
-								<th>
-								  <h4 style="font-size:1.2em!important">Location</h4>
-								</th>
-							  </tr>
-							  <tr>
-								<td>Keynote</td>
-								<td>9:00 AM</td>
-								<td>Auditorium</td>
-							  </tr>
-
-							  <tr>
-								<td>Lunch</td>
-								<td>12:00 PM</td>
-								<td>Skyline Room</td>
-							  </tr>
-
-							  <tr>
-								<td>Closing Dinner</td>
-								<td>5:00 PM</td>
-								<td>Metropolitan Room</td>
-							  </tr>
-							</tbody>
-						  </table>
+									<tr>
+									<td>Closing Dinner</td>
+									<td>5:00 PM</td>
+									<td>Metropolitan Room</td>
+									</tr>
+								</tbody>
+								</table>
 						</div>
-
-					  </div>
-					</div>
-				  </div>
-
-
-
-
-
 					</div>
 				</div>
 			</div>
@@ -229,7 +215,13 @@
 	<script src="https://unpkg.com/@popperjs/core@2" crossorigin="anonymous" defer></script>
 	<script src="https://unpkg.com/tippy.js@6" crossorigin="anonymous" defer></script>
 	<script type="module">
-		import Jooa11y from '../../src/js/jooa11y.js'; import EngSetting from '../../src/js/lang/en.js'; window.addEventListener('load', () => { // Set translations Jooa11y.Lang.addI18n(EngSetting.strings); // Instantiate const checker = new Jooa11y.Jooa11y(EngSetting.options);
+		import Jooa11y from '../../src/js/jooa11y.js';
+		import EngSetting from '../../src/js/lang/en.js';
+		window.addEventListener('load', () => {
+		 // Set translations
+			Jooa11y.Lang.addI18n(EngSetting.strings);
+			// Instantiate
+			const checker = new Jooa11y.Jooa11y(EngSetting.options);
 			checker.doInitialCheck();
 		});
 	</script>
