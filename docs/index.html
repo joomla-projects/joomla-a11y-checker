@@ -1,187 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>JOOA11Y - The Joomla Accessibility Checker</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<title>JOOA11Y - The Joomla Accessibility Checker</title>
+		<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">Jooa11y - the Joomla Accessibility Checker</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="pages/howto.html">How To</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownExamples" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Examples</a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownExamples">
-                                <li><a class="dropdown-item" href="pages/errors.html">Errors</a></li>
-                                <li><a class="dropdown-item" href="pages/warnings.html">Warnings</a></li>
-                                <li><a class="dropdown-item" href="pages/pass.html">Pass</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownTests" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Tests</a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownTests">
-                                <li><a class="dropdown-item" href="pages/headings.html">Headings</a></li>
-                                <li><a class="dropdown-item" href="pages/images.html">Images</a></li>
-                                <li><a class="dropdown-item" href="pages/links.html">Links</a></li>
-                                <li><a class="dropdown-item" href="pages/tables.html">Tables</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="pages/contrast.html">Contrast</a></li>
-                                <li><a class="dropdown-item" href="pages/labels.html">Labels</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="pages/audiovideo.html">Audio & Video</a></li>
-                                <li><a class="dropdown-item" href="pages/uppercase.html">Uppercase Text</a></li>
-                                <li><a class="dropdown-item" href="pages/fakelists.html">Fake Lists</a></li>
-                                <li><a class="dropdown-item" href="pages/iframes.html">iFrames</a></li>
-                                <li><a class="dropdown-item" href="pages/pdf.html">PDF Content</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="pages/social.html">Social Media</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-            <main id="mainContent" class="col-sm-12">
-	<section id="title" class="bg-secondary">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+			integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	</head>
+	<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#">Jooa11y - the Joomla Accessibility Checker</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="pages/howto.html">How To</a></li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbarDropdownExamples" href="#" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Examples</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownExamples">
+							<li><a class="dropdown-item" href="pages/errors.html">Errors</a></li>
+							<li><a class="dropdown-item" href="pages/warnings.html">Warnings</a></li>
+							<li><a class="dropdown-item" href="pages/pass.html">Pass</a></li>
+							<li>
+								<hr class="dropdown-divider" />
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbarDropdownTests" href="#" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Tests</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownTests">
+							<li><a class="dropdown-item" href="pages/headings.html">Headings</a></li>
+							<li><a class="dropdown-item" href="pages/images.html">Images</a></li>
+							<li><a class="dropdown-item" href="pages/links.html">Links</a></li>
+							<li><a class="dropdown-item" href="pages/tables.html">Tables</a></li>
+							<li><hr class="dropdown-divider" /></li>
+							<li><a class="dropdown-item" href="pages/contrast.html">Contrast</a></li>
+							<li><a class="dropdown-item" href="pages/labels.html">Labels</a></li>
+							<li><hr class="dropdown-divider" /></li>
+							<li><a class="dropdown-item" href="pages/audiovideo.html">Audio & Video</a></li>
+							<li><a class="dropdown-item" href="pages/uppercase.html">Uppercase Text</a></li>
+							<li><a class="dropdown-item" href="pages/fakelists.html">Fake Lists</a></li>
+							<li><a class="dropdown-item" href="pages/iframes.html">iFrames</a></li>
+							<li><a class="dropdown-item" href="pages/pdf.html">PDF Content</a></li>
+							<li><hr class="dropdown-divider" /></li>
+							<li><a class="dropdown-item" href="pages/social.html">Social Media</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<main id="mainContent" class="col-sm-12">
+		<section id="title" class="bg-secondary">
 			<div class="container">
 				<div class="text-center text-white py-5">
 					<h1>JOOA11Y - The Joomla Accessibility Checker</h1>
-					<p class="lead">Jooa11y is an <strong>accessibility quality assurance</strong> tool that <strong>visually highlights</strong> common accessibility and usability issues. Geared towards content authors, Jooa11y straightforwardly identifies errors or warnings at the source with a simple tooltip on how to fix them.</p>
+					<p class="lead">Jooa11y is an <strong>accessibility and quality assurance</strong> tool that <strong>visually highlights</strong> common accessibility and usability issues.</p>
 				</div>
 			</div>
-            </section>
-            <main id="mainContent" class="content-area-section col-sm-12">
-
-			  <section id="features">
-				<div class="container pt-5">
-				  <div class="row">
+		</section>
+		<section id="features">
+			<div class="container pt-5">
+				<div class="row">
 					<div class="col-12">
 						<h2>Features</h2>
-						<p>Jooa11y works as a simple in-page checker that is designed to be easily customized and integrated into any content management system (CMS) to facilitate good accessibility practices. Jooa11y works best in a templated <abbr title="Content Management System">CMS</abbr> environment, although is also available as a bookmarklet. Jooa11y is <em>not</em> a comprehensive code analysis tool. Jooa11y exclusively highlights content issues.</p>
+						<p> Geared towards content authors, Jooa11y identifies many errors or warnings and provides guidance on on how to fix them. Jooa11y is <em>not</em> a comprehensive code analysis tool - it exclusively highlights content issues.</p>
 						<ul>
 							<li>Over 50 test conditions.</li>
 							<li>Free and open source.</li>
-							<li>Concise tooltips explain issues right at the source.</li>
+							<li>Included by default in Joomla 4.1</li>
+							<li>Concise tooltips explain issues right on the page.</li>
 							<li>Low tech: No complex API or integrations.</li>
-							<li>Easily customizable: add your custom rulesets.</li>
-							<li>Automatic: checks content on page load.</li>
 							<li>Additional (toggleable) checks: Contrast, form labels, readability, links (Advanced).</li>
 							<li>Dark mode.</li>
 						</ul>
 					</div>
-				  </div>
 				</div>
-			  </section>
-			  <section id="details">
-				<div class="container pt-4">
-					<h3>Automatic</h3>
-				  	<div class="row">
-						<div class="col-sm-8">
-							<p>Jooa11y does a quick scan on page load. If there are any errors or warnings, the toggle will display a notification badge with the total number of issues detected. Red indicates errors, while yellow indicates there are warnings only. Content authors should be encouraged to enable Jooa11y even if there are no notifications!</p>
-						</div>
-						<div class="col-sm-4 text-center">
-							<img loading="lazy" width="250" class="img-fluid" src="assets/images/notification.png"
-							alt="Three Jooa11y toggles: one with a red notification badge, one yellow, and one without any badge." />
-						</div>
-					</div>
-				  <h3>States</h3>
-				  <p>Jooa11y has three simple states.</p>
-				  <div class="row">
+			</div>
+		</section>
+		<section id="details">
+			<div class="container pt-4">
+				<h3>States</h3>
+				<p>Jooa11y has three simple states.</p>
+				<div class="row">
 					<div class="col-sm-4 text-center">
-					  <img loading="lazy" class="img-fluid" width="500" src="assets/images/error.png"
-						alt="Screenshot of panel that shows: 4 accessibility errors and 3 warning detected!">
-					  <h4 class="pt-2">Errors</h4>
-					  <p>Accessibility and usability issues are detected. Jooa11y highlights common WCAG 2.1 Level A and AA accessibility issues.</p>
+						<img loading="lazy" class="img-fluid" width="500" src="assets/images/error.png" alt="Screenshot of panel that shows: 4 accessibility errors and 3 warning detected!">
+						<h4 class="pt-2">Errors</h4>
+						<p>Accessibility and usability issues are detected. Jooa11y highlights common WCAG 2.1 Level A and AA accessibility issues.</p>
 					</div>
 					<div class="col-sm-4 text-center">
-					  <img loading="lazy" class="img-fluid" width="500" src="assets/images/warning.png"
-						alt="Screenshot of panel that shows: Please review warning.">
-					  <h4 class="pt-2">Warnings</h4>
-					  <p>Warns you of potential accessibility or usability issues, and prompts you to manually review an element.</p>
+						<img loading="lazy" class="img-fluid" width="500" src="assets/images/warning.png" alt="Screenshot of panel that shows: Please review warning.">
+						<h4 class="pt-2">Warnings</h4>
+						<p>Warns you of potential accessibility or usability issues, and prompts you to manually review an element.</p>
 					</div>
 					<div class="col-sm-4 text-center">
-					  <img loading="lazy" class="img-fluid" width="500" src="assets/images/no-errors.png"
-						alt="Screenshot of panel that shows: No accessibility errors found.">
-					  <h4 class="pt-2">Pass</h4>
-					  <p>No apparent accessibility or usability issues are detected. A "thumbs up" to let you know you're good.</p>
+						<img loading="lazy" class="img-fluid" width="500" src="assets/images/no-errors.png" alt="Screenshot of panel that shows: No accessibility errors found.">
+						<h4 class="pt-2">Pass</h4>
+						<p>No apparent accessibility or usability issues are detected. A "thumbs up" to let you know you're good.</p>
 					</div>
-				  </div>
-				  <h3 >Checks</h3>
-				  <p>Jooa11y checks for the following content related issues and warnings.</p>
-				  <div class="row pt-4">
-					  <div class="col-md-6">
+				</div>
+			</div>
+		</section>
+		<section id="checks">
+			<div class="container pt-4">
+				<h3>Checks</h3>
+				<p>Jooa11y checks for the following content related issues and warnings.</p>
+				<div class="row pt-4">
+					<div class="col-md-6">
 						<h4>Errors</h4>
 						<ul>
 							<li>Images
-							  <ul>
-								<li>Missing alternative text.</li>
-								<li>Alt text contains a file extension.</li>
-								<li>Alt text contains only placeholder text.</li>
-							  </ul>
+								<ul>
+									<li>Missing alternative text.</li>
+									<li>Alt text contains a file extension.</li>
+									<li>Alt text contains only placeholder text.</li>
+								</ul>
 							</li>
 							<li>Links
-							  <ul>
-								<li>Nondescript link text like "learn more" or "click here".</li>
-								<li>Empty hyperlinks.</li>
-								<li>Links that only contain an icon font without an accessible name or label.</li>
-							  </ul>
+								<ul>
+									<li>Generic link text such as "learn more" or "click here".</li>
+									<li>Empty hyperlinks.</li>
+									<li>Links that only contain an icon font without an accessible name or label.</li>
+								</ul>
 							</li>
 							<li>Tables
-							  <ul>
-								<li>Missing table headers.</li>
-								<li>Empty table headers.</li>
-								<li>Table contains semantic headings.</li>
-							  </ul>
+								<ul>
+									<li>Missing table headers.</li>
+									<li>Empty table headers.</li>
+									<li>Table contains semantic headings.</li>
+								</ul>
 							</li>
 							<li>Headings
-							  <ul>
-								<li>Headings that skip levels.</li>
-								<li>Page does not start with a Heading 1 or Heading 2.</li>
-								<li>Empty headings.</li>
-								<li>Missing Heading 1.</li>
-							  </ul>
+								<ul>
+									<li>Headings that skip levels.</li>
+									<li>Page does not start with a Heading 1 or Heading 2.</li>
+									<li>Empty headings.</li>
+									<li>Missing Heading 1.</li>
+								</ul>
 							</li>
 							<li>Poor text contrast.</li>
 							<li>Inputs missing labels.</li>
 							<li>Page language not declared.</li>
-						  </ul>
-					  </div>
-					  <div class="col-md-6">
+						</ul>
+					</div>
+					<div class="col-md-6">
 						<h4 class="pt-2">Warnings</h4>
 						<ul>
 							<li>Headings
-							  <ul>
-								<li>Blockquotes incorrectly used as headings.</li>
-								<li>Headings that are too long (Not a WCAG 2.1 requirement).</li>
-								<li>Bolded text used as headings.</li>
-							  </ul>
+								<ul>
+									<li>Blockquotes incorrectly used as headings.</li>
+									<li>Headings that are too long (Not a WCAG 2.1 requirement).</li>
+									<li>Bolded text used as headings.</li>
+								</ul>
 							</li>
 							<li>Images
-							  <ul>
-								<li>Hyperlinked images: ensure alt text describes link location.</li>
-								<li>Images containing redundant words in alt text like "image of" or "graphic of".</li>
-							  </ul>
+								<ul>
+									<li>Hyperlinked images: ensure alt text describes link location.</li>
+									<li>Images containing redundant words in alt text like "image of" or "graphic of".</li>
+								</ul>
 							</li>
 							<li>Use of ALL CAPS/Uppercase.</li>
 							<li>Contrast that cannot be programatically determined, such as text with an image background.</li>
@@ -189,18 +177,56 @@
 							<li>Transcripts for podcasts and audio content.</li>
 							<li>Check PDF for accessibility or recommend to convert into HTML.</li>
 							<li>Links (Advanced)
-							  <ul>
-								<li>Links that open in a new tab without warning.</li>
-								<li>Links with identical names should have an equivalent purpose.</li>
-								<li>Links to PDF and other files without warning.</li>
-							  </ul>
+								<ul>
+									<li>Links that open in a new tab without warning.</li>
+									<li>Links with identical names should have an equivalent purpose.</li>
+									<li>Links to PDF and other files without warning.</li>
+								</ul>
 							</li>
 						</ul>
 					</div>
-				  </div>
-
 				</div>
-			  </section>
+			</div>
+		</section>
+		<section id="additionalchecks">
+			<div class="container pt-4">
+				<h3>Additional Checks</h3>
+				<p>Jooa11y has four optional checks and a dark mode setting that can be enabled in the "Show Settings" tab. Although these checks are "optional", it does not imply they are not important!</p>
+				<div class="row">
+					<div class="col-md-6">
+						<ul>
+							<li><strong>Contrast</strong>
+								<ul>
+								<li>Checks the contrast of various text elements.</li>
+								</ul>
+							</li>
+							<li><strong>Form labels</strong>
+								<ul>
+								<li>Checks all form inputs for a corresponding label.</li>
+								<li>Usability recommendation to remove "Reset" buttons on forms.</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-6">
+						<ul>
+							<li><strong>Links (Advanced)</strong>
+								<ul>
+								<li>Links that open in a new tab without warning.</li>
+								<li>Links with identical names should have equivalent purpose.</li>
+								<li>Links to PDF and other files without warning.</li>
+								</ul>
+							</li>
+							<li><strong>Readability</strong>
+								<ul>
+								<li>Estimates the readability score of all paragraph and list content.</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
 			  <section id="settings">
 				<div class="container pt-4">
 				  <h3>Outline</h3>
@@ -217,7 +243,7 @@
 				  </div>
 				</div>
 			  </section>
-			  <section id="quality assurance">
+			  <section id="qualityassurance">
 				<div class="container pt-4">
 				<h3>Quality Assurance</h3>
 				<div class="row">
@@ -233,45 +259,7 @@
 				  </div>
 			  </div>
 			</section>
-			<section id="additional checks">
-				<div class="container pt-4">
-					<h3>Additional Checks</h3>
-					<p>Jooa11y has four optional checks and a dark mode setting that can be enabled in the "Show Settings" tab. Although these checks are "optional", it does not imply they are not important! Depending on the website theme, plugin, or <abbr title="Content Management System">CMS</abbr>, they may not need to be tested for every time. For example, some form plugins automatically provide a label for each form input.</p>
-					<div class="row">
-						<div class="col-md-8 text-center">
-						<img loading="lazy" class="img-fluid" width="1000" src="assets/images/settings-panel.png"
-						alt="Screenshot of settings panel in dark mode showing toggles for contrast, form labels, links (advanced), readability and dark mode. There is also a tooltip warning about links that open in a new tab without warning.">
-						</div>
-						<div class="col-md-4">
-						<ul>
-						<li><strong>Contrast</strong>
-							<ul>
-							<li>Checks the contrast of various text elements.</li>
-							</ul>
-						</li>
-						<li><strong>Form labels</strong>
-							<ul>
-							<li>Checks all form inputs for a corresponding label.</li>
-							<li>Usability recommendation to remove "Reset" buttons on forms.</li>
-							</ul>
-						</li>
-						<li><strong>Links (Advanced)</strong>
-							<ul>
-							<li>Links that open in a new tab without warning.</li>
-							<li>Links with identical names should have equivalent purpose.</li>
-							<li>Links to PDF and other files without warning.</li>
-							</ul>
-						</li>
-						<li><strong>Readability</strong>
-							<ul>
-							<li>Estimates the readability score of all paragraph and list content.</li>
-							</ul>
-						</li>
-						</ul>
-						</div>
-					</div>
-				</div>
-			</section>
+
 			<section id="readability">
 				<div class="container">
 					<div class="row pt-4">
@@ -303,15 +291,12 @@
 				</div>
 			</section>
 			  <section id="acknowledgements">
-				<div class="container pt-5">
+				<div class="container pt-4">
 				  <div class="row">
 					<div class="col-12">
 					  <h2>Acknowledgements</h2>
-					  <p>Bla bla based on bla bla</p>
-					  <ul>
-						<li></li>
-						<li></li>
-					  </ul>
+            <p>Jooa11y began as a vanilla js fork of the Sa11y library, which was created by Digital Media Projects, Computing and Communication Services (CCS) at Ryerson University in Toronto, Canada.</p>
+            <p>Sa11y itself began as a fork of Tota11y by Khan Academy</p>
 					</div>
 				  </div>
 				</div>
@@ -319,6 +304,6 @@
 			</main>
 		<!-- Bootstrap core JS-->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>        <!-- Core theme JS-->
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>        <!-- Core theme JS-->
 	</body>
 </html>
