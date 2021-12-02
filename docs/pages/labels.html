@@ -66,9 +66,8 @@
 	<section class="bg-secondary">
 		<div class="container">
 			<div class="text-center text-white py-5">
-				<h1>How To</h1>
-				<p class="lead">Jooa11y is included by default in Joomla 4.1 and higher.</p>
-
+				<h1>Labels</h1>
+				<p class="lead">Accessibility tests for form inputs and labels.</p>
 			</div>
 		</div>
 	</section>
@@ -77,6 +76,132 @@
 			<div class="container pt-4">
 				<div class="row">
 					<div class="col-sm-12">
+            <div class="ms-5 mb-5">
+              <div class="row">
+                <div class="col-md-6">
+                  <h2>Example 1</h2>
+                  <p>Error: Input without a label or missing <kbd>id</kbd>.</p>
+                  <input type="text" />
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 2</h2>
+                  <p>Error: Input with ID, although previous label does not have a <kbd>for</kbd> attribute.</p>
+                  <label>Name</label>
+                  <input type="text" id="asdfg" />
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2 id="ex3">Example 3</h2>
+                  <p id="ex3para">Warning: Input is using aria-label or aria-labelledby. Warn user to ensure there is a visible label.</p>
+                  <input aria-labelledby="ex3 ex3para" type="text" />
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 4</h2>
+                  <p>Pass: Input has <kbd>id</kbd> and label has corresponding <kbd>for</kbd> attribute.</p>
+                  <label for="asdfgh">Address</label>
+                  <input type="text" id="asdfgh" />
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Example 5</h2>
+                  <p>Warning: Input where <kbd>type='reset'</kbd>.</p>
+                  <input type="reset"/>
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 6</h2>
+                  <p>Pass: Input where <kbd>type='submit'</kbd></p>
+                  <input type="submit" />
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Example 7</h2>
+                  <p>Pass: Input where <kbd>type='button'</kbd>.</p>
+                  <input type="button" value="Input Button"/>
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 8</h2>
+                  <p>Pass: Implicit labels. <kbd>&lt;label&gt;First name: &lt;input type="text"/&gt;&lt;label&gt;</kbd> </p>
+                    <label>
+                      First name:
+                      <input type="text"/>
+                    </label>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Example 9</h2>
+                  <p>Fail: Implicit labels without text. <kbd>&lt;label&gt;&lt;input type="text"/&gt;&lt;label&gt;</kbd> </p>
+                    <label>
+                      <input type="text"/>
+                    </label>
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 10</h2>
+                  <p>Fail: Select without corresponding label.</p>
+                  <label>Choose a car:</label>
+                  <select name="cars">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Example 11</h2>
+                  <p>Fail: Textarea missing label.</p>
+                  <label>Feedback</label>
+                  <textarea rows="2" cols="50">
+                  </textarea>
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 12</h2>
+                  <p>Pass: Textarea has label.</p>
+                  <label for="review">Review of W3Schools:</label>
+                  <textarea id="review" rows="2" cols="50">
+                  </textarea>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Example 13</h2>
+                  <p>Fail: Input where <kbd>type="image"</kbd> and doesn't have alt text or aria-label.</p>
+                  <label for="q">Search:</label><input type="text" name="q" id="q"><input type="image" alt=" " width="20" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Vector_search_icon.svg/1280px-Vector_search_icon.svg.png" class="">
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 14</h2>
+                  <p>Pass: Input has an "id" that that matches the "for" on a label, after the input.</p>
+                  <input type="text" id="asd"/><br>
+                  <label for="asd">Label after input</label>
+                </div>
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <h2>Example 15</h2>
+                  <p>Pass: Input has <kbd>title</kbd> attribute for accessible name.</p>
+                  <input type="text" title="Phone number"><br><br>
+                  <input type="text" title="Address">
+                </div>
+                <div class="col-md-6"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
 					</div>
 				</div>
 			</div>

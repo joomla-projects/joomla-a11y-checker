@@ -66,18 +66,51 @@
 	<section class="bg-secondary">
 		<div class="container">
 			<div class="text-center text-white py-5">
-				<h1>How To</h1>
-				<p class="lead">Jooa11y is included by default in Joomla 4.1 and higher.</p>
+				<h1>Contrast</h1>
+				<p class="lead">Based on the <a href="https://www.jqueryscript.net/other/color-contrast-checker.html">jQuery contrast plugin</a> was created by jasonday. </p>
 
 			</div>
 		</div>
 	</section>
 	<main id="mainContent" class="col-sm-12">
-		<section id="example warning">
+		<section id="contrast">
 			<div class="container pt-4">
 				<div class="row">
 					<div class="col-sm-12">
-					</div>
+
+           <p>To prevent false positives, a simple condition was added to exclude any elements whose width and height is
+              less than 1px and contains <kbd>overflow:hidden;</kbd>. Some contrast plugins falsely indicate visually hidden text for screenreaders as a contrast fail.</p>
+
+            <p>Tooltips will indicate whether it's large or normal size text, including the snippet of text that fails.</p>
+            <div class="ms-5 mt-4 mb-5">
+              <div class="row">
+                <div class="col-md-6">
+                  <h2>Example 1 - Normal text</h2>
+                  <p style="color:coral">This colour fails at normal size.</p>
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 2 - Large text</h2>
+                  <h3 style="color:coral;font-size:1.5em">This colour also fails at a large size.</h3>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <h2>Example 3 - Form input</h2>
+                  <p>Input's text color is too low.</p>
+                  <label for="contrastinput">Name</label>
+                  <input id="contrastinput" type="text" style="color:coral" value="Adam">
+                </div>
+                <div class="col-md-6">
+                  <h2>Example 4 - Warning</h2>
+                  <p>Warnings for text that uses CSS backgrounds.</p>
+                  <div style="background-image:url('https://www.transparenttextures.com/patterns/broken-noise.png');">
+                    <h3 class="text-white">Text on background image requires manual review</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
 				</div>
 			</div>
 		</section>
