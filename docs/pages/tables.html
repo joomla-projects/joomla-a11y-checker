@@ -75,16 +75,17 @@
 			<div class="container pt-4">
 				<div class="row">
 					<div class="col-sm-12">
+            <h2>Tables</h2>
 						<p>There are 3 simple accessibility tests for a table. Tables with <kbd>role=&apos;presentation&apos;</kbd>
 						  will be ignored.</p>
 						<ol>
 						  <li>Table must contain at least one table heading or <kbd>th</kbd></li>
 						  <li>Table must not contain an empty table heading or empty <kbd>th</kbd></li>
-						  <li>Table must not contain any semantic headings (H1, H2, h2...)</li>
+						  <li>Table must not contain any semantic headings (H1, h3, h3...)</li>
 						</ol>
 						<div class="ms-5">
 
-						  <h2 class="pt-3">Example 1 - Pass</h2>
+						  <h3 class="pt-3">Example 1 - Pass</h3>
 						  <table class="table pt-3">
 							<tbody>
 							  <tr class="table-primary">
@@ -114,7 +115,7 @@
 						  </table>
 
 
-						  <h2 class="pt-3">Example 2 - Missing table headers</h2>
+						  <h3 class="pt-3">Example 2 - Missing table headers</h3>
 						  <table class="table">
 							<tbody>
 							  <tr class="table-primary">
@@ -143,7 +144,7 @@
 							</tbody>
 						  </table>
 
-						  <h2 class="pt-3">Example 3 - Table containing empty table header</h2>
+						  <h3 class="pt-3">Example 3 - Table containing empty table header</h3>
 						  <table class="table">
 							<tbody>
 							  <tr class="table-primary">
@@ -172,18 +173,18 @@
 							</tbody>
 						  </table>
 
-						  <h2 class="pt-3">Example 4 - Table containing semantic headings</h2>
+						  <h3 class="pt-3">Example 4 - Table containing semantic headings</h3>
 						  <table class="table">
 							<tbody>
 							  <tr class="table-primary">
 								<th>
-								  <h3 style="font-size:1.2em!important">Event</h3>
+								  <h4 style="font-size:1.2em!important">Event</h4>
 								</th>
 								<th>
-								  <h3 style="font-size:1.2em!important">Time</h3>
+								  <h4 style="font-size:1.2em!important">Time</h4>
 								</th>
 								<th>
-								  <h3 style="font-size:1.2em!important">Location</h3>
+								  <h4 style="font-size:1.2em!important">Location</h4>
 								</th>
 							  </tr>
 							  <tr>
