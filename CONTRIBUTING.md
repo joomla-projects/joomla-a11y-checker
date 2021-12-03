@@ -35,4 +35,4 @@ Pull requests should be used for “heavy-duty” changes to the code base. Alth
 6. Create a pull request!
 
 ## License
-By contributing, you agree that your contributions will be licensed under the same [license as Jooa11y.](https://github.com/joomla-projects/joomla-a11y-checker/issues/blob/joomla/LICENSE.md)
+By contributing, you agree that your contributions will be licensed under the same [license as Jooa11y.](https://github.com/joomla-projects/joomla-a11y-checker/blob/joomla/LICENSE.md)
