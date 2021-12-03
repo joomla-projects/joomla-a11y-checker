@@ -1,4 +1,6 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import css from "rollup-plugin-import-css";
+import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import sass from 'rollup-plugin-sass';
 import cssnano from 'cssnano';
@@ -11,11 +13,18 @@ export default [
   // ES6 files
   {
     input: 'src/js/jooa11y.js',
-    plugins: [nodeResolve()],
+    plugins: [
+      nodeResolve(),
+      css(),
+      replace({
+      preventAssignment: true,
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    })
+    ],
     output: [
-      { file: 'dist/js/joomla-a11y-checker.umd.js', format: 'umd', name: 'Jooa11y' },
+      { file: 'dist/js/joomla-a11y-checker.js', format: 'esm'},
       {
-        file: 'dist/js/joomla-a11y-checker.umd.min.js', format: 'umd', name: 'Jooa11y', plugins: [terser()],
+        file: 'dist/js/joomla-a11y-checker.min.js', format: 'esm', plugins: [terser()],
       },
     ],
   },
@@ -23,7 +32,7 @@ export default [
     input: 'src/js/lang/en.js',
     plugins: [nodeResolve()],
     output: [
-      { file: 'dist/js/lang/en.js', format: 'umd', name: 'Jooa11yLangEn' },
+      { file: 'dist/js/lang/en.js', format: 'esm'},
     ],
   },
   // SCSS files
