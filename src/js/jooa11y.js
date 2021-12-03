@@ -2736,14 +2736,3 @@ export default {
   Lang,
   Jooa11y,
 }
-
-
-
-/*-----------------------------------------------------------------------
-sa11y: the accessibility quality assurance assistant.
-Author: Development led by Adam Chaboryk at Ryerson University.
-All acknowledgements and contributors: https://github.com/ryersondmp/jooa11y
-License: https://github.com/ryersondmp/jooa11y/blob/master/LICENSE.md
-Copyright (c) 2020 - 2021 Ryerson University
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-------------------------------------------------------------------------*/
