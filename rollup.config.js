@@ -57,7 +57,7 @@ export default [
     input: 'src/js/lang/en.js',
     plugins: [nodeResolve()],
     output: [
-      { file: 'dist/js/lang/en.umd.js', format: 'umd', name: 'Jooa11yLang'},
+      { file: 'dist/js/lang/en.umd.js', format: 'umd', name: 'Jooa11yLangEn'},
     ],
   },
   // SCSS files
