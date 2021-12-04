@@ -89,7 +89,7 @@ Any change inside /src folder files will trigger the build process for the files
 - This version appends tooltips to the end of the body by default to ensure tooltips do not get hidden by conflicting CSS styling. If you customize the tooltips to include interactive content, please read [Tippy.js documentation on creating accessible interactive tooltips for keyboard users.](https://atomiks.github.io/tippyjs/v6/accessibility/#interactivity)
 
 ### Create your own rule sets
-1. Create your condition (within the QA module for example.
+1. Create your condition (within the QA module for example).
 2. Add `this.warningCount++;` or `this.errorCount++;` to update warning or error count.
 3. Add respective CSS classes.
 4. Add warning or error button before (or after) element using the `Jooa11yAnnotate` function, followed by the type `jooa11yError`, `jooa11yWarning`, `jooa11yGood`. Finally, reference your tooltip message.
