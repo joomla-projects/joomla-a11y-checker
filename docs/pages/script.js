@@ -1,7 +1,6 @@
-import { Jooa11y, Lang } from '../../dist/js/joomla-a11y-checker.js';
+import { Jooa11y, Lang } from '../../dist/js/joomla-a11y-checker.standalone.esm.js';
 import EngSetting from '../../dist/js/lang/en.js';
 
-console.log(EngSetting);
 // Set translations
 Lang.addI18n(EngSetting.strings);
 

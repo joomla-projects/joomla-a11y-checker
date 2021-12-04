@@ -10,7 +10,7 @@ import { mkdir, writeFile } from 'fs/promises';
 import { dirname } from 'path';
 
 export default [
-  // ES6 files
+  // ES6 standalone files
   {
     input: 'src/js/jooa11y.js',
     plugins: [
@@ -22,9 +22,51 @@ export default [
     })
     ],
     output: [
-      { file: 'dist/js/joomla-a11y-checker.js', format: 'esm'},
+      { file: 'dist/js/joomla-a11y-checker.standalone.esm.js', format: 'esm'},
       {
-        file: 'dist/js/joomla-a11y-checker.min.js', format: 'esm', plugins: [terser()],
+        file: 'dist/js/joomla-a11y-checker.standalone.esm.min.js', format: 'esm', plugins: [terser()],
+      },
+    ],
+  },
+  // ES6 standalone files
+  {
+    input: 'src/js/jooa11y.js',
+    plugins: [
+      nodeResolve(),
+      css(),
+      replace({
+      preventAssignment: true,
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    })
+    ],
+    output: [
+      { file: 'dist/js/joomla-a11y-checker.standalone.umd.js', format: 'umd', name: 'Jooa11y'},
+      {
+        file: 'dist/js/joomla-a11y-checker.standalone.umd.min.js', format: 'umd', name: 'Jooa11y', plugins: [terser()],
+      },
+    ],
+  },
+  // ES6 Joomla bundle files
+  {
+    input: 'src/js/jooa11y.js',
+    plugins: [
+      nodeResolve(),
+      css(),
+      replace({
+      preventAssignment: true,
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
+      // In the Joomla build tools, we need to use the Popper from Bootstrap:
+      // Replace import { applyStyles, createPopper } from '@popperjs/core';
+      // with import { applyStyles, createPopper } from '../../bootstrap/js/popper.js?v=x.x.x';
+    ],
+    external: [
+      '@popperjs/core'
+    ],
+    output: [
+      { file: 'dist/js/joomla-a11y-checker.esm.js', format: 'esm'},
+      {
+        file: 'dist/js/joomla-a11y-checker.esm.min.js', format: 'esm', plugins: [terser()],
       },
     ],
   },
