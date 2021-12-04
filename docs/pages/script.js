@@ -1,5 +1,5 @@
-import { Jooa11y, Lang } from '../../dist/js/joomla-a11y-checker.standalone.esm.js';
-import EngSetting from '../../dist/js/lang/en.js';
+import { Jooa11y, Lang } from '../assets/js/joomla-a11y-checker.esm.js';
+import EngSetting from '../assets/js/lang/en.js';
 
 // Set translations
 Lang.addI18n(EngSetting.strings);
