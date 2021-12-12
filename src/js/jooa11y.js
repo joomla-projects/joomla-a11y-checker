@@ -1608,25 +1608,25 @@ class Jooa11y {
                 let linkTextTrimmed = linkText.trim().toLowerCase() + " " + alt;
                 let href = el.getAttribute("href");
 
-                if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
-                    if (seen[href]) {
-                        //Nothing
-                    } else {
-                      this.warningCount++;
-                      el.classList.add("jooa11y-warning-text");
-                      el.insertAdjacentHTML(
-                        'afterend',
-                        this.annotate(
-                          Lang._('WARNING'),
-                          `${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
-                          true
-                        )
-                      );
-                    }
-                } else {
-                    seen[linkTextTrimmed] = true;
-                    seen[href] = true;
-                }
+					if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
+						if (seen[href]) {
+							//Nothing
+						} else {
+						this.warningCount++;
+						el.classList.add("jooa11y-warning-text");
+						el.insertAdjacentHTML(
+							'afterend',
+							this.annotate(
+							Lang._('WARNING'),
+							`${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
+							true
+							)
+						);
+						}
+					} else {
+						seen[linkTextTrimmed] = true;
+						seen[href] = true;
+					}
 
                 //New tab or new window.
                 const containsNewWindowPhrases = this.options.newWindowPhrases.some(function (pass) {
@@ -2543,9 +2543,11 @@ class Jooa11y {
             //Crude hack to add a period to the end of list items to make a complete sentence.
             $readability.forEach($el => {
                 let listText = $el.textContent;
-                if (listText.charAt(listText.length - 1) !== ".") {
-                    $el.insertAdjacentHTML("beforeend", "<span class='jooa11y-readability-period jooa11y-visually-hidden'>.</span>");
-                }
+				if (listText.length >= 120) {
+					if (listText.charAt(listText.length - 1) !== ".") {
+						$el.insertAdjacentHTML("beforeend", "<span class='jooa11y-readability-period jooa11y-visually-hidden'>.</span>");
+					}
+				}
             });
 
             // Compute syllables: http://stackoverflow.com/questions/5686483/how-to-compute-number-of-syllables-in-a-word-in-javascript
