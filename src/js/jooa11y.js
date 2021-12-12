@@ -2491,16 +2491,24 @@ class Jooa11y {
                 let nodetext = clone.textContent;
 
                 this.errorCount++;
-                name.insertAdjacentHTML(
+
+				if (name.tagName === "INPUT") {
+					name.insertAdjacentHTML(
+				   'beforebegin',
+				   this.annotate(
+					   Lang._('ERROR'),
+					   `${Lang._('CONTRAST_ERROR_INPUT_MESSAGE')}
+						 <hr aria-hidden="true">
+						 ${Lang.sprintf('CONTRAST_ERROR_INPUT_MESSAGE_INFO', cratio)}`, true));
+				 } else {
+				name.insertAdjacentHTML(
                   'beforebegin',
                   this.annotate(
                       Lang._('ERROR'),
                       `${Lang.sprintf('CONTRAST_ERROR_MESSAGE', cratio, nodetext)}
                         <hr aria-hidden="true">
-                        ${Lang.sprintf('CONTRAST_ERROR_MESSAGE_INFO', cratio, nodetext)}`,
-                      true
-                    )
-                );
+                        ${Lang.sprintf('CONTRAST_ERROR_MESSAGE_INFO', cratio, nodetext)}`, true));
+				  }
             });
 
             contrastErrors.warnings.forEach(item => {
