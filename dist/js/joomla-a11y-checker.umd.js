@@ -3923,7 +3923,7 @@
                   }
               }
 
-              systemInitiatedDark.addListener(prefersColorTest);
+              systemInitiatedDark.addEventListener('change', prefersColorTest);
               $jooa11yTheme.onclick = async () => {
                   const theme = localStorage.getItem("jooa11y-remember-theme");
                   if (theme === "dark") {
