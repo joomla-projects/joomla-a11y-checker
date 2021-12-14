@@ -1010,7 +1010,7 @@ a.jooa11y-warning-text,
 
 /*===== Heading label ===== */
 span.jooa11y-label-visible {
-  display: inline-block;
+  display: inline-block !important;
 }
 
 span.jooa11y-heading-label {
