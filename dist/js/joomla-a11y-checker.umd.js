@@ -3710,7 +3710,7 @@
                       isEscape = (evt.keyCode === 27);
                   }
                   if (isEscape && document.getElementById("jooa11y-panel").classList.contains("jooa11y-active")) {
-                      tippy.hideAll();
+                      //tippy.hideAll();
                       jooa11yToggle.setAttribute("aria-expanded", "false");
                       jooa11yToggle.classList.remove("jooa11y-on");
                       jooa11yToggle.click();
