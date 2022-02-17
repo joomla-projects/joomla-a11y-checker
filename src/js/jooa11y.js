@@ -758,6 +758,7 @@ class Jooa11y {
             }
             this.initializeTooltips();
             this.detectOverflow();
+			this.nudge();
 
             //Don't show badge when panel is opened.
             if (!document.getElementsByClassName('jooa11y-on').length) {
@@ -871,7 +872,21 @@ class Jooa11y {
             });
         }
 
-        // ============================================================
+		// ============================================================
+		// Nudge buttons if they overlap.
+		// ============================================================
+		nudge = () => {
+			const jooa11yInstance = document.querySelectorAll('.jooa11y-instance, .jooa11y-instance-inline');
+			jooa11yInstance.forEach(($el) => {
+				const sibling = $el.nextElementSibling;
+				if (sibling !== null && (sibling.classList.contains("jooa11y-instance") ||
+				sibling.classList.contains("jooa11y-instance-inline"))) {
+					sibling.querySelector("button").setAttribute("style", "margin: -10px -20px !important;");
+				}
+			});
+		}
+
+		// ============================================================
         // Update iOS style notification badge on icon.
         // ============================================================
         updateBadge () {
