@@ -42,18 +42,11 @@ export default {
     VERY_DIFFICULT_READABILITY: 'Very difficult',
 
     // Panel status
-    PANEL_STATUS_1: '1 accessibility error and 1 warning found.',
-    PANEL_STATUS_10: '%(warningCount) <span class="jooa11y-visually-hidden">warnings found.</span>',
-    PANEL_STATUS_11: '%(totalCount) <span class="jooa11y-visually-hidden">total issues found.</span>',
-    PANEL_STATUS_2: '1 accessibility error and %(warningCount) warnings found.',
-    PANEL_STATUS_3: '%(errorCount) accessibility errors and 1 warning found.',
-    PANEL_STATUS_4: '%(errorCount) accessibility errors and %(warningCount) warnings found.',
-    PANEL_STATUS_5: '1 accessibility error found.',
-    PANEL_STATUS_6: '%(errorCount) accessibility errors found.',
-    PANEL_STATUS_7: 'Please review warning.',
-    PANEL_STATUS_8: 'Please review %(warningCount) warnings.',
-    PANEL_STATUS_9: 'No accessibility errors found.',
-    PANEL_STATUS_12: 'The item you are trying to view is not visible; it may be hidden or inside of an accordion or tab component. Here\'s a preview: ',
+    PANEL_STATUS_ERRORS: 'Accessibility Errors: %(errorCount).',
+    PANEL_STATUS_WARNINGS: 'Accessibility Warnings: %(warningCount).',
+    PANEL_STATUS_BOTH: 'Accessibility Errors: %(errorCount). Accessibility Warnings: %(warningCount).',
+    PANEL_STATUS_NONE: 'No accessibility errors found.',
+    PANEL_STATUS_HIDDEN: 'The item you are trying to view is not visible; it may be hidden or inside of an accordion or tab component. Here\'s a preview: ',
 
     // Headings
     HEADING_EMPTY: 'Empty heading found! To fix, delete this line or change its format from <strong>Heading %(level)</strong> to <strong>Normal</strong> or <strong>Paragraph</strong>.',

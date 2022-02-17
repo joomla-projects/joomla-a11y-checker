@@ -928,39 +928,21 @@ class Jooa11y {
             const $jooa11yStatus = document.getElementById("jooa11y-status");
             const $findButtons = document.querySelectorAll('.jooa11y-btn');
 
-            if (this.errorCount === 1 && this.warningCount === 1) {
+            if (this.errorCount > 0 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang._('PANEL_STATUS_1');
-            }
-            else if (this.errorCount === 1 && this.warningCount > 0) {
-                $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_2', this.warningCount);
-            }
-            else if (this.errorCount > 0 && this.warningCount === 1) {
-                $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_3', this.errorCount);
-            }
-            else if (this.errorCount > 0 && this.warningCount > 0) {
-                $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_4', this.errorCount, this.warningCount);
+                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_BOTH', this.errorCount, this.warningCount);
             }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = this.errorCount === 1 ?
-                  Lang._('PANEL_STATUS_5') :
-                  Lang.sprintf('PANEL_STATUS_6', this.errorCount)
-                ;
+                Lang.sprintf('PANEL_STATUS_ERRORS', this.errorCount);
             }
             else if (this.warningCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-warnings");
-                $jooa11yStatus.textContent = totalCount === 1 ?
-                    Lang._('PANEL_STATUS_7'):
-                    Lang.sprintf('PANEL_STATUS_8', this.warningCount)
-                ;
+                Lang.sprintf('PANEL_STATUS_WARNINGS', this.warningCount);
             }
             else {
                 $panelContent.setAttribute("class", "jooa11y-good");
-                $jooa11yStatus.textContent = Lang._('PANEL_STATUS_9');
+                $jooa11yStatus.textContent = Lang._('PANEL_STATUS_NONE');
 
                 if ($findButtons.length === 0) {
                     $jooa11ySkipBtn.disabled = true;
@@ -1224,7 +1206,7 @@ class Jooa11y {
                 //Alert if element is hidden.
                 if (offsetTopPosition === 0) {
                     $alertPanel.classList.add("jooa11y-active");
-                    $alertText.textContent = `${Lang._('PANEL_STATUS_12')}`;
+                    $alertText.textContent = `${Lang._('PANEL_STATUS_HIDDEN')}`;
                     $alertPanelPreview.innerHTML = $findButtons[jooa11yBtnLocation].getAttribute('data-tippy-content');
                 } else if (offsetTopPosition < 1) {
                     $alertPanel.classList.remove("jooa11y-active");
