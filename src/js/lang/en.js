@@ -58,10 +58,10 @@ export default {
     // Headings
     HEADING_EMPTY: 'Empty heading found! To fix, delete this line or change its format from <strong>Heading %(level)</strong> to <strong>Normal</strong> or <strong>Paragraph</strong>.',
     HEADING_EMPTY_WITH_IMAGE: 'Heading has no text, but contains an image. If this is not a heading, change its format from <strong>Heading %(level)</strong> to <strong>Normal</strong> or <strong>Paragraph</strong>. Otherwise, please add alt text to the image if it is not decorative.',
-    HEADING_FIRST: 'The first heading on a page should usually be a Heading 1 or Heading 2. Heading 1 should be the start of the main content section, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank">Heading Structure.</a>',
+    HEADING_FIRST: 'The first heading on a page should usually be a Heading 1 or Heading 2. Heading 1 should be the start of the main content section, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank" rel="noopener noreferrer">Heading Structure.</a>',
     HEADING_LONG: 'Heading is long! Headings should be used to organize content and convey structure. They should be brief, informative, and unique. Please keep headings less than 160 characters (no more than a sentence).',
     HEADING_LONG_INFO: 'Character Count: <strong>%(headingLength)</strong>.',
-    HEADING_MISSING_ONE: 'Missing Heading 1. Heading 1 should be the start of the main content area, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank">Heading Structure.</a>',
+    HEADING_MISSING_ONE: 'Missing Heading 1. Heading 1 should be the start of the main content area, and is the main heading that describes the overall purpose of the page. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank" rel="noopener noreferrer">Heading Structure.</a>',
     HEADING_NON_CONSECUTIVE_LEVEL: 'Non-consecutive heading level used. Headings should never skip levels, or go from <strong>Heading %(prevLevel)</strong> to <strong>Heading %(level)</strong>.',
     PANEL_HEADING_MISSING_ONE: 'Missing Heading 1!',
 
@@ -69,7 +69,7 @@ export default {
     LINK_BEST_PRACTICES: 'Consider replacing the link text: <strong>%(error)</strong>',
     LINK_BEST_PRACTICES_DETAILS: '<ul><li>&quot;Click here&quot; places focus on mouse mechanics, when many people do not use a mouse or may be viewing this website on a mobile device. Consider using a different verb that relates to the task.</li><li>Avoid using HTML symbols as call to actions unless they are hidden to assistive technologies.</li></ul>',
     LINK_EMPTY: 'Remove empty links without any text.',
-    LINK_EMPTY_LINK_NO_LABEL: 'Link does not have discernable text that is visible to screen readers and other assistive technology. To fix:<ul><li>Add some concise text that describes where the link takes you.</li><li>If it is an <a href="https://a11y-101.com/development/icons-and-links" target="_blank">icon link or SVG</a> it is likely missing a descriptive label.</li><li>If you think this link is an error due to a copy/paste bug, consider deleting it.</li></ul>',
+    LINK_EMPTY_LINK_NO_LABEL: 'Link does not have discernable text that is visible to screen readers and other assistive technology. To fix:<ul><li>Add some concise text that describes where the link takes you.</li><li>If it is an <a href="https://a11y-101.com/development/icons-and-links" target="_blank" rel="noopener noreferrer">icon link or SVG</a> it is likely missing a descriptive label.</li><li>If you think this link is an error due to a copy/paste bug, consider deleting it.</li></ul>',
     LINK_LABEL: 'The descriptive label for this link is: <strong>%(linkText)</strong>',
     LINK_STOPWORD: 'Link text may not be descriptive enough out of context: <strong>%(error)</strong>',
     LINK_STOPWORD_TIP: '<strong>Tip!</strong> Link text should always be clear, unique, and meaningful. Avoid common words like "click here"; or "learn more".',
@@ -116,7 +116,7 @@ export default {
     LABELS_ARIA_LABEL_INPUT_MESSAGE: 'Input has an accessible name, although please ensure there is a visible label too.',
     LABELS_ARIA_LABEL_INPUT_MESSAGE_INFO: 'The accessible name for this input is: <strong>%(ariaLabel)</strong>',
     LABELS_INPUT_RESET_MESSAGE: 'Reset buttons should <strong>not</strong> be used unless specifically needed because they are easy to activate by mistake.',
-    LABELS_INPUT_RESET_MESSAGE_TIP: '<strong>Tip!</strong> Learn why <a href="https://www.nngroup.com/articles/reset-and-cancel-buttons/" target="_blank">Reset and Cancel buttons pose usability issues.</a>',
+    LABELS_INPUT_RESET_MESSAGE_TIP: '<strong>Tip!</strong> Learn why <a href="https://www.nngroup.com/articles/reset-and-cancel-buttons/" target="_blank" rel="noopener noreferrer">Reset and Cancel buttons pose usability issues.</a>',
     LABELS_MISSING_IMAGE_INPUT_MESSAGE: 'Image button is missing alt text. Please add alt text to provide an accessible name. For example: <em>Search</em> or <em>Submit</em>.',
     LABELS_MISSING_LABEL_MESSAGE: 'There is no label associated with this input. Please add an <span class="jooa11y-kbd">id</span> to this input, and add a matching <span class="jooa11y-kbd">for</span> attribute to the label.',
     LABELS_NO_FOR_ATTRIBUTE_MESSAGE: 'There is no label associated with this input. Add a <span class="jooa11y-kbd">for</span> attribute to the label that matches the <span class="jooa11y-kbd">id</span> of this input.',
@@ -124,8 +124,8 @@ export default {
 
     // Embedded content
     EMBED_AUDIO: 'Please ensure to provide a <strong>transcript for all podcasts.</strong> Providing transcripts for audio content is a mandatory Level A requirement. Transcripts support people who are D/deaf or hard-of-hearing, but can benefit everyone. Consider placing the transcript below or within an accordion panel.',
-    EMBED_GENERAL_WARNING: 'Unable to check embedded content. Please make sure that images have alt text, videos have captions, text has sufficient contrast, and interactive components are <a href="https://webaim.org/techniques/keyboard/" target="_blank">keyboard accessible.</a>',
-    EMBED_MISSING_TITLE: 'Embedded content requires an accessible name that describes its contents. Please provide a unique <span class="jooa11y-kbd">title</span> or <span class="jooa11y-kbd">aria-label</span> attribute on the <span class="jooa11y-kbd">iframe</span> element. Learn more about <a href="https://dequeuniversity.com/tips/provide-iframe-titles" target="_blank">iFrames.</a>',
+    EMBED_GENERAL_WARNING: 'Unable to check embedded content. Please make sure that images have alt text, videos have captions, text has sufficient contrast, and interactive components are <a href="https://webaim.org/techniques/keyboard/" target="_blank" rel="noopener noreferrer">keyboard accessible.</a>',
+    EMBED_MISSING_TITLE: 'Embedded content requires an accessible name that describes its contents. Please provide a unique <span class="jooa11y-kbd">title</span> or <span class="jooa11y-kbd">aria-label</span> attribute on the <span class="jooa11y-kbd">iframe</span> element. Learn more about <a href="https://dequeuniversity.com/tips/provide-iframe-titles" target="_blank" rel="noopener noreferrer">iFrames.</a>',
     EMBED_VIDEO: 'Please ensure <strong>all videos have closed captioning.</strong> Providing captions for all audio and video content is a mandatory Level A requirement. Captions support people who are D/deaf or hard-of-hearing.',
 
     // Contrast
@@ -147,18 +147,18 @@ export default {
     QA_BLOCKQUOTE_MESSAGE_TIP: 'Blockquotes should be used for quotes only. If this is intended to be a heading, change this blockquote to a semantic heading (e.g. Heading 2 or Heading 3).',
     QA_FAKE_HEADING: 'Is this a heading? <strong>%(boldtext)</strong>',
     QA_FAKE_HEADING_INFO: 'A line of bold text might look like a heading, but someone using a screen reader cannot tell that it is important or jump to its content. Bolded text should never replace semantic headings (Heading 2 to Heading 6).',
-    QA_PAGE_LANGUAGE_MESSAGE: 'Page language not declared! Please <a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank">declare language on HTML tag.</a>',
-    QA_PDF_COUNT: 'PDFs are considered web content and must be made accessible as well. PDFs often contain issues for people who use screen readers (missing structural tags or missing form field labels) and people who have low vision (text does not reflow when enlarged). <ul><li>If this is a form, consider using an accessible HTML form as an alternative.</li><li>If this is a document, consider converting it into a web page.</li></ul><br>Otherwise, please check <strong>%(pdfCount)</strong> <a href="https://www.adobe.com/accessibility/products/acrobat/using-acrobat-pro-accessibility-checker.html" target="_blank">PDF(s) for accessibility in Acrobat DC.</a>',
+    QA_PAGE_LANGUAGE_MESSAGE: 'Page language not declared! Please <a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank" rel="noopener noreferrer">declare language on HTML tag.</a>',
+    QA_PDF_COUNT: 'PDFs are considered web content and must be made accessible as well. PDFs often contain issues for people who use screen readers (missing structural tags or missing form field labels) and people who have low vision (text does not reflow when enlarged). <ul><li>If this is a form, consider using an accessible HTML form as an alternative.</li><li>If this is a document, consider converting it into a web page.</li></ul><br>Otherwise, please check <strong>%(pdfCount)</strong> <a href="https://www.adobe.com/accessibility/products/acrobat/using-acrobat-pro-accessibility-checker.html" target="_blank" rel="noopener noreferrer">PDF(s) for accessibility in Acrobat DC.</a>',
     QA_SHOULD_BE_LIST: 'Are you trying to create a list? Possible list item found: <strong>%(firstPrefix)</strong>',
-    QA_SHOULD_BE_LIST_TIP: 'Make sure to use semantic lists by using the bullet or number formatting buttons instead. When using a semantic list, assistive technologies are able to convey information such as the total number of items and the relative position of each item in the list. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/content/#lists" target="_blank">semantic lists.</a>',
+    QA_SHOULD_BE_LIST_TIP: 'Make sure to use semantic lists by using the bullet or number formatting buttons instead. When using a semantic list, assistive technologies are able to convey information such as the total number of items and the relative position of each item in the list. Learn more about <a href="https://www.w3.org/WAI/tutorials/page-structure/content/#lists" target="_blank" rel="noopener noreferrer">semantic lists.</a>',
     QA_UPPERCASE_WARNING: 'Found all caps. Some screen readers may interpret all caps text as an acronym and will read each letter individually. Additionally, some people find all caps more difficult to read and it may give the appearance of SHOUTING.',
 
     // Tables
     TABLES_EMPTY_HEADING: 'Empty table header found! Table headers should <em>never</em> be empty. It is important to designate row and/or column headers to convey their relationship. This information provides context to people who use assistive technology. Please keep in mind that tables should be used for tabular data only.',
-    TABLES_EMPTY_HEADING_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank">accessible tables.</a>',
+    TABLES_EMPTY_HEADING_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank" rel="noopener noreferrer">accessible tables.</a>',
     TABLES_MISSING_HEADINGS: 'Missing table headers! Accessible tables need HTML markup that indicates header cells and data cells which defines their relationship. This information provides context to people who use assistive technology. Tables should be used for tabular data only.',
-    TABLES_MISSING_HEADINGS_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank">accessible tables.</a>',
+    TABLES_MISSING_HEADINGS_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank" rel="noopener noreferrer">accessible tables.</a>',
     TABLES_SEMANTIC_HEADING: 'Semantic headings such as Heading 2 or Heading 3 should only be used for sections of content; <strong>not</strong> in HTML tables. Indicate table headings using the <strong>th</strong> element instead.',
-    TABLES_SEMANTIC_HEADING_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank">accessible tables.</a>',
+    TABLES_SEMANTIC_HEADING_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank" rel="noopener noreferrer">accessible tables.</a>',
   },
 };
