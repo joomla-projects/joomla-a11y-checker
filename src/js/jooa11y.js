@@ -1120,7 +1120,7 @@ class Jooa11y {
 
             //Jump to issue using keyboard shortcut.
             document.addEventListener('keyup', (e) => {
-                if (e.altKey && e.code === "Period") {
+                if (e.altKey && e.code === "Period" || e.code == "KeyS") {
                     skipToIssueToggle();
                     e.preventDefault();
                 }
