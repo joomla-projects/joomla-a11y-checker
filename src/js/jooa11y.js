@@ -424,9 +424,11 @@ class Jooa11y {
                 setTimeout(this.checkAll, 800);
             }
 
-            //Escape key to shutdown.
+            //Keyboard commands
             document.onkeydown = (evt) => {
                 evt = evt || window.event;
+
+                //Escape key to close accessibility checker panel
                 var isEscape = false;
                 if ("key" in evt) {
                     isEscape = (evt.key === "Escape" || evt.key === "Esc");
@@ -439,6 +441,14 @@ class Jooa11y {
                     jooa11yToggle.click();
                     this.resetAll();
                 }
+
+				//Alt + A to open accessibility checker panel
+				if (evt.altKey && evt.code == "KeyA") {
+					const jooa11yToggle = document.getElementById("jooa11y-toggle");
+					jooa11yToggle.click();
+					jooa11yToggle.focus();
+					evt.preventDefault();
+				}
             }
         }
 
@@ -1599,25 +1609,25 @@ class Jooa11y {
                 let linkTextTrimmed = linkText.trim().toLowerCase() + " " + alt;
                 let href = el.getAttribute("href");
 
-					if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
-						if (seen[href]) {
-							//Nothing
-						} else {
-						this.warningCount++;
-						el.classList.add("jooa11y-warning-text");
-						el.insertAdjacentHTML(
-							'afterend',
-							this.annotate(
-							Lang._('WARNING'),
-							`${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
-							true
-							)
-						);
-						}
-					} else {
-						seen[linkTextTrimmed] = true;
-						seen[href] = true;
-					}
+                    if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
+                        if (seen[href]) {
+                            //Nothing
+                        } else {
+                        this.warningCount++;
+                        el.classList.add("jooa11y-warning-text");
+                        el.insertAdjacentHTML(
+                            'afterend',
+                            this.annotate(
+                            Lang._('WARNING'),
+                            `${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
+                            true
+                            )
+                        );
+                        }
+                    } else {
+                        seen[linkTextTrimmed] = true;
+                        seen[href] = true;
+                    }
 
                 //New tab or new window.
                 const containsNewWindowPhrases = this.options.newWindowPhrases.some(function (pass) {
@@ -2483,23 +2493,23 @@ class Jooa11y {
 
                 this.errorCount++;
 
-				if (name.tagName === "INPUT") {
-					name.insertAdjacentHTML(
-				   'beforebegin',
-				   this.annotate(
-					   Lang._('ERROR'),
-					   `${Lang._('CONTRAST_ERROR_INPUT_MESSAGE')}
-						 <hr aria-hidden="true">
-						 ${Lang.sprintf('CONTRAST_ERROR_INPUT_MESSAGE_INFO', cratio)}`, true));
-				 } else {
-				name.insertAdjacentHTML(
+                if (name.tagName === "INPUT") {
+                    name.insertAdjacentHTML(
+                   'beforebegin',
+                   this.annotate(
+                       Lang._('ERROR'),
+                       `${Lang._('CONTRAST_ERROR_INPUT_MESSAGE')}
+                         <hr aria-hidden="true">
+                         ${Lang.sprintf('CONTRAST_ERROR_INPUT_MESSAGE_INFO', cratio)}`, true));
+                 } else {
+                name.insertAdjacentHTML(
                   'beforebegin',
                   this.annotate(
                       Lang._('ERROR'),
                       `${Lang.sprintf('CONTRAST_ERROR_MESSAGE', cratio, nodetext)}
                         <hr aria-hidden="true">
                         ${Lang.sprintf('CONTRAST_ERROR_MESSAGE_INFO', cratio, nodetext)}`, true));
-				  }
+                  }
             });
 
             contrastErrors.warnings.forEach(item => {
@@ -2534,11 +2544,11 @@ class Jooa11y {
             //Crude hack to add a period to the end of list items to make a complete sentence.
             $readability.forEach($el => {
                 let listText = $el.textContent;
-				if (listText.length >= 120) {
-					if (listText.charAt(listText.length - 1) !== ".") {
-						$el.insertAdjacentHTML("beforeend", "<span class='jooa11y-readability-period jooa11y-visually-hidden'>.</span>");
-					}
-				}
+                if (listText.length >= 120) {
+                    if (listText.charAt(listText.length - 1) !== ".") {
+                        $el.insertAdjacentHTML("beforeend", "<span class='jooa11y-readability-period jooa11y-visually-hidden'>.</span>");
+                    }
+                }
             });
 
             // Compute syllables: http://stackoverflow.com/questions/5686483/how-to-compute-number-of-syllables-in-a-word-in-javascript
