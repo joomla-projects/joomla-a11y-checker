@@ -82,7 +82,7 @@ export default {
     LINK_IDENTICAL_NAME: 'Link has identical text as another link, although it points to a different page. Multiple links with the same text may cause confusion for people who use screen readers.',
     LINK_IDENTICAL_NAME_TIP: 'Consider making the following link more descriptive to help distinguish it from other links: <strong>%(linkText)</strong>',
     NEW_TAB_WARNING: 'Link opens in a new tab or window without warning. Doing so can be disorienting, especially for people who have difficulty perceiving visual content. Secondly, it is not always a good practice to control someone\'s experience or make decisions for them. Indicate that the link opens in a new window within the link text.',
-    NEW_TAB_WARNING_TIP: '<strong>Tip!</strong> Learn best practices: <a href="https://www.nngroup.com/articles/new-browser-windows-and-tabs/">opening links in new browser windows and tabs.</a>!',
+    NEW_TAB_WARNING_TIP: '<strong>Tip!</strong> Learn best practices: <a href="https://www.nngroup.com/articles/new-browser-windows-and-tabs/">opening links in new browser windows and tabs.</a>',
 
     // Images
     HYPERLINK_ALT_LENGTH_MESSAGE: 'Alt text description on a linked image is <strong>too long</strong>. The alt text on linked images should describe where the link takes you, not a literal description of the image. <strong>Consider using the title of the page it links to as the alt text.</strong>',
