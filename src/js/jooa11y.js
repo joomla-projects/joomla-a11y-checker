@@ -1702,11 +1702,11 @@ class Jooa11y {
                 let alt = $el.getAttribute("alt")
                 if ( alt === null ) {
                     if ($el.closest('a[href]')) {
-                        if ($el.closest('a[href]').textContent.trim().length > 1) {
+                        if (fnIgnore($el.closest('a[href]'), "noscript").textContent.trim().length > 1) {
                             $el.classList.add("jooa11y-error-border");
                             $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE'), false, true));
                         }
-                        else if ($el.closest('a[href]').textContent.trim().length === 0) {
+                        else if (fnIgnore($el.closest('a[href]'), "noscript").textContent.trim().length === 0) {
                             $el.classList.add("jooa11y-error-border");
                             $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_MESSAGE'), false, true));
                         }
@@ -1791,7 +1791,7 @@ class Jooa11y {
                             $el.classList.add("jooa11y-error-border");
                             $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN'), false, true));
                         }
-                        else if ($el.closest("a[href]").textContent.trim().length === 0) {
+                        else if (fnIgnore($el.closest("a[href]"), "noscript").textContent.trim().length === 0) {
                             this.errorCount++;
                             $el.classList.add("jooa11y-error-border");
                             $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_IMAGE_LINK_NULL_ALT_NO_TEXT_MESSAGE'), false, true));
@@ -1816,7 +1816,7 @@ class Jooa11y {
                     }
 
                     //Link and contains an alt text.
-                    else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length === 0) {
+                    else if (alt !== "" && $el.closest("a[href]") && fnIgnore($el.closest("a[href]"), "noscript").textContent.trim().length === 0) {
                         this.warningCount++;
                         $el.classList.add("jooa11y-warning-border");
                         $el.closest("a[href]").insertAdjacentHTML(
@@ -1830,7 +1830,7 @@ class Jooa11y {
                     }
 
                     //Contains alt text & surrounding link text.
-                    else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
+                    else if (alt !== "" && fnIgnore($el.closest("a[href]"), "noscript") && $el.closest("a[href]").textContent.trim().length > 1) {
                         this.warningCount++;
                         $el.classList.add("jooa11y-warning-border");
                         $el.closest("a[href]").insertAdjacentHTML(
