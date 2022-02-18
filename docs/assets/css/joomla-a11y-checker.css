@@ -118,7 +118,7 @@ html[data-jooa11y-theme=dark] {
 #jooa11y-container label {
   font-size: var(--jooa11y-normal-text);
   font-weight: normal;
-  letter-spacing: unset;
+  letter-spacing: normal;
   word-break: normal;
   padding-inline-start: 0;
   margin-bottom: 0;
@@ -864,10 +864,6 @@ button.jooa11y-warning-btn-text:focus {
   color: var(--jooa11y-yellow-text);
 }
 
-.jooa11y-error-heading {
-  color: var(--jooa11y-error);
-}
-
 .jooa11y-error-border {
   outline: 5px solid var(--jooa11y-error);
 }
@@ -1209,9 +1205,13 @@ span.jooa11y-heading-label {
 
 /*-----------------------------------------------------------------------
 Jooa11y: the accessibility quality assurance assistant.
+License: "GPL-2.0-or-later"
+Copyright Open Source Matters, Inc
+
+Jooa11y began as a vanilla js fork of the Sa11y library
 Author: Development led by Adam Chaboryk at Ryerson University.
-All acknowledgements and contributors: https://github.com/ryersondmp/jooa11y
-License: https://github.com/ryersondmp/jooa11y/blob/master/LICENSE.md
-Copyright (c) 2020 - 2021 Ryerson University
+All acknowledgements and contributors: https://github.com/ryersondmp/sa11y
+License: "GPL-2.0-or-later"
+Copyright (c) 2020 - 2022 Ryerson University
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 ------------------------------------------------------------------------*/
