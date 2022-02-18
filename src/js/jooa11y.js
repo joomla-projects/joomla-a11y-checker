@@ -442,13 +442,13 @@ class Jooa11y {
                     this.resetAll();
                 }
 
-				//Alt + A to open accessibility checker panel
-				if (evt.altKey && evt.code == "KeyA") {
-					const jooa11yToggle = document.getElementById("jooa11y-toggle");
-					jooa11yToggle.click();
-					jooa11yToggle.focus();
-					evt.preventDefault();
-				}
+                //Alt + A to open accessibility checker panel
+                if (evt.altKey && evt.code == "KeyA") {
+                    const jooa11yToggle = document.getElementById("jooa11y-toggle");
+                    jooa11yToggle.click();
+                    jooa11yToggle.focus();
+                    evt.preventDefault();
+                }
             }
         }
 
@@ -758,7 +758,7 @@ class Jooa11y {
             }
             this.initializeTooltips();
             this.detectOverflow();
-			this.nudge();
+            this.nudge();
 
             //Don't show badge when panel is opened.
             if (!document.getElementsByClassName('jooa11y-on').length) {
@@ -872,21 +872,21 @@ class Jooa11y {
             });
         }
 
-		// ============================================================
-		// Nudge buttons if they overlap.
-		// ============================================================
-		nudge = () => {
-			const jooa11yInstance = document.querySelectorAll('.jooa11y-instance, .jooa11y-instance-inline');
-			jooa11yInstance.forEach(($el) => {
-				const sibling = $el.nextElementSibling;
-				if (sibling !== null && (sibling.classList.contains("jooa11y-instance") ||
-				sibling.classList.contains("jooa11y-instance-inline"))) {
-					sibling.querySelector("button").setAttribute("style", "margin: -10px -20px !important;");
-				}
-			});
-		}
+        // ============================================================
+        // Nudge buttons if they overlap.
+        // ============================================================
+        nudge = () => {
+            const jooa11yInstance = document.querySelectorAll('.jooa11y-instance, .jooa11y-instance-inline');
+            jooa11yInstance.forEach(($el) => {
+                const sibling = $el.nextElementSibling;
+                if (sibling !== null && (sibling.classList.contains("jooa11y-instance") ||
+                sibling.classList.contains("jooa11y-instance-inline"))) {
+                    sibling.querySelector("button").setAttribute("style", "margin: -10px -20px !important;");
+                }
+            });
+        }
 
-		// ============================================================
+        // ============================================================
         // Update iOS style notification badge on icon.
         // ============================================================
         updateBadge () {
@@ -928,7 +928,7 @@ class Jooa11y {
             }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-errors");
-				$jooa11yStatus.textContent =  Lang.sprintf('PANEL_STATUS_ERRORS', this.errorCount);
+                $jooa11yStatus.textContent =  Lang.sprintf('PANEL_STATUS_ERRORS', this.errorCount);
             }
             else if (this.warningCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-warnings");
@@ -1600,6 +1600,7 @@ class Jooa11y {
                 let linkTextTrimmed = linkText.trim().toLowerCase() + " " + alt;
                 let href = el.getAttribute("href");
 
+                if (linkText.length !== 0) {
                     if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
                         if (seen[href]) {
                             //Nothing
@@ -1619,6 +1620,7 @@ class Jooa11y {
                         seen[linkTextTrimmed] = true;
                         seen[href] = true;
                     }
+                }
 
                 //New tab or new window.
                 const containsNewWindowPhrases = this.options.newWindowPhrases.some(function (pass) {
@@ -1840,41 +1842,41 @@ class Jooa11y {
                         );
                     }
 
-					//Decorative alt and not a link.
-					else if (alt === "" || alt === " ") {
-						if ($el.closest("figure")) {
-							const figcaption = $el.closest("figure").querySelector("figcaption");
-							if (figcaption !== null && figcaption.textContent.trim().length >= 1) {
-								this.warningCount++;
-								$el.classList.add("jooa11y-warning-border");
-								$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('IMAGE_FIGURE_DECORATIVE')} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
-							}
-						} else {
-							this.warningCount++;
-							$el.classList.add("jooa11y-warning-border");
-							$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
-						}
-					} else if (alt.length > 250) {
-						this.warningCount++;
-						$el.classList.add("jooa11y-warning-border");
-						$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('LINK_ALT_TOO_LONG_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_ALT_TOO_LONG_MESSAGE_INFO', altText, altLength)}`,false));
-					} else if (alt !== "") {
-						//Figure element has same alt and caption text.
-						if ($el.closest("figure")) {
-							const figcaption = $el.closest("figure").querySelector("figcaption");
-							if (figcaption !== null &&
-								(figcaption.textContent.trim().toLowerCase === altText.trim().toLowerCase)
-							) {
-								this.warningCount++;
-								$el.classList.add("jooa11y-warning-border");
-								$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang.sprintf('IMAGE_FIGURE_DUPLICATE_ALT', altText)} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
-							}
-						}
-						//If image has alt text - pass!
-						else {
-							$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), `${Lang.sprintf('LINK_PASS_ALT', altText)}`, false, true));
-						}
-					}
+                    //Decorative alt and not a link.
+                    else if (alt === "" || alt === " ") {
+                        if ($el.closest("figure")) {
+                            const figcaption = $el.closest("figure").querySelector("figcaption");
+                            if (figcaption !== null && figcaption.textContent.trim().length >= 1) {
+                                this.warningCount++;
+                                $el.classList.add("jooa11y-warning-border");
+                                $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('IMAGE_FIGURE_DECORATIVE')} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
+                            }
+                        } else {
+                            this.warningCount++;
+                            $el.classList.add("jooa11y-warning-border");
+                            $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
+                        }
+                    } else if (alt.length > 250) {
+                        this.warningCount++;
+                        $el.classList.add("jooa11y-warning-border");
+                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('LINK_ALT_TOO_LONG_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_ALT_TOO_LONG_MESSAGE_INFO', altText, altLength)}`,false));
+                    } else if (alt !== "") {
+                        //Figure element has same alt and caption text.
+                        if ($el.closest("figure")) {
+                            const figcaption = $el.closest("figure").querySelector("figcaption");
+                            if (figcaption !== null &&
+                                (figcaption.textContent.trim().toLowerCase === altText.trim().toLowerCase)
+                            ) {
+                                this.warningCount++;
+                                $el.classList.add("jooa11y-warning-border");
+                                $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang.sprintf('IMAGE_FIGURE_DUPLICATE_ALT', altText)} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
+                            }
+                        }
+                        //If image has alt text - pass!
+                        else {
+                            $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), `${Lang.sprintf('LINK_PASS_ALT', altText)}`, false, true));
+                        }
+                    }
 
 
 
