@@ -784,7 +784,6 @@ class Jooa11y {
 
             //Errors
             document.querySelectorAll('.jooa11y-error-border').forEach((el) => el.classList.remove('jooa11y-error-border'));
-            document.querySelectorAll('.jooa11y-error-heading').forEach((el) => el.classList.remove('jooa11y-error-heading'));
             document.querySelectorAll('.jooa11y-error-text').forEach((el) => el.classList.remove('jooa11y-error-text'));
 
             //Warnings
@@ -1304,12 +1303,12 @@ class Jooa11y {
                     //Heading errors
                     if (error != null && el.closest("a")) {
                         this.errorCount++;
-                        el.classList.add("jooa11y-error-heading");
+                        el.classList.add("jooa11y-error-border");
                         el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('ERROR'), error, true));
                         document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                     } else if (error != null) {
                         this.errorCount++;
-                        el.classList.add("jooa11y-error-heading");
+                        el.classList.add("jooa11y-error-border");
                         el.insertAdjacentHTML("beforebegin", this.annotate(Lang._('ERROR'), error));
                         document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                     }
@@ -2154,8 +2153,7 @@ class Jooa11y {
                 if (findHeadingTags.length > 0) {
                     this.errorCount++;
                     findHeadingTags.forEach(($el) => {
-                        $el.classList.add("jooa11y-error-heading");
-                        $el.parentElement.classList.add("jooa11y-error-border");
+                        $el.classList.add("jooa11y-error-border");
                         $el.insertAdjacentHTML(
                           'beforebegin',
                           this.annotate(
@@ -2227,7 +2225,7 @@ class Jooa11y {
                       let boldtext = firstChild.textContent;
 
                         if (!$el.closest("table") && boldtext.length <= 120) {
-                          firstChild.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
+                          firstChild.classList.add("jooa11y-fake-heading", "jooa11y-warning-border");
                           $el.insertAdjacentHTML('beforebegin',
                               this.annotate(
                                 Lang._('WARNING'),
@@ -2250,7 +2248,7 @@ class Jooa11y {
                   }
                   if (!$el.closest("table") && $el.textContent.length <= 120 && tagName.charAt(0) !== "H") {
                       let boldtext = $el.textContent;
-                      $el.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
+                      $el.classList.add("jooa11y-fake-heading", "jooa11y-warning-border");
                       $el.firstChild.insertAdjacentHTML("afterend",
                       this.annotate(
                         Lang._('WARNING'),
