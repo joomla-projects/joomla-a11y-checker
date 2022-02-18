@@ -2224,7 +2224,7 @@ class Jooa11y {
                     if (firstChild.tagName === "STRONG" && (brBefore !== -1 || brAfter !== -1)) {
                       let boldtext = firstChild.textContent;
 
-                        if ($el && boldtext.length <= 120) {
+                        if (!$el.closest("table") && boldtext.length <= 120) {
                           firstChild.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
                           $el.insertAdjacentHTML('beforebegin',
                               this.annotate(
@@ -2246,7 +2246,7 @@ class Jooa11y {
                   if (prevElement !== null) {
                       tagName = prevElement.tagName;
                   }
-                  if ($el.textContent.length <= 120 && tagName.charAt(0) !== "H") {
+                  if (!$el.closest("table") && $el.textContent.length <= 120 && tagName.charAt(0) !== "H") {
                       let boldtext = $el.textContent;
                       $el.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
                       $el.firstChild.insertAdjacentHTML("afterend",
