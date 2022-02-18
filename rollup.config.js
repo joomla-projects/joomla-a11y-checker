@@ -1,5 +1,5 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import css from "rollup-plugin-import-css";
+import css from 'rollup-plugin-import-css';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import sass from 'rollup-plugin-sass';
@@ -17,12 +17,12 @@ export default [
       nodeResolve(),
       css(),
       replace({
-      preventAssignment: true,
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    })
+        preventAssignment: true,
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
     ],
     output: [
-      { file: 'dist/js/joomla-a11y-checker.esm.js', format: 'esm'},
+      { file: 'dist/js/joomla-a11y-checker.esm.js', format: 'esm' },
       {
         file: 'dist/js/joomla-a11y-checker.esm.min.js', format: 'esm', plugins: [terser()],
       },
@@ -35,9 +35,9 @@ export default [
       nodeResolve(),
       css(),
       replace({
-      preventAssignment: true,
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    })
+        preventAssignment: true,
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
     ],
     output: [
       { file: 'dist/js/joomla-a11y-checker.umd.js', format: 'umd', name: 'Jooa11y'},
@@ -50,7 +50,7 @@ export default [
     input: 'src/js/lang/en.js',
     plugins: [nodeResolve()],
     output: [
-      { file: 'dist/js/lang/en.js', format: 'esm'},
+      { file: 'dist/js/lang/en.js', format: 'esm' },
     ],
   },
   {

@@ -25,6 +25,3 @@ const copyDirectory = async (src, dest) => {
   const scriptSource = await readFile('./docs/pages/script.js', 'utf8');
   await writeFile('./docs/pages/script.js', scriptSource.replace(/\.\.\/dist\//g, 'assets/'), 'utf8');
 })();
-
-
-

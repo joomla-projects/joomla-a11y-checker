@@ -424,9 +424,11 @@ class Jooa11y {
                 setTimeout(this.checkAll, 800);
             }
 
-            //Escape key to shutdown.
+            //Keyboard commands
             document.onkeydown = (evt) => {
                 evt = evt || window.event;
+
+                //Escape key to close accessibility checker panel
                 var isEscape = false;
                 if ("key" in evt) {
                     isEscape = (evt.key === "Escape" || evt.key === "Esc");
@@ -434,11 +436,18 @@ class Jooa11y {
                     isEscape = (evt.keyCode === 27);
                 }
                 if (isEscape && document.getElementById("jooa11y-panel").classList.contains("jooa11y-active")) {
-                    tippy.hideAll();
                     jooa11yToggle.setAttribute("aria-expanded", "false");
                     jooa11yToggle.classList.remove("jooa11y-on");
                     jooa11yToggle.click();
                     this.resetAll();
+                }
+
+                //Alt + A to open accessibility checker panel
+                if (evt.altKey && evt.code == "KeyA") {
+                    const jooa11yToggle = document.getElementById("jooa11y-toggle");
+                    jooa11yToggle.click();
+                    jooa11yToggle.focus();
+                    evt.preventDefault();
                 }
             }
         }
@@ -749,6 +758,7 @@ class Jooa11y {
             }
             this.initializeTooltips();
             this.detectOverflow();
+            this.nudge();
 
             //Don't show badge when panel is opened.
             if (!document.getElementsByClassName('jooa11y-on').length) {
@@ -774,7 +784,6 @@ class Jooa11y {
 
             //Errors
             document.querySelectorAll('.jooa11y-error-border').forEach((el) => el.classList.remove('jooa11y-error-border'));
-            document.querySelectorAll('.jooa11y-error-heading').forEach((el) => el.classList.remove('jooa11y-error-heading'));
             document.querySelectorAll('.jooa11y-error-text').forEach((el) => el.classList.remove('jooa11y-error-text'));
 
             //Warnings
@@ -863,22 +872,30 @@ class Jooa11y {
         }
 
         // ============================================================
+        // Nudge buttons if they overlap.
+        // ============================================================
+        nudge = () => {
+            const jooa11yInstance = document.querySelectorAll('.jooa11y-instance, .jooa11y-instance-inline');
+            jooa11yInstance.forEach(($el) => {
+                const sibling = $el.nextElementSibling;
+                if (sibling !== null && (sibling.classList.contains("jooa11y-instance") ||
+                sibling.classList.contains("jooa11y-instance-inline"))) {
+                    sibling.querySelector("button").setAttribute("style", "margin: -10px -20px !important;");
+                }
+            });
+        }
+
+        // ============================================================
         // Update iOS style notification badge on icon.
         // ============================================================
         updateBadge () {
             let totalCount = this.errorCount + this.warningCount;
-            let warningCount = this.warningCount;
             const notifBadge = document.getElementById("jooa11y-notification-badge");
             if (totalCount === 0) {
                 notifBadge.style.display = "none";
-            } else if (this.warningCount > 0 && this.errorCount === 0) {
-                notifBadge.style.display = "flex";
-                notifBadge.classList.add("jooa11y-notification-badge-warning");
-                document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', warningCount);
             } else {
                 notifBadge.style.display = "flex";
-                notifBadge.classList.remove("jooa11y-notification-badge-warning");
-                document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', totalCount);
+                document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_ICON', totalCount);
             }
         }
 
@@ -904,39 +921,21 @@ class Jooa11y {
             const $jooa11yStatus = document.getElementById("jooa11y-status");
             const $findButtons = document.querySelectorAll('.jooa11y-btn');
 
-            if (this.errorCount === 1 && this.warningCount === 1) {
+            if (this.errorCount > 0 && this.warningCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang._('PANEL_STATUS_1');
-            }
-            else if (this.errorCount === 1 && this.warningCount > 0) {
-                $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_2', this.warningCount);
-            }
-            else if (this.errorCount > 0 && this.warningCount === 1) {
-                $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_3', this.errorCount);
-            }
-            else if (this.errorCount > 0 && this.warningCount > 0) {
-                $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_4', this.errorCount, this.warningCount);
+                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_BOTH', this.errorCount, this.warningCount);
             }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-errors");
-                $jooa11yStatus.textContent = this.errorCount === 1 ?
-                  Lang._('PANEL_STATUS_5') :
-                  Lang.sprintf('PANEL_STATUS_6', this.errorCount)
-                ;
+                $jooa11yStatus.textContent =  Lang.sprintf('PANEL_STATUS_ERRORS', this.errorCount);
             }
             else if (this.warningCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-warnings");
-                $jooa11yStatus.textContent = totalCount === 1 ?
-                    Lang._('PANEL_STATUS_7'):
-                    Lang.sprintf('PANEL_STATUS_8', this.warningCount)
-                ;
+                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_WARNINGS', this.warningCount);
             }
             else {
                 $panelContent.setAttribute("class", "jooa11y-good");
-                $jooa11yStatus.textContent = Lang._('PANEL_STATUS_9');
+                $jooa11yStatus.textContent = Lang._('PANEL_STATUS_NONE');
 
                 if ($findButtons.length === 0) {
                     $jooa11ySkipBtn.disabled = true;
@@ -1121,7 +1120,7 @@ class Jooa11y {
 
             //Jump to issue using keyboard shortcut.
             document.addEventListener('keyup', (e) => {
-                if (e.altKey && e.code === "Period") {
+                if (e.altKey && e.code === "Period" || e.code == "KeyS") {
                     skipToIssueToggle();
                     e.preventDefault();
                 }
@@ -1200,7 +1199,7 @@ class Jooa11y {
                 //Alert if element is hidden.
                 if (offsetTopPosition === 0) {
                     $alertPanel.classList.add("jooa11y-active");
-                    $alertText.textContent = `${Lang._('PANEL_STATUS_12')}`;
+                    $alertText.textContent = `${Lang._('PANEL_STATUS_HIDDEN')}`;
                     $alertPanelPreview.innerHTML = $findButtons[jooa11yBtnLocation].getAttribute('data-tippy-content');
                 } else if (offsetTopPosition < 1) {
                     $alertPanel.classList.remove("jooa11y-active");
@@ -1304,12 +1303,12 @@ class Jooa11y {
                     //Heading errors
                     if (error != null && el.closest("a")) {
                         this.errorCount++;
-                        el.classList.add("jooa11y-error-heading");
+                        el.classList.add("jooa11y-error-border");
                         el.closest("a").insertAdjacentHTML("afterend", this.annotate(Lang._('ERROR'), error, true));
                         document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                     } else if (error != null) {
                         this.errorCount++;
-                        el.classList.add("jooa11y-error-heading");
+                        el.classList.add("jooa11y-error-border");
                         el.insertAdjacentHTML("beforebegin", this.annotate(Lang._('ERROR'), error));
                         document.querySelector("#jooa11y-outline-list").insertAdjacentHTML("beforeend", liError);
                     }
@@ -1600,25 +1599,27 @@ class Jooa11y {
                 let linkTextTrimmed = linkText.trim().toLowerCase() + " " + alt;
                 let href = el.getAttribute("href");
 
-					if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
-						if (seen[href]) {
-							//Nothing
-						} else {
-						this.warningCount++;
-						el.classList.add("jooa11y-warning-text");
-						el.insertAdjacentHTML(
-							'afterend',
-							this.annotate(
-							Lang._('WARNING'),
-							`${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
-							true
-							)
-						);
-						}
-					} else {
-						seen[linkTextTrimmed] = true;
-						seen[href] = true;
-					}
+                if (linkText.length !== 0) {
+                    if (seen[linkTextTrimmed] && linkTextTrimmed.length !== 0) {
+                        if (seen[href]) {
+                            //Nothing
+                        } else {
+                        this.warningCount++;
+                        el.classList.add("jooa11y-warning-text");
+                        el.insertAdjacentHTML(
+                            'afterend',
+                            this.annotate(
+                            Lang._('WARNING'),
+                            `${Lang._('LINK_IDENTICAL_NAME')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_IDENTICAL_NAME_TIP', linkText)}`,
+                            true
+                            )
+                        );
+                        }
+                    } else {
+                        seen[linkTextTrimmed] = true;
+                        seen[href] = true;
+                    }
+                }
 
                 //New tab or new window.
                 const containsNewWindowPhrases = this.options.newWindowPhrases.some(function (pass) {
@@ -1691,6 +1692,15 @@ class Jooa11y {
                 return hit;
             };
 
+            const fnIgnore = (element, selector) => {
+                const $clone = element.cloneNode(true);
+                const $excluded = Array.from(selector ? $clone.querySelectorAll(selector) : $clone.children);
+                $excluded.forEach(($c) => {
+                    $c.parentElement.removeChild($c);
+                });
+                return $clone;
+            };
+
             // Stores the corresponding issue text to alternative text
             const images = Array.from(this.$root.querySelectorAll("img"));
             const excludeimages = Array.from(this.$root.querySelectorAll(this.imageIgnore));
@@ -1700,11 +1710,11 @@ class Jooa11y {
                 let alt = $el.getAttribute("alt")
                 if ( alt === null ) {
                     if ($el.closest('a[href]')) {
-                        if ($el.closest('a[href]').textContent.trim().length > 1) {
+                        if (fnIgnore($el.closest('a[href]'), "noscript").textContent.trim().length > 1) {
                             $el.classList.add("jooa11y-error-border");
                             $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE'), false, true));
                         }
-                        else if ($el.closest('a[href]').textContent.trim().length === 0) {
+                        else if (fnIgnore($el.closest('a[href]'), "noscript").textContent.trim().length === 0) {
                             $el.classList.add("jooa11y-error-border");
                             $el.closest('a[href]').insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('MISSING_ALT_LINK_MESSAGE'), false, true));
                         }
@@ -1789,7 +1799,7 @@ class Jooa11y {
                             $el.classList.add("jooa11y-error-border");
                             $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_HYPERLINKED_IMAGE_ARIA_HIDDEN'), false, true));
                         }
-                        else if ($el.closest("a[href]").textContent.trim().length === 0) {
+                        else if (fnIgnore($el.closest("a[href]"), "noscript").textContent.trim().length === 0) {
                             this.errorCount++;
                             $el.classList.add("jooa11y-error-border");
                             $el.closest("a[href]").insertAdjacentHTML('beforebegin', this.annotate(Lang._('ERROR'), Lang._('LINK_IMAGE_LINK_NULL_ALT_NO_TEXT_MESSAGE'), false, true));
@@ -1814,7 +1824,7 @@ class Jooa11y {
                     }
 
                     //Link and contains an alt text.
-                    else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length === 0) {
+                    else if (alt !== "" && $el.closest("a[href]") && fnIgnore($el.closest("a[href]"), "noscript").textContent.trim().length === 0) {
                         this.warningCount++;
                         $el.classList.add("jooa11y-warning-border");
                         $el.closest("a[href]").insertAdjacentHTML(
@@ -1828,7 +1838,7 @@ class Jooa11y {
                     }
 
                     //Contains alt text & surrounding link text.
-                    else if (alt !== "" && $el.closest("a[href]") && $el.closest("a[href]").textContent.trim().length > 1) {
+                    else if (alt !== "" && fnIgnore($el.closest("a[href]"), "noscript") && $el.closest("a[href]").textContent.trim().length > 1) {
                         this.warningCount++;
                         $el.classList.add("jooa11y-warning-border");
                         $el.closest("a[href]").insertAdjacentHTML(
@@ -1840,26 +1850,44 @@ class Jooa11y {
                         );
                     }
 
-                    //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR
+                    //Decorative alt and not a link.
                     else if (alt === "" || alt === " ") {
+                        if ($el.closest("figure")) {
+                            const figcaption = $el.closest("figure").querySelector("figcaption");
+                            if (figcaption !== null && figcaption.textContent.trim().length >= 1) {
+                                this.warningCount++;
+                                $el.classList.add("jooa11y-warning-border");
+                                $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('IMAGE_FIGURE_DECORATIVE')} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
+                            }
+                        } else {
+                            this.warningCount++;
+                            $el.classList.add("jooa11y-warning-border");
+                            $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
+                        }
+                    } else if (alt.length > 250) {
                         this.warningCount++;
                         $el.classList.add("jooa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'),  Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
+                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('LINK_ALT_TOO_LONG_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_ALT_TOO_LONG_MESSAGE_INFO', altText, altLength)}`,false));
+                    } else if (alt !== "") {
+                        //Figure element has same alt and caption text.
+                        if ($el.closest("figure")) {
+                            const figcaption = $el.closest("figure").querySelector("figcaption");
+                            if (figcaption !== null &&
+                                (figcaption.textContent.trim().toLowerCase === altText.trim().toLowerCase)
+                            ) {
+                                this.warningCount++;
+                                $el.classList.add("jooa11y-warning-border");
+                                $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang.sprintf('IMAGE_FIGURE_DUPLICATE_ALT', altText)} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
+                            }
+                        }
+                        //If image has alt text - pass!
+                        else {
+                            $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), `${Lang.sprintf('LINK_PASS_ALT', altText)}`, false, true));
+                        }
                     }
-                    else if (alt.length > 250) {
-                        this.warningCount++;
-                        $el.classList.add("jooa11y-warning-border");
-                        $el.insertAdjacentHTML(
-                          'beforebegin',
-                          this.annotate(Lang._('WARNING'),
-                            `${Lang._('LINK_ALT_TOO_LONG_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_ALT_TOO_LONG_MESSAGE_INFO', altText, altLength)}`,
-                            false
-                          )
-                        );
-                    }
-                    else if (alt !== "") {
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'),  Lang.sprintf('LINK_PASS_ALT', altText), false, true));
-                    }
+
+
+
                 }
             });
         };
@@ -2134,8 +2162,7 @@ class Jooa11y {
                 if (findHeadingTags.length > 0) {
                     this.errorCount++;
                     findHeadingTags.forEach(($el) => {
-                        $el.classList.add("jooa11y-error-heading");
-                        $el.parentElement.classList.add("jooa11y-error-border");
+                        $el.classList.add("jooa11y-error-border");
                         $el.insertAdjacentHTML(
                           'beforebegin',
                           this.annotate(
@@ -2206,8 +2233,8 @@ class Jooa11y {
                     if (firstChild.tagName === "STRONG" && (brBefore !== -1 || brAfter !== -1)) {
                       let boldtext = firstChild.textContent;
 
-                        if ($el && boldtext.length <= 120) {
-                          firstChild.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
+                        if (!$el.closest("table") && boldtext.length <= 120) {
+                          firstChild.classList.add("jooa11y-fake-heading", "jooa11y-warning-border");
                           $el.insertAdjacentHTML('beforebegin',
                               this.annotate(
                                 Lang._('WARNING'),
@@ -2228,9 +2255,9 @@ class Jooa11y {
                   if (prevElement !== null) {
                       tagName = prevElement.tagName;
                   }
-                  if ($el.textContent.length <= 120 && tagName.charAt(0) !== "H") {
+                  if (!$el.closest("table") && $el.textContent.length <= 120 && tagName.charAt(0) !== "H") {
                       let boldtext = $el.textContent;
-                      $el.classList.add("jooa11y-fake-heading", "jooa11y-error-heading");
+                      $el.classList.add("jooa11y-fake-heading", "jooa11y-warning-border");
                       $el.firstChild.insertAdjacentHTML("afterend",
                       this.annotate(
                         Lang._('WARNING'),
@@ -2484,23 +2511,23 @@ class Jooa11y {
 
                 this.errorCount++;
 
-				if (name.tagName === "INPUT") {
-					name.insertAdjacentHTML(
-				   'beforebegin',
-				   this.annotate(
-					   Lang._('ERROR'),
-					   `${Lang._('CONTRAST_ERROR_INPUT_MESSAGE')}
-						 <hr aria-hidden="true">
-						 ${Lang.sprintf('CONTRAST_ERROR_INPUT_MESSAGE_INFO', cratio)}`, true));
-				 } else {
-				name.insertAdjacentHTML(
+                if (name.tagName === "INPUT") {
+                    name.insertAdjacentHTML(
+                   'beforebegin',
+                   this.annotate(
+                       Lang._('ERROR'),
+                       `${Lang._('CONTRAST_ERROR_INPUT_MESSAGE')}
+                         <hr aria-hidden="true">
+                         ${Lang.sprintf('CONTRAST_ERROR_INPUT_MESSAGE_INFO', cratio)}`, true));
+                 } else {
+                name.insertAdjacentHTML(
                   'beforebegin',
                   this.annotate(
                       Lang._('ERROR'),
                       `${Lang.sprintf('CONTRAST_ERROR_MESSAGE', cratio, nodetext)}
                         <hr aria-hidden="true">
                         ${Lang.sprintf('CONTRAST_ERROR_MESSAGE_INFO', cratio, nodetext)}`, true));
-				  }
+                  }
             });
 
             contrastErrors.warnings.forEach(item => {
@@ -2535,11 +2562,11 @@ class Jooa11y {
             //Crude hack to add a period to the end of list items to make a complete sentence.
             $readability.forEach($el => {
                 let listText = $el.textContent;
-				if (listText.length >= 120) {
-					if (listText.charAt(listText.length - 1) !== ".") {
-						$el.insertAdjacentHTML("beforeend", "<span class='jooa11y-readability-period jooa11y-visually-hidden'>.</span>");
-					}
-				}
+                if (listText.length >= 120) {
+                    if (listText.charAt(listText.length - 1) !== ".") {
+                        $el.insertAdjacentHTML("beforeend", "<span class='jooa11y-readability-period jooa11y-visually-hidden'>.</span>");
+                    }
+                }
             });
 
             // Compute syllables: http://stackoverflow.com/questions/5686483/how-to-compute-number-of-syllables-in-a-word-in-javascript

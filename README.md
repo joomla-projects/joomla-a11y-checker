@@ -11,7 +11,7 @@ Jooa11y is an **accessibility and quality assurance** tool that **visually highl
 Jooa11y began as a fork of the [sa11y script](https://github.com/ryersondmp/sa11y) to be more inline with Joomla coding styles, especially the removal of the jquery dependency and added support for localisation.
 
 ## Demo
-:arrow_right: [View project website and demo](https://joomla-projects.github.io/joomla-a11y-checker/) 
+:arrow_right: [View project website and demo](https://joomla-projects.github.io/joomla-a11y-checker/)
 
 ## Installation (Joomla 4.1)
 
@@ -35,7 +35,7 @@ As module:
 <script type="module">
   import Jooa11y from 'js/jooa11y.js';
   import Jooa11yLangEn from 'js/lang/en.js';
-  
+
   window.addEventListener('load', () => {
     // Set translations
     Jooa11y.Lang.addI18n(Jooa11yLangEn.strings);
@@ -81,7 +81,7 @@ We have included a light server to test the example files. To use this environme
 npm run serve
 ```
 
-Then open [http://localhost:8080/docs/examples/errors.html](http://localhost:8080/docs/examples/errors.html) in your browser.
+Then open [http://localhost:8080/docs/index.html](http://localhost:8080/docs/index.html) in your browser.
 
 Any change inside /src folder files will trigger the build process for the files and will reload the page with the new changes.
 ## Other notes
