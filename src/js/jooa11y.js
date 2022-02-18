@@ -891,18 +891,12 @@ class Jooa11y {
         // ============================================================
         updateBadge () {
             let totalCount = this.errorCount + this.warningCount;
-            let warningCount = this.warningCount;
             const notifBadge = document.getElementById("jooa11y-notification-badge");
             if (totalCount === 0) {
                 notifBadge.style.display = "none";
-            } else if (this.warningCount > 0 && this.errorCount === 0) {
-                notifBadge.style.display = "flex";
-                notifBadge.classList.add("jooa11y-notification-badge-warning");
-                document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', warningCount);
             } else {
                 notifBadge.style.display = "flex";
-                notifBadge.classList.remove("jooa11y-notification-badge-warning");
-                document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_10', totalCount);
+                document.getElementById('jooa11y-notification-count').innerHTML = Lang.sprintf('PANEL_STATUS_ICON', totalCount);
             }
         }
 
@@ -934,11 +928,11 @@ class Jooa11y {
             }
             else if (this.errorCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-errors");
-                Lang.sprintf('PANEL_STATUS_ERRORS', this.errorCount);
+				$jooa11yStatus.textContent =  Lang.sprintf('PANEL_STATUS_ERRORS', this.errorCount);
             }
             else if (this.warningCount > 0) {
                 $panelContent.setAttribute("class", "jooa11y-warnings");
-                Lang.sprintf('PANEL_STATUS_WARNINGS', this.warningCount);
+                $jooa11yStatus.textContent = Lang.sprintf('PANEL_STATUS_WARNINGS', this.warningCount);
             }
             else {
                 $panelContent.setAttribute("class", "jooa11y-good");

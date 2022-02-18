@@ -42,11 +42,12 @@ export default {
     VERY_DIFFICULT_READABILITY: 'Very difficult',
 
     // Panel status
-    PANEL_STATUS_ERRORS: 'Accessibility Errors: %(errorCount).',
-    PANEL_STATUS_WARNINGS: 'Accessibility Warnings: %(warningCount).',
     PANEL_STATUS_BOTH: 'Accessibility Errors: %(errorCount). Accessibility Warnings: %(warningCount).',
-    PANEL_STATUS_NONE: 'No accessibility errors found.',
+    PANEL_STATUS_ERRORS: 'Accessibility Errors: %(errorCount).',
     PANEL_STATUS_HIDDEN: 'The item you are trying to view is not visible; it may be hidden or inside of an accordion or tab component. Here\'s a preview: ',
+    PANEL_STATUS_ICON: '<span class="jooa11y-visually-hidden">Total issues found: </span>%(totalCount)',
+    PANEL_STATUS_NONE: 'No accessibility errors found.',
+    PANEL_STATUS_WARNINGS: 'Accessibility Warnings: %(warningCount).',
 
     // Headings
     HEADING_EMPTY: 'Empty heading found! To fix, delete this line or change its format from <strong>Heading %(level)</strong> to <strong>Normal</strong> or <strong>Paragraph</strong>.',
