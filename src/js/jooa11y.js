@@ -1692,6 +1692,15 @@ class Jooa11y {
                 return hit;
             };
 
+            const fnIgnore = (element, selector) => {
+                const $clone = element.cloneNode(true);
+                const $excluded = Array.from(selector ? $clone.querySelectorAll(selector) : $clone.children);
+                $excluded.forEach(($c) => {
+                    $c.parentElement.removeChild($c);
+                });
+                return $clone;
+            };
+
             // Stores the corresponding issue text to alternative text
             const images = Array.from(this.$root.querySelectorAll("img"));
             const excludeimages = Array.from(this.$root.querySelectorAll(this.imageIgnore));
