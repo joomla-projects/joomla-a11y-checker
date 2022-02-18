@@ -81,6 +81,9 @@ export default {
     // Images
     HYPERLINK_ALT_LENGTH_MESSAGE: 'Alt text description on a linked image is <strong>too long</strong>. The alt text on linked images should describe where the link takes you, not a literal description of the image. <strong>Consider using the title of the page it links to as the alt text.</strong>',
     HYPERLINK_ALT_LENGTH_MESSAGE_INFO: 'The alt text is <strong>%(altLength)</strong> characters: <strong>%(altText)</strong>',
+    IMAGE_FIGURE_DECORATIVE: 'Image is marked as <strong>decorative</strong> and will be ignored by assistive technology.',
+    IMAGE_FIGURE_DECORATIVE_INFO: 'Although a <strong>caption</strong> was provided, the image should also have alt text in most cases. <ul><li>The alt text should provide a concise description of what is in the image.</li><li>The caption should usually provide context to relate the image back to the surrounding content, or give attention to a particular piece of information.</li></ul> Learn more: <a href="https://thoughtbot.com/blog/alt-vs-figcaption#the-figcaption-element" target="_blank">alt versus figcaption.</a>',
+    IMAGE_FIGURE_DUPLICATE_ALT: 'Do not use the exact same words for both the alt and caption text. Screen readers will announce the information twice.',
     LINK_ALT_HAS_BAD_WORD_MESSAGE: 'File extension within the alt text found. If the image conveys a story, mood, or important information - be sure to describe the image.',
     LINK_ALT_HAS_BAD_WORD_MESSAGE_INFO: 'Remove: <strong>%(error)</strong>.<br>The alt text for this image is: <strong>%(altText)</strong>',
     LINK_ALT_HAS_SUS_WORD_MESSAGE: 'Assistive technologies already indicate that this is an image, so &quot;<strong>%(error)</strong>&quot; or &quot;%(error) of&quot; may be redundant.',

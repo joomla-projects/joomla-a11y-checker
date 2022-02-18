@@ -1840,26 +1840,44 @@ class Jooa11y {
                         );
                     }
 
-                    //Decorative alt and not a link. TODO: ADD NOT (ANCHOR) SELECTOR
-                    else if (alt === "" || alt === " ") {
-                        this.warningCount++;
-                        $el.classList.add("jooa11y-warning-border");
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'),  Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
-                    }
-                    else if (alt.length > 250) {
-                        this.warningCount++;
-                        $el.classList.add("jooa11y-warning-border");
-                        $el.insertAdjacentHTML(
-                          'beforebegin',
-                          this.annotate(Lang._('WARNING'),
-                            `${Lang._('LINK_ALT_TOO_LONG_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_ALT_TOO_LONG_MESSAGE_INFO', altText, altLength)}`,
-                            false
-                          )
-                        );
-                    }
-                    else if (alt !== "") {
-                        $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'),  Lang.sprintf('LINK_PASS_ALT', altText), false, true));
-                    }
+					//Decorative alt and not a link.
+					else if (alt === "" || alt === " ") {
+						if ($el.closest("figure")) {
+							const figcaption = $el.closest("figure").querySelector("figcaption");
+							if (figcaption !== null && figcaption.textContent.trim().length >= 1) {
+								this.warningCount++;
+								$el.classList.add("jooa11y-warning-border");
+								$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('IMAGE_FIGURE_DECORATIVE')} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
+							}
+						} else {
+							this.warningCount++;
+							$el.classList.add("jooa11y-warning-border");
+							$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('LINK_DECORATIVE_MESSAGE'), false, true));
+						}
+					} else if (alt.length > 250) {
+						this.warningCount++;
+						$el.classList.add("jooa11y-warning-border");
+						$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang._('LINK_ALT_TOO_LONG_MESSAGE')} <hr aria-hidden="true"> ${Lang.sprintf('LINK_ALT_TOO_LONG_MESSAGE_INFO', altText, altLength)}`,false));
+					} else if (alt !== "") {
+						//Figure element has same alt and caption text.
+						if ($el.closest("figure")) {
+							const figcaption = $el.closest("figure").querySelector("figcaption");
+							if (figcaption !== null &&
+								(figcaption.textContent.trim().toLowerCase === altText.trim().toLowerCase)
+							) {
+								this.warningCount++;
+								$el.classList.add("jooa11y-warning-border");
+								$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), `${Lang.sprintf('IMAGE_FIGURE_DUPLICATE_ALT', altText)} <hr aria-hidden="true"> ${Lang._('IMAGE_FIGURE_DECORATIVE_INFO')}`, false, true));
+							}
+						}
+						//If image has alt text - pass!
+						else {
+							$el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), `${Lang.sprintf('LINK_PASS_ALT', altText)}`, false, true));
+						}
+					}
+
+
+
                 }
             });
         };
