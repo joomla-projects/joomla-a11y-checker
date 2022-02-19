@@ -108,6 +108,8 @@ export default {
     MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE: 'Image is being used as a link with surrounding text, although the alt attribute should be marked as decorative.',
     MISSING_ALT_LINK_MESSAGE: 'Image is being used as a link but is missing alt text! Please ensure alt text describes where the link takes you.',
     MISSING_ALT_MESSAGE: 'Missing alt text! If the image conveys a story, mood, or important information - be sure to describe the image.',
+    TEXT_UNDERLINE_WARNING: 'Underlined text can be confused with links.',
+    TEXT_UNDERLINE_WARNING_TIP: 'Consider using a different style such as &lt;em&gt;<em>emphasis</em>&lt;/em&gt;.',
 
     // Labels
     LABELS_ARIA_LABEL_INPUT_MESSAGE: 'Input has an accessible name, although please ensure there is a visible label too.',
