@@ -5572,16 +5572,17 @@ class Jooa11y {
                     } else {
                         $el.classList.add("sa11y-error-border");
                         $el.insertAdjacentHTML(
-                            'afterend',
+                            'beforebegin',
                             this.annotate(
                                 Lang._('WARNING'),
-                                `${Lang.sprintf('QA_DUPLICATE_ID', id)} <hr aria-hidden="true"> ${Lang._('QA_DUPLICATE_ID_TIP')}`,
+                                `${Lang._('QA_DUPLICATE_ID')}
+								<hr aria-hidden="true">
+								${Lang.sprintf('QA_DUPLICATE_ID_TIP', id)}`,
                                 true)
                                 );
                             }
                 }
             });
-
             /* Thanks to John Jameson from PrincetonU for this ruleset! */
             // Detect paragraphs that should be lists.
             let activeMatch = "";

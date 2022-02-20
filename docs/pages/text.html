@@ -53,8 +53,7 @@
 							<li><a class="dropdown-item" href="labels.html">Labels</a></li>
 							<li><hr class="dropdown-divider" /></li>
 							<li><a class="dropdown-item" href="audiovideo.html">Audio & Video</a></li>
-							<li><a class="dropdown-item" href="uppercase.html">Uppercase Text</a></li>
-							<li><a class="dropdown-item" href="underline.html">Underlined Text</a></li>
+							<li><a class="dropdown-item" href="text.html">Text</a></li>
 							<li><a class="dropdown-item" href="fakelists.html">Fake Lists</a></li>
 							<li><a class="dropdown-item" href="iframes.html">iFrames</a></li>
 							<li><a class="dropdown-item" href="pdf.html">PDF Content</a></li>
@@ -70,13 +69,56 @@
 	<section id="title" class="bg-secondary">
 		<div class="container">
 			<div class="text-center text-white py-5">
-				<h1>Underlined Text</h1>
-				<p class="lead">This is <strong>not</strong> a WCAG 2.1 requirement.</p>
-
+				<h1>Text</h1>
+				<p class="lead">These are <strong>not</strong> a WCAG 2.1 requirement but are considered to be best practice.</p>
 			</div>
 		</div>
 	</section>
-		<section id="uppercase">
+	<section id="italics">
+		<div class="container pt-4">
+			<div class="row">
+				<div class="col-sm-12">
+					<h2>Bold and italic tags</h2>
+					<p>Bold and italic tags have semantic meaning, and should <strong>not</strong> be used to highlight entire paragraphs. Bolded text should be used to provide strong <strong>emphasis</strong> on a word or phrase. Italics should be used to <em>highlight</em> proper names (i.e. book and article titles), foreign words, quotes. Long quotes should be formatted as a blockquote.</p>
+					<p>To ensure that the semantic meaning is conveyed you should use the &lt;strong&gt; and &lt;em&gt; tags and not &lt;b&gt; or &lt;i&gt;.</p>
+					<p><strong>For example this paragraph will be flagged as it is entirely in bold. Users of assistive technology may not be able to determine what it is you are trying to highlight. For some it is the equivalent as shouting in ALLCAPS on social media.</strong></p>
+				</div>
+			</div>
+		</div>
+	</section>
+		<section id="italics">
+			<div class="container pt-4">
+				<div class="row">
+					<div class="col-sm-12">
+					<h2>Uppercase text</h2>
+					<p>This warning is to discourage the use of uppercase text. Based on research it is a strongly
+					discouraged practice for readability. Secondly, some capitalized words may be mistaken for an
+					acronym and ready out character by character with a screen reader.</p>
+					<p>This condition uses regex to find uppercase words that are at least 3 characters in length, however it
+					will only be indicated as a warning if at least 5 uppercase words within an element is found. It only
+					checks for uppercase words
+					within the following elements: h1, h2, h3, h4, h5, h6, p, li, span, blockquote.</p>
+					</div>
+				</div>
+				<div class="row pt-3 ms-5">
+					<div class="col-md-6">
+						<h3>Example #1</h3>
+						<p>FOR EXAMPLE, THIS WILL BE FLAGGED.</p>
+					</div>
+					<div class="col-md-6">
+						<h3>Example #2</h3>
+						<p>FOR EXAMPLE, this WILL NOT be flagged.</p>
+					</div>
+					<div class="col-md-12">
+					<h3>Example #3</h3>
+						<ul>
+							<li>UPPERCASE TEXT WITHIN BULLETS will be flagged too.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="underline">
 			<div class="container pt-4">
 				<div class="row">
 					<div class="col-sm-12">
@@ -112,7 +154,7 @@
 				</div>
 			</div>
 		</section>
-		</main>
+	</main>
 	<footer class="text-white bg-dark py-3">
     <div class="container">
       <p class="my-1">By default Jooa11y only checks the parts of the website that is contained inside the &lt;main&gt; landmark.
