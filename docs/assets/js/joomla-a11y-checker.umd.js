@@ -5198,9 +5198,6 @@
                               $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), `${Lang.sprintf('LINK_PASS_ALT', altText)}`, false, true));
                           }
                       }
-
-
-
                   }
               });
           };
@@ -5495,7 +5492,7 @@
               const $findstrongitalics = Array.from(this.$root.querySelectorAll("strong, em"));
               const $strongitalics = $findstrongitalics.filter($el => !this.$containerExclusions.includes($el));
               $strongitalics.forEach(($el) => {
-                  if ($el.textContent.trim().length > 400) {
+                  if ($el.textContent.trim().length > 200) {
                       this.warningCount++;
                       $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('QA_BAD_ITALICS')));
                     }
@@ -5569,6 +5566,27 @@
               if (this.$root.querySelectorAll(".jooa11y-fake-heading").length > 0) {
                   this.warningCount++;
               }
+
+              // Check duplicate ID
+              const ids = this.$root.querySelectorAll('[id]');
+              let allIds = {};
+              ids.forEach(($el) => {
+                  let id = $el.id;
+                  if (id) {
+                      if (allIds[id] === undefined) {
+                          allIds[id] = 1;
+                      } else {
+                          $el.classList.add("sa11y-error-border");
+                          $el.insertAdjacentHTML(
+                              'afterend',
+                              this.annotate(
+                                  Lang._('WARNING'),
+                                  `${Lang.sprintf('QA_DUPLICATE_ID', id)} <hr aria-hidden="true"> ${Lang._('QA_DUPLICATE_ID_TIP')}`,
+                                  true)
+                                  );
+                              }
+                  }
+              });
 
               /* Thanks to John Jameson from PrincetonU for this ruleset! */
               // Detect paragraphs that should be lists.
