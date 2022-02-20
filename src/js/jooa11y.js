@@ -729,6 +729,7 @@ class Jooa11y {
             //Ruleset checks
             this.checkHeaders();
             this.checkLinkText();
+            this.checkUnderline();
             this.checkAltText();
 
             if (localStorage.getItem("jooa11y-remember-contrast") === "On") {
@@ -1160,7 +1161,7 @@ class Jooa11y {
                   let rect = $el.getBoundingClientRect(),
                   scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                   return { top: rect.top + scrollTop}
-              }
+                }
 
                 //'offsetTop' will always return 0 if element is hidden. We rely on offsetTop to determine if element is hidden, although we use 'getBoundingClientRect' to set the scroll position.
                 let scrollPosition;
@@ -1658,7 +1659,41 @@ class Jooa11y {
                 }
             });
         }
-
+        // ============================================================
+        // Ruleset: Underlined text
+        // ============================================================
+        // check text for <u>  tags
+        checkUnderline () {
+            const underline = Array.from(this.$root.querySelectorAll('u'));
+            underline.forEach(($el) => {
+                    this.warningCount++;
+                    $el.insertAdjacentHTML(
+                        'beforebegin',
+                        this.annotate(
+                            Lang._('WARNING'),
+                            `${Lang._('TEXT_UNDERLINE_WARNING')} <hr aria-hidden="true"> ${Lang._('TEXT_UNDERLINE_WARNING_TIP')}`,
+                              true
+                        )
+                    );
+                });
+            // check for text-decoration-line: underline
+            const computed = Array.from(this.$root.querySelectorAll('h1, h2, h3, h4, h5, h6, p, div, span, li, blockquote'));
+            computed.forEach(($el) => {
+                let style = getComputedStyle($el),
+                decoration = style.textDecorationLine;
+                if (decoration === 'underline') {
+                    this.warningCount++;
+                    $el.insertAdjacentHTML(
+                        'beforebegin',
+                        this.annotate(
+                            Lang._('WARNING'),
+                            `${Lang._('TEXT_UNDERLINE_WARNING')} <hr aria-hidden="true"> ${Lang._('TEXT_UNDERLINE_WARNING_TIP')}`,
+                              true
+                        )
+                    );
+                }
+            });
+        }
         // ============================================================
         // Ruleset: Alternative text
         // ============================================================
@@ -1876,9 +1911,6 @@ class Jooa11y {
                             $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('GOOD'), `${Lang.sprintf('LINK_PASS_ALT', altText)}`, false, true));
                         }
                     }
-
-
-
                 }
             });
         };
@@ -2187,7 +2219,7 @@ class Jooa11y {
             const $findstrongitalics = Array.from(this.$root.querySelectorAll("strong, em"));
             const $strongitalics = $findstrongitalics.filter($el => !this.$containerExclusions.includes($el));
             $strongitalics.forEach(($el) => {
-                if ($el.textContent.trim().length > 400) {
+                if ($el.textContent.trim().length > 200) {
                     this.warningCount++;
                     $el.insertAdjacentHTML('beforebegin', this.annotate(Lang._('WARNING'), Lang._('QA_BAD_ITALICS')));
                   }
@@ -2262,6 +2294,30 @@ class Jooa11y {
                 this.warningCount++;
             }
 
+            // Check duplicate ID
+            const ids = this.$root.querySelectorAll('[id]');
+            let allIds = {};
+            let found = false;
+            ids.forEach(($el) => {
+                let id = $el.id;
+                if (id) {
+                    if (allIds[id] === undefined) {
+                        allIds[id] = 1;
+                    } else {
+                        found = true;
+                        $el.classList.add("sa11y-error-border");
+                        $el.insertAdjacentHTML(
+                            'beforebegin',
+                            this.annotate(
+                                Lang._('WARNING'),
+                                `${Lang._('QA_DUPLICATE_ID')}
+								<hr aria-hidden="true">
+								${Lang.sprintf('QA_DUPLICATE_ID_TIP', id)}`,
+                                true)
+                                )
+                            }
+                }
+            });
             /* Thanks to John Jameson from PrincetonU for this ruleset! */
             // Detect paragraphs that should be lists.
             let activeMatch = "";
@@ -2752,9 +2808,7 @@ class Jooa11y {
       </div>
   </div>`;
     };
-
-  }
-
+}
 export {
   Lang,
   Jooa11y,

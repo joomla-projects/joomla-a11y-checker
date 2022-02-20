@@ -108,6 +108,8 @@ export default {
     MISSING_ALT_LINK_BUT_HAS_TEXT_MESSAGE: 'Image is being used as a link with surrounding text, although the alt attribute should be marked as decorative.',
     MISSING_ALT_LINK_MESSAGE: 'Image is being used as a link but is missing alt text! Please ensure alt text describes where the link takes you.',
     MISSING_ALT_MESSAGE: 'Missing alt text! If the image conveys a story, mood, or important information - be sure to describe the image.',
+    TEXT_UNDERLINE_WARNING: 'Underlined text can be confused with links.',
+    TEXT_UNDERLINE_WARNING_TIP: 'Consider using a different style such as &lt;em&gt;<em>emphasis</em>&lt;/em&gt;.',
 
     // Labels
     LABELS_ARIA_LABEL_INPUT_MESSAGE: 'Input has an accessible name, although please ensure there is a visible label too.',
@@ -142,6 +144,8 @@ export default {
     QA_BAD_LINK: 'Bad link found. Link appears to point to a development environment. This link points to: <strong>%(el)</strong>',
     QA_BLOCKQUOTE_MESSAGE: 'Is this a heading? <strong>%(bqHeadingText)</strong>',
     QA_BLOCKQUOTE_MESSAGE_TIP: 'Blockquotes should be used for quotes only. If this is intended to be a heading, change this blockquote to a semantic heading (e.g. Heading 2 or Heading 3).',
+    QA_DUPLICATE_ID: 'Found <strong>duplicate ID</strong>. Duplicate ID errors are known to cause problems for assistive technologies when they are trying to interact with content.',
+    QA_DUPLICATE_ID_TIP: 'Please remove or change the following ID: <strong class="sa11y-red-text">%(id)</strong>',
     QA_FAKE_HEADING: 'Is this a heading? <strong>%(boldtext)</strong>',
     QA_FAKE_HEADING_INFO: 'A line of bold text might look like a heading, but someone using a screen reader cannot tell that it is important or jump to its content. Bolded text should never replace semantic headings (Heading 2 to Heading 6).',
     QA_PAGE_LANGUAGE_MESSAGE: 'Page language not declared! Please <a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank" rel="noopener noreferrer">declare language on HTML tag.</a>',
