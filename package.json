@@ -1,7 +1,8 @@
 {
-  "name": "joomla-a11y-checker",
+  "name": "@joomla/joomla-a11y-checker",
   "version": "1.0.0",
-  "description": "Joomla a11y checker for usage in Joomla! based on sa11y",
+  "description": "ooa11y is an accessibility and quality assurance tool that visually highlights common accessibility and usability issues.",
+  "main": "src/js/jooa11y.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joomla-projects/joomla-a11y-checker.git#joomla"
@@ -15,15 +16,17 @@
   "keywords": [
     "Joomla",
     "a11y",
-    "javascript"
+    "javascript",
+    "accessibility"
   ],
-  "author": "Benjamin Trenkle",
+  "author": "Joomla! - Open Source Matters, Inc.",
   "scripts": {
     "build": "rimraf dist && node ./node_modules/rollup/dist/bin/rollup -c rollup.config.js",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:js": "node ./node_modules/eslint/bin/eslint.js src",
     "lint:css": "stylelint --config .stylelintrc.json -s scss \"src/scss/**/*.scss\"",
-    "serve": "npm run build && node ./docs.js && light-server -p 8080 -b localhost -s ./ -w \"src/**/* # npm run build && node ./docs.js # reload\""
+    "serve": "npm run build && node ./docs.js && light-server -p 8080 -b localhost -s ./ -w \"src/**/* # npm run build && node ./docs.js # reload\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
