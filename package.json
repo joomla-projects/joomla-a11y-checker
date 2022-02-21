@@ -1,7 +1,7 @@
 {
   "name": "@joomla/joomla-a11y-checker",
   "version": "1.0.0",
-  "description": "Joa11y is an accessibility and quality assurance tool that visually highlights common accessibility and usability issues.",
+  "description": "Jooa11y is an accessibility and quality assurance tool that visually highlights common accessibility and usability issues.",
   "main": "src/js/jooa11y.js",
   "repository": {
     "type": "git",
