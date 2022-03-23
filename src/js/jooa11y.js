@@ -722,7 +722,25 @@ class Jooa11y {
         checkAll = async () => {
             this.errorCount = 0;
             this.warningCount = 0;
-            this.$root = document.querySelector(this.options.checkRoot);
+
+            //Error handling. If specified selector doesn't exist on page.
+            const rootTarget = document.querySelector(this.options.checkRoot);
+            if (!rootTarget) {
+              //If target root can't be found, scan the body of page instead.
+              this.root = document.querySelector("body");
+
+              //Send an alert to panel.
+              const $alertPanel = document.getElementById("jooa11y-panel-alert"),
+                $alertText = document.getElementById("jooa11y-panel-alert-text");
+
+              const root = options.checkRoot;
+              $alertText.innerHTML = Lang.sprintf('ERROR_MISSING_ROOT_TARGET', root);
+              $alertPanel.classList.add("jooa11y-active");
+
+            } else {
+              this.root = document.querySelector(this.options.checkRoot);
+            }
+	    this.$root = document.querySelector(this.options.checkRoot);
 
             this.findElements();
 
