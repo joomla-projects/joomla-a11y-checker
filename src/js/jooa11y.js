@@ -193,7 +193,12 @@ const Lang = {
     if (!options.readabilityRoot) {
       options.readabilityRoot = options.checkRoot;
     }
-
+    // Supported readability languages. Turn module off if not supported.
+    const supportedLang = ["en", "fr", "es", "de", "nl", "it"],
+      pageLang = document.querySelector("html").getAttribute("lang").toLowerCase();
+    if (!supportedLang.some(el => pageLang.includes(el))) {
+      options.readabilityPlugin = false;
+			}
     // Container ignores apply to self and children.
     if (options.containerIgnore) {
       let containerSelectors = options.containerIgnore.split(',').map((el) => {
@@ -2687,9 +2692,15 @@ class Jooa11y {
                 flesch_reading_ease = 207 - (1.015 * words / sentences) - (73.6 * total_syllables / words);
             } else if (this.options.readabilityLang === 'es') {
                 flesch_reading_ease = 206.84 - (1.02 * words / sentences) - (0.60 * (100 * total_syllables / words));
-            }
+            } else if (options.readabilityLang === "de") {
+                flesch_reading_ease = 180 - (words / sentences) - (58.5 * (total_syllables / words));
+            } else if (options.readabilityLang === "nl") {
+                flesch_reading_ease = 206.84 - (0.77 * (100 * total_syllables / words)) - (0.93 * (words / sentences));
+            } else if (options.readabilityLang === "it") {
+                flesch_reading_ease = 217 - (1.3 * (words / sentences)) - (0.6 * (100 * total_syllables / words));
+	    }
 
-            if (flesch_reading_ease > 100) {
+	    if (flesch_reading_ease > 100) {
                 flesch_reading_ease = 100;
             } else if (flesch_reading_ease < 0) {
                 flesch_reading_ease = 0;
