@@ -161,5 +161,8 @@ export default {
     TABLES_MISSING_HEADINGS_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank" rel="noopener noreferrer">accessible tables.</a>',
     TABLES_SEMANTIC_HEADING: 'Semantic headings such as Heading 2 or Heading 3 should only be used for sections of content; <strong>not</strong> in HTML tables. Indicate table headings using the <strong>th</strong> element instead.',
     TABLES_SEMANTIC_HEADING_INFO: 'Learn more about <a href="https://www.w3.org/WAI/tutorials/tables/" target="_blank" rel="noopener noreferrer">accessible tables.</a>',
+		
+		// Error Messages
+		ERROR_MISSING_ROOT_TARGET: 'The full page was checked for accessibility because the target area <strong>%{root}</strong> does not exist.',
   },
 };
