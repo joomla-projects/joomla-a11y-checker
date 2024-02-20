@@ -1,3 +1,5 @@
+This project has been archived as there is no further need to maintain a fork and the sa11y script has been integrated directly into Joomla [Feb 20, 2024](https://github.com/joomla/joomla-cms/pull/42780)
+
 # Jooa11y
 Jooa11y is an **accessibility and quality assurance** tool that **visually highlights** common accessibility and usability issues. Geared towards content authors, Jooa11y identifies many errors or warnings and provides guidance on on how to fix them. Jooa11y is ***not*** a comprehensive code analysis tool - it exclusively highlights content issues.
 - Over 50 test conditions.
